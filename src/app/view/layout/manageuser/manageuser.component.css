@@ -1,0 +1,140 @@
+:ng-deep .mat-toolbar-row,
+.mat-toolbar-single-row {
+    height: 70px;
+    font-family: 'Montserrat', Helvetica, sans-serif;
+    font-size: 14px;
+    background-color: white;
+    box-shadow: 0 5px 1px 1px #9999990d;
+    z-index: 200 !important;
+    width: 100%;
+    position: fixed;
+    padding-left: 10px;
+}
+
+.app-logo .logo {
+    height: 45px;
+}
+
+.logo {
+    width: 50px;
+    cursor: pointer;
+    font-size: 30px;
+    letter-spacing: 2px;
+    color: var(--primary);
+    left: 5px;
+}
+
+.menu-section {
+    position: absolute;
+    right: 30px;
+}
+
+.menu-section .quick-menu {
+    display: inline-block;
+    height: 100%;
+}
+
+.menu-section .icon-category {
+    position: relative;
+    top: 8px;
+}
+
+.menu-section .icon-category .account {
+    font-size: 13px !important;
+}
+
+.menu-section .icon-category .account .menu-btn {
+    font-size: 14px !important;
+}
+
+.menu-toggle {
+    position: absolute;
+    right: 15px;
+}
+
+.sidemenu-header {
+    padding: 10px 12px;
+}
+
+.menu-icon {
+    font-size: 18px;
+}
+
+.menu-text {
+    top: -2px;
+    left: 6px;
+    font-size: 14px;
+    position: relative;
+}
+
+.border-btn {
+    border: 1px solid;
+}
+
+.user-details {
+    position: relative;
+    display: inline-block;
+}
+
+.user-details .user-avatar {
+    width: 40px;
+    height: 40px;
+    background-color: var(--primary);
+    border-radius: 50%;
+    border: none;
+    position: relative;
+    display: inline-block;
+}
+
+.user-avatar .username-f-letter {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    color: white;
+    text-transform: uppercase;
+}
+
+.user-details .user-info {
+    display: inline-block;
+    margin-left: 15px;
+}
+
+.user-info .username {
+    position: relative;
+    top: 10px;
+    letter-spacing: 0.5px;
+    text-align: left;
+}
+
+.user-info .role {
+    position: relative;
+    top: -6px;
+    font-size: 12px;
+    font-weight: 400;
+    text-align: left;
+}
+
+table {
+    margin-left: 400px;
+    width: 50%;
+    font-family: 'Montserrat', Helvetica, sans-serif;
+}
+
+tr {
+    height: 40px;
+}
+
+th {
+    font-family: 'Montserrat', Helvetica, sans-serif;
+    background-color: #e9ecef;
+    text-align: center;
+}
+
+td {
+    font-family: 'Montserrat', Helvetica, sans-serif;
+    text-align: center;
+}

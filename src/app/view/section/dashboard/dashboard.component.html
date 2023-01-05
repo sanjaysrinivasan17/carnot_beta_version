@@ -1,0 +1,28 @@
+<!--  -->
+<!--  -->
+<div>
+    <div *ngIf="login == 'false' && redirect == 'true' || message == 'Please verify Email Address and Contact No.' else dashboard">
+        <validation></validation>
+    </div>
+    <ng-template #dashboard>
+        <link rel="stylesheet" href="https://www.w3schools.com/lib/w3.css">
+        <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+        <div *ngIf=" project_id_summary_count=='' || project_id_summary_count=='status,Exception' else templateName"
+            class="newproject" (click)="gotocreateproject() ">
+            <div class=" header" style="font-family: 'Montserrat', ' Helvetica Neue ', sans-serif;">
+                <span class="material-icons w15-jumbo" style="font-size: 400px;">
+                    style
+                </span>
+            </div>
+            <div class="header_newproject" style="font-family: Montserrat, sans-serif;">
+                <i> Create New Project </i>
+            </div>
+        </div>
+        <ng-template #templateName>
+            <project-details></project-details>
+            <dashboard-map></dashboard-map>
+            <!-- <dashboard-details></dashboard-details> -->
+        </ng-template>
+    </ng-template>
+</div>

@@ -1,0 +1,40 @@
+<mat-toolbar>
+    <span class="app-logo">
+        <span class="logo">
+            Carnot
+        </span>
+    </span>
+    <span class="menu-section" fxShow="true" fxHide.lt-md="true">
+
+        <!-- <div class="quick-menu">
+            <span class="account">
+                <button mat-icon-button color="primary">
+                    <mat-icon>settings</mat-icon>
+                </button>
+                <button mat-icon-button color="primary">
+                    <mat-icon matBadge="1" matBadgeColor="accent">notifications</mat-icon>
+                </button>
+            </span>
+    </div> -->
+
+    <button class="user-details ml-4" mat-button [matMenuTriggerFor]="menu">
+            <div class="user-avatar">
+                <div class="username-f-letter">J</div>
+            </div>
+            <div class="user-info">
+                <div class="username">
+                    John Doe
+                </div>
+                <div class="role">
+                    Vendor
+                </div>
+            </div>
+        </button>
+    <mat-menu #menu="matMenu">
+        <button mat-menu-item>Account Settings</button>
+        <a mat-list-item routerLink="/auth/login">
+            <button mat-menu-item>Logout</button>
+        </a>
+    </mat-menu>
+    </span>
+</mat-toolbar>

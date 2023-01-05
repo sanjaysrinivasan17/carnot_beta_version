@@ -1,0 +1,135 @@
+.project-container {
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    position: relative;
+    display: flow-root;
+}
+
+.project-container .image-card {
+    position: relative;
+    width: 100%;
+    height: 250px;
+}
+
+.project-container .details-card {
+    padding: 10px 20px;
+    position: relative;
+    top: -8px;
+}
+
+.details-card .project-title {
+    font-weight: 600;
+    letter-spacing: 1px;
+    font-size: 20px;
+    padding: 10px 0px;
+    text-transform: capitalize;
+}
+
+.details-card .project-capacity {
+    font-weight: 500;
+    letter-spacing: 1px;
+    font-size: 18px;
+    padding: 10px 0px;
+    text-transform: capitalize;
+}
+
+.details-card .project-date {
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.75px;
+}
+
+.details-card .project-state {
+    font-size: 16px;
+    font-weight: 550;
+    letter-spacing: 1px;
+    text-transform: capitalize;
+    padding: 10px 0px;
+}
+
+.image-card .btn-container {
+    position: absolute;
+    right: 20px;
+    bottom: -7px;
+}
+
+.image-card .project-img {
+    width: 100%;
+    height: 95%;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.project-container .action-container {
+    padding: 10px 0px;
+    float: right;
+    position: relative;
+    top: -15px;
+}
+
+button:focus {
+    outline: none !important;
+}
+
+::ng-deep .mat-tab-label .mat-tab-label-content {
+    font-family: 'Montserrat', Helvetica, sans-serif;
+    font-size: 16px !important;
+    color: #1b1b1b !important;
+}
+
+.status-indication {
+    display: inline-flex;
+}
+
+.status-indication .indication-bar {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+}
+
+.status-indication .indication-text {
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.ftp-btn {
+    background-color: var(--secondary) !important;
+    cursor: pointer;
+    color: #fff;
+}
+
+.p-header {
+    display: inline-block;
+    width: 100%;
+}
+
+.p-header .project-header {
+    font-weight: 600;
+    letter-spacing: 1px;
+    font-size: 22px;
+    padding: 10px 0px;
+    text-transform: capitalize;
+    float: left;
+    position: relative;
+    top: 10px;
+}
+
+.p-header .date-picker {
+    float: right;
+}
+
+@media only screen and (max-width: 720px) {
+    .p-header .project-header {
+        width: 100%;
+        display: block;
+        top: 0px !important;
+    }
+    .p-header .date-picker {
+        width: 100%;
+        display: block;
+    }
+    .p-header {
+        margin-bottom: -40px;
+    }
+}

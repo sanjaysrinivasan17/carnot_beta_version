@@ -1,0 +1,14 @@
+.routing-container {
+    margin-top: 70px;
+    background-color: #fff;
+    height: 100%;
+    width: 100%;
+}
+
+::ng-deep .mat-drawer-inner-container {
+    background-color: #000080 !important;
+}
+
+::ng-deep .mat-drawer-content {
+    overflow-x: hidden !important;
+}

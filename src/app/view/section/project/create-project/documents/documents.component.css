@@ -1,0 +1,52 @@
+.document-container {
+    margin-top: 10px;
+}
+
+.file-avatar {
+    background-image: url('../../../../../../assets/images/folder.png');
+    background-size: cover;
+}
+
+mat-card-title {
+    font-size: 16px !important;
+}
+
+mat-card-subtitle {
+    font-size: 12px !important;
+    color: var(--dark);
+}
+
+@media only screen and (max-width: 600px) {
+    .stepper-action-btn {
+        width: 100px;
+        text-align: center !important;
+        padding: 5px !important;
+    }
+}
+
+button {
+    background-color: var(--primary);
+    border: none;
+    color: blue;
+    padding: 2px 26px;
+    font-family: 'Montserrat', Helvetica, sans-serif;
+    font-size: 14px;
+    text-align: center;
+    margin: 4px 2px;
+    opacity: 1;
+    transition: 0.3s;
+}
+
+button:hover {
+    opacity: 1;
+    background-color: var(--primary);
+    border: none;
+    color: white;
+    padding: 2px 29px;
+    font-family: 'Montserrat', Helvetica, sans-serif;
+    font-size: 14px;
+    text-align: center;
+    margin: 4px 2px;
+    opacity: 0.6;
+    transition: 0.3s;
+}

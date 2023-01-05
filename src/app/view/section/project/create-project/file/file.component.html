@@ -1,0 +1,34 @@
+<mat-card *ngIf="!file">
+    <mat-card-content>
+        <div class="text-center">
+            <mat-icon class="upload-icon">cloud_upload</mat-icon>
+            <span class="text-button"><a class="custom-href" (click)="onFileSelect()" style="font-family: 'Montserrat', Helvetica, sans-serif;">Choose</a> file to
+            upload</span>
+        </div>
+    </mat-card-content>
+</mat-card>
+<mat-card *ngIf="file" style="text-align: left !important; padding: 2px !important;">
+    <mat-card-content class="p-1 uploaded-file">
+        <div class="file-icon">
+            <mat-icon class="icon"> insert_drive_file</mat-icon>
+        </div>
+        <div class="file-details text-center">
+            <span class="file-title" style="font-family: 'Montserrat', Helvetica, sans-serif;">
+                {{file.name}}
+            </span>
+            <span class="upload-percentage" style="font-family: 'Montserrat', Helvetica, sans-serif;">
+                45% Uploaded
+            </span>
+            <div class="file-progress">
+                <mat-progress-bar mode="determinate" value="40"></mat-progress-bar>
+            </div>
+        </div>
+        <div class="file-remove">
+            <mat-icon class="icon">delete</mat-icon>
+        </div>
+    </mat-card-content>
+
+</mat-card>
+
+
+<input type="file" #fileInput id="fileUpload" name="fileUpload" accept="*" style="display: none;font-family: 'Montserrat', Helvetica, sans-serif;" />

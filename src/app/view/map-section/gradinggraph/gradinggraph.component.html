@@ -1,0 +1,52 @@
+<div class="compact-sidebar" id="gradingsidebar" style=" z-index: 9999; ">
+    <div class="sidebar-menu ">
+        <!-- <div class="sidebar-card" id="gradingsidebar" style="z-index: 9999;">
+
+            <div class="header">
+                <div class=" action" style="display: flex-end;">
+                    <button style="right: 0px;" mat-icon-button (click)="closeSidebar( 'summarySidebar') ">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </div>
+            </div>
+        </div> -->
+        <div class="row ">
+            <div class="col-2 " style="padding-left: 45px; ">
+                <h2 style="padding: 5px; "> Elevation Profile </h2>
+                <table style="padding: 5px; text-align: left; ">
+                    <tr>
+                        <td>Table No: </td>
+                        <td>{{table_number}} </td>
+                    </tr>
+                    <tr>
+                        <td>Maximum Value: </td>
+                        <td>{{maximum_value}} </td>
+                    </tr>
+                    <tr>
+                        <td>Minimum Value: </td>
+                        <td>{{minimum_value}} </td>
+                    </tr>
+                    <tr>
+                        <td>Maximum Slope: </td>
+                        <td>{{slope}} %</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-10 " style="padding-top: 15px;padding-left: 120px; ">
+                <div id="chart " *ngIf="chartOptions " style="padding-left: 10px; ">
+                    <apx-chart [series]="chartOptions.series " [chart]="chartOptions.chart " [yaxis]="chartOptions.yaxis " [xaxis]="chartOptions.xaxis " [labels]="chartOptions.labels " [stroke]="chartOptions.stroke " [title]="chartOptions.title
+            " [dataLabels]="chartOptions.dataLabels " [fill]="chartOptions.fill " [tooltip]="chartOptions.tooltip " [colors]="chartOptions.colors " [grid]="chartOptions.grid ">
+                    </apx-chart>
+                <span style="display: flex;align-content: space-around;flex-wrap: nowrap;flex-direction: column-reverse;align-items: center;margin-left:-110px;margin-top:-25px;margin-bottom: -15px;"><b>Length of the Table</b> </span>
+
+                </div>
+            </div>
+        </div>
+
+
+        <br>
+        <br>
+
+        <br>
+    </div>
+</div>

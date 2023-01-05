@@ -1,0 +1,289 @@
+<div class="compact-sidebar" id="defectssidebar" style="z-index: 9999;">
+    <div class="sidebar-menu">
+        <mat-card appearance="outlined" style="background-color: white;margin: 1px;font-family: 'Montserrat', Helvetica, sans-serif;" *ngFor="let i of defects;let k=index">
+            <ng-template [ngIf]="i.Defect == 'Hotspot' || i.Defect =='Open_Circuit'">
+
+                <div class="status-indication">
+                    <table>
+                        <tr>
+                            <td>
+                                <table>
+                                    <tr>
+                                        <td style="width: 120px;">
+                                            <span class="indication-text ml-2" id="status_" style="width: 120px;word-wrap: break-word">{{i.Table_No}}
+                                            </span>
+                                        </td>
+
+                                        <td style="width: 120px;">
+                                            <span class="indication-text ml-2" id="status_" style="width: 120px;word-wrap: break-word">
+                                               - {{i.Module_No}}</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 120px;">
+                                            <span class="status-indication indication-bar" style="background-color: green;"></span>
+                                            <span class="indication-text ml-2" id="status_" style="width: 120px;word-wrap: break-word">
+                                                ({{i.Defect}})</span>
+                                        </td>
+                                    </tr>
+
+                                </table>
+                            </td>
+                            <td>
+                                <span class="material-icons" style="padding-left: 7px;width: 25px;" (click)="selectDefectrectification(defects,i,i.Table_No);">
+                                    home_repair_service
+                                </span>
+                            </td>
+                            <td>
+                                <span class="material-icons" style="color: #4d94ff;padding-left: 7px;width: 25px;" matTooltip="click to show on map" (click)="selectedMaplocation(i.Latitude,i.Longitude);">
+                                    edit_location
+                                </span>
+                            </td>
+                        </tr>
+
+                    </table>
+
+
+                </div>
+            </ng-template>
+            <ng-template [ngIf]="i.Defect=='Multicell_Hotspot' || i.Defect=='Uniform_Panel_Heating' || i.Defect == 'Uniform_Panel Heating'">
+
+                <div class="status-indication">
+                    <table>
+                        <tr>
+                            <td>
+                                <table>
+                                    <tr>
+
+                                        <td style="width: 120px;">
+                                            <span class="indication-text ml-2" id="status_" style="width: 120px;word-wrap: break-word">{{i.Table_No}}
+                                            </span>
+                                        </td>
+
+                                        <td style="width: 120px;">
+                                            <span class="indication-text ml-2" id="status_" style="width: 120px;word-wrap: break-word">
+                                               - {{i.Module_No}}</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 120px;">
+                                            <!-- <div class="indication-bar" style="background-color: green;width: 10px;">
+                                            </div> -->
+                                            <span class="status-indication indication-bar" style="background-color: red;"></span>
+                                            <span class="indication-text ml-2" id="status_" style="width: 120px;word-wrap: break-word">
+                                                ({{i.Defect}})</span>
+                                        </td>
+                                    </tr>
+
+                                </table>
+                            </td>
+                            <td>
+                                <span class="material-icons" style="padding-left: 7px;width: 25px;" (click)="selectDefectrectification(defects,i,i.Table_No);">
+                                    home_repair_service
+                                </span>
+                            </td>
+                            <td>
+                                <span class="material-icons" style="color: #4d94ff;padding-left: 7px;width: 25px;" matTooltip="click to show on map" (click)="selectedMaplocation(i.Latitude,i.Longitude);">
+                                    edit_location
+                                </span>
+                            </td>
+                        </tr>
+
+                    </table>
+
+                </div>
+
+            </ng-template>
+            <ng-template [ngIf]="i.Defect=='Panel_Failure' || i.Defect=='Panel Failure'">
+
+                <div class="status-indication">
+                    <table>
+                        <tr>
+                            <td>
+                                <table>
+                                    <tr>
+
+                                        <td style="width: 120px;">
+                                            <span class="indication-text ml-2" id="status_" style="width: 120px;word-wrap: break-word">{{i.Table_No}}
+                                            </span>
+                                        </td>
+
+                                        <td style="width: 120px;">
+                                            <span class="indication-text ml-2" id="status_" style="width: 120px;word-wrap: break-word">
+                                               - {{i.Module_No}}</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 120px;">
+                                            <!-- <div class="indication-bar" style="background-color: green;width: 10px;">
+                                            </div> -->
+                                            <span class="status-indication indication-bar" style="background-color: red;"></span>
+                                            <span class="indication-text ml-2" id="status_" style="width: 120px;word-wrap: break-word">
+                                                ({{i.Defect}})</span>
+                                        </td>
+                                    </tr>
+
+                                </table>
+                            </td>
+                            <td>
+                                <span class="material-icons" style="padding-left: 7px;width: 25px;" (click)="selectDefectrectification(defects,i,i.Table_No);">
+                                    home_repair_service
+                                </span>
+                            </td>
+                            <td>
+                                <span class="material-icons" style="color: #4d94ff;padding-left: 7px;width: 25px;" matTooltip="click to show on map" (click)="selectedMaplocation(i.Latitude,i.Longitude);">
+                                    edit_location
+                                </span>
+                            </td>
+                        </tr>
+
+                    </table>
+
+                </div>
+
+            </ng-template>
+            <ng-template [ngIf]="i.Defect=='Dirt' || i.Defect=='Short_Circuit'">
+
+                <div class="status-indication">
+                    <table>
+                        <tr>
+                            <td>
+                                <table>
+                                    <tr>
+
+                                        <td style="width: 120px;">
+                                            <span class="indication-text ml-2" id="status_" style="width: 120px;word-wrap: break-word">{{i.Table_No}}
+                                            </span>
+                                        </td>
+
+                                        <td style="width: 120px;">
+                                            <span class="indication-text ml-2" id="status_" style="width: 120px;word-wrap: break-word">
+                                               - {{i.Module_No}}</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 120px;">
+                                            <!-- <div class="indication-bar" style="background-color: green;width: 10px;">
+                                            </div> -->
+                                            <span class="status-indication indication-bar" style="background-color: blue;"></span>
+                                            <span class="indication-text ml-2" id="status_" style="width: 120px;word-wrap: break-word">
+                                                ({{i.Defect}})</span>
+                                        </td>
+                                    </tr>
+
+                                </table>
+                            </td>
+                            <td>
+                                <span class="material-icons" style="padding-left: 7px;width: 25px;" (click)="selectDefectrectification(defects,i,i.Table_No);">
+                                    home_repair_service
+                                </span>
+                            </td>
+                            <td>
+                                <span class="material-icons" style="color: #4d94ff;padding-left: 7px;width: 25px;" matTooltip="click to show on map" (click)="selectedMaplocation(i.Latitude,i.Longitude);">
+                                    edit_location
+                                </span>
+                            </td>
+                        </tr>
+
+                    </table>
+
+                </div>
+            </ng-template>
+            <ng-template [ngIf]="i.Defect=='Bypass_Diode_Issues' || i.Defect=='Bypass_Diode Issues' ||  i.Defect=='PID'">
+
+                <div class="status-indication">
+                    <table>
+                        <tr>
+                            <td>
+                                <table>
+                                    <tr>
+
+                                        <td style="width: 120px;">
+                                            <span class="indication-text ml-2" id="status_" style="width: 120px;word-wrap: break-word">{{i.Table_No}}
+                                            </span>
+                                        </td>
+
+                                        <td style="width: 120px;">
+                                            <span class="indication-text ml-2" id="status_" style="width: 120px;word-wrap: break-word">
+                                               - {{i.Module_No}}</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 120px;">
+                                            <!-- <div class="indication-bar" style="background-color: green;width: 10px;">
+                                            </div> -->
+                                            <span class="status-indication indication-bar" style="background-color: yellow;"></span>
+                                            <span class="indication-text ml-2" id="status_" style="width: 120px;word-wrap: break-word">
+                                                ({{i.Defect}})</span>
+                                        </td>
+                                    </tr>
+
+                                </table>
+                            </td>
+                            <td>
+                                <span class="material-icons" style="padding-left: 7px;width: 25px;" (click)="selectDefectrectification(defects,i,i.Table_No);">
+                                    home_repair_service
+                                </span>
+                            </td>
+                            <td>
+                                <span class="material-icons" style="color: #4d94ff;padding-left: 7px;width: 25px;" matTooltip="click to show on map" (click)="selectedMaplocation(i.Latitude,i.Longitude);">
+                                    edit_location
+                                </span>
+                            </td>
+                        </tr>
+
+                    </table>
+
+                </div>
+            </ng-template>
+            <ng-template [ngIf]="i.Defect=='Open_String_Tables ' || i.Defect=='Open_String Tables' || i.Defect=='Open String Tables'">
+
+                <div class="status-indication">
+                    <table>
+                        <tr>
+                            <td>
+                                <table>
+                                    <tr>
+
+                                        <td style="width: 120px;">
+                                            <span class="indication-text ml-2" id="status_" style="width: 120px;word-wrap: break-word">{{i.Table_No}}
+                                            </span>
+                                        </td>
+
+                                        <td style="width: 120px;">
+                                            <span class="indication-text ml-2" id="status_" style="width: 120px;word-wrap: break-word">
+                                               - {{i.Module_No}}</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 120px;">
+
+                                            <span class="status-indication indication-bar" style="background-color: orange;"></span>
+                                            <span class="indication-text ml-2" id="status_" style="width: 120px;word-wrap: break-word">
+                                                ({{i.Defect}})</span>
+                                        </td>
+                                    </tr>
+
+                                </table>
+                            </td>
+                            <td>
+                                <span class="material-icons tooltip" style="padding-left: 7px;width: 25px;" (click)="selectDefectrectification(defects,i,i.Table_No);">
+                                    home_repair_service
+                                </span>
+                            </td>
+                            <td>
+                                <span class="material-icons tooltip" style="color: #4d94ff;padding-left: 7px;width: 25px;" matTooltip="click to show on map" (click)="selectedMaplocation(i.Latitude,i.Longitude);">
+                                    edit_location
+                                </span>
+                            </td>
+                        </tr>
+
+                    </table>
+
+
+                </div>
+            </ng-template>
+
+        </mat-card>
+    </div>
+</div>

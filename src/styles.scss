@@ -1,0 +1,99 @@
+// @import 'bootstrap/dist/css/bootstrap.min.css';
+@import './assets/css/theme.scss';
+@import "@angular/material/theming";
+// assigning colors to material components
+$my-app-primary: mat-palette($primary-palette);
+$my-app-accent: mat-palette($secondary-palette);
+$my-app-warn: mat-palette($mat-deep-orange);
+$my-app-theme: mat-light-theme($my-app-primary, $my-app-accent, $my-app-warn);
+@include angular-material-theme($my-app-theme);
+// @import 'bootstrap/scss/functions';
+// @import 'bootstrap/scss/variables';
+// @import 'bootstrap/scss/mixins';
+// // @import 'ngx-toastr/toastr-bs4-alert';
+// @import 'bootstrap/scss/bootstrap-reboot';
+// @import 'bootstrap/scss/bootstrap-grid';
+
+/* You can add global styles to this file, and also import other style files */
+
+body {
+    margin: 0;
+    background-color: #f2f2f2;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: "Montserrat", sans-serif;
+}
+
+:root {
+    --primary: #0060FE;
+    --lite: #eeeeee;
+    --dark: #1b1b1b;
+    --shadow: #00000029;
+    --secondary: #ff4081 !important;
+    --white: #fff;
+    --nav: #000080;
+}
+
+.step-heading {
+    font-size: 25px !important;
+    font-weight: 500 !important;
+    letter-spacing: 1px !important;
+    text-transform: capitalize !important;
+}
+
+.action {
+    display: flow-root !important;
+}
+
+.stepper-action-btn {
+    background-color: var(--primary) !important;
+    color: var(--light) !important;
+}
+
+.mat-tab-label {
+    height: 48px !important;
+    padding: 0 20px !important;
+    cursor: pointer !important;
+    box-sizing: border-box !important;
+    font-family: 'Montserrat', Helvetica, sans-serif;
+    opacity: .6 !important;
+    min-width: 88px !important;
+    text-align: center !important;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    white-space: nowrap;
+    position: relative;
+}
+
+.my-full-screen-dialog {
+    max-width: 100vw !important;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.my-full-screen-dialog .mat-dialog-container {
+    border-radius: 0;
+    width: 100vw;
+    height: 100vh;
+    min-height: 100vh;
+    padding: 0px;
+    overflow: hidden;
+    background-color: white;
+    // margin-left: 60px;
+}
+
+.p-tabview-title{
+    text-transform: capitalize;
+}
+
+.leaflet-draw-toolbar-top {
+    margin-top: 47px;
+}

@@ -1,0 +1,72 @@
+<mat-toolbar style="background-color: white;">
+    <span class="app-logo">
+        <!-- <span class="logo">
+            Carnot
+        </span> -->
+    <img class="logo" style="width: 135px;height: 30px;" src="../../../../assets/images/Data See logo.png" routerLink="/app/home">
+    </span>
+
+</mat-toolbar>
+
+
+<form [formGroup]="loginForm">
+    <mat-card class="login-card">
+        <mat-card-content>
+            <div class="user-container">
+                <mat-icon class="user-icon">vpn_key</mat-icon>
+            </div>
+            <div class="info_text">
+                Change password
+            </div>
+
+            <div class="login-form">
+
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label class="field-content"> New password</mat-label>
+                    <mat-icon matPrefix class="field-icon">vpn_key</mat-icon>
+                    <input matInput [type]="hide1 ? 'password' : 'text'" style="font-family: 'Montserrat', Helvetica, sans-serif;" name="password1" #password1 formControlName="password1" required>
+                    <button mat-icon-button matSuffix (click)="hide1 = !hide1" [attr.aria-label]="'hide password'" [attr.aria-pressed]="hide1" class="field-icon">
+                        <mat-icon>{{hide1 ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                    <mat-error *ngIf="hasError('password1', 'required')">
+                        Password is required
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label class="field-content"> New password, again</mat-label>
+                    <mat-icon matPrefix class="field-icon">vpn_key</mat-icon>
+                    <input matInput [type]="hide2 ? 'password' : 'text'" style="font-family: 'Montserrat', Helvetica, sans-serif;" name="password2" #password2 formControlName="password2" required>
+                    <button mat-icon-button matSuffix (click)="hide2 = !hide2" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide2" class="field-icon">
+                        <mat-icon>{{hide2 ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                    <mat-error *ngIf="hasError('password2', 'required')">
+                        Password is required
+                    </mat-error>
+                </mat-form-field>
+                <!-- 
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label class="field-content">Enter your password</mat-label>
+                    <mat-icon matPrefix class="field-icon">vpn_key</mat-icon>
+                    <input matInput [type]="hide ? 'password' : 'text'" style="font-family: 'Montserrat', Helvetica, sans-serif;" name="UserName" #Password formControlName="password" required>
+                    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide" class="field-icon">
+                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                    <-- <mat-error *ngIf="hasError('password', 'required')">
+                        Password is required
+                    </mat-error> --
+                </mat-form-field> -->
+
+
+
+            </div>
+
+        </mat-card-content>
+
+        <div class="login-btn-container">
+            <button mat-button class="btn pl-5 pr-5 stepper-action-btn login-btn text-uppercase" style="font-family: 'Montserrat', Helvetica, sans-serif;" [disabled]="!loginForm.valid" (click)="Resetpassword(password1.value, password2.value)">Submit</button>
+            <!-- <span class="signupbtn"><a (click)="gotologin()" style="color: var(--primary); font-family: 'Montserrat', Helvetica, sans-serif; cursor: pointer;">Back to Login page</a></span> -->
+        </div>
+
+    </mat-card>
+</form>

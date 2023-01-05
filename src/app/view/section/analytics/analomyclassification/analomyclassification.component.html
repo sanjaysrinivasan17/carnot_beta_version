@@ -1,0 +1,48 @@
+<div class="row mt-4">
+    <!-- <div class="col-sm-4">
+        <mat-card class="anal-graphs">
+            <mat-card-title>
+                <div class="anal-graph-title">
+                    <h3 class="page-titless">Anomaly Classification</h3>
+                </div>
+            </mat-card-title>
+            <mat-card-content>
+                <div id="chart2">
+                    <apx-chart [series]="chartOptions2.series" [chart]="chartOptions2.chart" [dataLabels]="chartOptions2.dataLabels" [plotOptions]="chartOptions2.plotOptions" [yaxis]="chartOptions2.yaxis" [grid]="chartOptions2.grid" [xaxis]="chartOptions2.xaxis" [fill]="chartOptions2.fill"
+                        [title]="chartOptions2.title"></apx-chart>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div> -->
+
+    <div class="col-sm-6">
+        <mat-card class="anal-graphs">
+            <mat-card-title>
+                <div class="anal-graph-title">
+                    <h3 class="page-titless" style="font-family: 'Montserrat', Helvetica, sans-serif;">Anomaly Classification</h3>
+                </div>
+            </mat-card-title>
+            <mat-card-content>
+                <div id="chart3">
+                    <apx-chart [series]="chartOptions3.series" [chart]="chartOptions3.chart" [grid]="chartOptions3.grid" [dataLabels]="chartOptions3.dataLabels" [plotOptions]="chartOptions3.plotOptions" [xaxis]="chartOptions3.xaxis">
+                    </apx-chart>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+
+    <div class="col-sm-6">
+        <mat-card class="anal-graphs" style="height: 417px;">
+            <mat-card-title>
+                <div class="anal-graph-title">
+                    <h3 class="page-titless" style="font-family: 'Montserrat', Helvetica, sans-serif;">Anomaly Classification</h3>
+                </div>
+            </mat-card-title>
+            <mat-card-content>
+                <div id="chart4" style="height: 500px;width: 500px;margin-left: 150px;margin-top: 25px;">
+                    <apx-chart [series]="chartOptions4.series" [chart]="chartOptions4.chart" [labels]="chartOptions4.labels" [responsive]="chartOptions4.responsive"></apx-chart>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

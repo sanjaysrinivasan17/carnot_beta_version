@@ -1,0 +1,21 @@
+<div class="pt-4 pl-5 pr-5" style="background-color: #f2f2f2;">
+
+    <button mat-raised-button color="primary" class="mt-5 ml-4" (click)="goToPage('/vendor')">
+        <i-feather name="arrow-left" class="back-menu-icon " data-toggle="tooltip "></i-feather>
+        <span>Go Back to Previous page</span>
+    </button>
+    <div class="pt-3" style="background-color: #f2f2f2;">
+        <mat-horizontal-stepper [linear]="true" #stepper style="background-color: #f2f2f2;">
+            <mat-step label="Environment Setup">
+                <ftp-environment (stepperEvent)="goToStep($event)"></ftp-environment>
+            </mat-step>
+            <mat-step label="Payload">
+                <ftp-payload (stepperEvent)="goToStep($event)">
+                </ftp-payload>
+            </mat-step>
+            <mat-step label="Documents">
+                <ftp-documents (stepperEvent)="goToStep($event)"></ftp-documents>
+            </mat-step>
+        </mat-horizontal-stepper>
+    </div>
+</div>

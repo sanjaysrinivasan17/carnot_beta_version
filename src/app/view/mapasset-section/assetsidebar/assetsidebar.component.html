@@ -1,0 +1,138 @@
+<div class="compact-sidebar" style="z-index: 1000;">
+    <div class="sidebar-menu">
+        <div class="custom-btn">
+            <mat-card
+                style="background-color:white;margin-top: -6px;margin-bottom: 0px;width: 67px;margin-left: -3px;height: 55px;">
+                <img src="https://datasee-ai-public-assets.s3.ap-south-1.amazonaws.com/asset_statics/airmap_vue/img/DataSee-removebg-preview.d85b0a77.png"
+                    alt="home" (click)="gotodashboard()" width="40" height="30">
+            </mat-card>
+        </div>
+        <div class="stats-container">
+            <div style="margin-top: 8px;margin-left: 8px;">
+                <div id="SCPM" style="display: block;">
+                    <div class="menu" (click)="activateMenu('summary'); openSidbar('summarySidebar', 'summary')">
+                        <div class="menu-active" id="summary"></div>
+                        <i-feather name="pie-chart" class="menu-icon" data-toggle="tooltip" title="Summary"></i-feather>
+                    </div>
+                    <hr>
+                    <!-- (click)="activateMenu('inverter'); openSidbar('summarySidebar', 'summary')" -->
+                    <div class="menu">
+                        <div class="menu-active" id="Inverter"></div>
+                        <mat-icon class="menu-icon" data-toggle="tooltip" title="Sub Camp">tonality</mat-icon>
+                    </div>
+                    <hr>
+
+                </div>
+                <div id="SCQM" style="display: none">
+
+                    <div class="menu">
+                        <div class="menu-active" id="summary"></div>
+                        <i-feather name="layers" class="menu-icon" data-toggle="tooltip" title="Summary"></i-feather>
+                    </div>
+                    <hr>
+
+                    <div class="menu">
+                        <div class="menu-active" id="Inverter"></div>
+                        <mat-icon class="menu-icon" data-toggle="tooltip"
+                            title="Sub Camp Deviation">track_changes</mat-icon>
+                    </div>
+                    <hr>
+
+                </div>
+                <div class="menu" (click)="activateMenu('compare'); Compare_map('compare')">
+                    <div class="menu-active" id="compare"></div>
+                    <mat-icon name="columns" class="menu-icon" data-toggle="tooltip"
+                        title="Compare">compare_arrows</mat-icon>
+                </div>
+                <hr>
+
+
+            </div>
+            <div class="fix-bottom"  style="margin-top: 8px;margin-left: 10px;">
+                <hr>
+                <div class="menu"  style="margin-top: 16px;margin-left: 8px;margin-bottom: -12px;" (click)="share_project('share')">
+                    <div class="menu-active" id="summary"></div>
+                    <i-feather name="share-2" class="compact-menu-icon" title="Share"></i-feather>
+                </div>
+                <hr> 
+                <div class="menu"  style="margin-top: 16px;margin-left: 8px;margin-bottom: -12px;" (click)="Download()">
+                    <div class="menu-active" id="summary"></div>
+                    <i-feather name="download-cloud" class="compact-menu-icon" title="Download"></i-feather>
+                </div>
+                <hr>   
+                <div class="menu"  style="margin-top: 16px;margin-left: 8px;margin-bottom: -12px;" (click)="project_info()">
+                    <div class="menu-active" id="summary"></div>
+                    <i-feather name="help-circle" class="compact-menu-icon" title="Info"></i-feather>
+                </div>
+                <hr>
+                <div class="menu"  style="margin-top: 16px;margin-left: 8px;margin-bottom: -30px;" (click)="logout()">
+                    <div class="menu-active"></div>
+                    <i-feather name="log-out" class="compact-menu-icon" title="Logout"></i-feather>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- Side Navigation Ends-->
+<!-- Extended side navigation -->
+
+<div class="sidebar-card" id="summarySidebar" style="z-index: 9999;">
+
+    <div class="header">
+
+
+        <div class="title">
+            <span *ngIf="currentMenu==='summary'">{{summary_title}}</span>
+            <!-- <span *ngIf="currentMenu==='inventor'">Inverter</span>
+            <span *ngIf="currentMenu==='Topography'">{{topography_title}}</span>
+            <span *ngIf="currentMenu==='Grading'">{{grading_title}}</span> -->
+        </div>
+
+
+        <div class="action">
+            <button mat-icon-button (click)="closeSidebar('summarySidebar')">
+                <mat-icon>keyboard_arrow_left</mat-icon>
+            </button>
+        </div>
+
+
+    </div>
+
+
+    <div *ngIf="currentMenu==='summary'">
+        <mat-expansion-panel style="z-index: 1000;margin-top: 15px; margin-bottom: 20px;"
+            *ngFor="let data of kml_data; let i=index">
+
+            <mat-expansion-panel-header>
+
+                <mat-panel-title class="menu-header">
+                    <mat-icon (click)="hide[i]=!hide[i];Send_kml_data(data,hide[i])">{{hide[i]
+                        ?'visibility':'visibility_off'}}</mat-icon>
+                    <span
+                        style="justify-content:center;margin-left: 40px;font-family: Montserrat, sans-serif;">{{data['name']}}</span>
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <div class="details-section">
+                <table>
+                    <tr *ngFor="let kml_key of data['key'];let m = index" (click)="send_subgroup_kml_data(i,m,data)"
+                        style="margin-top:5px;border-bottom: 0.5px solid #c1baba;">
+                        <td class="col-8" style="font-size: 15px; font-family: 'Montserrat', Helvetica, sans-serif;">
+                            {{kml_key}}</td>
+                        <td class="col-2"
+                            style="text-align:right;font-size: 15px;font-family: 'Montserrat', Helvetica, sans-serif;">
+                            {{data['data'][m]['Actual']}}</td>
+                        <td class="col-2">
+                            <!-- <div class="status-indication">
+                                <div class="indication-bar" style="background-color: {{data['data'][m]['color']}}">
+                                </div>
+                            </div> -->
+                            <mat-icon [style.color]="data['data'][m].color">timelapse</mat-icon>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </mat-expansion-panel>
+    </div>
+</div>

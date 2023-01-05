@@ -1,0 +1,71 @@
+<div id="compare_map" style="height: 100%; width: 100%;padding-right:0px;right:0px;cursor: move;">
+
+    <div class="datebuttonleft" style="text-align: right;">
+
+        <mat-card appearance="outlined" style="width:140px;background-color: white;padding: 0px;margin: 0px;">
+
+            <mat-select name="date" [(ngModel)]="dateleft"
+                style="height: 30px;vertical-align: middle;padding-left: 5px;padding-top: 5px;text-align: center;font-family:  'Montserrat', Helvetica, sans-serif;font-size: 16px;"
+                (ngModelChange)="selectChangeleft(dateleft);" [disableOptionCentering]="true">
+                <mat-option *ngFor="let dateleft of Asset_Datelist;let k = index;" [value]="dateleft"
+                    style="background-color: white;font-family:  'Montserrat', Helvetica, sans-serif;">
+                    {{dateleft}}
+                </mat-option>
+
+            </mat-select>
+        </mat-card>
+    </div>
+    <div class="datebuttonright" style="text-align: right;">
+
+        <mat-card appearance="outlined"
+            style="font-size: 16px;width:140px;background-color: white;padding: 0px;margin: 0px;">
+
+            <mat-select name="date" [(ngModel)]="dateright"
+                style="height: 30px;vertical-align: middle;padding-left: 5px;padding-top: 5px;text-align: center;font-family:  'Montserrat', Helvetica, sans-serif;"
+                (ngModelChange)="selectChangeright(dateright);" [disableOptionCentering]="true">
+                <mat-option *ngFor="let dateright of Asset_Datelist" [value]="dateright"
+                    style="background-color: white;font-family:  'Montserrat', Helvetica, sans-serif;">
+                    {{dateright}}
+
+                </mat-option>
+
+            </mat-select>
+        </mat-card>
+    </div>
+    <div class="NavbarBack">
+        <!-- <mat-card style="height: 40%;width: 30px;border-radius: 5px;z-index: 1000;top: 25%; margin-left: 10px;"> -->
+        <button mat-icon-button mat-dialog-close style="z-index:1000;top:30%;left:10px; background-color: white;">
+            <div class="menu">
+                <div class="menu-active" id="arrowleft"></div>
+                <i-feather name="arrow-left" class="menu-icon" data-toggle="tooltip" title="Back"></i-feather>
+            </div>
+        </button>
+        
+    </div>
+    <div class="Navbarsummary">
+       
+        <button mat-icon-button style="z-index:1000;top:30%;left:10px; background-color: white;" (click)="Summary_analytics()">
+            <div class="menu">
+                <div class="menu-active" id="summary"></div>
+                <i-feather name="pie-chart" class="menu-icon" data-toggle="tooltip" title="Summary"></i-feather>
+            </div>
+        </button>
+    </div>
+
+    <div class="Navbarinverter">
+        <button mat-icon-button style="z-index:1000;top:30%;left:10px; background-color: white;" (click)="Inverter_analytics()">
+            <div class="menu">
+                <div class="menu-active" id="SubCamp"></div>
+                <i-feather name="codesandbox" class="menu-icon" data-toggle="tooltip" title="Sub Camp"></i-feather>
+            </div>
+        </button>
+    </div>
+
+    <div class="Navbarfeaturewiseinverter">
+        <button mat-icon-button style="z-index:1000;top:30%;left:10px; background-color: white;" (click)="Inverter_analytics_featurewise()">
+            <div class="menu">
+                <div class="menu-active" id="featurewise"></div>
+                <i-feather name="trello" class="menu-icon" data-toggle="tooltip" title="featurewise"></i-feather>
+            </div>
+        </button>
+    </div>

@@ -1,0 +1,213 @@
+<form [formGroup]="username_verify">
+    <mat-card class="signup-card1" id="username_verify">
+        <mat-card-content class="mt-5">
+            <div class="user-container">
+                <mat-icon class="user-icon">account_circle</mat-icon>
+            </div>
+            <div class="info_text">
+                Create Account
+            </div>
+
+            <div class="signup-form">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label class="field-content">User Name</mat-label>
+                    <input matInput name="username" style="font-family: 'Montserrat', Helvetica, sans-serif;" formControlName="username" id="username" #username required>
+                    <mat-error *ngIf="hasError1('username', 'required')">
+                        User name is required
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label class="field-content">Email</mat-label>
+                    <input matInput name="emailid" style="font-family: 'Montserrat', Helvetica, sans-serif;" formControlName="emailid" id="emailid" #emailid required>
+                    <mat-error *ngIf="hasError1('emailid', 'required')">
+                        Email is required
+                    </mat-error> 
+                </mat-form-field>
+            </div>
+
+        </mat-card-content>
+
+        <div class="signup-btn-container">
+            <button mat-button class="btn pl-5 pr-5 stepper-action-btn signup-btn text-uppercase" id="verify" (click)="verify()">verify</button>
+
+            <!-- <button mat-button class="btn pl-5 pr-5 stepper-action-btn signup-btn text-uppercase" [routerLink]="['/landing']">Back</button> -->
+        </div>
+
+    </mat-card>
+</form>
+<form [formGroup]="signupForm">
+
+    <mat-card class="signup-card" style="display:none" id="signupform">
+        <mat-card-content class="mt-5">
+
+            <div class="info_text">
+                <b>Create a new account</b>
+            </div>
+            <!-- <div class="profile-pic-div">
+                <img [src]="url" id="photo">
+                <input type="file" (change)="onselectFile($event)" id="file">
+                <label for="file" id="uploadBtn">Choose a Picture</label>
+            </div> -->
+
+            <div class="signup-form">
+                <mat-form-field appearance="outline" class="w-50 pr-2">
+                    <mat-label class="field-content">User Name</mat-label>
+                    <input matInput name="uname" style="font-family: 'Montserrat', Helvetica, sans-serif;" formControlName="uname" #uname id="uname">
+                    <mat-error *ngIf="hasError('uname', 'required')">
+                        User name is required
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="w-50  pl-2">
+                    <mat-label class="field-content">Organization Name</mat-label>
+                    <mat-icon matPrefix class="field-icon">groups</mat-icon>
+                    <input matInput name="organization" style="font-family: 'Montserrat', Helvetica, sans-serif;" formControlName="organization">
+
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="w-50 pr-2">
+                    <mat-label class="field-content">First Name</mat-label>
+                    <input matInput name="fname" style="font-family: 'Montserrat', Helvetica, sans-serif;" formControlName="fname" required>
+                    <mat-error *ngIf="hasError('fname', 'required')">
+                        First name is required
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="w-50  pl-2">
+                    <mat-label class="field-content">Last Name</mat-label>
+                    <input matInput name="lname" style="font-family: 'Montserrat', Helvetica, sans-serif;" formControlName="lname" required>
+                    <mat-error *ngIf="hasError('lname', 'required')">
+                        Last name is required
+                    </mat-error>
+                </mat-form-field>
+
+
+                <mat-form-field appearance="outline" class="w-50  pr-2">
+                    <mat-label class="field-content">Role</mat-label>
+                    <input matInput placeholder="Manager" name="role" style="font-family: 'Montserrat', Helvetica, sans-serif;" formControlName="role"  id="role">
+                    <mat-error *ngIf="hasError('role', 'required')">
+                        Role is required
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="w-50 pl-2">
+                    <mat-label class="field-content">Mobile Number</mat-label>
+                    <input matInput placeholder="+91 7824359062" style="font-family: 'Montserrat', Helvetica, sans-serif;" name="mnum" formControlName="mnum" required>
+                    <mat-error *ngIf="hasError('mnum', 'required')">
+                        Mobile number is required
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label class="field-content">Email Address</mat-label>
+                    <input matInput placeholder="datasee@gmail.com" name="mail" style="font-family: 'Montserrat', Helvetica, sans-serif;" formControlName="mail"  #mail id="mail">
+                    <mat-error *ngIf="hasError('mail', 'required')">
+                        Email is required
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="w-50 pr-2">
+                    <mat-label style="font-family: 'Montserrat', Helvetica, sans-serif;" class="field-content">Country</mat-label>
+                    <mat-select style="font-family: 'Montserrat', Helvetica, sans-serif;" placeholder="country" (selectionChange)="selectChange($event.value)" name="country" formControlName="country" required>
+                        <mat-option style="font-family: 'Montserrat', Helvetica, sans-serif;" value="" selected>Select Country</mat-option>
+                        <mat-option style="font-family: 'Montserrat', Helvetica, sans-serif;" *ngFor="let country of country_data" [value]="country.isoCode">
+                            {{country.name }}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="hasError( 'country', 'required') ">
+                        Country is required
+                    </mat-error>
+                </mat-form-field>
+                <!-- <mat-form-field appearance="outline" class="w-50 pr-2">
+                    <mat-label class="field-content">Country</mat-label>
+                    <mat-select name="country" formControlName="country" required>
+                        <mat-option value="option">India</mat-option>
+                        <mat-option value="option">America</mat-option>
+                        <mat-option value="option">Japan</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="hasError('country', 'required')">
+                        Country is required
+                    </mat-error>
+                </mat-form-field> -->
+
+                <mat-form-field appearance="outline" class="w-50 pl-2">
+                    <mat-label style="font-family: 'Montserrat', Helvetica, sans-serif;" class="field-content">State</mat-label>
+                    <mat-select style="font-family: 'Montserrat', Helvetica, sans-serif;" placeholder="state" (selectionChange)="selectState($event.value)" name="state" formControlName="state" required>
+                        <mat-option style="font-family: 'Montserrat', Helvetica, sans-serif;" value="" selected>Select State</mat-option>
+                        <mat-option style="font-family: 'Montserrat', Helvetica, sans-serif;" *ngFor="let state of states_data" [value]="state.isoCode">
+                            {{ state.name }}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="hasError('state', 'required')">
+                        State is required
+                    </mat-error>
+                </mat-form-field>
+                <!-- (selectionChange)="selectState($event.value)" -->
+                <mat-form-field appearance="outline" class="w-50 pr-2">
+                    <mat-label style="font-family: 'Montserrat', Helvetica, sans-serif;" class="field-content">City</mat-label>
+                    <mat-select style="font-family: 'Montserrat', Helvetica, sans-serif;" placeholder="city" (selectionChange)="selectCity($event.value)" name="city" formControlName="city" required>
+                        <mat-option style="font-family: 'Montserrat', Helvetica, sans-serif;" value="" selected>Select City</mat-option>
+                        <!-- <mat-option *ngFor="let city of cities_data" [value]="city.isoCode">
+                            {{ city.name }}
+                        </mat-option> -->
+                        <mat-option style="font-family: 'Montserrat', Helvetica, sans-serif;" *ngFor="let city_data of cities_data" [value]="city_data.name">
+                            {{ city_data.name }}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="hasError('city', 'required')">
+                        City is required
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="w-50 pl-2">
+                    <mat-label style="font-family: 'Montserrat', Helvetica, sans-serif;" class="field-content">Pincode</mat-label>
+                    <input matInput #input maxlength="6" style="font-family: 'Montserrat', Helvetica, sans-serif;" placeholder="Chennai" name="pincode" formControlName="pincode" required>
+                    <mat-error *ngIf="hasError('pincode', 'required')">
+                        State is required
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="w-50 pr-2">
+                    <mat-label style="font-family: 'Montserrat', Helvetica, sans-serif;" class="field-content">Password</mat-label>
+                    <input matInput [type]="hide ? 'password' : 'text'" style="font-family: 'Montserrat', Helvetica, sans-serif;" name="password" formControlName="password" required>
+                    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide" class="field-icon">
+                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </button>
+                    <mat-error *ngIf="hasError('password', 'required')">
+                        Password is required
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="w-50 pl-2">
+                    <mat-label class="field-content">Confirm password</mat-label>
+                    <input style="font-family: 'Montserrat', Helvetica, sans-serif;" matInput [type]="hide2 ? 'password' : 'text'" name="cpassword" formControlName="cpassword" required (keyup)="checkpassword($event)">
+                    <button mat-icon-button matSuffix (click)="hide2 = !hide2" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide2" class="field-icon">
+                        <mat-icon>{{hide2 ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </button>
+                    <mat-error *ngIf="hasError('cpassword', 'required')">
+                        Confirm password is required
+                    </mat-error>
+                    <mat-hint *ngIf="!isValidPassword" style="color: red;">
+                        Password and Confirm password doesn't match
+                    </mat-hint>
+                </mat-form-field>
+
+                <div class="action-container">
+                    <div class="float-left">
+                        <span style="color:var(--dark); font-family: 'Montserrat', Helvetica, sans-serif;">Already Have an account?&nbsp;&nbsp;<a class="signup-text" (click)="goto()"><b>Login</b></a></span>
+                    </div>
+                </div>
+
+            </div>
+
+        </mat-card-content>
+
+        <div class="signup-btn-container">
+            <button mat-button class="btn pl-5 pr-5 stepper-action-btn signup-btn text-uppercase" [disabled]="!signupForm.valid" id="signup" (click)="signup()">signup</button>
+            <span style="color:var(--dark); font-family: 'Montserrat', Helvetica, sans-serif;" [routerLink]="['/landing']">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="signup-text"><b>Back to homepage</b></a></span>
+
+            <!-- <button mat-button class="btn pl-5 pr-5 stepper-action-btn signup-btn text-uppercase" [routerLink]="['/landing']">Back</button> -->
+        </div>
+
+    </mat-card>
+</form>

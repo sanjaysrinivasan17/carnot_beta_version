@@ -1,0 +1,139 @@
+<div id="compare_map" style="height: 100%; width: 100%;padding-right:0px;right:0px;cursor: move;">
+    <button mat-button mat-dialog-close style=" background-color: var(--primary); left: 10px;z-index: 9999 !important;" matTooltip="close">X</button>
+    <div class="datebuttonleft" style="text-align: right;">
+
+        <mat-card appearance="outlined" style="width:140px;background-color: white;padding: 0px;margin: 0px;">
+
+            <mat-select name="date" [(ngModel)]="dateleft" style="height: 30px;vertical-align: middle;padding-left: 5px;padding-top: 5px;text-align: center;font-family:  'Montserrat', Helvetica, sans-serif;" (ngModelChange)="selectChangeleft(dateleft);" [disableOptionCentering]="true">
+                <mat-option *ngFor="let dateleft of Completed_date_array" [value]="dateleft" style="background-color: white;font-family:  'Montserrat', Helvetica, sans-serif;">
+                    {{dateleft}}
+
+                </mat-option>
+
+            </mat-select>
+        </mat-card>
+        <mat-card appearance="outlined" class="left_card">
+            <mat-select name="k" id="defect" [(ngModel)]="k" style="height: 30px;vertical-align: middle;padding-left: 5px;padding-top: 5px;text-align: center;font-family:  'Montserrat', Helvetica, sans-serif;" (ngModelChange)="kmlnameleft(k);kmlnameright(k);" [disableOptionCentering]="true">
+                <mat-option [value]="-1">Turn KML Off </mat-option>
+                <mat-option *ngFor="let defectval of defects_data_left;let k = index" [value]="k" style="background-color: white;font-family:  'Montserrat', Helvetica, sans-serif;">
+                    <span *ngIf="defectval.key === 'Others' else single_cell">Single cell Hotspot</span>
+                    <ng-template #single_cell>
+                        <span *ngIf="defectval.key === 'Module' else Module">Module Failure</span>
+                        <ng-template #Module>
+                            <span *ngIf="defectval.key === 'Table' else Table">Table Failure</span>
+                            <ng-template #Table>{{defectval.key}}</ng-template>
+                        </ng-template>
+
+                    </ng-template>
+
+                    <!-- <ng-template #single_cell>{{defectval.key}}</ng-template> -->
+
+                </mat-option>
+
+            </mat-select>
+        </mat-card>
+
+
+
+    </div>
+    <span class="material-icons" (click)="zoomin()" id='in' style="z-index: 1000;">
+        zoom_in
+    </span>
+    <span class="material-icons" (click)="zoomout()" id='out' style="z-index: 1000;">
+        zoom_out
+    </span>
+    <div class="statusbuttonleft" style="text-align: right;">
+        <mat-card appearance="outlined" class="left_status_card" id="status_1" style="display: none;flex-direction: row;justify-content: center;flex-wrap: wrap;align-items: center;width: 200px;">
+            <div class="status-indication">
+                <div class="indication-bar" id="bgcolor1" style="background-color: red;"></div>
+                <span class=" indication-text ml-2">{{defect}}</span>
+            </div>
+        </mat-card>
+    </div>
+    <div class="statusbuttonright" style="text-align: right;">
+        <mat-card appearance="outlined" class="right_status_card" id="status_2" style="display: none;flex-direction: row;justify-content: center;flex-wrap: wrap;align-items: center;width: 200px;">
+            <div class="status-indication">
+                <div class="indication-bar" id="bgcolor2" style="background-color: red;"></div>
+                <span class=" indication-text ml-2">{{defect}}</span>
+            </div>
+        </mat-card>
+    </div>
+
+    <div class="datebuttonright" style="text-align: right;">
+
+        <mat-card appearance="outlined" style="width:140px;background-color: white;padding: 0px;margin: 0px;">
+
+            <mat-select name="date" [(ngModel)]="dateright" style="height: 30px;vertical-align: middle;padding-left: 5px;padding-top: 5px;text-align: center;font-family:  'Montserrat', Helvetica, sans-serif;" (ngModelChange)="selectChangeright(dateright);" [disableOptionCentering]="true">
+                <mat-option *ngFor="let dateright of Completed_date_array" [value]="dateright" style="background-color: white;font-family:  'Montserrat', Helvetica, sans-serif;">
+                    {{dateright}}
+
+                </mat-option>
+
+            </mat-select>
+        </mat-card>
+
+
+
+
+        <div *ngIf="popupDesc==' ' ; else elseBlock">
+
+
+            <mat-card [style.visibility]="(popup_card_visibility ) ? 'visible ' : 'hidden '" style="margin-left: 4rem; margin-top: 75px;width: 16%; height:70px; position: fixed;top:0;right:50px; z-index: 1000;">
+
+                <b style="margin: 2rem;">
+                    <mat-card-content style="height: 40%; font-family: 'Montserrat ', Helvetica, sans-serif;">Click on a
+                        feature to view details</mat-card-content>
+                </b>
+            </mat-card>
+        </div>
+
+        <ng-template #elseBlock>
+
+            <mat-card [style.visibility]="(popup_card_visibility ) ? 'visible ' : 'hidden '" style="margin-left: 4rem; margin-top: 75px;width: 24%; height:auto; position: fixed;top:0;right:50px; z-index: 1000;border-radius: 10px;">
+
+                <mat-card-header>
+
+                    <div style="margin-left: auto;margin-top: -10px;">
+                        <button mat-icon-button>
+                            <mat-icon (click)="close_popup_card()" style="cursor: pointer;">close</mat-icon>
+                        </button>
+
+                    </div>
+                </mat-card-header>
+
+                <mat-card-content>
+                    <div class="row">
+                        <div class="col-3"><b> Table No</b></div>
+                        <div class="col-1"><b>:</b></div>
+                        <div class="col-6" style="font-family: 'Montserrat ', Helvetica, sans-serif;text-align: justify;"> {{Tableno}}
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-3"><b> Module No</b></div>
+                        <div class="col-1"><b>:</b></div>
+                        <div class="col-6" style="font-family: 'Montserrat ', Helvetica, sans-serif;text-align: justify;">
+                            {{Module_no}}</div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-3"><b> Defect</b></div>
+                        <div class="col-1"><b>:</b></div>
+                        <div class="col-6" style="font-family: 'Montserrat ', Helvetica, sans-serif;text-align: justify;"> {{defects}}
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row" style="padding-bottom: 5px;">
+                        <div class="col-3"><b> Description</b></div>
+                        <div class="col-1"><b>:</b></div>
+                        <div class="col-6" style="font-family: 'Montserrat ', Helvetica, sans-serif;text-align: justify;">
+                            {{Description}}
+                        </div>
+                    </div>
+
+                </mat-card-content>
+            </mat-card>
+
+        </ng-template>
+
+    </div>

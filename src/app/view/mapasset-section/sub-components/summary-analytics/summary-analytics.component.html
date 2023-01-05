@@ -1,0 +1,52 @@
+<div class="summary">
+    <h2 style="font-family: 'Montserrat', Helvetica, sans-serif;">Asset Comparison</h2>
+    <div class="row">
+        <div class="col-6">
+            <div class="feature_type">
+                <mat-card appearance="outlined"
+                    style="width:140px;background-color: white;padding: 0px;margin: 0px;">
+
+                    <mat-select name="feature" [(ngModel)]="feature"
+                        style="height: 30px;vertical-align: middle;padding-left: 5px;padding-top: 5px;text-align: center;font-family:  'Montserrat', Helvetica, sans-serif;font-size: 16px;"
+                        (ngModelChange)="selectChangefeature(feature);" [disableOptionCentering]="true">
+                        <mat-option *ngFor="let feature of summary_keys;let k = index;" [value]="feature"
+                            style="background-color: white;font-family:  'Montserrat', Helvetica, sans-serif;">
+                            {{feature}}
+                        </mat-option>
+
+                    </mat-select>
+                </mat-card>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="project_type">
+                Chart <mat-slide-toggle [checked]="checked"
+                    (toggleChange)="toggleChangeType(checked)">Table</mat-slide-toggle>
+            </div>
+        </div>
+    </div>
+
+    <div id="Chart" style="display: block;">
+        <div id="chart" *ngIf="chartOptions">
+            <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart"
+                [dataLabels]="chartOptions.dataLabels" [plotOptions]="chartOptions.plotOptions"
+                [xaxis]="chartOptions.xaxis" [stroke]="chartOptions.stroke"></apx-chart>
+        </div>
+    </div>
+    <div id="Table" style="display: none;margin-top: 5px;">
+        <table style="width: 57rem;margin-top: 25px;">
+            <tr>
+                <th class="col-3" style="text-align:left;">Feature</th>
+                <th class="col-3" style="text-align:left;">{{dateleft}}</th>
+                <th class="col-3" style="text-align:left;">{{dateright}}</th>
+                <th class="col-3" style="text-align:left;">Percentage Progress</th>
+            </tr>
+            <tr *ngFor="let feature of Feature_key_left; let b = index;">
+                <td class="col-3" style="text-align:left;">{{feature}}</td>
+                <td class="col-3" style="text-align:left;">{{feature_value_left[b]}}</td>
+                <td class="col-3" style="text-align:left;">{{feature_value_right[b]}}</td>
+                <td class="col-3" style="text-align:left;">{{percentage_progress[b]}}</td>
+            </tr>
+        </table>
+    </div>
+</div>

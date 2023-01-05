@@ -1,0 +1,23 @@
+<div>
+    <h1 mat-dialog-title>
+        Area of Interest</h1>
+    <div mat-dialog-content>
+        <div class="example-container">
+            <form [formGroup]="myform">
+                <mat-form-field appearance="fill" style="width: 100%;">
+                    <mat-label style="font-family:  'Montserrat', Helvetica, sans-serif;">Name</mat-label>
+                    <input style="font-family:  'Montserrat', Helvetica, sans-serif;" matInput formControlName="label">
+                </mat-form-field>
+                <br>
+                <mat-form-field appearance="fill" style="width: 100%;">
+                    <mat-label style="font-family:  'Montserrat', Helvetica, sans-serif;">Description</mat-label>
+                    <textarea style="font-family:  'Montserrat', Helvetica, sans-serif;" matInput rows="3" formControlName="desc"></textarea>
+                </mat-form-field>
+            </form>
+        </div>
+    </div>
+    <div mat-dialog-actions align="end" class="mb-1">
+        <button mat-button mat-dialog-close class="btn mr-1" style="font-family:  'Montserrat', Helvetica, sans-serif;" (click)="removeUnusedInstance()">Close</button>
+        <button mat-button class="btn" (click)="saveAoi()" style="font-family:  'Montserrat', Helvetica, sans-serif;">Save</button>
+    </div>
+</div>

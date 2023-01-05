@@ -1,0 +1,427 @@
+:root {
+    --white: #fff;
+}
+
+
+/* Side navigation */
+
+.compact-sidebar {
+    height: 100%;
+    width: 60px;
+    position: fixed;
+    z-index: 100;
+    background-color: var(--white);
+    box-shadow: 0px 3px 6px var(--shadow);
+    overflow-x: hidden;
+    display: flex;
+    justify-content: center;
+    right: 0px;
+}
+
+
+/* styling navlist */
+
+.compact-sidebar .menu {
+    height: 50px;
+    width: 50px;
+    color: var(--primary);
+    position: relative;
+    cursor: pointer;
+}
+
+.compact-sidebar .menu .menu-icon {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+}
+
+.compact-sidebar .menu .menu-active {
+    width: 0px;
+    height: 75%;
+    background-color: var(--primary);
+    border-radius: 25%;
+    position: absolute;
+    right: -5px;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+}
+
+.compact-sidebar .sidebar-menu .top-section {
+    margin-top: 80px;
+}
+
+.compact-sidebar .sidebar-menu .bottom-section {
+    margin-top: 170px;
+}
+
+
+/* extended sidenav */
+
+.sidebar-card {
+    background-color: var(--white);
+    box-shadow: 0 3px 6px var(--shadow);
+    width: 0px;
+    right: 60px !important;
+    height: 100%;
+    position: absolute;
+    padding: 20px;
+    overflow-y: auto;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    transition: 0.3s;
+    display: none;
+}
+
+
+/* title  */
+
+.sidebar-card .header {
+    display: flex;
+    padding: 15px 0px;
+}
+
+.sidebar-card .header .title {
+    font-size: 25px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    width: 90%;
+    position: relative;
+    top: 5px;
+}
+
+.sidebar-card .header .action {
+    width: 10%;
+    font-size: 14px;
+}
+
+
+/* Icon set */
+
+.sidebar-card .icon-section {
+    display: flex;
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.sidebar-card .icon-section .icon-container {
+    display: block;
+    width: 20%;
+    text-align: center;
+    height: auto;
+    padding: 5px !important;
+    cursor: pointer;
+}
+
+.icon-container .icon-button {
+    padding: 0;
+    min-width: 0;
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    box-sizing: border-box;
+    position: relative;
+    outline: none;
+    border: none;
+    display: inline-block;
+    white-space: nowrap;
+    text-decoration: none;
+    vertical-align: baseline;
+    text-align: center;
+    background-color: var(--white);
+}
+
+.icon-container .icon-name {
+    position: relative;
+    top: 5px;
+    color: rgb(56, 56, 56);
+    font-size: 13px;
+}
+
+
+/* Descriptioncard */
+
+.sidebar-card .details-section {
+    margin: 10px 0px;
+}
+
+.sidebar-card .des-card {
+    padding: 20px;
+    margin: 10px 0px;
+    box-shadow: 0 3px 6px var(--shadow);
+    border-radius: 5px;
+    background-color: #6b8dff;
+    color: #eee;
+}
+
+.details-section .details {
+    display: flex;
+    margin: 5px 0px;
+    padding: 8px 0;
+}
+
+.details .key {
+    font-weight: 600;
+    letter-spacing: 1px;
+    font-size: 15px;
+}
+
+.details .count {
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.details .value {
+    font-size: 14px;
+}
+
+
+/* chart section */
+
+.section-card {
+    padding: 20px;
+    margin: 10px 0px;
+    box-shadow: 0 3px 6px var(--shadow);
+    border-radius: 5px;
+}
+
+
+/* Table */
+
+.table-card {
+    margin: 10px 0px;
+    box-shadow: 0 3px 6px var(--shadow);
+    border-radius: 5px;
+}
+
+table thead tr td {
+    padding: 12px !important;
+}
+
+
+/* Pagination */
+
+.pagination {
+    margin: 20px 0px;
+}
+
+.pagination .active {
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 50%;
+}
+
+ul {
+    list-style-type: none;
+}
+
+.items-list {
+    max-width: 90vw;
+    margin: 2rem;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-gap: 3rem;
+    justify-content: center;
+    align-content: center;
+}
+
+@media only screen and (max-width: 600px) {
+    .items-list {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.item {
+    width: 10rem;
+    height: 10rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--greyDark);
+    cursor: pointer;
+}
+
+.item span {
+    background: #ffffff;
+    box-shadow: 0 0.8rem 2rem rgba(90, 97, 129, 0.05);
+    border-radius: 0.6rem;
+    padding: 2rem;
+    font-size: 3rem;
+    transition: all 0.3s ease;
+}
+
+.item:hover span {
+    transform: scale(1.2);
+    color: var(--primary);
+}
+
+.item p {
+    font-size: 1.2rem;
+    margin-top: 1rem;
+    color: var(--greyLight);
+}
+
+.page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0.6rem;
+    background: #ffffff;
+    box-shadow: 0 0.8rem 2rem rgba(90, 97, 129, 0.05);
+    position: absolute;
+    margin: auto;
+    left: 0;
+}
+
+.page__numbers,
+.page__btn,
+.page__dots {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.page__dots {
+    width: 2.6rem;
+    height: 2.6rem;
+    color: var(--greyLight);
+    cursor: initial;
+}
+
+.page__numbers {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 0.4rem;
+}
+
+.page__numbers:hover {
+    color: var(--primary);
+}
+
+.page__numbers.active {
+    color: #ffffff;
+    background: var(--primary);
+    font-weight: 600;
+    border: 1px solid var(--primary);
+}
+
+.page__btn {
+    color: var(--greyLight);
+    pointer-events: none;
+}
+
+.page__btn.active {
+    color: var(--greyDark);
+    pointer-events: initial;
+}
+
+.page__btn.active:hover {
+    color: var(--primary);
+}
+
+
+/* scrollbar */
+
+.sidebar-card::-webkit-scrollbar {
+    width: 10px;
+    text-align: left;
+}
+
+
+/* Handle */
+
+.sidebar-card::-webkit-scrollbar-thumb {
+    background: gainsboro;
+    border-radius: 20px;
+    text-align: left;
+}
+
+.mat-tab-body.mat-tab-body-active {
+    overflow-y: hidden !important;
+}
+
+.summary-cnt {
+    margin-top: 25px;
+}
+
+
+/* **********************/
+
+.summary-table-cnt {
+    padding: 10px;
+    margin-top: 20px;
+    top: 261px;
+    /*background: #171e26;*/
+    border-radius: 3px;
+    position: absolute;
+    width: 76%;
+    /* overflow-y: scroll;
+    height: 200px; */
+    margin-left: 21px;
+}
+
+.table-cnt {
+    width: 111%;
+}
+
+.table-cnt tr {
+    border: 1.5px solid #3a4542;
+    border-collapse: collapse;
+}
+
+table td,
+table th {
+    padding: 1.1rem 16px 0.1rem;
+    /* color: #fff; */
+}
+
+.chart-cnt-start {
+    padding: 10px;
+    width: 321px;
+    /*box-shadow: 0px 0px 1px #20c997;*/
+    /* height: 210px; */
+    margin-left: 28px;
+    border-radius: 3px;
+    border: 1px solid #515151;
+    position: fixed;
+    bottom: 107px;
+}
+
+.bottom-pagination {
+    position: relative;
+}
+
+.tab-active-bar {
+    height: 5px;
+    width: 70%;
+    background-color: blue;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+    border-radius: 20%;
+    margin-top: 5px;
+}
+
+ ::ng-deep.ngx-pagination .current {
+    padding: 0.1875rem 0.625rem;
+    background: #2199e8;
+    color: #fefefe;
+    cursor: default;
+    border-radius: 50%;
+}
+
+ ::ng-deep.ngx-pagination {
+    padding-left: 0 !important;
+}
+
+::ng-deep mat-card {
+    padding-bottom: 0 !important;
+}

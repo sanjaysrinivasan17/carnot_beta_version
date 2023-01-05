@@ -1,0 +1,46 @@
+.aoi-container {
+    width: 100%;
+}
+
+.aoi-container .aoi-expansion {
+    z-index: 1000;
+    color: #1b1b1b;
+}
+
+.aoi-expansion .aoi-header {
+    color: #1b1b1b;
+    font-size: 16px;
+    font-weight: 500;
+    font-family: 'Montserrat', Helvetica, sans-serif;
+}
+
+.details-section {
+    display: flex;
+    flex-direction: row;
+}
+
+.details-section .aoi-label {
+    flex: 4;
+    font-size: 14px;
+    font-family: 'Montserrat', Helvetica, sans-serif;
+    text-align: left;
+}
+
+.details-section .icon-btn {
+    color: rgb(0, 0, 0, 0.54);
+    font-size: 14px;
+    font-family: 'Montserrat', Helvetica, sans-serif;
+}
+
+
+/* button:focus {
+    outline: none !important;
+} */
+
+.details-section .icon-btn .delete-btn:hover {
+    color: red !important;
+}
+
+.leaflet-draw-toolbar {
+    margin-top: 12px;
+}

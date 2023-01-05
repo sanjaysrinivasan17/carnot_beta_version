@@ -1,0 +1,115 @@
+<mat-dialog-content style="display: block; margin: 0 -24px;padding: 0 24px;max-height: 84vh; overflow: hidden;" class="mat-typography">
+    <mat-card class="example-card">
+        <form [formGroup]="profileForm">
+            <!-- <div class="profile-pic-div">
+                <img [src]="url" id="photo">
+                <input type="file" (change)="onselectFile($event)" id="file">
+                <label for="file" id="uploadBtn">Choose a Picture</label>
+            </div> -->
+            <!-- <h1>Create a new user</h1> -->
+            <div class="info_text">
+                <b>Create a new user</b>
+            </div>
+            <div class="profile-form">
+
+                <mat-form-field appearance="outline" class="w-50 pr-2">
+                    <mat-label style="font-family: 'Montserrat', Helvetica, sans-serif;" class="field-content">First
+                        Name</mat-label>
+                    <input style="font-family: 'Montserrat', Helvetica, sans-serif;" matInput name="fname"
+                        formControlName="fname" #fname required>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="w-50  pl-2">
+                    <mat-label style="font-family: 'Montserrat', Helvetica, sans-serif;" class="field-content">Last Name
+                    </mat-label>
+                    <input matInput name="lname" style="font-family: 'Montserrat', Helvetica, sans-serif;"
+                        formControlName="lname" #lname required>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="w-50 pr-2">
+                    <mat-label style="font-family: 'Montserrat', Helvetica, sans-serif;" class="field-content">User Name
+                    </mat-label>
+                    <input matInput name="uname" style="font-family: 'Montserrat', Helvetica, sans-serif;"
+                        formControlName="uname" #uname required>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="w-50 pl-2">
+                    <mat-label style="font-family: 'Montserrat', Helvetica, sans-serif;" class="field-content">Mobile
+                        Number</mat-label>
+                    <input matInput placeholder="+91 7824359062" name="mnum"
+                        style="font-family: 'Montserrat', Helvetica, sans-serif;" formControlName="mnum" #mnum required>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label style="font-family: 'Montserrat', Helvetica, sans-serif;" class="field-content">Email
+                        Address</mat-label>
+                    <input matInput placeholder="datasee@gmail.com" name="mail"
+                        style="font-family: 'Montserrat', Helvetica, sans-serif;" formControlName="mail" #mail required>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="w-50 pl-2">
+                    <mat-label style="font-family: 'Montserrat', Helvetica, sans-serif;" class="field-content">Select
+                        Role</mat-label>
+
+                    <!-- <mat-select name="Roles" [(ngModel)]="role.slug" id="Roles"  style="font-family: 'Montserrat', Helvetica, sans-serif;"
+                    [disableOptionCentering]="true" matTooltip="Change Role">
+                    <mat-option [value]="role.slug" *ngFor="let role of roles; let i=index" style="background-color: white;font-family: 'Montserrat', Helvetica, sans-serif;">
+                        {{role.name}}
+
+                    </mat-option>
+
+                </mat-select> -->
+                    <mat-select name="role" [(ngModel)]="role" id="testing"
+                        style="font-family: 'Montserrat', Helvetica, sans-serif;" [disableOptionCentering]="true"
+                        matTooltip="Change role" (ngModelChange)="Selectrole(role)" required>
+                        <mat-option [value]="role.slug" *ngFor="let role of roles; let i=index"
+                            style="background-color: white;font-family: 'Montserrat', Helvetica, sans-serif;">
+                            {{role.name}}
+
+                        </mat-option>
+
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="w-50 pr-2">
+                    <mat-label style="font-family: 'Montserrat', Helvetica, sans-serif;" class="field-content">Password
+                    </mat-label>
+                    <input matInput [type]="hide ? 'password' : 'text'"
+                        style="font-family: 'Montserrat', Helvetica, sans-serif;" name="password"
+                        formControlName="password" #password required>
+                    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                        [attr.aria-pressed]="hide" class="field-icon">
+                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+
+                </mat-form-field>
+                <!-- <mat-form-field appearance="outline" class="w-50 pl-2">
+                    <mat-label style="font-family: 'Montserrat', Helvetica, sans-serif;" class="field-content">Confirm
+                        Password</mat-label>
+                    <input matInput [type]="hide ? 'cnpassword' : 'text'"
+                        style="font-family: 'Montserrat', Helvetica, sans-serif;" name="cnpassword"
+                        formControlName="cnpassword" #cnpassword required>
+                    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                        [attr.aria-pressed]="hide" class="field-icon">
+                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+
+                </mat-form-field> -->
+
+            </div>
+        </form>
+    </mat-card>
+
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <div class="signup-btn-container">
+        <button mat-button class="btn pl-5 pr-5 stepper-action-btn signup-btn text-uppercase" [mat-dialog-close]="true"
+            [disabled]="!profileForm.valid"
+            (click)=gotomanageuser(fname.value,lname.value,uname.value,mail.value,password.value)>Save</button>
+        <!-- <button mat-button class="btn pl-5 pr-5 stepper-action-btn signup-btn text-uppercase" (click)=gotomanageuserpage()>Cancel</button> -->
+        <button mat-button mat-dialog-close
+            class="btn pl-5 pr-5 stepper-action-btn signup-btn text-uppercase">Cancel</button>
+        <button mat-button class="btn pl-5 pr-5 stepper-action-btn signup-btn text-uppercase" [mat-dialog-close]="true"
+            [routerLink]="['/landing']">Back</button>
+    </div>
+</mat-dialog-actions>

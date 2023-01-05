@@ -1,0 +1,19 @@
+<h2 mat-dialog-title>Select a Date</h2>
+<form [formGroup]="studentForm">
+    <mat-form-field appearance="fill">
+        <mat-label>Choose a date</mat-label>
+        <input matInput [matDatepicker]="picker" id="getdate" [formControl]="dateOfBirth">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <!-- <div>
+    <label for="date">Choose a date</label>
+    <input id="date" name="date" type="date">
+</div> -->
+
+    <mat-dialog-actions>
+        <button mat-button mat-dialog-close mat-dialog-close={{dateOfBirth.value}} type="submit">Submit</button>
+        <button mat-button mat-dialog-close mat-dialog-close="false">Cancel</button>
+    </mat-dialog-actions>
+</form>

@@ -1,0 +1,554 @@
+<div id="scroller" data-spy="scroll" data-target="#scroll-spy">
+    <!-- Start Header -->
+    <header class="header js-header-scroll">
+        <nav class="core-nav">
+            <div class="nav-container">
+                <div class="nav-header right">
+                    <a href="#" class="brand">
+                        <!-- <img src="assets/brand/" class="logo" alt="Smooth" /> -->
+                        <h1 class="carnot-heading">Carnot</h1>
+                    </a>
+
+                </div>
+                <!-- End Header menu for mobile -->
+                <div class="wrap-core-nav-list right" id="scroll-spy">
+                    <ul class="menu core-nav-list">
+                        <li id="menu-home"><a (click)="scrollToPosition('home')">Home</a></li>
+                        <li id="menu-features"><a (click)="scrollToPosition('features')">Features</a></li>
+                        <!-- <li id="menu-plan"><a (click)="scrollToPosition('plan')">Plans</a></li> -->
+                        <!-- <li id="menu-hiw"><a (click)="scrollToPosition('hiw')">How It Works</a></li> -->
+                    </ul>
+                    <ul class="attributes">
+                        <li class="header__button"><a [routerLink]="['/auth/login']" class="btn btn-primary btn-rounded btn-xs btn-header">Log In</a></li>
+                        <li class="header__button ml-2"><a [routerLink]="['/auth/signup']" class="btn btn-primary btn-rounded btn-xs btn-header">Sign Up</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <!-- End Header -->
+
+    <!-- Start Masthead -->
+    <section class="masthead js-masthead-height pb-0" id="home">
+        <div class="masthead__style-overlay"></div>
+        <div class="masthead__style-watter">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 offset-lg-2 text-center">
+                        <div class="masthead__content">
+                            <h1 class="masthead__content-title">The Powerful Utility-Scale Solar PV Inspection Platform</h1>
+                            <p class="masthead__content-subtitle">A one-stop solution for your solar asset monitoring, Improve solar PV performance & asset health using our Enterprise AI visual Analytics Platform</p>
+                        </div>
+                        <div class="masthead__content">
+                            <a style="color: white; font-family: 'Montserrat', Helvetica, sans-serif ;" [routerLink]="['/auth/signup']" class="btns btns-primary btns-rounded btns-icon-left btns-lg mb-2">
+                                Get Started
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <div class="video__background">
+                            <div class="video__background-wrapper js-video-background-wrapper">
+                                <video class="video-player" controls poster="assets/images/video-cover@2x.png" loop muted autoplay oncanplay="this.play()" onloadedmetadata="this.muted = true">
+                                    <source src="./assets/video/Explainer_Video.mp4" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                            </div>
+
+
+                            <img src="assets/images/mackbook-bg@2x.png" class="video__background-image js-video-background-image" alt="" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Masthead -->
+
+    <!-- Start Section -->
+    <section class="section pb-0 offset-top-160" id="features">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+
+                    <div class="tabs nav tabs__navigation ">
+                        <span class="fa fa-file-text-o tabs__navigation-item--icon" style="width: 155px;"></span>
+                        <span class="fa fa-clock-o tabs__navigation-item--icon1" style="width: 155px;"></span>
+                        <span class="fa fa-table tabs__navigation-item--icon2"></span>
+                        <span class="fa fa-file-text-o tabs__navigation-item--icon3"></span>
+
+
+                        <mat-tab-group animationDuration="1000ms">
+                            <mat-tab label="Defect Classification">
+                                <div class="tab-pane" id="getstarted" role="tabpanel" aria-labelledby="getstarted-tab">
+                                    <div class="row">
+                                        <div class="col-lg-8 order-lg-4 mb-40">
+                                            <img src="assets/images/Carnot.png" class="img-fluid" alt="App screen" />
+                                        </div>
+                                        <div class="col-lg-4 align-self-center mb-40 " style="left: 20px;">
+                                            <h2>Defect Classification</h2>
+                                            <p>Classify various types of PV defects and damages and characterize hotspots based on IEC 62446-3 Standard.</p>
+                                            <a href="https://datasee.ai/contact" class="btns btns-primary btns-rounded btns-stroke">Learn more </a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </mat-tab>
+                            <mat-tab label="Accurate Measurements">
+                                <div class="tab-pane " id="feature" role="tabpanel" aria-labelledby="feature-tab">
+                                    <div class="row">
+                                        <div class="col-lg-8 order-lg-4 mb-40">
+                                            <img src="assets/images/Carnot2.png" class="img-fluid" alt="App screen" />
+                                        </div>
+                                        <div class="col-lg-4 align-self-center mb-40" style="left: 20px;">
+                                            <h2>Accurate Measurements</h2>
+                                            <p>Precisely locate anomalies and evaluate power loss metrics, panel degradation rate, and more.
+                                            </p>
+                                            <a href="https://datasee.ai/contact" class="btn btn-primary btn-rounded btn-stroke">Learn more </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </mat-tab>
+                            <mat-tab label="Historical Analysis">
+
+                                <div class="tab-pane " id="scheduling" role="tabpanel" aria-labelledby="scheduling-tab">
+                                    <div class="row">
+                                        <div class="col-lg-8 order-lg-4 mb-40">
+                                            <img src="assets/images/Carnot3.png" class="img-fluid" alt="App screen" />
+                                        </div>
+                                        <div class="col-lg-4 align-self-center mb-40" style="left: 20px;">
+                                            <h2>Historical Analysis</h2>
+                                            <p>Historical data collection on cloud to review & assess panel degradation levels.
+                                            </p>
+                                            <a href="https://datasee.ai/contact" class="btn btn-primary btn-rounded btn-stroke">Learn more </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </mat-tab>
+                            <mat-tab label="Reports">
+                                <div class="tab-pane " id="location" role="tabpanel" aria-labelledby="location-tab">
+                                    <div class="row">
+                                        <div class="col-lg-8 order-lg-4 mb-40">
+                                            <img src="assets/images/Carnot4.png" class="img-fluid" alt="App screen" />
+                                        </div>
+                                        <div class="col-lg-4 align-self-center mb-40" style="left: 20px;">
+                                            <h2>Reports</h2>
+                                            <p>Criticality based reporting for priority based problem solving.</p>
+                                            <a href="https://datasee.ai/contact" class="btn btn-primary btn-rounded btn-stroke">Learn more </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </mat-tab>
+
+                        </mat-tab-group>
+
+
+                        <!-- 
+                        <ul class="nav tabs__navigation js-tab-carousel js-tabs-navigation" id="myTab" role="tablist">
+                            <li class="tabs__navigation-item js-nav-item">
+                                <a class="nav-link tabs__navigation-item--link active" id="getstarted-tab" data-toggle="tab" href="#getstarted" role="tab" aria-controls="getstarted" aria-selected="true">
+                                    <span class="fa fa-file-text-o tabs__navigation-item--icon"></span>Defect Classification
+
+                                </a>
+                            </li>
+                            <li class="tabs__navigation-item js-nav-item">
+                                <a class="nav-link tabs__navigation-item--link" id="feature-tab" data-toggle="tab" href="#feature" role="tab" aria-controls="feature" aria-selected="false">
+                                    <span class="fa fa-clock-o tabs__navigation-item--icon"></span> Accurate Measurements
+
+                                </a>
+                            </li>
+                            <li class="tabs__navigation-item js-nav-item">
+                                <a class="nav-link tabs__navigation-item--link" id="scheduling-tab" data-toggle="tab" href="#scheduling" role="tab" aria-controls="scheduling" aria-selected="false">
+                                    <span class="fa fa-table tabs__navigation-item--icon"></span>Historical Data Collection
+
+                                </a>
+                            </li>
+                            <li class="tabs__navigation-item js-nav-item">
+                                <a class="nav-link tabs__navigation-item--link" id="location-tab" data-toggle="tab" href="#location" role="tab" aria-controls="location" aria-selected="false">
+                                    <span class="fa fa-file-text-o tabs__navigation-item--icon"></span> Reports
+
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="tab-content tabs__content" id="myTabContent">
+                            <div class="tab-pane fade show active" id="getstarted" role="tabpanel" aria-labelledby="getstarted-tab">
+                                <div class="row">
+                                    <div class="col-lg-8 order-lg-4 mb-40">
+                                        <img src="assets/images/Carnot.png" class="img-fluid" alt="App screen" />
+                                    </div>
+                                    <div class="col-lg-4 align-self-center mb-40">
+                                        <h2>Defect Classification</h2>
+                                        <p>Defect classification based on IEC standards – RCA of hotspots. Criticality based reporting for priority based problem solving.</p>
+                                        <a href="#" class="btn btn-primary btn-rounded btn-stroke">Learn more </a>
+                                    </div>
+                                </div>
+                            </div>
+                
+                            <div class="tab-pane fade" id="feature" role="tabpanel" aria-labelledby="feature-tab">
+                                <div class="row">
+                                    <div class="col-lg-8 order-lg-4 mb-40">
+                                        <img src="assets/images/Carnot.png" class="img-fluid" alt="App screen" />
+                                    </div>
+                                    <div class="col-lg-4 align-self-center mb-40">
+                                        <h2>Accurate Measurements</h2>
+                                        <p>Precise, measurable and complete reporting for further analysis and corrective measures.
+                                        </p>
+                                        <a href="#" class="btn btn-primary btn-rounded btn-stroke">Learn more </a>
+                                    </div>
+                                </div>
+                            </div>
+        
+                            <div class="tab-pane fade" id="scheduling" role="tabpanel" aria-labelledby="scheduling-tab">
+                                <div class="row">
+                                    <div class="col-lg-8 order-lg-4 mb-40">
+                                        <img src="assets/images/Carnot.png" class="img-fluid" alt="App screen" />
+                                    </div>
+                                    <div class="col-lg-4 align-self-center mb-40">
+                                        <h2>Historical Data Collection</h2>
+                                        <p>Historical data collection on cloud to review & assess panel degradation levels.
+                                        </p>
+                                        <a href="#" class="btn btn-primary btn-rounded btn-stroke">Learn more </a>
+                                    </div>
+                                </div>
+                            </div>
+    
+                            <div class="tab-pane fade" id="location" role="tabpanel" aria-labelledby="location-tab">
+                                <div class="row">
+                                    <div class="col-lg-8 order-lg-4 mb-40">
+                                        <img src="assets/images/Carnot.png" class="img-fluid" alt="App screen" />
+                                    </div>
+                                    <div class="col-lg-4 align-self-center mb-40">
+                                        <h2>Reports</h2>
+                                        <p>Criticality based reporting for priority based problem solving.</p>
+                                        <a href="#" class="btn btn-primary btn-rounded btn-stroke">Learn more </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Section -->
+
+    <!-- Start Section -->
+    <section class="section pb-0">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 offset-lg-3">
+                    <h2 class="section__heading section__heading-center">Aerial Thermography Solution</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 offset-lg-3 text-center">
+                    <p>Ascertain a Solar PV plant’s health with Datasee.AI’s intuitive thermographic visualizations. With precise identification of hotspots, you can easily isolate the defective panels and gain insights on localized fixes, thereby assuring
+                        minimal power loss.</p>
+                    <a href="#" class="btn btn-primary btn-rounded">Register for a demo</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Section -->
+
+    <!-- Start Section -->
+    <section class="section pb-80 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="section__column section__column-left">
+                        <span class="icon icon-map column-icon"></span>
+                        <h4>AI Defect Recognition</h4>
+                        <p>The precise location of the critical hotspots is identified and classified using our trained ML algorithms.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="section__column section__column-left">
+                        <span class="icon icon-chart column-icon"></span>
+                        <h4>IEC Standard</h4>
+                        <p>Classify hotspots, critical defects, and damages as per IEC TS 62446-3 standard.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="section__column section__column-left">
+                        <span class="icon icon-compare column-icon"></span>
+                        <h4>Inverter wise Analytics</h4>
+                        <p>Visualize the performance metrics and critical defects summary located on each inverter.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="section__column section__column-left">
+                        <span class="icon icon-3d column-icon"></span>
+                        <h4>Cloud Interface</h4>
+                        <p>Visualize all assets in the web portal and download inspection reports from anywhere in the world.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="section__column section__column-left">
+                        <span class="icon icon-hotspot column-icon"></span>
+                        <h4>Deep Analytics</h4>
+                        <p>More analytical features like power loss calculation, anomaly classifications, historical analysis, etc.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="section__column section__column-left">
+                        <span class="icon icon-question column-icon"></span>
+                        <h4>Superimposed Images</h4>
+                        <p>Thermal images are superimposed on RGB images to visualize the hotspots location.</p>
+                    </div>
+                </div>
+                <!-- <div class="col-lg-4">
+                    <div class="section__column section__column-left">
+                        <span class="icon icon-book column-icon"></span>
+                        <h4>Manual Guide</h4>
+                        <p>Unum liber commune in mel, ut pri tritani propriae menandri. Cum et magna porro intellegat.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="section__column section__column-left">
+                        <span class="icon icon-chart column-icon"></span>
+                        <h4>Actual Report</h4>
+                        <p>Unum liber commune in mel, ut pri tritani propriae menandri. Cum et magna porro intellegat.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="section__column section__column-left">
+                        <span class="icon icon-device column-icon"></span>
+                        <h4>Fully responsive</h4>
+                        <p>Unum liber commune in mel, ut pri tritani propriae menandri. Cum et magna porro intellegat.
+                        </p>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+    </section>
+    <!-- End Section -->
+
+    <!-- Start Section -->
+    <!-- <section class="section section__cta pb-80">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-sm-4">
+                    <div class="column__boxed">
+                        <span class="icon icon-help column__boxed-icon"></span>
+                        <h5 class="column__boxed-title">Get Support</h5>
+                        <p>
+                            Homero sapientem per id, id sonet veniam commune vis, ei nam non
+                        </p>
+                        <a href="#" class="btn-link">Go to support</a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-4">
+                    <div class="column__boxed">
+                        <span class="icon icon-users column__boxed-icon"></span>
+                        <h5 class="column__boxed-title">Our comumnity</h5>
+                        <p>
+                            Homero sapientem per id, id sonet veniam commune vis, ei nam non
+                        </p>
+                        <a href="#" class="btn-link">Go to comumnity</a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-4">
+                    <div class="column__boxed">
+                        <span class="icon icon-question column__boxed-icon"></span>
+                        <h5 class="column__boxed-title">F.A.Q</h5>
+                        <p>
+                            Homero sapientem per id, id sonet veniam commune vis, ei nam non
+                        </p>
+                        <a href="#" class="btn-link">Go to FAQ</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section> -->
+    <!-- End Section -->
+
+    <!-- Start Section -->
+    <!-- <section class="section mt-20 pb-0" id="plan">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 offset-lg-3">
+                    <h2 class="section__heading section__heading-center">Choose our package</h2>
+                </div>
+            </div>
+            <plans></plans>
+        </div>
+    </section> -->
+    <!-- End Section -->
+
+    <!-- Start Section -->
+    <!-- <section class="section pb-40" id="hiw">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 offset-lg-3">
+                    <h2 class="section__heading section__heading-center">How it works</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 offset-lg-3 text-center mb-40">
+                    <p>
+                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nobis dolorum molestiae, incidunt voluptatum, vel recusandae ab autem, repudiandae debitis esse ipsam libero est. At non, est sint suscipit itaque voluptatum? </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="section__column text-center">
+                        <span class="icon icon-download icon-lg"></span>
+                        <h3>Download free</h3>
+                        <p>
+                            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Corporis reiciendis maiores eum possimus, voluptate.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="section__column text-center">
+                        <span class="icon icon-cogs icon-lg"></span>
+                        <h3>Install software</h3>
+                        <p>
+                            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Corporis reiciendis maiores eum possimus, voluptate.
+
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="section__column text-center">
+                        <span class="icon icon-wallet icon-lg"></span>
+                        <h3>Buy licence</h3>
+                        <p>
+                            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Corporis reiciendis maiores eum possimus, voluptate.
+
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section> -->
+    <!-- End Section -->
+    <!-- Start Section -->
+    <section class="section p0 pb-80">
+        <img src="../../../assets/bg.png">
+        <div class="container">
+            <div class="section__cta section__cta-column section__cta-offset">
+                <div calss="row">
+                    <div class="col-md-12">
+                        <h2>Subscribe to our Newsletter</h2>
+                    </div>
+                </div>
+                <div calss="row">
+                    <div class="col-md-8 offset-lg-2">
+                        <fieldset class="section__cta-subscribe">
+                            <form name="ctaSubscribe" action="#">
+                                <input type="text" class="section__cta-subscribe-input" placeholder="Enter your email address" />
+                                <button type="button" class="btn btn-rounded btn-white section__cta-subscribe-button btn-icon-right">Subscribe
+                                    <i class="fa fa-long-arrow-right"></i></button>
+                            </form>
+                        </fieldset>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Section -->
+
+    <!-- Start Back to top -->
+    <div class="back-to-top js-back-to-top" id="scrollToStart">
+        <span class="fa fa-angle-double-up back-to-top__icon"></span>
+        <span class="back-to-top__text">TOP</span>
+    </div>
+    <!-- End Back to top -->
+</div>
+
+<!-- Start Footer -->
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="footer__widget">
+
+                    <!-- <img src="assets/brand/logo.png" class="footer__widget-logo" alt="Smooth" /> -->
+                    <h1>Datasee.AI Inc.</h1>
+                    <!-- <h5><b>Head Quaters</b></h5> -->
+                    <p>2946 Dale Drive, NE Atlanta, GA 30305.</p>
+                    <div class="footer__widget-contact">
+                        <i class="fa fa-phone"></i>
+                        <p>+1-470-695-0970</p>
+                    </div>
+                    <div class="footer__widget-contact">
+                        <i class="fa fa-envelope"></i>
+                        <p>info@datasee.ai</p>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="col-6 col-lg-4">
+                <div class="footer__widget">
+                    <h5><b>India Office</b></h5>
+                    <p>2nd Floor, 8/42, Maharaja Surya Rao Road, Dutch Village, Venus Colony, Alwarpet, Chennai - 600018, Tamilnadu, India.</p>
+                    <div class="footer__widget-contact">
+                        <i class="fa fa-phone"></i>
+                        <p>+91 9500129277</p>
+                    </div>
+                    <div class="footer__widget-contact">
+                        <i class="fa fa-envelope"></i>
+                        <p>contact@takvaviya.com</p>
+                    </div>
+                </div>
+            </div> -->
+            <div class="col-6 col-lg-3 col-sm-3">
+                <div class="footer__widget">
+                    <h4 class="footer__widget-title">Connect with us</h4>
+                    <ul class="footer__widget-network">
+                        <!-- <li>
+                            <a href="#" class="footer__widget-network-link">
+                                <i class="fa fa-facebook"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="footer__widget-network-link">
+                                <i class="fa fa-twitter"></i>
+                            </a>
+                        </li> -->
+                        <li>
+                            <a href="#" class="footer__widget-network-link">
+                                <i class="fa fa-linkedin"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="footer__subfooter">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p>
+                                Datasee.AI © 2020. All Rights Reserved.
+                            </p>
+                        </div>
+                        <div class="col-md-6 text-right">
+                            <ul class="footer__subfooter-liststyle">
+                                <!-- <li>
+                                    <a href="#">terms and conditions</a>
+                                </li>
+                                <li>
+                                    <a href="#">privacy statements</a>
+                                </li> -->
+                                <li>
+                                    <a href="https://datasee.ai/contact">Help</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+<!-- End Footer -->

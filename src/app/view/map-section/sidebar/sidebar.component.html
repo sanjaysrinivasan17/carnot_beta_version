@@ -1,0 +1,453 @@
+<!-- side navigation -->
+<div class="compact-sidebar" style="z-index: 9999;">
+    <div class="sidebar-menu">
+        <div class="custom-btn" *ngIf="token_based_logo == 'new' else logo_change">
+            <mat-card style="background-color:white;margin-top: -14px;margin-bottom: 0px;width: 5px;width: 67px;margin-left: -3px;">
+                <img src="https://datasee-ai-public-assets.s3.ap-south-1.amazonaws.com/asset_statics/airmap_vue/img/DataSee-removebg-preview.d85b0a77.png" alt="home" (click)="gotodashboard()" width="40" height="30">
+            </mat-card>
+        </div>
+        <ng-template #logo_change>
+            <div class="custom-btn">
+                <mat-card style="background-color:white;margin-top: -14px;margin-bottom: 0px;width: 5px;width: 67px;margin-left: -3px;">
+                    <img src="../../../../assets/images/Mahinda-Teqo-logo.jpeg" alt="home" (click)="gotodashboard()" width="40" height="30">
+                </mat-card>
+            </div>
+        </ng-template>
+        <!-- <div class="custom-btn">
+            <button mat-icon-button (click)="gotodashboard()" style="margin-top: 40px; margin-left: 8px; color:white">
+                <span class="material-icons">home</span>
+            </button>
+    </div> -->
+        <div class="menu" (click)="gotodashboard()" style="margin-top: 40px; margin-left: 8px; color:white">
+            <div class="menu-active"></div>
+            <i-feather name="home" class="menu-icon" data-toggle="Home" title="Home"></i-feather>
+
+        </div>
+        <div class="menu" (click)="gotoAllprojects()" style="margin-left: 8px; color:white">
+            <div class="menu-active"></div>
+            <i-feather name="play" class="menu-icon" data-toggle="All projects" title="All projects"></i-feather>
+
+        </div>
+
+        <div class="top-section" style="margin-top: 40px; margin-left: 8px;">
+            <div *ngIf="proj_name != 'Adani-Limbaganesh' else hideicons">
+                <div class="menu" (click)="activateMenu('summary'); openSidbar('summarySidebar', 'summary')" *ngIf="Project_layer_summary != ''">
+                    <div class="menu-active" id="summary"></div>
+                    <i-feather name="pie-chart" class="menu-icon" data-toggle="tooltip" title="Summary"></i-feather>
+
+                </div>
+                <div class="menu" (click)="activateMenu('inventor'); openSidbar('summarySidebar', 'inventor')" *ngIf="Project_layer_inverter_data != ''">
+                    <div class="menu-active" id="inventor"></div>
+                    <i-feather name="box" class="menu-icon" data-toggle="tooltip" title="Inverter"></i-feather>
+                </div>
+                <!--  (click)="activateMenu('inventor'); openSidbar('summarySidebar', 'inventor')" *ngIf="topography_data != '' -->
+                <div class="menu" (click)="activateMenu('Topography'); openSidbar('summarySidebar', 'Topography')" *ngIf="topography_data != ''">
+                    <div class="menu-active" id="Topography"></div>
+                    <i-feather name="framer" class="menu-icon" data-toggle="tooltip" title="Cadastral Map"></i-feather>
+                </div>
+                <div class="menu" (click)="activateMenu('Grading'); openSidbar('summarySidebar', 'Grading')" *ngIf="grading_data != ''">
+                    <div class="menu-active" id="Grading"></div>
+                    <i-feather name="layout" class="menu-icon" data-toggle="tooltip" title="Grading"></i-feather>
+                </div>
+            </div>
+            <ng-template #hideicons>
+
+            </ng-template>
+
+            <div class="menu" (click)="activateMenu( 'compare'); openComparision( 'compare')">
+                <div class="menu-active" id="compare"></div>
+                <i-feather name="columns" class="menu-icon" data-toggle="tooltip" title="Compare"></i-feather>
+            </div>
+            <div class="menu" (click)="gotoAnalytics()">
+                <div class="menu-active" id="activity"></div>
+                <i-feather name="activity" class="menu-icon" data-toggle="tooltip" title="Analytics"></i-feather>
+            </div>
+
+        </div>
+        <div class="bottom-section" style="margin-top: 30px; margin-left: 8px;">
+            <div class="menu" (click)="activateMenu( 'share'); openSharedialog( 'share')" id="share_visibility">
+                <div class="menu-active" id="share"></div>
+                <i-feather name="share-2" class="menu-icon" data-toggle="tooltip" title="Share"></i-feather>
+            </div>
+            <!-- <div class="menu">
+                <div class="menu-active" id="capture"></div>
+                <i-feather name="camera" class="menu-icon" data-toggle="tooltip" (click)="captureButton()" title="Capture"></i-feather>
+            </div> -->
+            <div class="menu">
+                <div class="menu-active" id="download"></div>
+                <i-feather name="download" class="menu-icon" data-toggle="tooltip" title="Download" (click)="downloadMyFile(report_path)"></i-feather>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Side Navigation Ends openSharedialog(i.name,i.id)-->
+<!-- Extended side navigation -->
+
+<div class="sidebar-card" id="summarySidebar" style="z-index: 9999;">
+
+    <div class="header">
+
+
+        <div class="title">
+            <span *ngIf="currentMenu==='summary'">Summary</span>
+            <span *ngIf="currentMenu==='inventor'">Inverter</span>
+            <span *ngIf="currentMenu==='Topography'">{{topography_title}}</span>
+            <span *ngIf="currentMenu==='Grading'">{{grading_title}}</span>
+        </div>
+
+
+        <div class="action">
+            <button mat-icon-button (click)="closeSidebar( 'summarySidebar')">
+                <mat-icon>keyboard_arrow_left</mat-icon>
+            </button>
+        </div>
+
+
+    </div>
+
+
+    <div *ngIf="currentMenu==='summary'">
+
+        <div class="icon-section">
+            <div class="icon-container" matRipple [matRippleColor]="menu.rippleColor" *ngFor="let menu of menuIcons; let i=index" (click)="activate_tab(menu.name, i, currentMenu,summary_data[i].name,summary_data[i].kml)">
+                <button class="icon-button mat-elevation-z3" [style.background]="i===currentIndex ? '#2199e8' : menu.color">
+                    <img [src]="menu.img">
+                </button>
+                <div class="icon-name" [style.color]="i===currentIndex ? '#2199e8' : '#383838'">
+                    {{menu.name}}
+                </div>
+            </div>
+        </div>
+        <div class="details-section m-2" *ngIf="summary_data[currentIndex] as data">
+            <div class="des-card" style="height:auto">
+                <div class="details">
+                    <div class="key">
+                        {{data.name}}
+                    </div>
+                </div>
+                <div class="details">
+                    <div class="count" data-toggle="tooltip" title="count">
+                        {{data.count}}
+                    </div>
+                </div>
+                <div class="details">
+                    <!-- <div class="value">
+                        <b>Description</b> <br> This is {{data.name}}
+                    </div> -->
+                    <div class="value" *ngIf="data.name=='Hotspot'">
+                        <b>Description</b>
+                        <button mat-icon-button matSuffix (click)="toggleShow()" [attr.aria-label]=" 'Hide password'" [attr.aria-pressed]="hide" class="field-icon">
+                            <mat-icon style="font-size: medium;">{{isShown1 ? 'visibility' : 'visibility_off'}}
+                            </mat-icon>
+                        </button>
+
+                        <div *ngIf="isShown1" class="row container-fluid" id="divshow">
+                            Power dissipation occuring in a small area results in cell overheating
+
+                        </div>
+
+                    </div>
+                    <div class="value" *ngIf="data.name=='Short Circuit'">
+                        <b>Description</b>
+                        <button mat-icon-button matSuffix (click)="toggleShow()" [attr.aria-label]=" 'Hide password'" [attr.aria-pressed]="hide" class="field-icon">
+                            <mat-icon style="font-size: medium;">{{isShown2 ? 'visibility' : 'visibility_off'}}
+                            </mat-icon>
+                        </button>
+
+                        <div *ngIf="isShown2" class="row container-fluid" id="divshow">
+                            One or more substring Open circuit failure with hotspot. At one or more substrings, easily mistaken for cell breakage or cell defects, Potential induced degradation (PID) or mismatch
+
+                        </div>
+                    </div>
+                    <div class="value" *ngIf="data.name=='Open Circuit'">
+                        <b>Description</b>
+                        <button mat-icon-button matSuffix (click)="toggleShow()" [attr.aria-label]=" 'Hide password'" [attr.aria-pressed]="hide" class="field-icon">
+                            <mat-icon style="font-size: medium;">{{isShown3 ? 'visibility' : 'visibility_off'}}
+                            </mat-icon>
+                        </button>
+
+                        <div *ngIf="isShown3" class="row container-fluid" id="divshow">
+                            Loss of connection within module junction box or cell connecter
+
+                        </div>
+                    </div>
+                    <div class="value" *ngIf="data.name=='PID'">
+                        <b>Description</b>
+                        <button mat-icon-button matSuffix (click)="toggleShow()" [attr.aria-label]=" 'Hide password'" [attr.aria-pressed]="hide" class="field-icon">
+                            <mat-icon style="font-size: medium;">{{isShown4 ? 'visibility' : 'visibility_off'}}
+                            </mat-icon>
+                        </button>
+
+                        <div *ngIf="isShown4" class="row container-fluid" id="divshow">
+                            The full panel surface is homogeneously heated up compared to other panels. It may happen due to PID effects.
+                        </div>
+                    </div>
+
+                    <div class="value" *ngIf="data.name !='PID' && data.name !='Open Circuit' && data.name !='Short Circuit' && data.name !='Hotspot'">
+                        <b>Description</b>
+                        <button mat-icon-button matSuffix (click)="toggleShow()" [attr.aria-label]=" 'Hide password'" [attr.aria-pressed]="hide" class="field-icon">
+                            <mat-icon style="font-size: medium;">{{isShown5 ? 'visibility' : 'visibility_off'}}
+                            </mat-icon>
+                        </button>
+
+                        <div *ngIf="isShown5" class="row container-fluid" id="divshow">
+                            Frames of the modules are homogeneously heated. The negative grounding to be checked at inverter level. The module frames would have high leakage current
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="table-card ml-2 mr-2" *ngIf="defects_summary.length> 0">
+            <table class="table w-100">
+                <thead>
+                    <tr>
+                        <td>#</td>
+                        <td>Count</td>
+                        <td>Name</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let map of defects_summary;let i = index" (click)="sub_defect_kml(map.name,'summary')" style="cursor: pointer;">
+                        <td>
+                            <mat-icon [style.color]="map.color">timelapse</mat-icon>
+                        </td>
+                        <td>
+                            {{ map.count }}
+                        </td>
+                        <td>
+                            {{ map.name }}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div id="chart1">
+            <mat-card *ngIf="chartOptions" class="m-1" style="padding-left: 5px;font-family: 'Montserrat', Helvetica, sans-serif;">
+                <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart" [labels]="chartOptions.labels" [responsive]="chartOptions.responsive" [stroke]="chartOptions.stroke" [colors]="chartOptions.colors" [tooltip]="chartOptions.tooltip" [legend]="chartOptions.legend">
+                </apx-chart>
+            </mat-card>
+        </div>
+    </div>
+
+
+    <div *ngIf="currentMenu === 'inventor'">
+        <div style="text-align: center;">
+            <b> {{inverter_name}}</b>
+            <hr>
+        </div>
+        <div class="icon-section">
+            <div class="icon-container" matRipple [matRippleColor]="menu.rippleColor" *ngFor="let menu of menuIcons; let i = index" (click)="activate_tab(menu.name, i, currentMenu,invData[i].inv_name, invData[i].name)">
+                <button class="icon-button  mat-elevation-z3" [style.background]="i === currentIndex ? '#2199e8' : menu.color">
+                    <img [src]="menu.img">
+                </button>
+                <div class="icon-name" [style.color]="i === currentIndex ? '#2199e8' : '#383838'">
+                    {{menu.name}}
+                </div>
+            </div>
+        </div>
+
+        <div *ngFor="let i of check | paginate: { itemsPerPage: 1, currentPage: p }">
+
+            <div class="details-section m-2" *ngIf="invData[currentIndex] as index">
+                <div class="des-card">
+                    <div class="details">
+                        <div class="key">
+                            {{index.name}}
+                        </div>
+                    </div>
+                    <div class="details">
+                        <div class="count" data-toggle="tooltip" title="count">
+                            {{index.count}}
+                        </div>
+                    </div>
+                    <div class="details">
+                        <!-- <div class="value">
+                            <b>Description</b> <br> This is {{data.name}}
+                        </div> -->
+                        <div class="value" *ngIf="index.name =='Hotspot'">
+                            <b>Description</b>
+                            <button mat-icon-button matSuffix (click)="toggleShow()" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide" class="field-icon">
+                                <mat-icon style="font-size: medium;">{{isShown1 ? 'visibility' : 'visibility_off'}}
+                                </mat-icon>
+                            </button>
+
+                            <div *ngIf="isShown1" class="row container-fluid" id="divshow">
+                                Power dissipation occuring in a small area results in cell overheating
+
+                            </div>
+
+                        </div>
+                        <div class="value" *ngIf="index.name =='Short Circuit'">
+                            <b>Description</b>
+                            <button mat-icon-button matSuffix (click)="toggleShow()" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide" class="field-icon">
+                                <mat-icon style="font-size: medium;">{{isShown2 ? 'visibility' : 'visibility_off'}}
+                                </mat-icon>
+                            </button>
+
+                            <div *ngIf="isShown2" class="row container-fluid" id="divshow">
+                                One or more substring Open circuit failure with hotspot. At one or more substrings, easily mistaken for cell breakage or cell defects, Potential induced degradation (PID) or mismatch
+
+                            </div>
+                        </div>
+                        <div class="value" *ngIf="index.name =='Open Circuit'">
+                            <b>Description</b>
+                            <button mat-icon-button matSuffix (click)="toggleShow()" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide" class="field-icon">
+                                <mat-icon style="font-size: medium;">{{isShown3 ? 'visibility' : 'visibility_off'}}
+                                </mat-icon>
+                            </button>
+
+                            <div *ngIf="isShown3" class="row container-fluid" id="divshow">
+                                Loss of connection within module junction box or cell connecter
+
+                            </div>
+                        </div>
+                        <div class="value" *ngIf="index.name =='PID'">
+                            <b>Description</b>
+                            <button mat-icon-button matSuffix (click)="toggleShow()" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide" class="field-icon">
+                                <mat-icon style="font-size: medium;">{{isShown4 ? 'visibility' : 'visibility_off'}}
+                                </mat-icon>
+                            </button>
+
+                            <div *ngIf="isShown4" class="row container-fluid" id="divshow">
+                                Frames of the modules are homogeneously heated. The negative grounding to be checked at inverter level. The module frames would have high leakage current
+                            </div>
+                        </div>
+
+                        <div class="value" *ngIf="index.name !='PID' && index.name !='Open Circuit' && index.name !='Short Circuit' && index.name !='Hotspot'">
+                            <b>Description</b>
+                            <button mat-icon-button matSuffix (click)="toggleShow()" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide" class="field-icon">
+                                <mat-icon style="font-size: medium;">{{isShown5 ? 'visibility' : 'visibility_off'}}
+                                </mat-icon>
+                            </button>
+
+                            <div *ngIf="isShown5" class="row container-fluid" id="divshow">
+                                The full panel surface is homogeneously heated up compared to other panels. It may happen due to PID effects.
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="table-card ml-2 mr-2" *ngIf="inv_tb.length > 0">
+            <table class="table w-100">
+                <thead>
+                    <tr>
+                        <td>#</td>
+                        <td>Count</td>
+                        <td>Name</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of inv_tb ;index as k" (click)="sub_defect_kml(item.name,'invertor');" style="cursor: pointer;">
+                        <td>
+                            <mat-icon [style.color]="item.color">timelapse</mat-icon>
+                        </td>
+                        <td>
+                            {{ item.count }}
+                        </td>
+                        <td>
+                            {{ item.name }}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- <mat-card class="card bottom-pagination m-2">
+            <pagination-controls (pageChange)="p = $event" (click)="load_invDiv(p)"></pagination-controls>
+        </mat-card> -->
+        <!-- <mat-card class="card bottom-pagination m-2">
+            <mat-form-field appearance="fill">
+                <input type="text" matInput [matAutocomplete]="auto" />
+                <mat-autocomplete #auto="matAutocomplete">
+                    <mat-option [value]="i.pvalue" *ngFor="let i of inverter_names">
+                        {{i.name}}
+                    </mat-option>
+                </mat-autocomplete>
+                !-- <select [(ngModel)]="p" (ngModelChange)="load_invDiv(p)">
+              <option  [value]="i.pvalue" *ngFor="let i of inverter_names">
+                {{i.name}}
+              </option>
+            </select> --
+            </mat-form-field>
+        </mat-card> -->
+        <mat-card class="card bottom-pagination m-2">
+            <mat-label>
+                <b>To Change Inverter</b>
+            </mat-label>
+            <input [(ngModel)]="p" (ngModelChange)="load_invDiv(p)" type="Search" list="selectclr" />
+            <datalist style="font-family: 'Montserrat', Helvetica, sans-serif" id="selectclr">
+                <option style="font-family: 'Montserrat', Helvetica, sans-serif" [value]="i.name"
+                    *ngFor="let i of inverter_names">{{i.name}}
+                </option>
+            </datalist>
+        </mat-card>
+    </div>
+
+    <div *ngIf="currentMenu === 'Topography'">
+
+
+
+        <div class="table-card ml-2 mr-2" *ngIf="topography_values.length > 0">
+            <table class="table w-100">
+                <thead>
+                    <tr>
+                        <td>#</td>
+                        <td>Name</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let map of topography_values;let i = index" (click)="sub_defect_kml(map.name,'Topography')" style="cursor: pointer;">
+                        <td>
+                            <mat-icon [style.color]="map.color">timelapse</mat-icon>
+                        </td>
+                        <td>
+                            {{ map.name }}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+    <div *ngIf="currentMenu === 'Grading'">
+
+
+
+        <div class="table-card ml-2 mr-2" *ngIf="grading_values.length > 0">
+            <table class="table w-100">
+                <thead>
+                    <tr>
+                        <td>#</td>
+                        <td>Name</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let map of grading_values;let i = index" (click)="sub_defect_kml(map.name,'Grading')" style="cursor: pointer;">
+                        <td>
+                            <mat-icon [style.color]="map.color">timelapse</mat-icon>
+                        </td>
+                        <td>
+                            {{ map.name }}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+
+
+<!-- summary -->
+
+<!-- summary -->

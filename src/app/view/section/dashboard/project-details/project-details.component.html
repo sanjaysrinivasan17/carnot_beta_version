@@ -1,0 +1,114 @@
+<hr>
+
+<div style="width:100%;height: auto;">
+
+    <h3 class="title"><b>Recent Projects</b></h3>
+</div>
+<div style="padding-top:20px;">
+    <div class="row">
+        <div class="col-4" *ngFor="let project of recent_3_projects;let i = index">
+            <div class="active-project" title="ongoing projects" (click)="Clickable_recent3(i,project.name,project.date,project.city,project.status)">
+                <div class="col-12">
+                    <img class="project-image" src="../../../../../assets/images/all project.jpg" style="width: 25%;">
+                </div>
+                <div class="col-12">
+                    <div class="project-active-details">
+                        <div class="project-title">
+                            <p><b> {{project.name}}</b></p>
+                        </div>
+                        <div class="project-date">
+                            <p> {{project.date[0]}} </p>
+                        </div>
+                        <div class="project-state">
+                            <p> {{project.city}}</p>
+                        </div>
+                        <div *ngIf="project.status[0] == 'created'">
+                            <mat-progress-bar class="custom-progress" mode="determinate" style="width: 100%;" color="#289cf5" value="25"></mat-progress-bar>
+                        </div>
+                        <div *ngIf="project.status[0] == 'ftp'">
+                            <mat-progress-bar class="custom-progress" mode="determinate" style="width: 100%;" color="#289cf5" value="50"></mat-progress-bar>
+                        </div>
+                        <div *ngIf="project.status[0] == 'processing'">
+                            <mat-progress-bar class="custom-progress" mode="determinate" style="width: 100%;" color="#289cf5" value="75"></mat-progress-bar>
+                        </div>
+                        <div *ngIf="project.status[0] == 'completed'">
+                            <mat-progress-bar class="custom-progress" mode="determinate" style="width: 100%;" color="#289cf5" value="100"></mat-progress-bar>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="project-container">
+    <button mat-mini-fab class="prev mat-elevation-z8" color="accent" (click)="plusSlides(-1)">
+        <mat-icon class="icon">keyboard_arrow_left</mat-icon>
+    </button>
+    <button mat-mini-fab class="next mat-elevation-z8" color="accent" (click)="plusSlides(1)">
+        <mat-icon class="icon">keyboard_arrow_right</mat-icon>
+    </button>
+    <div class="project-card">
+        <div class="horizontal-card">
+            <div class="title">
+                {{project_number}}
+            </div>
+            <div class="project-details">
+                <div class="project-title">
+                    <h5>
+                        <p><b> {{recent_3_projects_name}}</b></p>
+                    </h5>
+                </div>
+                <div class="project-date">
+                    <p> {{recent_3_projects_date}} </p>
+                </div>
+                <div *ngIf="workflow_status == 'created'">
+                    <p class="float-right progress-percentage">25%</p>
+                    <mat-progress-bar class="custom-progress" mode="determinate" color="accent" value="25">
+                    </mat-progress-bar>
+                </div>
+                <div *ngIf="workflow_status == 'ftp'">
+                    <p class="float-right progress-percentage">50%</p>
+                    <mat-progress-bar class="custom-progress" mode="determinate" color="accent" value="50">
+                    </mat-progress-bar>
+                </div>
+                <div *ngIf="workflow_status == 'processing'">
+                    <p class="float-right progress-percentage">75%</p>
+                    <mat-progress-bar class="custom-progress" mode="determinate" color="accent" value="75">
+                    </mat-progress-bar>
+                </div>
+                <div *ngIf="workflow_status == 'completed'">
+                    <p class="float-right progress-percentage">100%</p>
+                    <mat-progress-bar class="custom-progress" mode="determinate" color="accent" value="100">
+                    </mat-progress-bar>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    
+    <div class="project-list">
+        <div class="stepper">
+            <div class="title">
+                <mat-icon class="icon">stars</mat-icon> Workflow Status
+            </div>
+            <div class="steps">
+                <mat-vertical-stepper #stepper>
+                    <mat-step label="Project Creation">
+                    </mat-step>
+                    <mat-step label="Data-Acquistion">
+                    </mat-step>
+                    <mat-step label="Data Processing">
+                    </mat-step>
+                    <mat-step label="Analytics & Visualization">
+                    </mat-step>
+                </mat-vertical-stepper>
+                <div class="custom-btn" *ngIf="workflow_status == 'completed'">
+                    <button mat-button class="mr-4" style="background-color: var(--primary); color: #fff;" (click)="gotomap()">Map</button>
+                    <button mat-button style="background-color: var(--primary); color: #fff;" (click)="gotoAnalytics()">Analytics</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

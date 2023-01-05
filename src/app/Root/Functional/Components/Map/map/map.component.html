@@ -1,0 +1,189 @@
+<!-- side navigation -->
+<div class="compact-sidebar">
+    <div class="sidebar-menu">
+        <div class="top-section">
+            <div class="menu" (click)="activateMenu('summary'); openSidbar('summarySidebar', 'summary')">
+                <div class="menu-active" id="summary"></div>
+                <img src="../../assets/images/summary.svg
+                " class="menu-icon" data-toggle="tooltip " title="Summary ">
+            </div>
+            <div class="menu" (click)="activateMenu('inventor'); openSidbar('summarySidebar', 'inventor')">
+                <div class="menu-active" id="inventor"></div>
+                <img src="../../assets/images/inverter.svg" class="menu-icon" data-toggle="tooltip " title="Inverter ">
+            </div>
+            <div class="menu" (click)="activateMenu('compare')">
+                <div class="menu-active" id="compare"></div>
+                <img src="../../assets/images/compare.svg" class="menu-icon" data-toggle="tooltip " title="Compare ">
+            </div>
+        </div>
+        <div class="bottom-section">
+            <div class="menu" (click)="activateMenu('share')">
+                <div class="menu-active" id="share"></div>
+                <img src="../../assets/images/share.svg" class="menu-icon" data-toggle="tooltip " title="Share ">
+            </div>
+            <div class="menu" (click)="activateMenu('capture')">
+                <div class="menu-active" id="capture"></div>
+                <img src="../../assets/images/camera.svg" class="menu-icon" data-toggle="tooltip " title="Capture ">
+            </div>
+            <div class="menu" (click)="activateMenu('download')">
+                <div class="menu-active" id="download"></div>
+                <img src="../../assets/images/download.svg" class="menu-icon" data-toggle="tooltip " title="Download">
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Side Navigation Ends -->
+<!-- Extended side navigation -->
+
+<div class="sidebar-card" id="summarySidebar">
+
+    <div class="header">
+        <div class="title">
+            <span *ngIf="currentMenu === 'summary'">Summary</span>
+            <span *ngIf="currentMenu === 'inventor'">Inventor</span>
+        </div>
+        <div class="action">
+            <button mat-icon-button (click)="closeSidebar('summarySidebar')">
+                <mat-icon>keyboard_arrow_right</mat-icon>
+            </button>
+        </div>
+    </div>
+
+
+    <div *ngIf="currentMenu === 'summary'">
+
+        <div class="icon-section">
+            <div class="icon-container" matRipple [matRippleColor]="menu.rippleColor" *ngFor="let menu of menuIcons; let i = index" (click)="loadSumm_data(summary_data[i].name,summary_data[i].kml); activate_tab(menu.name, i)">
+                <button class="icon-button  mat-elevation-z3" [style.background]="i === currentIndex ? '#2199e8' : menu.color">
+                    <img [src]="menu.img">
+                </button>
+                <div class="icon-name" [style.color]="i === currentIndex ? '#2199e8' : '#383838'">
+                    {{menu.name}}
+                </div>
+            </div>
+        </div>
+        <div class="details-section m-2" *ngIf="summary_data[currentIndex] as data">
+            <div class="des-card ">
+                <div class="details ">
+                    <div class="key ">
+                        {{data.name}}
+                    </div>
+                </div>
+                <div class="details ">
+                    <div class="count " data-toggle="tooltip " title="count ">
+                        {{data.count}}
+                    </div>
+                </div>
+                <div class="details ">
+                    <div class="value ">
+                        <b>Description</b> <br> This is {{data.name}}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="table-card ml-2 mr-2" *ngIf="defects_summary.length > 0">
+            <table class="table w-100">
+                <thead>
+                    <tr>
+                        <td>#</td>
+                        <td>Count</td>
+                        <td>Name</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let map of defects_summary;let i = index">
+                        <td>
+                            <mat-icon [style.color]="map.color">timelapse</mat-icon>
+                        </td>
+                        <td>
+                            {{ map.count }}
+                        </td>
+                        <td>
+                            {{ map.name }}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+        <mat-card *ngIf="chartOptions" class="m-2">
+            <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart" [labels]="chartOptions.labels" [responsive]="chartOptions.responsive" [stroke]="chartOptions.stroke" [colors]="chartOptions.colors">
+            </apx-chart>
+        </mat-card>
+    </div>
+
+
+    <div *ngIf="currentMenu === 'inventor'">
+
+        <div class="icon-section">
+            <div class="icon-container" matRipple [matRippleColor]="menu.rippleColor" *ngFor="let menu of menuIcons; let i = index" (click)="inv_table(invData[i].inv_name, invData[i].name); activate_tab(menu.name, i)">
+                <button class="icon-button  mat-elevation-z3" [style.background]="i === currentIndex ? '#2199e8' : menu.color">
+                    <img [src]="menu.img">
+                </button>
+                <div class="icon-name" [style.color]="i === currentIndex ? '#2199e8' : '#383838'">
+                    {{menu.name}}
+                </div>
+            </div>
+        </div>
+
+        <div *ngFor="let i of check | paginate: { itemsPerPage: 1, currentPage: p } ">
+
+            <div class="details-section m-2" *ngIf="invData[currentIndex] as index">
+                <div class="des-card ">
+                    <div class="details ">
+                        <div class="key ">
+                            {{index.name}}
+                        </div>
+                    </div>
+                    <div class="details ">
+                        <div class="count " data-toggle="tooltip " title="count ">
+                            {{index.count}}
+                        </div>
+                    </div>
+                    <div class="details ">
+                        <div class="value ">
+                            <b>Description</b> <br> This is {{index.name}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="table-card ml-2 mr-2" *ngIf="inv_tb.length > 0">
+            <table class="table w-100">
+                <thead>
+                    <tr>
+                        <td>#</td>
+                        <td>Count</td>
+                        <td>Name</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of inv_tb ;index as k">
+                        <td>
+                            <mat-icon [style.color]="item.color">timelapse</mat-icon>
+                        </td>
+                        <td>
+                            {{ item.count }}
+                        </td>
+                        <td>
+                            {{ item.name }}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <mat-card class="card bottom-pagination m-2">
+            <pagination-controls (pageChange)="p = $event" (click)="load_invDiv(p)"></pagination-controls>
+        </mat-card>
+    </div>
+
+</div>
+
+
+
+<!-- summary -->

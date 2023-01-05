@@ -1,0 +1,109 @@
+<mat-toolbar style="background-color: white;">
+    <span class="app-logo">
+        <!-- <span class="logo">
+            Carnot
+        </span> -->
+    <img class="logo" style="width: 135px;height: 30px;" src="../../../../assets/images/Data See logo.png" routerLink="/app/home">
+    </span>
+    <span class="menu-section" fxShow="true" fxHide.lt-md="true">
+
+        <div class="quick-menu">
+            <span class="account">
+                <!-- <button mat-icon-button color="primary">
+                    <mat-icon>settings</mat-icon>
+                </button>
+                <button mat-icon-button color="primary">
+                    <mat-icon matBadge="1" matBadgeColor="accent">notifications</mat-icon>
+                </button> -->
+            </span>
+    </div>
+
+    <button class="user-details ml-4" mat-button [matMenuTriggerFor]="menu">
+            <div class="user-avatar">
+                <div class="username-f-letter">{{firstletter}}</div>
+            </div>
+            <div class="user-info" style="font-family: 'Montserrat', Helvetica, sans-serif;">
+                <!-- <div class="username">
+                    {{firstname}} {{lastname}}
+                </div>
+                <div class="role" style="font-family: 'Montserrat', Helvetica, sans-serif;">
+                    Admin
+                </div> -->
+            </div>
+        </button>
+    <mat-menu #menu="matMenu">
+<!--        <button mat-menu-item [routerLink]="['/app/myprofile']" routerLinkActive="menu-active" style="font-family: 'Montserrat', Helvetica, sans-serif;">
+                <mat-icon>account_circle</mat-icon>My Profile
+            </button>
+        &lt;!&ndash; <button mat-menu-item>Account Settings</button> &ndash;&gt;
+        <button mat-menu-item [routerLink]="['/app/manageuser']" routerLinkActive="menu-active" style="font-family: 'Montserrat', Helvetica, sans-serif;">
+                <mat-icon>supervised_user_circle</mat-icon>Manage users
+            </button>-->
+        <button mat-menu-item (click)="logout()" style="font-family: 'Montserrat', Helvetica, sans-serif;">
+                <mat-icon>logout</mat-icon>Logout
+            </button>
+    </mat-menu>
+    </span>
+    <span class="menu-toggle" fxShow="true" fxHide.gt-sm="true">
+        <button mat-icon-button (click)="openSidebar()">
+            <mat-icon>menu</mat-icon>
+        </button>
+    </span>
+</mat-toolbar>
+<div class="subtile" style="text-align: center; margin-top: 20px;padding-bottom: 10px;">
+    <!-- <h3 style="font-family: 'Montserrat', Helvetica, sans-serif; font-size: 25px;"><b>Manage users</b></h3> -->
+    <button mat-icon-button color="primary" style="margin-left: 605px;">
+        <mat-icon matBadge={{total_sub_user_account}} matBadgeColor="accent">people_outline</mat-icon>
+    </button>
+    <span>
+
+        <button mat-raised-button color="primary"  style=" margin-left: 17px;top: -10px;  font-family: Montserrat, Helvetica, sans-serif;"  (click)="add_user()">
+            <mat-icon>add</mat-icon> Add user
+            </button>
+            <!-- *ngIf="privilege == 'admin'   else templateButton"-->
+        <!-- <ng-template #templateName> -->
+            <!-- <button mat-button (click)="add_user()">Add user</button> *ngIf="total_sub_user_account < 3 else templateName"-->
+            <!-- <button mat-raised-button color="primary" (click)="add_user()" style=" margin-left: 17px;top: -10px;  font-family: Montserrat, Helvetica, sans-serif;" disabled (click)="add_user()">
+                <mat-icon>add</mat-icon> Add user
+            </button>
+        </ng-template> -->
+        <button mat-raised-button color="primary" routerLink="/app/home" style=" margin-left: 17px;top: -10px;  font-family: Montserrat, Helvetica, sans-serif;">
+            <mat-icon>home</mat-icon> Home
+        </button>
+    </span>
+    <!-- <ng-template #templateButton>
+
+        <button mat-raised-button color="primary" routerLink="/app/home" style=" margin-left: 17px;top: -10px;  font-family: Montserrat, Helvetica, sans-serif;">
+            <mat-icon>home</mat-icon> Home
+        </button>
+    </ng-template> -->
+
+</div>
+
+
+<table>
+    <tr>
+        <!-- <th>User Name</th> -->
+        <th>Full name</th>
+        <th>Email</th>
+        <!-- <th>Date Created</th> -->
+        <!-- <th>Phone</th> -->
+        <th>Role</th>
+        <th>Actions</th>
+    </tr>
+    <tr *ngFor="let i of user" >
+        <!-- <td>{{i.username}}</td> -->
+        <!-- <td>{{i.username}}</td> -->
+        <td>{{i.name}}</td>
+        <td>{{i.email}}</td>
+        <td>{{i.role}}</td>
+        <!-- <td>{{i.number}}</td> -->
+        <!-- <td></td> -->
+
+        <td>
+            <mat-icon style="font-size: 19px;cursor: pointer;">edit</mat-icon>
+            <mat-icon style="font-size: 19px;padding-left: 5px;cursor: pointer;" (click)="delete_user(i.id)">delete
+            </mat-icon>
+        </td>
+    </tr>
+</table>

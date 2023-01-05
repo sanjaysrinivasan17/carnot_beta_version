@@ -1,0 +1,108 @@
+<div class="compact-sidebar" fxShow="true" fxHide.lt-md="true">
+    <mat-list>
+        <mat-nav-list>
+
+            
+            <div class="stats-container" *ngIf="Mapiconvisibility == 'Analytics' else templateName">
+                <div class="fix-top">
+                    <a mat-list-item routerLink="/app/home" routerLinkActive="menu-active" class="compact-menu-item" matTooltip="Dashboard">
+                        <i-feather name="home" class="compact-menu-icon"></i-feather>
+                    </a>
+                    <a mat-list-item routerLink="/map" routerLinkActive="menu-active" class="compact-menu-item" matTooltip="Map">
+                        <i-feather name="map" class="compact-menu-icon"></i-feather>
+ 
+                    </a>
+
+                    <a mat-list-item routerLink="/app/project/create" routerLinkActive="menu-active" class="compact-menu-item" class="compact-menu-item" matTooltip="Create Project">
+                        <i-feather name="plus-square" class="compact-menu-icon"></i-feather>
+                    </a>
+
+                    <a mat-list-item routerLink="/app/project/all" routerLinkActive="menu-active" class="compact-menu-item" class="compact-menu-item" matTooltip="All Projects">
+                        <i-feather name="play" class="compact-menu-icon"></i-feather>
+                    </a>
+
+                </div>
+            </div>
+            <ng-template #templateName>
+                <div class="fix-top">
+                    <a mat-list-item routerLink="/app/home" routerLinkActive="menu-active" class="compact-menu-item" matTooltip="Dashboard">
+                        <i-feather name="home" class="compact-menu-icon"></i-feather>
+                    </a>
+
+                    <a mat-list-item routerLink="/app/project/create" routerLinkActive="menu-active" class="compact-menu-item" class="compact-menu-item" matTooltip="Create Project">
+                        <i-feather name="plus-square" class="compact-menu-icon"></i-feather>
+                    </a>
+
+                    <a mat-list-item routerLink="/app/project/all" routerLinkActive="menu-active" class="compact-menu-item" class="compact-menu-item" matTooltip="All Projects">
+                        <i-feather name="play" class="compact-menu-icon"></i-feather>
+                    </a>
+
+                </div>
+            </ng-template>
+
+            <div class="fix-bottom">
+                <a mat-list-item routerLink="/app/faq" routerLinkActive="menu-active" class="compact-menu-item" class="compact-menu-item" matTooltip="FAQ">
+                    <i-feather name="help-circle" class="compact-menu-icon"></i-feather>
+                </a>
+                <a mat-list-item class="compact-menu-item" matTooltip="Logout" (click)="logout()">
+                    <i-feather name="log-out" class="compact-menu-icon"></i-feather>
+                </a>
+            </div>
+
+        </mat-nav-list>
+    </mat-list>
+</div>
+
+
+<!-- <div class="extended-sidebar" fxShow="true" fxHide.gt-sm="true">
+    <mat-list>
+        <mat-nav-list>
+            <div class="fixed-top">
+
+                <a mat-list-item routerLink="/app/home" routerLinkActive="menu-active">
+                    <mat-icon class="menu-icon">home</mat-icon>
+                    <span class="menu-text" style="font-family: 'Montserrat', Helvetica, sans-serif;">Home</span>
+                </a>
+
+                <mat-divider></mat-divider>
+                <div mat-subheader style="font-family: 'Montserrat', Helvetica, sans-serif;">Quick Menu</div>
+                <mat-divider></mat-divider>
+
+                <a mat-list-item routerLink="/app/project/create" routerLinkActive="menu-active">
+                    <mat-icon class="menu-icon">payment</mat-icon>
+                    <span class="menu-text" style="font-family: 'Montserrat', Helvetica, sans-serif;">Create
+                        Project</span>
+                </a>
+
+                <a mat-list-item routerLink="/app/project/all" routerLinkActive="menu-active">
+                    <mat-icon class="menu-icon">multiline_chart</mat-icon>
+                    <span class="menu-text" style="font-family: 'Montserrat', Helvetica, sans-serif;">All Project</span>
+                </a>
+
+                <mat-divider></mat-divider>
+                <div mat-subheader style="font-family: 'Montserrat', Helvetica, sans-serif;">More</div>
+                <mat-divider></mat-divider>
+
+                <a href="#" mat-list-item>
+                    <mat-icon class="menu-icon">account_circle</mat-icon>
+                    <span class="menu-text" style="font-family: 'Montserrat', Helvetica, sans-serif;">Profile</span>
+                </a>
+
+                <a mat-list-item routerLink="/app/faq" routerLinkActive="menu-active">
+                    <mat-icon class="menu-icon">live_help</mat-icon>
+                    <span class="menu-text" style="font-family: 'Montserrat', Helvetica, sans-serif;">FAQ</span>
+                </a>
+
+                <a mat-list-item>
+                    <mat-icon class="menu-icon">notifications</mat-icon>
+                    <span class="menu-text" style="font-family: 'Montserrat', Helvetica, sans-serif;">Notifications</span>
+                </a>
+
+                <a mat-list-item (click)="logout()">
+                    <mat-icon class="menu-icon">arrow_forward_ios</mat-icon>
+                    <span class="menu-text" style="font-family: 'Montserrat', Helvetica, sans-serif;">Log Out</span>
+                </a>
+            </div>
+        </mat-nav-list>
+    </mat-list>
+</div> -->

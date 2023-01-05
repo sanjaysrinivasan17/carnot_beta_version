@@ -1,0 +1,23 @@
+<div class="pt-3 container-fluid" style="background-color: #f2f2f2;">
+    <!-- <project-step-details></project-step-details> -->
+    <mat-horizontal-stepper [linear]="true" #stepper style="background-color: #f2f2f2;">
+        <mat-step label="Get Started" style="font-family: 'Montserrat', Helvetica, sans-serif;">
+            <project-step-details (stepperEvent)="goToStep($event)"></project-step-details>
+        </mat-step>
+        <mat-step label="Subscription Plan" style="font-family: 'Montserrat', Helvetica, sans-serif;">
+            <subscription-plan (stepperEvent)="goToStep($event)"></subscription-plan>
+        </mat-step>
+        <mat-step label="Payment" style="font-family: 'Montserrat', Helvetica, sans-serif;">
+            <environment (stepperEvent)="goToStep($event)"></environment>
+        </mat-step>
+        <!-- <mat-step label="Environment Setup">
+            <environment (stepperEvent)="goToStep($event)"></environment>
+        </mat-step>
+        <mat-step label="Payload">
+            <step-payload (stepperEvent)="goToStep($event)"></step-payload>
+        </mat-step>
+        <mat-step label="Documents">
+            <documents (stepperEvent)="goToStep($event)"></documents>
+        </mat-step> -->
+    </mat-horizontal-stepper>
+</div>

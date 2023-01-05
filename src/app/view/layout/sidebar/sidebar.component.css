@@ -1,0 +1,93 @@
+.fix-bottom {
+    position: fixed;
+    bottom: 20px;
+    width: 52px;
+}
+
+.fix-top {
+    position: relative;
+    top: 54px;
+    width: 52px;
+}
+
+.fixed-top {
+    position: relative;
+    top: 60px;
+}
+
+.menu-active {
+    border-left: 5px solid var(--primary);
+    background-color: #0060fe1c;
+    color: var(--primary) !important;
+}
+
+.extended-sidebar {
+    width: 250px;
+}
+
+.menu-section {
+    position: absolute;
+    right: 30px;
+}
+
+.menu-section .icon-category {
+    position: relative;
+    top: 8px;
+}
+
+.menu-section .icon-category .account {
+    font-size: 13px !important;
+}
+
+.menu-section .icon-category .account .menu-btn {
+    font-size: 14px !important;
+}
+
+.menu-toggle {
+    position: absolute;
+    right: 15px;
+}
+
+.sidemenu-header {
+    padding: 10px 12px;
+}
+
+.menu-icon {
+    font-size: 18px;
+    color: var(--white);
+}
+
+.menu-text {
+    top: -2px;
+    left: 6px;
+    font-family: 'Montserrat', Helvetica, sans-serif;
+    font-size: 14px;
+    position: relative;
+    color: var(--white);
+}
+
+.border-btn {
+    border: 1px solid;
+}
+
+.compact-menu-item {
+    position: relative;
+}
+
+.compact-menu-icon {
+    position: fixed;
+    left: 17px;
+    width: 20px;
+    height: 20px;
+    color: var(--lite);
+}
+
+::ng-deep .mat-drawer-side {
+    border-right: solid 0px rgba(0, 0, 0, .12) !important;
+    box-shadow: 0px 3px 3px var(--shadow) !important;
+    background-color: var(--nav) !important;
+}
+
+::ng-deep .mat-list-base .mat-subheader {
+    color: var(--white);
+}

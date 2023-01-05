@@ -1,0 +1,409 @@
+<div class="row" style="padding-top:20px;height:auto">
+    <div class="col-8">
+        <table style="width:100%" class="bottom-container">
+            <tr style="padding-top:20px;height:auto">
+                <td style="width:100%">
+                    <div id="mapdashboard" style="height: 485px;border-radius: 10px; margin-left: 20px;"></div>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="col-4">
+        <div class="title" style="font-size: x-large;font-family: 'Montserrat', Helvetica, sans-serif;">
+            Dashboard
+        </div>
+        <hr>
+        <table>
+            <tr>
+                <td>
+                    <mat-card class="matcard_db" *ngIf="plant_size_scanned">
+                        <table>
+                            <tr>
+                                <td class="col-12">
+                                    <h5 class="card-title mb-0"
+                                        style="font-size: large;font-family: 'Montserrat', Helvetica, sans-serif;">
+                                        <b>Total capacity scanned</b>
+                                    </h5>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-8">
+                                    <h2 class="d-flex align-items-center mb-0"
+                                        style="font-size: x-large;font-family: 'Montserrat', Helvetica, sans-serif;">
+                                        {{plant_size_scanned}} MW
+                                    </h2>
+                                    <span
+                                        style="font-size: 13px;font-family: 'Montserrat', Helvetica, sans-serif;">Inspected
+                                        till date </span>
+                                </td>
+                                <td class="col-4">
+                                    <button mat-fab color="white" aria-label="Example icon button with a bookmark icon"
+                                        style="background-color: var(--primary);color:white;">
+                                        <mat-icon>widgets</mat-icon>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-12">
+
+                                </td>
+                            </tr>
+                        </table>
+                    </mat-card>
+                </td>
+            </tr>
+        </table>
+        <table style="margin-top: 30px;">
+            <tr>
+                <td>
+                    <mat-card class="matcard_db" *ngIf="total_power_loss">
+                        <table>
+                            <tr>
+                                <td class="col-12">
+                                    <h5 class="card-title mb-0"
+                                        style="font-size: large;font-family: 'Montserrat', Helvetica, sans-serif;">
+                                        <b>Net Power Loss</b>
+                                    </h5>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-8">
+                                    <h2 class="d-flex align-items-center mb-0"
+                                        style="font-size: x-large;font-family: 'Montserrat', Helvetica, sans-serif;">
+                                        {{total_power_loss}} kW
+                                    </h2>
+                                    <span
+                                        style="font-size: 13px;font-family: 'Montserrat', Helvetica, sans-serif;">Estimated
+                                        Power Loss</span>
+                                </td>
+                                <td class="col-4">
+                                    <button mat-fab color="white" aria-label="Example icon button with a bookmark icon"
+                                        style="background-color: var(--primary);color:white;">
+                                        <mat-icon>flash_on</mat-icon>
+                                    </button>
+                                </td>
+                            </tr>
+                        </table>
+                    </mat-card>
+                </td>
+            </tr>
+        </table>
+        <table style="margin-top: 30px;">
+            <tr>
+                <td>
+                    <mat-card class="matcard_db" *ngIf="total_defects">
+                        <table>
+                            <tr>
+                                <td class="col-12">
+                                    <h5 class="card-title mb-0"
+                                        style="font-size: large;font-family: 'Montserrat', Helvetica, sans-serif;">
+                                        <b>No. of Issues</b>
+                                    </h5>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-8">
+                                    <h2 class="d-flex align-items-center mb-0"
+                                        style="font-size: x-large;font-family: 'Montserrat', Helvetica, sans-serif;">
+                                        {{total_defects}}
+                                    </h2>
+                                    <span
+                                        style="font-size:13px;font-family: 'Montserrat', Helvetica, sans-serif;">Issues
+                                        detected </span>
+                                </td>
+                                <td class="col-4">
+                                    <button mat-fab color="white" aria-label="Example icon button with a bookmark icon"
+                                        style="background-color: var(--primary);color:white;">
+                                        <mat-icon>device_hub</mat-icon>
+                                    </button>
+                                </td>
+                            </tr>
+                        </table>
+                    </mat-card>
+                </td>
+            </tr>
+        </table>
+
+    </div>
+</div>
+<div class="container-fluid pt-4">
+    <div class="card">
+
+
+        <mat-tab-group  (wheel)="scrollTabs($event)" animationDuration="0ms" (selectedTabChange)="switchHeaders($event)">
+            <mat-tab label={{category}} *ngFor="let category of categorywise_project; let i=index" style="text-transform:capitalize;">
+
+                <div *ngIf="category=='all'">
+
+                    <div class="row" id="body-row" *ngIf="dashboard_total_key != ''">
+                        <!-- Layout Starts -->
+                        <div class="dashboard-container container-fluid">
+
+
+                            <span class="sparkline_bar"><canvas width="112" height="50"
+                                    style="display: inline-block; width: 112px; height: 50px; vertical-align: top;"></canvas></span>
+
+                            <div class="row">
+                                <div class="col-md-7"
+                                    style="font-size: 25px; font-weight: 700; letter-spacing: 2px;font-family: 'Montserrat', Helvetica, sans-serif;">
+                                    Total Thermal Anomaly Detected
+                                    <hr>
+                                    <div class="graph-card" *ngIf="chartOptions">
+                                        <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart"
+                                            [dataLabels]="chartOptions.dataLabels"
+                                            [plotOptions]="chartOptions.plotOptions" [xaxis]="chartOptions.xaxis"
+                                            [stroke]="chartOptions.stroke" [grid]="chartOptions.grid">
+                                        </apx-chart>
+                                    </div>
+                                </div>
+                                <div class="col-md-5"
+                                    style="font-size: 25px; font-weight: 700; letter-spacing: 2px;font-family: 'Montserrat', Helvetica, sans-serif;">
+                                    Defect Composition
+                                    <hr>
+                                    <div class="graph-card" style="height:407px" *ngIf="chartOptions1">
+                                        <apx-chart [series]="chartOptions1.series" [chart]="chartOptions1.chart"
+                                            [labels]="chartOptions1.labels" [responsive]="chartOptions1.responsive"
+                                            [tooltip]="chartOptions1.tooltip" [dataLabels]="chartOptions1.dataLabels"
+                                            [colors]="chartOptions1.colors"></apx-chart>
+                                        <!-- <canvas id="radar" width="400" height="400"></canvas> -->
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <!-- Layout End -->
+                    </div>
+                    <div class="row" id="body-row" *ngIf="dashboard_total_key != ''">
+                        <!-- Layout Starts -->
+                        <div class="dashboard-container container-fluid">
+
+
+                            <span class="sparkline_bar"><canvas width="112" height="50"
+                                    style="display: inline-block; width: 112px; height: 50px; vertical-align: top;"></canvas></span>
+
+                            <div class="row">
+                                <div class="col-md-12"
+                                    style="font-size: 25px; font-weight: 700; letter-spacing: 2px;font-family: 'Montserrat', Helvetica, sans-serif;">
+                                    Total Anomaly Detected Project-wise
+                                    <hr>
+                                    <div class="graph-card" style="overflow:scroll;height:400px;" *ngIf="chartOptions3">
+                                        <apx-chart [series]="chartOptions3.series" [chart]="chartOptions3.chart"
+                                            [dataLabels]="chartOptions3.dataLabels"
+                                            [plotOptions]="chartOptions3.plotOptions" [xaxis]="chartOptions3.xaxis"
+                                            [stroke]="chartOptions3.stroke" [fill]="chartOptions3.fill"
+                                            [grid]="chartOptions3.grid" [yaxis]="chartOptions3.yaxis"
+                                            [title]="chartOptions3.title" [tooltip]="chartOptions3.tooltip"
+                                            [legend]="chartOptions3.legend"></apx-chart>
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+
+
+                        </div>
+                        <!-- Layout End -->
+                    </div>
+                </div>
+                <div *ngIf="category=='vegetation'">
+
+                    <div class="row" id="body-row" *ngIf="dashboard_total_key != ''">
+                        <!-- Layout Starts -->
+                        <div class="dashboard-container container-fluid">
+
+
+                            <span class="sparkline_bar"><canvas width="112" height="50"
+                                    style="display: inline-block; width: 112px; height: 50px; vertical-align: top;"></canvas></span>
+
+                            <div class="row">
+                                <div class="col-md-7"
+                                    style="font-size: 25px; font-weight: 700; letter-spacing: 2px;font-family: 'Montserrat', Helvetica, sans-serif;">
+                                    Total Thermal Anomaly Detected
+                                    <hr>
+                                    <div class="graph-card" *ngIf="chartOptions">
+                                        <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart"
+                                            [dataLabels]="chartOptions.dataLabels"
+                                            [plotOptions]="chartOptions.plotOptions" [xaxis]="chartOptions.xaxis"
+                                            [stroke]="chartOptions.stroke" [grid]="chartOptions.grid">
+                                        </apx-chart>
+                                    </div>
+                                </div>
+                                <div class="col-md-5"
+                                    style="font-size: 25px; font-weight: 700; letter-spacing: 2px;font-family: 'Montserrat', Helvetica, sans-serif;">
+                                    Defect Composition
+                                    <hr>
+                                    <div class="graph-card" style="height:407px" *ngIf="chartOptions1">
+                                        <apx-chart [series]="chartOptions1.series" [chart]="chartOptions1.chart"
+                                            [labels]="chartOptions1.labels" [responsive]="chartOptions1.responsive"
+                                            [tooltip]="chartOptions1.tooltip" [dataLabels]="chartOptions1.dataLabels"
+                                            [colors]="chartOptions1.colors"></apx-chart>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <!-- Layout End -->
+                    </div>
+                </div>
+                <div *ngIf="category=='thermography'">
+
+                    <div class="row" id="body-row" *ngIf="dashboard_total_key != ''">
+                        <!-- Layout Starts -->
+                        <div class="dashboard-container container-fluid">
+
+
+                            <span class="sparkline_bar"><canvas width="112" height="50"
+                                    style="display: inline-block; width: 112px; height: 50px; vertical-align: top;"></canvas></span>
+
+                            <div class="row">
+                                <div class="col-md-7"
+                                    style="font-size: 25px; font-weight: 700; letter-spacing: 2px;font-family: 'Montserrat', Helvetica, sans-serif;">
+                                    Total Thermal Anomaly Detected
+                                    <hr>
+                                    <div class="graph-card" *ngIf="chartOptions">
+                                        <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart"
+                                            [dataLabels]="chartOptions.dataLabels"
+                                            [plotOptions]="chartOptions.plotOptions" [xaxis]="chartOptions.xaxis"
+                                            [stroke]="chartOptions.stroke" [grid]="chartOptions.grid">
+                                        </apx-chart>
+                                    </div>
+                                </div>
+                                <div class="col-md-5"
+                                    style="font-size: 25px; font-weight: 700; letter-spacing: 2px;font-family: 'Montserrat', Helvetica, sans-serif;">
+                                    Defect Composition
+                                    <hr>
+                                    <div class="graph-card" style="height:407px" *ngIf="chartOptions1">
+                                        <apx-chart [series]="chartOptions1.series" [chart]="chartOptions1.chart"
+                                            [labels]="chartOptions1.labels" [responsive]="chartOptions1.responsive"
+                                            [tooltip]="chartOptions1.tooltip" [dataLabels]="chartOptions1.dataLabels"
+                                            [colors]="chartOptions1.colors"></apx-chart>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <!-- Layout End -->
+                    </div>
+                    <div class="row" id="body-row" *ngIf="dashboard_total_key != ''">
+                        <!-- Layout Starts -->
+                        <div class="dashboard-container container-fluid">
+
+
+                            <span class="sparkline_bar"><canvas width="112" height="50"
+                                    style="display: inline-block; width: 112px; height: 50px; vertical-align: top;"></canvas></span>
+
+                            <div class="row">
+                                <div class="col-md-12"
+                                    style="font-size: 25px; font-weight: 700; letter-spacing: 2px;font-family: 'Montserrat', Helvetica, sans-serif;">
+                                    Total Anomaly Detected Project-wise
+                                    <hr>
+                                    <div class="graph-card" style="overflow:scroll;height:400px;" *ngIf="chartOptions3">
+                                        <apx-chart [series]="chartOptions3.series" [chart]="chartOptions3.chart"
+                                            [dataLabels]="chartOptions3.dataLabels"
+                                            [plotOptions]="chartOptions3.plotOptions" [xaxis]="chartOptions3.xaxis"
+                                            [stroke]="chartOptions3.stroke" [fill]="chartOptions3.fill"
+                                            [grid]="chartOptions3.grid" [yaxis]="chartOptions3.yaxis"
+                                            [title]="chartOptions3.title" [tooltip]="chartOptions3.tooltip"
+                                            [legend]="chartOptions3.legend"></apx-chart>
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+
+
+                        </div>
+                        <!-- Layout End -->
+                    </div>
+                </div>
+                <div *ngIf="category=='topography'">
+
+                    <div class="row" id="body-row" *ngIf="dashboard_total_key != ''">
+                        <!-- Layout Starts -->
+                        <div class="dashboard-container container-fluid">
+
+
+                            <span class="sparkline_bar"><canvas width="112" height="50"
+                                    style="display: inline-block; width: 112px; height: 50px; vertical-align: top;"></canvas></span>
+
+                            <div class="row">
+                                <div class="col-md-7"
+                                    style="font-size: 25px; font-weight: 700; letter-spacing: 2px;font-family: 'Montserrat', Helvetica, sans-serif;">
+                                    Total Thermal Anomaly Detected
+                                    <hr>
+                                    <div class="graph-card" *ngIf="chartOptions">
+                                        <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart"
+                                            [dataLabels]="chartOptions.dataLabels"
+                                            [plotOptions]="chartOptions.plotOptions" [xaxis]="chartOptions.xaxis"
+                                            [stroke]="chartOptions.stroke" [grid]="chartOptions.grid">
+                                        </apx-chart>
+                                    </div>
+                                </div>
+                                <div class="col-md-5"
+                                    style="font-size: 25px; font-weight: 700; letter-spacing: 2px;font-family: 'Montserrat', Helvetica, sans-serif;">
+                                    Defect Composition
+                                    <hr>
+                                    <div class="graph-card" style="height:407px" *ngIf="chartOptions1">
+                                        <apx-chart [series]="chartOptions1.series" [chart]="chartOptions1.chart"
+                                            [labels]="chartOptions1.labels" [responsive]="chartOptions1.responsive"
+                                            [tooltip]="chartOptions1.tooltip" [dataLabels]="chartOptions1.dataLabels"
+                                            [colors]="chartOptions1.colors"></apx-chart>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <!-- Layout End -->
+                    </div>
+                </div>
+                <div *ngIf="category=='due deligence'">
+
+                    <div class="row" id="body-row" *ngIf="dashboard_total_key != ''">
+                        <!-- Layout Starts -->
+                        <div class="dashboard-container container-fluid">
+
+
+                            <span class="sparkline_bar"><canvas width="112" height="50"
+                                    style="display: inline-block; width: 112px; height: 50px; vertical-align: top;"></canvas></span>
+
+                            <div class="row">
+                                <div class="col-md-7"
+                                    style="font-size: 25px; font-weight: 700; letter-spacing: 2px;font-family: 'Montserrat', Helvetica, sans-serif;">
+                                    Total Thermal Anomaly Detected
+                                    <hr>
+                                    <div class="graph-card" *ngIf="chartOptions">
+                                        <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart"
+                                            [dataLabels]="chartOptions.dataLabels"
+                                            [plotOptions]="chartOptions.plotOptions" [xaxis]="chartOptions.xaxis"
+                                            [stroke]="chartOptions.stroke" [grid]="chartOptions.grid">
+                                        </apx-chart>
+                                    </div>
+                                </div>
+                                <div class="col-md-5"
+                                    style="font-size: 25px; font-weight: 700; letter-spacing: 2px;font-family: 'Montserrat', Helvetica, sans-serif;">
+                                    Defect Composition
+                                    <hr>
+                                    <div class="graph-card" style="height:407px" *ngIf="chartOptions1">
+                                        <apx-chart [series]="chartOptions1.series" [chart]="chartOptions1.chart"
+                                            [labels]="chartOptions1.labels" [responsive]="chartOptions1.responsive"
+                                            [tooltip]="chartOptions1.tooltip" [dataLabels]="chartOptions1.dataLabels"
+                                            [colors]="chartOptions1.colors"></apx-chart>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <!-- Layout End -->
+                    </div>
+                </div>
+            </mat-tab>
+        </mat-tab-group>
+    </div>
+</div>

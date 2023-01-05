@@ -1,0 +1,36 @@
+<div class="aoi-container">
+    <mat-expansion-panel class="aoi-expansion">
+        <mat-expansion-panel-header>
+            <mat-panel-title class="aoi-header">
+                <span style="font-family: 'Montserrat', Helvetica, sans-serif;">Area of Interest </span>
+            </mat-panel-title>
+
+        </mat-expansion-panel-header>
+        <ng-container *ngIf="no_data; else elseTemplate">
+            <b class="mt-2" style="font-family: 'Montserrat', Helvetica, sans-serif;">No Data Available</b>
+        </ng-container>
+
+        <ng-template #elseTemplate>
+            <div *ngFor="let item of aoi_data;">
+                <div class="details-section">
+                    <button style="font-family: 'Montserrat', Helvetica, sans-serif;" mat-button class="aoi-label">
+            {{ item.label }}
+          </button>
+
+                    <button mat-button (click)="delete_aoi(item.id)" class="icon-btn" title="Delete">
+            <mat-icon class="delete-btn">delete</mat-icon>
+          </button>
+
+                    <button mat-button (click)="item.show? hide_aoi(item.id) :  show_aoi(item.id)" class="icon-btn" title="Hide/Show">
+            <mat-icon>{{item.show? 'visibility': 'visibility_off'}}</mat-icon>
+          </button>
+
+                    <button mat-button class="icon-btn" title="Description" (click)="openPreview(item.id)">
+            <mat-icon>info</mat-icon>
+          </button>
+
+                </div>
+            </div>
+        </ng-template>
+    </mat-expansion-panel>
+</div>

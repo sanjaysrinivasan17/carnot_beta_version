@@ -1,0 +1,153 @@
+.compact-sidebar {
+    height: 100%;
+    width: 310px;
+    position: fixed;
+    z-index: 100;
+    background-color: var(--white);
+    box-shadow: 0px 3px 6px var(--shadow);
+    overflow-x: hidden;
+    display: flex;
+    justify-content: center;
+    left: 420px;
+    background-color: #f9f9f9;
+}
+
+.compact-sidebar .menu {
+    height: 50px;
+    width: 50px;
+    color: #eee;
+    position: relative;
+    cursor: pointer;
+}
+
+.compact-sidebar .menu .menu-icon {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    width: 20px;
+    color: #eee;
+}
+
+.compact-sidebar .menu .fa {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    width: 20px;
+    color: #eee;
+}
+
+.menu .active {
+    color: var(--primary);
+}
+
+.compact-sidebar .menu .menu-active {
+    width: 0px;
+    height: 75%;
+    background-color: var(--primary);
+    border-radius: 25%;
+    position: absolute;
+    right: -5px;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+}
+
+.compact-sidebar .sidebar-menu .top-section {
+    position: relative;
+    top: 50px;
+    width: 52px;
+}
+
+.compact-sidebar .sidebar-menu .bottom-section {
+    position: fixed;
+    bottom: 40px;
+    width: 52px;
+}
+
+.mat-card {
+    transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
+    display: block;
+    position: relative;
+    padding: 5px 5px;
+    border-radius: 4px;
+    width: 290px;
+    height: 100px;
+}
+
+.material-icons {
+    cursor: pointer;
+}
+
+.status-indication {
+    display: inline-flex;
+    padding-top: 10px;
+    padding-left: 5px;
+    width: 280px;
+}
+
+div.container {
+    float: left;
+    position: relative;
+}
+
+div.tooltip {
+    position: absolute;
+    z-index: 999
+}
+
+
+/* .status-indication .indication-bar {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+} */
+
+.indication-bar {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+}
+
+.status-indication .indication-text {
+    font-size: 13px;
+    font-family: 'Montserrat', Helvetica, sans-serif;
+    font-weight: 500;
+}
+
+.action-container {
+    padding: 10px 0px;
+    float: right;
+    position: relative;
+    top: -15px;
+    padding-top: 30px;
+    padding-right: 24px;
+}
+
+.mat-button {
+    background-color: var(--primary);
+    border: none;
+    color: blue;
+    padding: 2px;
+    font-family: 'Montserrat', Helvetica, sans-serif;
+    font-size: 13px;
+    text-align: center;
+    margin: -5px 2px;
+    opacity: 1;
+    transition: 0.3s;
+}
+
+
+/* .modal__content,
+dialog-layout,
+mat-dialog-container,
+.mat-dialog-container,
+#cdk-overlay-0,
+.cdk-overlay-pane {
+    z-index: 9999 !important;
+} */

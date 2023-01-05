@@ -1,0 +1,53 @@
+<div style="width:500px;height:176px;overflow: hidden;">
+    <h2 style="font-family:  'Montserrat', Helvetica, sans-serif;">Report Download</h2>
+    <div class="row" style="margin-top: 2rem;">
+        <div class="col-4">
+            <div class="feature_type">
+                <mat-card appearance="outlined" style="width:140px;background-color: white;padding: 0px;margin: 0px;">
+
+                    <mat-select name="mode" [(ngModel)]="mode"
+                        style="height: 30px;vertical-align: middle;padding-left: 5px;padding-top: 5px;text-align: center;font-family:  'Montserrat', Helvetica, sans-serif;font-size: 16px;"
+                        (ngModelChange)="selectChangefeature(mode);" [disableOptionCentering]="true">
+                        <mat-option *ngFor="let mode of typekeys;let k = index;" [value]="mode"
+                            style="background-color: white;font-family:  'Montserrat', Helvetica, sans-serif;">
+                            {{mode}}
+                        </mat-option>
+
+                    </mat-select>
+                </mat-card>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="feature_type" style="display: none;" id="inverter_deviation">
+                <mat-card appearance="outlined" style="width:140px;background-color: white;padding: 0px;margin: 0px;">
+
+                    <mat-select name="inverter" [(ngModel)]="inverter"
+                        style="height: 30px;vertical-align: middle;padding-left: 5px;padding-top: 5px;text-align: center;font-family:  'Montserrat', Helvetica, sans-serif;font-size: 16px;"
+                        (ngModelChange)="selectChangeinverter(inverter);" [disableOptionCentering]="true">
+                        <mat-option *ngFor="let inverter of inverter_keys;let k = index;" [value]="inverter"
+                            style="background-color: white;font-family:  'Montserrat', Helvetica, sans-serif;">
+                            {{inverter}}
+                        </mat-option>
+
+                    </mat-select>
+                </mat-card>
+            </div>
+        </div>
+        <div class="col-1">
+            <div class="project_type">
+                {{type}}
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="project_type" style="margin-left: 20px;">
+                {{date}}
+            </div>
+        </div>
+    </div>
+    <div style="height:100px;margin: 3rem 4rem 2rem 11rem;" >
+        <div style="justify-content: center;" id="download" style="display: none;">
+            <button mat-button class="btn pl-5 pr-5 stepper-action-btn verification-btn text-uppercase" (click)="downloadMyFile(link)">Download</button>
+        </div>
+    </div>
+
+</div>

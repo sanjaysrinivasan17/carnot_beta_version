@@ -1,0 +1,253 @@
+<!-- <mat-card class="mt-5">
+    <mat-card-content>
+        <div class="p-1">
+            <h4 class="step-heading">Upload Documents</h4>
+            <div class="row mt-5">
+                <div class="col-md-6">
+                    <mat-card>
+                        <mat-card-header>
+                            <div mat-card-avatar class="file-avatar"></div>
+                            <mat-card-title>CAD File</mat-card-title>
+                            <mat-card-subtitle>Only .dwg format</mat-card-subtitle>
+                        </mat-card-header>
+                        <mat-card-content>
+                            <ftp-file></ftp-file>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+                <div class="col-md-6">
+                    <mat-card>
+                        <mat-card-header>
+                            <div mat-card-avatar class="file-avatar"></div>
+                            <mat-card-title>IR Image</mat-card-title>
+                            <mat-card-subtitle>Only .ir format</mat-card-subtitle>
+                        </mat-card-header>
+                        <mat-card-content>
+                            <ftp-file></ftp-file>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+            </div>
+        </div>
+    </mat-card-content>
+    <mat-card-actions class="pt-3 pl-2 pr-2 pb-2 action">
+        <div class="float-left">
+            <button mat-button class="btn p-1 pl-5 pr-5 mr-1 stepper-action-btn text-uppercase" (click)="prev()">PREV</button>
+            <button mat-button class="btn p-1 pl-5 pr-5 stepper-action-btn text-uppercase">complete</button>
+        </div>
+    </mat-card-actions>
+</mat-card> -->
+
+
+<!-- TODO file transfer error -->
+<mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false"
+    style="width:69.5%;  margin: 20px auto;" [expanded]="true">
+    <mat-expansion-panel-header>
+        <mat-panel-title>
+            <mat-icon>info_outline</mat-icon>
+            <div style="margin-top: 3px;margin-left: 1%;"> Upload Notes</div>
+        </mat-panel-title>
+        <mat-panel-description>
+            Click to Reveal or Hide
+        </mat-panel-description>
+    </mat-expansion-panel-header>
+    <p style="margin-left: 3px;">If you are <b>RE-UPLOADING</b>&ensp;the same folder please &ensp;&ensp;<b>UPLOAD</b>
+        with a <b>new name</b>.</p>
+</mat-expansion-panel>
+
+<ng-container #flow="flow" [flowConfig]="{target: 'http://takvaviya.in:8001/project_workflow/ftp/upload/ADMIN',
+                                            testChunks:false,
+                                            permanentErrors: ['404', '500', '501'],
+                                            maxChunkRetries: 3,
+                                            chunkRetryInterval: 5000,
+                                            simultaneousUploads: 1,
+                                            chunkSize : 20000000}"></ng-container>
+
+
+<div class="upload">
+
+    <form style="margin-left: 1%;margin-right: 1%;">
+        <mat-form-field>
+            <mat-label><b>Upload Type</b></mat-label>
+
+            <mat-select [(value)]="uploadType">
+                <mat-option></mat-option>
+                <mat-option value="RGB">
+                    RGB
+                </mat-option>
+                <mat-option value="Thermal">
+                    Thermal
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </form>
+
+
+    <div style="flex: 1; display: flex; flex-direction: row;"
+        [style.visibility]=" (uploadType === 'RGB' || uploadType === 'Thermal' )? 'visible':'hidden'">
+        <div class="upload-btn-wrapper" style="margin-left:2%">
+            <button mat-raised-button class="mat-elevation-z2" style="background-color: #4294FA; color: white;"
+                [disabled]="!(uploadType === 'RGB' || uploadType === 'Thermal' )" (click)="onclickUp()">
+                <mat-icon style="color: #eee;">folder</mat-icon>
+&ensp;Choose Folder</button>
+            <input type="file" flowButton [flow]="flow.flowJs" [flowDirectoryOnly]=true
+                [flowAttributes]="{accept: 'image/*'}" />
+        </div>
+
+        <div style="margin-left: 2%;">
+            <button mat-raised-button class="mat-elevation-z2 startbut" type="button" (click)="flow.upload()"
+                (click)="onclickUp()" [disabled]="!(flow.somethingToUpload$ | async)"
+                style="background-color: #1f8a69;color: white;">Start
+                Upload</button>
+        </div>
+        <!-- {{upstate}} -->
+        <!-- <div style="margin-left: 1%;">
+            <button mat-raised-button class="mat-elevation-z2 startbut" type="button" (click)="flow.cancel()"
+                [disabled]="!(flow.transfers$ | async).transfers.length" style="background-color: #dc2727;color: white;">Cancel all</button>
+        </div> -->
+    </div>
+
+    <div style="flex: 6; display: flex; justify-content: center;align-content: center;height: 36px;">
+        
+        <!-- <h2 style="color: #1f8a69;"><b>PAUSED</b></h2>  -->
+    </div>
+
+    <!-- <div style="flex: 6; display: flex; justify-content: center;align-content: center;height: 36px;">
+        <h2 style="color: #DF2228;"><b>PAUSED</b></h2>
+    </div> -->
+
+    <div style="flex: 1;margin-left: 5%; margin-top: 1%;"
+        [style.visibility]="!(flow.somethingToUpload$ | async)? 'hidden':'visible'">
+        <h3 style="font-size: 15px;color:#565656;"><b>{{show_num}} / {{get_num}}</b></h3>
+    </div>
+
+    <div style="flex: 1;margin-right: 3%;position: relative; ">
+        <mat-progress-spinner class="example-margin" color="primary" mode="determinate"
+            value="{{(flow.transfers$ | async).totalProgress * 100}}" diameter=60
+            style="margin-left: 1%;justify-content: center;">
+        </mat-progress-spinner>
+        <div style="position:absolute; top:16px; left:12px;"
+            [style.visibility]="!(flow.somethingToUpload$ | async)? 'hidden':'visible'">
+            <h3 style="color: #565656;font-size: 15px;"><b>{{(flow.transfers$ | async).totalProgress | percent}}</b>
+            </h3>
+        </div>
+    </div>
+
+    <!-- {{(flow.transfers$ | async).totalProgress | percent}} -->
+    <!-- {{(flow.transfers$ | async).totalProgress * 100}} -->
+</div>
+
+
+
+<div *ngIf="!(flow.somethingToUpload$ | async); then thenBlock else elseBlock"></div>
+<ng-template #thenBlock>
+    <div class="bgi">
+        <img src="assets/empty.png" alt="image" style="height: 200px;margin: 20px auto;" class="box">
+        <div style="display: flex; margin: 10px auto;">
+            <h1 style="color: #DF2228;" class="">No <b>FOLDER</b> selected !</h1>
+        </div>
+    </div>
+
+</ng-template>
+
+<ng-template #elseBlock>
+    <div class="filec" [style.visibility]="!(flow.somethingToUpload$ | async)? 'hidden':'visible'">
+        <div class="statustxt">
+            <div style="margin-left: 1%;">
+                <h1><b>File Status</b></h1>
+            </div>
+        </div>
+        <div class="whitespace">
+
+        </div>
+   
+         <div class="pause"  [style.visibility]="((flow.transfers$ | async).totalProgress ) === 0 ? 'hidden':'visible'">
+           
+            <div style="margin-left: 0.5%;">
+                <button mat-raised-button class="mat-elevation-z2" (click)="flow.pauseFile"
+                    (click)="onclickPause()">Pause</button>
+            </div>
+        </div>
+        <div class="resume" [style.visibility]="((flow.transfers$ | async).totalProgress ) === 0 ? 'hidden':'visible'">
+            <button mat-raised-button class="mat-elevation-z2" (click)="flow.resumeFile"
+                (click)="onclickUp()">Resume</button>
+        </div> 
+
+        <div style="margin-left: 0.5%; flex: 0.5;">
+            <button mat-raised-button class="mat-elevation-z2 startbut" type="button" (click)="flow.cancel()"
+                [disabled]="!(flow.transfers$ | async).transfers.length"
+                style="background-color: #e8413e;color: white;">Cancel All</button>
+        </div>
+    </div>
+
+
+
+    <mat-card class="container" id="style-1"
+        [style.visibility]="!(flow.somethingToUpload$ | async)? 'hidden': 'visible'">
+
+        <div>
+            <mat-card style="padding: 0px;border-radius:5px;width:100%" class="mat-elevation-z0">
+                <div class="for" [ngClass]="{'transfer--error': transfer.error, 'transfer--success': transfer.success}"
+                    *ngFor="let transfer of (flow.transfers$ | async).transfers;">
+                    <div class="ic">
+
+                        <div class="img">
+                            <img [flowSrc]="transfer" style='height: 100%; width: 100%; object-fit: contain; '>
+                        </div>
+
+                        <div class="name">
+                            <b style="color: #565656;">{{transfer.name |slice:0:35}}</b>
+                        </div>
+
+                        <div class="size">
+                            <b>{{transfer.size * 0.000001 | number: '1.0'}}MB</b>
+                        </div>
+
+                        <div class="progress" style="display:flex;justify-content:center;align-items:center;">
+                            <mat-progress-bar mode="determinate" value="{{transfer.progress * 100}}" style="width:90%;">
+                            </mat-progress-bar>
+                        </div>
+
+                        <div class="cancel" style="display:flex;justify-content:center;align-items:center;">
+
+                            <div *ngIf="(transfer.progress * 100) != 100; else elseBlock" style="height: 100%;">
+                                <button  mat-mini-fab color="#fffff" (click)="flow.cancelFile(transfer)"
+                                
+                                class="mat-elevation-z2">
+                                <mat-icon style="color: #e8413e;">highlight_off</mat-icon>
+                            </button> 
+                            </div>
+                            <ng-template #elseBlock>
+                                <button mat-mini-fab color="#fffff"
+                                    
+                                    class="mat-elevation-z2">
+                                    <mat-icon style="color: #338a3e;">check_circle_outline</mat-icon>
+                                </button></ng-template>
+
+                            <!-- <button mat-fab color="#fffff" (click)="flow.cancelFile(transfer)"
+                                style='height: 100%; width: 100%;display:flex;justify-content:center;align-items:center;'
+                                class="mat-elevation-z2">
+                                <mat-icon style="color: #e8413e;">highlight_off</mat-icon>
+                            </button>  -->
+                        </div>
+                    </div>
+
+                </div>
+
+            </mat-card>
+
+        </div>
+    </mat-card>
+</ng-template>
+
+
+
+<ng-template #secondDialog>
+    <h2 matDialogTitle>Status</h2>
+    <mat-dialog-content>
+        <b>File Upload</b><b style="color: #338a3e;">&ensp;Success!</b>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+        <button mat-button mat-dialog-close>Close</button>
+    </mat-dialog-actions>
+</ng-template>

@@ -1,0 +1,55 @@
+<form [formGroup]="loginForm">
+    <mat-card class="login-card">
+        <mat-card-content>
+            <div class="user-container">
+                <mat-icon class="user-icon">account_circle</mat-icon>
+            </div>
+            <div class="info_text">
+                Be one of us!
+            </div>
+
+            <div class="login-form">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label class="field-content"> Enter your username</mat-label>
+                    <mat-icon matPrefix class="field-icon">mail</mat-icon>
+                    <input matInput placeholder="datasee@gmail.com" style="font-family: 'Montserrat', Helvetica, sans-serif;" name="username" #UserName formControlName="username" required>
+                    <mat-error *ngIf="hasError('username', 'required')">
+                        Username is required
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label class="field-content">Enter your password</mat-label>
+                    <mat-icon matPrefix class="field-icon">vpn_key</mat-icon>
+                    <input matInput [type]="hide ? 'password' : 'text'" style="font-family: 'Montserrat', Helvetica, sans-serif;" name="UserName" #Password formControlName="password" required>
+                    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide" class="field-icon">
+                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                    <mat-error *ngIf="hasError('password', 'required')">
+                        Password is required
+                    </mat-error>
+                </mat-form-field>
+                <ngx-recaptcha2 #captchaElem siteKey="6Ldf42wiAAAAALSl2vJDoEji5bay5C96ei6M5IqU" (success)="handleSuccess($event)" [size]="size"
+                [hl]="lang" [theme]="theme" [type]="type" formControlName="recaptcha">
+               </ngx-recaptcha2> 
+
+                <div class="action-container">
+                    <mat-checkbox class="float-left" style=" font-family: 'Montserrat', Helvetica, sans-serif;" color="accent">Remember me</mat-checkbox>
+                    <span class="forgot float-right"><a  (click)="gotoresetpassword()" style="color: var(--primary); font-family: 'Montserrat', Helvetica, sans-serif; cursor: pointer;">Reset
+                        password?</a></span>
+                    <!-- <span class="forgot float-right"><a  (click)="resetPassword()" style="color: var(--primary); cursor: pointer;">Reset
+                            password?</a></span> -->
+                </div>
+
+
+            </div>
+
+        </mat-card-content>
+
+        <div class="login-btn-container">
+            <button mat-button class="btn pl-5 pr-5 stepper-action-btn login-btn text-uppercase" style="font-family: 'Montserrat', Helvetica, sans-serif;" [disabled]="!loginForm.valid" id="login" (click)="login(UserName.value,Password.value)">Login</button>
+            <span class="signupbtn "><a (click)="gotoSignup()" style="color: var(--primary); font-family: 'Montserrat', Helvetica, sans-serif; cursor: pointer;">Not a User?</a></span>
+        </div>
+
+    </mat-card>
+</form>

@@ -1,0 +1,13 @@
+<navbar (toggleSidebar)="sidenav.toggle()"></navbar>
+
+<mat-sidenav-container>
+
+    <mat-sidenav #sidenav [opened]="isWindowOpen" [mode]="isWindowOpen ? 'side': 'over'" style="position: fixed;">
+        <sidebar></sidebar>
+    </mat-sidenav>
+
+    <div class="routing-container">
+        <router-outlet></router-outlet>
+    </div>
+
+</mat-sidenav-container>

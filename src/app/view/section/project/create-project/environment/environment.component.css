@@ -1,0 +1,22 @@
+.img-container {
+    padding: 20px;
+}
+
+.env-image {
+    width: 100%;
+    height: 100%;
+}
+
+@media only screen and (max-width: 600px) {
+    .env-image {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .stepper-action-btn {
+        width: 100px;
+        text-align: center !important;
+        padding: 5px !important;
+    }
+}

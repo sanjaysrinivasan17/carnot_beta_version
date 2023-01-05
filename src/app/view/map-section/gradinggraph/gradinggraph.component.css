@@ -1,0 +1,100 @@
+.compact-sidebar {
+    height: 280px;
+    width: 100%;
+    position: fixed;
+    z-index: 100;
+    background-color: var(--white);
+    box-shadow: 0px 3px 6px var(--shadow);
+    overflow-x: hidden;
+    display: flex-start;
+    justify-content: center;
+    bottom: 0px;
+    left: 60px;
+    background-color: var(--white);
+}
+
+.compact-sidebar .menu {
+    height: 50px;
+    width: 50px;
+    color: #eee;
+    position: relative;
+    cursor: pointer;
+}
+
+.compact-sidebar .menu .menu-icon {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    width: 20px;
+    color: #eee;
+}
+
+.compact-sidebar .menu .fa {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    width: 20px;
+    color: #eee;
+}
+
+.menu .active {
+    color: var(--primary);
+}
+
+.compact-sidebar .menu .menu-active {
+    width: 0px;
+    height: 75%;
+    background-color: var(--primary);
+    border-radius: 25%;
+    position: absolute;
+    right: -5px;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+}
+
+.compact-sidebar .sidebar-menu .top-section {
+    position: relative;
+    top: 50px;
+    width: 52px;
+}
+
+.compact-sidebar .sidebar-menu .bottom-section {
+    position: fixed;
+    bottom: 40px;
+    width: 52px;
+}
+
+.sidebar-card .header {
+    padding: 15px 0px;
+    display: inline-block;
+    position: relative;
+}
+
+.sidebar-card .header .title {
+    font-size: 25px;
+    font-family: 'Montserrat', Helvetica, sans-serif;
+    font-weight: 800;
+    letter-spacing: 1px;
+    position: relative;
+    top: 5px;
+    float: left;
+}
+
+.sidebar-card .header .action {
+    float: right;
+    font-family: 'Montserrat', Helvetica, sans-serif;
+    font-size: 14px;
+}
+
+td {
+    font-family: 'Montserrat ', Helvetica, sans-serif;
+    padding: 5px;
+    width: 100%;
+}

@@ -1,0 +1,30 @@
+<div class="row mt-4">
+    <div class="col-sm-6">
+        <mat-card class="anal-graphs">
+            <mat-card-title>
+                <div class="anal-graph-title">
+                    <h3 class="page-titless" style="font-family: 'Montserrat', Helvetica, sans-serif;">Health History</h3>
+                </div>
+            </mat-card-title>
+            <mat-card-content>
+                <div id="chart7">
+                    <apx-chart [series]="chartOptions7.series" [chart]="chartOptions7.chart" [xaxis]="chartOptions7.xaxis" [stroke]="chartOptions7.stroke" [grid]="chartOptions7.grid" [tooltip]="chartOptions7.tooltip" [dataLabels]="chartOptions7.dataLabels"></apx-chart>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+    <div class="col-sm-6">
+        <mat-card class="anal-graphs" style="height: 417px;">
+            <mat-card-title>
+                <div class="anal-graph-title">
+                    <h3 class="page-titless" style="font-family: 'Montserrat', Helvetica, sans-serif;">Health History</h3>
+                </div>
+            </mat-card-title>
+            <mat-card-content>
+                <div id="chart8">
+                    <apx-chart [series]="chartOptions8.series" [chart]="chartOptions8.chart" [plotOptions]="chartOptions8.plotOptions" [labels]="chartOptions8.labels"></apx-chart>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

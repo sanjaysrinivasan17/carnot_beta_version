@@ -1,0 +1,212 @@
+<mat-card class="mt-5">
+    <mat-card-content>
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <div class="p-1">
+                    <h4 class="step-heading">Create Project</h4>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <mat-form-field appearance="fill" class="w-100">
+                                <mat-label style="font-family: 'Montserrat', Helvetica, sans-serif;">Project Name
+                                </mat-label>
+                                <input matInput placeholder="Enter Project Name" #pro_name>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-4">
+                            <mat-form-field appearance="fill" class="w-100">
+                                <mat-label style="font-family: 'Montserrat', Helvetica, sans-serif;">Plant Capacity (in MW)
+                                </mat-label>
+                                <input type="number" matInput placeholder="Enter Plant Size in MW" #plant_size>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-md-4">
+                            <mat-form-field appearance="fill" class="w-100">
+                                <mat-label style="font-family: 'Montserrat', Helvetica, sans-serif;">Plant Capacity (in MWp)
+                                </mat-label>
+                                <input type="number" matInput placeholder="Enter Plant Capacity in MWp" #plant_capacity>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-md-4">
+                            <mat-form-field color="primary" appearance="fill" class="w-100">
+                                <mat-label style="font-family: 'Montserrat', Helvetica, sans-serif;">Date</mat-label>
+                                <input matInput [matDatepicker]="picker1" #s_date>
+                                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                <mat-datepicker #picker1></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-md-12">
+                            <mat-form-field appearance="fill" class="w-100">
+                                <mat-label style="font-family: 'Montserrat', Helvetica, sans-serif;">Description
+                                </mat-label>
+                                <textarea #desc matInput placeholder="Write Description here...."></textarea>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-4">
+                            <mat-form-field appearance="fill" class="w-100">
+                                <mat-label>Type of Module</mat-label>
+                                <mat-select style="font-family: 'Montserrat', Helvetica, sans-serif;" (selectionChange)="module($event.value)">
+                                    <mat-option style="font-family: 'Montserrat', Helvetica, sans-serif;" value="Polycrystalline">Polycrystalline</mat-option>
+                                    <mat-option style="font-family: 'Montserrat', Helvetica, sans-serif;" value="Thin films">Thin films</mat-option>
+                                    <mat-option style="font-family: 'Montserrat', Helvetica, sans-serif;" value="Monocrystalline">Monocrystalline</mat-option>
+                                    <mat-option style="font-family: 'Montserrat', Helvetica, sans-serif;" value="Bifacial">Bifacial</mat-option>
+                                    <mat-option style="font-family: 'Montserrat', Helvetica, sans-serif;" value="Mono-PERC">Mono-PERC</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-3">
+                            <mat-form-field appearance="fill" class="w-100">
+                                <mat-label style="font-family: 'Montserrat', Helvetica, sans-serif;">Module Rating
+                                </mat-label>
+                                <input matInput placeholder="Module Rating" #Module_Rating>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-2">
+                            <mat-form-field appearance="fill" class="w-100">
+                                <mat-label style="font-family: 'Montserrat', Helvetica, sans-serif;">Manufacturer
+                                </mat-label>
+                                <input matInput placeholder="Manufacturer" #Manufacturer>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-md-2">
+                            <mat-form-field appearance="fill" class="w-100">
+                                <mat-label style="font-family: 'Montserrat', Helvetica, sans-serif;">Model No
+                                </mat-label>
+                                <input matInput placeholder="Model No" #Model_No>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-1">
+                            <!-- <mat-form-field appearance="fill" class="w-100"> -->
+                            <!-- <mat-label>Model No: </mat-label> -->
+                            <!-- <span appearance="fill" style="padding-top: 10px;" class="material-icons w-100">
+                                    add
+                                </span> -->
+                            <!-- </mat-form-field> -->
+                        </div>
+                        <!-- <div class="col-md-2">
+                            <mat-form-field appearance="fill" class="w-100">
+                                <span class="material-icons">
+                                    add
+                                </span>
+                            </mat-form-field>
+                        </div> -->
+                        <div class="col-md-4">
+                            <mat-form-field appearance="fill" class="w-100">
+                                <mat-label>Type of Table</mat-label>
+                                <mat-select style="font-family: 'Montserrat', Helvetica, sans-serif;" (selectionChange)="table($event.value)">
+                                    <mat-option style="font-family: 'Montserrat', Helvetica, sans-serif;" value="Fixed Structure">Fixed Structure</mat-option>
+                                    <mat-option style="font-family: 'Montserrat', Helvetica, sans-serif;" value="Tracker">Tracker</mat-option>
+                                    <mat-option style="font-family: 'Montserrat', Helvetica, sans-serif;" value="Fixed Structure & Tracker">Fixed Structure & Tracker</mat-option>
+                                    <mat-option style="font-family: 'Montserrat', Helvetica, sans-serif;" value="Fixed Structure & Rotate">Fixed Structure & Rotate</mat-option>
+                                    <mat-option style="font-family: 'Montserrat', Helvetica, sans-serif;" value="Seasonal Tilt">Seasonal Tilt</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-4">
+                            <mat-form-field appearance="fill" class="w-100">
+                                <mat-label>Type of Inverter</mat-label>
+                                <mat-select style="font-family: 'Montserrat', Helvetica, sans-serif;" (selectionChange)="inverter($event.value)">
+                                    <mat-option style="font-family: 'Montserrat', Helvetica, sans-serif;" value="Central Inverter">Central Inverters</mat-option>
+                                    <mat-option style="font-family: 'Montserrat', Helvetica, sans-serif;" value="String Inverter">String Inverter</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-4">
+                            <mat-form-field appearance="fill" class="w-100">
+                                <mat-label style="font-family: 'Montserrat', Helvetica, sans-serif;" class="field-content">Country</mat-label>
+                                <mat-select style="font-family: 'Montserrat', Helvetica, sans-serif;" placeholder="Select Country" (selectionChange)="selectChange($event.value);">
+                                    <mat-option style="font-family: 'Montserrat', Helvetica, sans-serif;" *ngFor="let country of country_data" [value]="country.isoCode">
+                                        {{country.name }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-4">
+                            <mat-form-field appearance="fill" class="w-100">
+                                <mat-label style="font-family: 'Montserrat', Helvetica, sans-serif;" class="field-content">State</mat-label>
+                                <mat-select style="font-family: 'Montserrat', Helvetica, sans-serif;" placeholder="Select State" (selectionChange)="selectState($event.value);">
+                                    <mat-option *ngFor="let state of states_data" [value]="state.isoCode">
+                                        {{ state.name }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-4">
+                            <mat-form-field appearance="fill" class="w-100">
+                                <mat-label style="font-family: 'Montserrat', Helvetica, sans-serif;" class="field-content">City</mat-label>
+                                <mat-select style="font-family: 'Montserrat', Helvetica, sans-serif;" placeholder="Select City" (selectionChange)="selectCity($event.value);city($event.value)">
+                                    <mat-option *ngFor="let city_data of cities_data" [value]="city_data.name">
+                                        {{ city_data.name }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <!-- <div class="col-md-4">
+                            <mat-form-field appearance="fill" class="w-100">
+                                <mat-label>Country</mat-label>
+                                <mat-select (selectionChange)="country($event.value)">
+                                    <mat-option value="INDIA">INDIA</mat-option>
+                                    <mat-option value="UAE">UAE</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-4">
+                            <mat-form-field appearance="fill" class="w-100">
+                                <mat-label>State or Province</mat-label>
+                                <mat-select (selectionChange)="state($event.value)">
+                                    <mat-option value="Tamilnadu">Tamilnadu</mat-option>
+                                    <mat-option value="xxxx">xxxx</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-4">
+                            <mat-form-field appearance="fill" class="w-100">
+                                <mat-label>City</mat-label>
+                                <mat-select (selectionChange)="city($event.value)">
+                                    <mat-option value="CHENNAI">CHENNAI</mat-option>
+                                    <mat-option value="TRICHY">TRICHY</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="col-lg-5 col-md-6 img-container">
+                <img src="../../assets/images/createproject.svg" class="env-image">
+            </div> -->
+        </div>
+    </mat-card-content>
+    <mat-card-actions class="pt-3 pl-2 pr-2 pb-2 action">
+
+        <!-- <button mat-raised-button color="primary" (click)="onClick($event)">
+            <mat-icon>add</mat-icon>
+            {{chooseLabel}}
+        </button> -->
+        <div class="upload-btn-wrapper pt-1 pl-2 pr-2 pb--10 " style="padding-top: 30%;">
+            <!-- <button class=" btn float left p-2 pl-7 pr-8  stepper-action-btn text-uppercase "></button> -->
+            <button mat-button class="btn stepper-action-btn text-uppercase" style="font-family: 'Montserrat', Helvetica, sans-serif;">Import Overall PV Array Layout
+                <input #fileUpload type="file" (input)="onInput($event)" (change)="onFileSelected($event)"
+                    [(ngModel)]="inputFileName" accept=".dwg,.kml">
+            </button> (.dwg / .kml)
+        </div>
+        <div *ngFor="let f of files">
+            <span>{{f.name}}</span>
+            <button mat-icon-button color="primary" [attr.title]="deleteButtonLabel?deleteButtonLabel:null" (click)="removeFile(f)">
+
+                <mat-icon>{{deleteButtonIcon}}</mat-icon>
+            </button>
+        </div>
+    </mat-card-actions>
+    <!-- <mat-card-actions class="pt-3 pl-2 pr-2 pb-2 action custom-btn">
+        <button mat-button mat-raised-button class="mr-4" style="background-color: var(--primary); color: #fff;" (click)="next(pro_name.value,plant_size.value,plant_capacity.value,s_date.value,desc.value)">NEXT</button>
+        <button mat-button mat-raised-button class="mr-4" style="background-color: var(--primary); color: #fff;" (click)="create_new_Project(pro_name.value,plant_size.value,plant_capacity.value,s_date.value,desc.value)">SAVE</button>
+    </mat-card-actions> -->
+    <mat-card-actions class="pt-3 pl-2 pr-2 pb-3 action">
+        <button mat-button class="btn float left p-1 pl-5 pr-5 stepper-action-btn text-uppercase" (click)="next(pro_name.value,plant_size.value,plant_capacity.value,s_date.value,desc.value)" style="font-family: 'Montserrat', Helvetica, sans-serif;">NEXT</button>
+        <button mat-button class="btn float left p-1 pl-5 pr-5 stepper-action-btn text-uppercase" (click)="create_new_Project(pro_name.value,plant_size.value,plant_capacity.value,s_date.value,desc.value)" style="font-family: 'Montserrat', Helvetica, sans-serif;">SAVE</button>
+    </mat-card-actions>
+</mat-card>
+<!-- <button routerLink="/faq">MAP</button> -->

@@ -1,0 +1,46 @@
+<h2 mat-dialog-title>Project Report </h2>
+<hr>
+<mat-dialog-content class="mat-typography">
+
+    <mat-card class="example-card">
+        <mat-card-title>Hero</mat-card-title>
+        <mat-card-subtitle>Trichy</mat-card-subtitle>
+        <mat-card-content>
+            Date of Acquisition : 2021-04-29 <br> Status of the project : Yet to start
+        </mat-card-content>
+        <mat-card-actions align="end">
+            <button mat-button>  Save </button>
+        </mat-card-actions>
+    </mat-card>
+
+    <mat-card class="example-card1 ">
+        <mat-card-title>Demo Test</mat-card-title>
+        <mat-card-subtitle>Chennai</mat-card-subtitle>
+        <mat-card-content>
+            Date of Acquisition : 2021-04-29 <br> Status of the project : Completed
+        </mat-card-content>
+        <mat-card-actions align="end">
+            <button mat-button> Save </button>
+        </mat-card-actions>
+    </mat-card>
+
+
+    <mat-card class="example-card2">
+        <mat-card-title>Sample</mat-card-title>
+        <mat-card-subtitle>UAE</mat-card-subtitle>
+        <mat-card-content>
+            Date of Acquisition : 2021-05-03 <br> Status of the project : In Progress
+        </mat-card-content>
+        <mat-card-actions align="end">
+            <button mat-button> Save </button>
+        </mat-card-actions>
+    </mat-card>
+
+
+
+
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Install</button>
+</mat-dialog-actions>

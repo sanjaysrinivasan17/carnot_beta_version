@@ -1,0 +1,55 @@
+<mat-toolbar>
+    <span class="app-logo" *ngIf="token_based_logo == 'new' else logo_change">
+        <!-- <span class="logo">
+            Carnot
+        </span> -->
+    <img class="logo" style="width: 135px;height: 30px;" src="../../../../assets/images/Data See logo.png" routerLink="/app/home">
+    </span>
+
+    <ng-template #logo_change>
+        <span class="app-logo">
+            <img class="logo" style="width: 95px;height: 55px;"
+                src="../../../../assets/images/Mahinda-Teqo-logo.jpeg" routerLink="/app/home">
+        </span>
+    </ng-template>
+    <span class="menu-section" fxShow="true" fxHide.lt-md="true">
+
+        <div class="quick-menu">
+            <span class="account">
+                <!-- <button mat-icon-button color="primary">
+                    <mat-icon>settings</mat-icon>
+                </button>
+                <button mat-icon-button color="primary">
+                    <mat-icon matBadge="1" matBadgeColor="accent">notifications</mat-icon>
+                </button> -->
+            </span>
+    </div>
+
+    <button class="user-details ml-4" mat-button [matMenuTriggerFor]="menu">
+            <div class="user-avatar">
+                <div class="username-f-letter">{{firstletter}}</div>
+            </div>
+            <div class="user-info" style="font-family: 'Montserrat', Helvetica, sans-serif;">
+                <!-- <div class="username">
+                    {{firstname}} {{lastname}}
+                </div>
+                <div class="role" style="font-family: 'Montserrat', Helvetica, sans-serif;">
+                    Admin
+                </div> -->
+            </div>
+        </button>
+    <mat-menu #menu="matMenu">
+         <button mat-menu-item routerLink="myprofile" routerLinkActive="menu-active" style="font-family: 'Montserrat', Helvetica, sans-serif;"><mat-icon>account_circle</mat-icon>My Profile</button>
+         <button mat-menu-item>Account Settings</button> 
+        <button mat-menu-item routerLink="manageuser" routerLinkActive="menu-active" style="font-family: 'Montserrat', Helvetica, sans-serif;"><mat-icon>supervised_user_circle</mat-icon>Manage users</button>
+        <button mat-menu-item (click)="logout()" style="font-family: 'Montserrat', Helvetica, sans-serif;">
+                <mat-icon>logout</mat-icon>Logout
+            </button>
+    </mat-menu>
+    </span>
+    <span class="menu-toggle" fxShow="true" fxHide.gt-sm="true">
+        <button mat-icon-button (click)="openSidebar()">
+            <mat-icon>menu</mat-icon>
+        </button>
+    </span>
+</mat-toolbar>

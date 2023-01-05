@@ -1,0 +1,174 @@
+<div class="row" [formGroup]="Form">
+    <mat-tab-group animationDuration="0ms" (selectedTabChange)="tabClick($event)" mat-align-tabs="center">
+        <mat-tab label="Files Upload">
+            <div class="header" style="z-index: 1000; text-transform:uppercase; background-color: transparent;width: 350px;height: 40px;">
+            
+                <marquee width="60%" direction="left" height="100px" scrollamount=3 >
+                    {{projname}}
+                </marquee>
+                  
+            </div>
+            <mat-card class="cardd" id="cardd">
+                <div class="row">
+                    <div>
+                        <mat-card appearance="outlined" style="width: 220px;background-color: white;padding-bottom: 6px;margin-left: 120px;border: 1px solid black;height: 50px;">
+                            <mat-select style="height: 20px;width:200px;vertical-align: middle;padding-left: 5px;text-align: center;font-family: 'Montserrat', Helvetica, sans-serif;background-color: white;" matTooltip="Select File Type" placeholder="Choose a type" (selectionChange)="selectChange($event);">
+
+                                <mat-option value="Orthomosaic" style="background-color: white;font-family: 'Montserrat', Helvetica, sans-serif;">
+                                    Orthomosaic</mat-option>
+                                <mat-option value="CAD" style="background-color: white;font-family: 'Montserrat', Helvetica, sans-serif;">
+                                    CAD</mat-option>
+                                <mat-option value="Point cloud" style="background-color: white;font-family: 'Montserrat', Helvetica, sans-serif;">
+                                    Point cloud</mat-option>
+                                <mat-option value="GCP" style="background-color: white;font-family: 'Montserrat', Helvetica, sans-serif;">
+                                    GCP</mat-option>
+                            </mat-select>
+                        </mat-card>
+
+                    </div>
+                </div>
+
+                <div class="row" class="card1" id="file" style="display:none">
+                    <input #fileUpload type="file" formControlName="image" multiple (change)="onSelectFile($event)" accept=".jpg,.png" id="file_upload_format">
+                    <br>
+                    <mat-label id="file_format">accepted file format .jpg,.png</mat-label>
+
+                    <button mat-button class="btn pl-5 pr-5 stepper-action-btn login-btn text-uppercase" style="font-family: 'Montserrat', Helvetica, sans-serif; bottom: -62px; left: 55px;
+                right: -40px;" (click)="uploadFiles()">Submit</button>
+
+                </div>
+
+
+            </mat-card>
+            <div class="row">
+                <mat-card class="card2">
+                    <table>
+                        <tr>
+                            <th>Index</th>
+                            <th>Name</th>
+                            <th>Size</th>
+                            <th>Relative path</th>
+                            <th>Assigned Date</th>
+                            <th>Progress</th>
+                            <th>Completed</th>
+                        </tr>
+                        <tr *ngFor="let i of upload_File;let k=index">
+                            <td>{{k+1}}</td>
+                            <td>{{i[k]['filename']}}</td>
+                            <td>{{i[k]['size']}}</td>
+                            <td>{{i[k]['url']}}</td>
+                            <td>{{i[k]['created_date']}}</td>
+                            <td>100%</td>
+                            <td>
+                                <mat-icon style="color: green">check</mat-icon>
+                            </td>
+                        </tr>
+                    </table>
+
+                </mat-card>
+            </div>
+        </mat-tab>
+        <!-- Additional Files Upload -->
+
+        <mat-tab label="Images Upload">
+            <div class="header" style="z-index: 1000; text-transform:uppercase; background-color: transparent;width: 350px;height: 40px;">
+            
+                <marquee width="60%" direction="left" height="100px" scrollamount=3 >
+                    {{projname}}
+                </marquee>
+                  
+            </div>
+            <mat-card class="cardd" id="cardd">
+                 
+                <div class="row">
+                    <span class="col-5">Please enter Mission number: </span><span class="col-3"><input
+                            type="number" formControlName="Mission" id="mission_count"  min="0" #mission_count required></span>
+                    <!-- <span class='material-icons' style="color: #4d94ff;padding-left: 10px;" class="col-1" >send</span> -->
+                </div>
+               
+                <div class="row" style="padding-top: 10px;padding-bottom: 10px;" id="flight_type">
+                    <span class="col-5">Please enter Mission - {{mission_count.value}} Flight number </span><span class="col-3"><input
+                            type="number" formControlName="Flight" id="flight_count" min="0" #flight_count required></span>
+                    <!-- <span class='material-icons' style="color: #4d94ff;padding-left: 10px;" class="col-1">send</span> -->
+                </div>
+                <div class="row" id="file_type">
+                    <div>
+                        <!-- <span class="col-5">Please Select File type</span> -->
+                        <span class="col-3">
+                            <mat-card appearance="outlined"
+                                style="width: 220px;background-color: white;padding-bottom: 6px;margin-left: 120px;border: 1px solid black;height: 50px;">
+
+                                <mat-select
+                                    style="height: 20px;width:200px;vertical-align: middle;padding-left: 5px;text-align: center;font-family: 'Montserrat', Helvetica, sans-serif;background-color: white;"
+                                    matTooltip="Select File Type" placeholder="Select File Type"
+                                    (selectionChange)="selectChange_aditional_file_type();">
+                                    
+                                    <mat-option value="Images"
+                                        style="background-color: white;font-family: 'Montserrat', Helvetica, sans-serif;">
+                                        Images</mat-option>
+
+                                </mat-select>
+                            </mat-card>
+                        </span>
+                    </div>
+                </div>
+                <div class="row" id="image_type" style="display:none">
+                    <div>
+                        <mat-card appearance="outlined" style="width: 220px;background-color: white;padding-bottom: 6px;margin-left: 120px;border: 1px solid black;height: 50px;">
+                            <mat-select style="height: 20px;width:200px;vertical-align: middle;padding-left: 5px;text-align: center;font-family: 'Montserrat', Helvetica, sans-serif;background-color: white;" matTooltip="Please Select Image type" placeholder="Please Select Image type"
+                                (selectionChange)="selectChange_aditional();">
+
+                                <mat-option value="RGB" style="background-color: white;font-family: 'Montserrat', Helvetica, sans-serif;">
+                                    RGB</mat-option>
+                                <mat-option value="Thermal" style="background-color: white;font-family: 'Montserrat', Helvetica, sans-serif;">
+                                    Thermal</mat-option>
+
+                            </mat-select>
+                        </mat-card>
+
+                    </div>
+                </div>
+
+                <div class="row" class="card1" id="file" style="display:none">
+                    <input #fileUpload type="file" formControlName="image" multiple (change)="onSelect_AdditionalFile($event);" accept=".jpg,.png" id="file_upload_format">
+                    <br>
+                    <mat-label id="file_format">accepted file format .jpg,.png</mat-label>
+
+                    <button mat-button class="btn pl-5 pr-5 stepper-action-btn login-btn text-uppercase" style="font-family: 'Montserrat', Helvetica, sans-serif; bottom: -62px; left: 55px;
+                right: -40px;" (click)="uploadAdditionalFiles()" id="submit">Submit</button>
+
+                </div>
+
+
+            </mat-card>
+            <div class=" row " style="overflow: scroll;margin-left: 0px; ">
+                <mat-card class="card2 ">
+                    <table>
+                        <tr>
+                            <th>Index</th>
+                            <th>Name</th>
+                            <th>Size</th>
+                            <th>Relative path</th>
+                            <th>Assigned Date</th>
+                            <th>Mission</th>
+                            <th>Flight</th>
+                            <th>Location</th>
+                        </tr>
+                        <tr *ngFor="let i of upload_additional_file;let k=index ">
+                            <td>{{i['id']}}</td>
+                            <td>{{i['filename']}}</td>
+                            <td>{{i['size']}}</td>
+                            <td style="word-break:break-all ; ">{{i['url']}}</td>
+                            <td>{{i['created_date']}}</td>
+                            <td>{{i['mission']}}</td>
+                            <td>{{i['flight']}}</td>
+                            <td>{{i['latitude']}},{{i['longitude']}}</td>
+
+                        </tr>
+                    </table>
+
+                </mat-card>
+            </div>
+        </mat-tab>
+    </mat-tab-group>
+</div>

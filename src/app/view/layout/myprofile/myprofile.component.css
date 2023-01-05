@@ -1,0 +1,206 @@
+.container {
+    margin-top: 30px;
+}
+
+.profile-card {
+    position: absolute;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 40%;
+    height: fit-content;
+    border-radius: 5px;
+    box-shadow: 1px 6px 30px var(--shadow);
+    margin-bottom: 30px;
+}
+
+.user-container {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background-color: var(--primary);
+    position: relative;
+    margin: auto;
+}
+
+.user-icon {
+    font-size: 40px;
+    height: 40px;
+    width: 40px;
+    color: var(--white);
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+}
+
+.info_text {
+    position: relative;
+    top: 10px;
+    margin: auto;
+    text-transform: uppercase;
+    font-size: 14px;
+   font-family: 'Montserrat', Helvetica, sans-serif;
+   text-align: center;
+}
+
+.profile-form {
+    position: relative;
+    top: 20px;
+    margin: auto;
+    padding: 10px;
+}
+
+.field-icon {
+    color: #aaa;
+}
+
+.field-content {
+    margin-left: 10px;
+}
+
+.signup-btn-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.signup-btn {
+    position: relative;
+    text-align: center;
+    background-color: var(--primary);
+    color: var(--white);
+    width: 200px;
+    height: 50px;
+    border-radius: 30px;
+}
+
+.forgot {
+    float: right;
+    color: var(--lite) !important;
+    position: relative;
+    top: 3px;
+}
+
+.signup-text {
+    color: var(--primary);
+    cursor: pointer;
+}
+
+.action-container {
+    display: flow-root;
+}
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-infix {
+    padding: 1em 0px 1em 10px;
+}
+
+::ng-deep .mat-form-field-wrapper {
+    padding-bottom: 1em;
+}
+
+::ng-deep input.mat-input-element {
+    position: relative;
+    top: -3px;
+}
+
+@media only screen and (max-width: 600px) {
+    .signup-card {
+        width: 100% !important;
+    }
+}
+
+@media only screen and (max-width: 960px) {
+    .signup-card {
+        width: 80%;
+    }
+}
+
+
+/* img{
+    height: 150px;
+} */
+
+body {
+    height: 100vh;
+    width: 100%;
+}
+
+.profile-pic-div {
+    height: 190px;
+    width: 186px;
+    transform: translate(115%, -5%);
+    border-radius: 50%;
+    overflow: hidden;
+    border: 1px solid wheat;
+    box-shadow: 0px 3px 6px var(--shadow);
+}
+
+#photo {
+    height: 100%;
+    width: 100%;
+    border-radius: 76px;
+}
+
+#file {
+    display: none;
+}
+
+#uploadBtn {
+    height: 40px;
+    width: 100%;
+    position: absolute;
+    bottom: -4%;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    background: transparent;
+    color: var(--white);
+    line-height: 30px;
+    font-family: 'Montserrat', Helvetica, sans-serif;
+    font-size: 13px;
+    cursor: pointer;
+}
+#uploadBtn:hover {
+    height: 43px;
+    width: 100%;
+    position: absolute;
+    bottom: -4%;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    background: transparent;
+    color: var(--white);
+    text-decoration: None !important; 
+    line-height: 30px;
+    font-family: 'Montserrat', Helvetica, sans-serif;
+    font-size: 13px;
+    cursor: pointer;
+}
+input{
+   font-family: 'Montserrat', Helvetica, sans-serif;
+}
+
+.info_text {
+    position: relative;
+    top: 10px;
+    margin: auto;
+    text-transform: uppercase;
+    font-family: 'Montserrat', Helvetica, sans-serif;
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 24px;
+}
+
+
+.user-container {
+    width: 170px;
+    height: 165px;
+    border-radius: 50%;
+    background-color: var(--primary);
+    position: relative;
+    margin: auto;
+}

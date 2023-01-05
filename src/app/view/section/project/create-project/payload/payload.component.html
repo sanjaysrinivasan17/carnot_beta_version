@@ -1,0 +1,81 @@
+<mat-card class="mt-5">
+    <mat-card-content>
+        <div class="row">
+            <div class="col-lg-7 col-md-6">
+                <div class="p-1">
+                    <h4 class="step-heading">All Set, Provide Payload Data</h4>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <mat-form-field appearance="fill" class="w-100">
+                                <mat-label style="font-family: 'Montserrat', Helvetica, sans-serif;">Resolution</mat-label>
+                                <input matInput placeholder="Enter Resolution">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-6">
+                            <mat-form-field appearance="fill" class="w-100">
+                                <mat-label style="font-family: 'Montserrat', Helvetica, sans-serif;">Frame Rate</mat-label>
+                                <input matInput placeholder="Enter Frame Rate">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-4">
+                            <mat-form-field appearance="fill" class="w-100">
+                                <mat-label style="font-family: 'Montserrat', Helvetica, sans-serif;">Flight Speed</mat-label>
+                                <input matInput placeholder="Enter Flight Speed">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-8">
+                            <mat-form-field appearance="fill" class="w-100">
+                                <mat-label style="font-family: 'Montserrat', Helvetica, sans-serif;">Radiometry Capability</mat-label>
+                                <mat-select>
+                                    <mat-option value="1">Option 1</mat-option>
+                                    <mat-option value="2">Option 2</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-6">
+                            <mat-form-field appearance="fill" class="w-100">
+                                <mat-label style="font-family: 'Montserrat', Helvetica, sans-serif;">Integration</mat-label>
+                                <mat-select>
+                                    <mat-option value="1">Option 1</mat-option>
+                                    <mat-option value="2">Option 2</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-6">
+                            <mat-form-field appearance="fill" class="w-100">
+                                <mat-label style="font-family: 'Montserrat', Helvetica, sans-serif;">Lens Focal</mat-label>
+                                <mat-select>
+                                    <mat-option value="1">Option 1</mat-option>
+                                    <mat-option value="2">Option 2</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-6">
+                            <mat-form-field appearance="fill" class="w-100">
+                                <mat-label style="font-family: 'Montserrat', Helvetica, sans-serif;">Angle of View</mat-label>
+                                <input matInput placeholder="Enter Angle of View">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-6">
+                            <mat-form-field appearance="fill" class="w-100">
+                                <mat-label style="font-family: 'Montserrat', Helvetica, sans-serif;">Height</mat-label>
+                                <input matInput placeholder="Enter Height">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5 col-md-6 img-container">
+                <img src="../../assets/images/drone.svg" class="env-image">
+            </div>
+        </div>
+    </mat-card-content>
+    <mat-card-actions class="p-2 action">
+        <div class="float-left">
+            <button mat-button class="btn p-1 pl-5 pr-5 mr-1 stepper-action-btn text-uppercase" (click)="prev()">PREV</button>
+            <button mat-button class="btn p-1 pl-5 pr-5 stepper-action-btn text-uppercase" (click)="next()">NEXT</button>
+        </div>
+    </mat-card-actions>
+</mat-card>
+
+<!-- <button routerLink="/faq">MAP</button> -->

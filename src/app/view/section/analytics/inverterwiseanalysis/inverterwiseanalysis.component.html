@@ -1,0 +1,33 @@
+<div class="row mt-4">
+    <div class="col-sm-6">
+        <mat-card class="anal-graphs">
+            <mat-card-title>
+                <div class="anal-graph-title">
+                    <h3 class="page-titless" style="font-family: 'Montserrat', Helvetica, sans-serif;">Inverter-Wise Analysis</h3>
+                </div>
+            </mat-card-title>
+            <mat-card-content>
+                <div id="chart5">
+                    <apx-chart [series]="chartOptions5.series" [chart]="chartOptions5.chart" [dataLabels]="chartOptions5.dataLabels" [plotOptions]="chartOptions5.plotOptions" [responsive]="chartOptions5.responsive" [grid]="chartOptions5.grid" [xaxis]="chartOptions5.xaxis"
+                        [legend]="chartOptions5.legend" [fill]="chartOptions5.fill"></apx-chart>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+
+    <div class="col-sm-6">
+        <mat-card class="anal-graphs">
+            <mat-card-title>
+                <div class="anal-graph-title">
+                    <h3 class="page-titless" style="font-family: 'Montserrat', Helvetica, sans-serif;">Inverter-Wise Analysis</h3>
+                </div>
+            </mat-card-title>
+            <mat-card-content>
+                <div id="chart6">
+                    <apx-chart [series]="chartOptions6.series" [chart]="chartOptions6.chart" [dataLabels]="chartOptions6.dataLabels" [plotOptions]="chartOptions6.plotOptions" [xaxis]="chartOptions6.xaxis" [stroke]="chartOptions6.stroke" [fill]="chartOptions6.fill" [grid]="chartOptions6.grid"
+                        [yaxis]="chartOptions6.yaxis" [title]="chartOptions6.title" [tooltip]="chartOptions6.tooltip" [legend]="chartOptions6.legend"></apx-chart>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

@@ -1,0 +1,1708 @@
+<div class="container-fluid pt-2 pl-4">
+
+    <mat-tab-group animationDuration="0ms" class="cstm_tab mt-4" (selectedTabChange)="tabClick($event)">
+
+        <mat-tab style="font-family: 'Montserrat', Helvetica, sans-serif;" label="Power Loss Metrics">
+
+            <mat-spinner *ngIf="resourcesLoaded"></mat-spinner>
+            <div *ngIf="firstvalue == ''; else onchange">
+                <div class="stats-container" *ngIf="power_loss_values == '' else templateName" style="display:block" id="powerlo">
+                    <span *ngIf="firstvalue == ''" style="font-family: 'Montserrat', Helvetica, sans-serif;">There is no
+                        data for the given date</span>
+                    <span *ngElse></span>
+                </div>
+                <ng-template #templateName>
+                    <div class="stats-container" style="display:block" id="powerlo">
+                        <mat-card class="anal-graphs">
+                            <mat-card-title>
+                                <div class="anal-graph-title">
+                                    <h3 class="page-titless" style="font-family: 'Montserrat', Helvetica, sans-serif;">
+                                        Power Loss Metrics<span style="font-family: 'Montserrat', Helvetica, sans-serif;;text-transform: uppercase;"><b>
+                                                - {{Project_Name}} </b> </span></h3>
+                                </div>
+                            </mat-card-title>
+                            <mat-card-content>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <td>
+                                            <div class="stats-container">
+                                                <div class="card l-box" style="background-color: #f2f2f2 ;">
+                                                    <div class="rowcard">
+                                                        <div class="col-8" style="padding-left: 30px;padding-top: 20px;">
+                                                            <div class="mb-4">
+                                                                <h5 class="card-title mb-0" style="font-size: 17px;">
+                                                                    <b>Total capacity scanned</b>
+                                                                </h5>
+                                                            </div>
+                                                            <div class="rowcard align-items-center mb-2 d-flex">
+                                                                <div class="col-12">
+                                                                    <h2 class="d-flex align-items-center mb-0" style="font-size: x-large;">
+                                                                        {{plant_capacity_datewise}} MW
+                                                                    </h2>
+                                                                    <span style="font-size: 13px;">Inspected till
+                                                                        date</span>
+                                                                </div>
+
+                                                            </div>
+                                                            <!-- <div class="progress mt-1 " data-height="0" style="height: 0px;">
+                                                        <div class="progress-bar l-bg-cyan" role="progressbar" data-width="25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25%;">
+                                                        </div>
+                                                    </div> -->
+                                                        </div>
+                                                        <div class="col-4" style="padding-left: 0px;padding-top: 40px;">
+                                                            <div class="col-4 text-left">
+                                                                <button mat-fab color="white" aria-label="Example icon button with a bookmark icon" style="background-color: var(--primary);color:white;">
+                                                                    <mat-icon>widgets</mat-icon>
+                                                                </button>
+                                                                <!-- <apx-chart [series]="chartOptions5.series" [chart]="chartOptions5.chart" [dataLabels]="chartOptions5.dataLabels" [plotOptions]="chartOptions5.plotOptions" [yaxis]="chartOptions5.yaxis" [legend]="chartOptions5.legend" [fill]="chartOptions5.fill" [tooltip]="chartOptions5.tooltip"
+                                                            [xaxis]="chartOptions5.xaxis" [grid]="chartOptions5.grid">
+                                                        </apx-chart> -->
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <td>
+                                            <div class="stats-container">
+                                                <div class="card l-box" style="background-color: #f2f2f2 ;">
+                                                    <div class="rowcard">
+                                                        <div class="col-8" style="padding-left: 30px;padding-top: 20px;">
+                                                            <div class="mb-4">
+                                                                <h5 class="card-title mb-0" style="font-size: 17px;">
+                                                                    <b>Net
+                                                                        Power Loss</b>
+                                                                </h5>
+                                                            </div>
+                                                            <div class="rowcard align-items-center mb-2 d-flex">
+                                                                <div class="col-12">
+                                                                    <h2 class="d-flex align-items-center mb-0" style="font-size: x-large;">
+                                                                        {{total_power_loss_datewise}} kW
+                                                                    </h2>
+                                                                    <span style="font-size: 13px;">Estimated Power
+                                                                        Loss</span>
+                                                                </div>
+
+                                                            </div>
+                                                            <!-- <div class="progress mt-1 " data-height="0" style="height: 0px;">
+                                                        <div class="progress-bar l-bg-cyan" role="progressbar" data-width="25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25%;">
+                                                        </div>
+                                                    </div> -->
+                                                        </div>
+                                                        <div class="col-4" style="padding-left: 0px;padding-top: 40px;">
+                                                            <div class="col-4 text-left">
+                                                                <button mat-fab color="white" aria-label="Example icon button with a bookmark icon" style="background-color: var(--primary);color:white;">
+                                                                    <mat-icon>flash_on</mat-icon>
+                                                                </button>
+                                                                <!-- <apx-chart [series]="chartOptions5.series" [chart]="chartOptions5.chart" [dataLabels]="chartOptions5.dataLabels" [plotOptions]="chartOptions5.plotOptions" [yaxis]="chartOptions5.yaxis" [legend]="chartOptions5.legend" [fill]="chartOptions5.fill" [tooltip]="chartOptions5.tooltip"
+                                                            [xaxis]="chartOptions5.xaxis" [grid]="chartOptions5.grid">
+                                                        </apx-chart> -->
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <td>
+                                            <div class="stats-container">
+                                                <div class="card l-box" style="background-color: #f2f2f2 ;">
+                                                    <div class="rowcard">
+                                                        <div class="col-8" style="padding-left: 30px;padding-top: 20px;">
+                                                            <div class="mb-4">
+                                                                <h5 class="card-title mb-0" style="font-size: 17px;">
+                                                                    <b>No. of
+                                                                        Issues</b>
+                                                                </h5>
+                                                            </div>
+                                                            <div class="rowcard align-items-center mb-2 d-flex">
+                                                                <div class="col-8">
+                                                                    <h2 class="d-flex align-items-center mb-0" style="font-size: x-large;">
+                                                                        {{total_no_defects_datewise}}
+                                                                    </h2>
+                                                                    <span style="font-size:13px;">Issues detected
+                                                                    </span>
+                                                                </div>
+
+                                                            </div>
+                                                            <!-- <div class="progress mt-1 " data-height="0" style="height: 0px;">
+                                                        <div class="progress-bar l-bg-cyan" role="progressbar" data-width="25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25%;">
+                                                        </div>
+                                                    </div> -->
+                                                        </div>
+                                                        <div class="col-4" style="padding-left: 0px;padding-top: 40px;">
+                                                            <div class="col-4 text-left">
+                                                                <button mat-fab color="white" aria-label="Example icon button with a bookmark icon" style="background-color: var(--primary);color:white;">
+                                                                    <mat-icon>device_hub</mat-icon>
+                                                                </button>
+                                                                <!-- <apx-chart [series]="chartOptions5.series" [chart]="chartOptions5.chart" [dataLabels]="chartOptions5.dataLabels" [plotOptions]="chartOptions5.plotOptions" [yaxis]="chartOptions5.yaxis" [legend]="chartOptions5.legend" [fill]="chartOptions5.fill" [stroke]="chartOptions5.stroke"
+                                                            [tooltip]="chartOptions5.tooltip" [xaxis]="chartOptions5.xaxis" [grid]="chartOptions5.grid" [colors]="chartOptions5.colors">
+                                                        </apx-chart> -->
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </div>
+                                </div>
+                                <div class="graph-card">
+
+                                    <div class="statistic col-4">
+
+                                        <div id="summary_im" class="banner">
+                                            <img [src]="lin" width="100%" class="banner">
+                                        </div>
+
+                                        <div class="p-2">
+
+                                            <div class="title">
+                                                Defect Details
+                                            </div>
+
+                                            <div class="mt-2">
+                                                <div class="details" *ngIf="summary_def_def">
+                                                    <div class="key">
+                                                        Defect Type
+                                                    </div>
+                                                    <div class="value" id="summary_def">
+                                                        {{summary_def_def}}
+                                                    </div>
+                                                </div>
+
+                                                <div class="details" *ngIf="summary_def_cou">
+                                                    <div class="key">
+                                                        Estimated Power Loss(kW)
+                                                    </div>
+                                                    <div class="value" id="summary_cou">
+                                                        {{summary_def_cou}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="graph-container col-4">
+                                        <div id="chart1">
+                                            <apx-chart [series]="chartOptions1.series" [chart]="chartOptions1.chart" [labels]="chartOptions1.labels" [title]="chartOptions1.title" [theme]="chartOptions1.theme" [tooltip]="chartOptions1.tooltip" [colors]="chartOptions1.colors" [responsive]="chartOptions1.responsive"
+                                                [dataLabels]="chartOptions1.dataLabels" [legend]="chartOptions1.legend">
+                                            </apx-chart>
+                                        </div>
+
+                                    </div>
+                                    <div class="graph-container col-4">
+                                        <div>
+                                            <apx-chart [series]="chartOptions4s.series" [chart]="chartOptions4s.chart" [labels]="chartOptions4s.labels" [responsive]="chartOptions4s.responsive" [legend]="chartOptions4s.legend" [tooltip]="chartOptions4s.tooltip" [colors]="chartOptions4s.colors" [dataLabels]="chartOptions4s.dataLabels"
+                                                [plotOptions]="chartOptions4s.plotOptions">
+                                            </apx-chart>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </mat-card-content>
+                        </mat-card>
+                        <!-- <div class="graph-card">
+
+                            <div class="statistic">
+
+                                <div id="inverter_im" class="banner">
+                                    <img [src]="inver_lin" width="100%">
+                                </div>
+
+                                <div class="p-2">
+
+                                    <div class="title">
+                                        Defect Details
+                                    </div>
+
+                                    <div class="mt-2">
+                                        <div class="details" *ngIf="inverter_def_def">
+                                            <div class="key">
+                                                Defect Type
+                                            </div>
+                                            <div class="value" id="inverter_def">
+                                                {{inverter_def_def}}
+                                            </div>
+                                        </div>
+
+                                        <div class="details" *ngIf="inverter_def_cou">
+                                            <div class="key">
+                                                Defect Count
+                                            </div>
+                                            <div class="value" id="inverter_cou">
+                                                {{inverter_def_cou}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="graph-container">
+                                <div id="chart" *ngIf="chartOptions">
+                                    <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart" [plotOptions]="chartOptions.plotOptions" [labels]="chartOptions.labels" [legend]="chartOptions.legend" [colors]="chartOptions.colors" [responsive]="chartOptions.responsive"></apx-chart>
+                                </div>
+                            </div>
+
+                        </div> -->
+                    </div>
+                </ng-template>
+            </div>
+            <ng-template #onchange>
+                <div class="stats-container" style="display:none" id="powerlossNo">
+                    There is no data for the given date
+                </div>
+                <div class="stats-container" style="display:none" id="powerlossYes">
+
+                    <mat-card class="anal-graphs">
+                        <mat-card-title>
+                            <div class="anal-graph-title">
+                                <h3 class="page-titless">Power Loss Metrics<span style="font-family: 'Montserrat', Helvetica, sans-serif;;text-transform: uppercase;"><b>
+                                            - {{Project_Name}} </b> </span></h3>
+                            </div>
+                        </mat-card-title>
+                        <mat-card-content>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <td>
+                                        <div class="stats-container">
+                                            <div class="card l-box" style="background-color: #f2f2f2 ;">
+                                                <div class="rowcard">
+                                                    <div class="col-8" style="padding-left: 30px;padding-top: 20px;">
+                                                        <div class="mb-4">
+                                                            <h5 class="card-title mb-0" style="font-size: 17px;">
+                                                                <b>Total capacity scanned</b>
+                                                            </h5>
+                                                        </div>
+                                                        <div class="rowcard align-items-center mb-2 d-flex">
+                                                            <div class="col-12">
+                                                                <h2 class="d-flex align-items-center mb-0" style="font-size: x-large;">
+                                                                    {{plant_capacity_datewise}} MW
+                                                                </h2>
+                                                                <span style="font-size: 13px;">Inspected till
+                                                                    date</span>
+                                                            </div>
+
+                                                        </div>
+                                                        <!-- <div class="progress mt-1 " data-height="0" style="height: 0px;">
+                                                    <div class="progress-bar l-bg-cyan" role="progressbar" data-width="25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25%;">
+                                                    </div>
+                                                </div> -->
+                                                    </div>
+                                                    <div class="col-4" style="padding-left: 0px;padding-top: 40px;">
+                                                        <div class="col-4 text-left">
+                                                            <button mat-fab color="white" aria-label="Example icon button with a bookmark icon" style="background-color: var(--primary);color:white;">
+                                                                <mat-icon>widgets</mat-icon>
+                                                            </button>
+                                                            <!-- <apx-chart [series]="chartOptions5.series" [chart]="chartOptions5.chart" [dataLabels]="chartOptions5.dataLabels" [plotOptions]="chartOptions5.plotOptions" [yaxis]="chartOptions5.yaxis" [legend]="chartOptions5.legend" [fill]="chartOptions5.fill" [tooltip]="chartOptions5.tooltip"
+                                                        [xaxis]="chartOptions5.xaxis" [grid]="chartOptions5.grid">
+                                                    </apx-chart> -->
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </div>
+                                <div class="col-md-4">
+                                    <td>
+                                        <div class="stats-container">
+                                            <div class="card l-box" style="background-color: #f2f2f2 ;">
+                                                <div class="rowcard">
+                                                    <div class="col-8" style="padding-left: 30px;padding-top: 20px;">
+                                                        <div class="mb-4">
+                                                            <h5 class="card-title mb-0" style="font-size: 17px;">
+                                                                <b>Net
+                                                                    Power Loss</b>
+                                                            </h5>
+                                                        </div>
+                                                        <div class="rowcard align-items-center mb-2 d-flex">
+                                                            <div class="col-12">
+                                                                <h2 class="d-flex align-items-center mb-0" style="font-size: x-large;">
+                                                                    {{total_power_loss_datewise}} kW
+                                                                </h2>
+                                                                <span style="font-size: 13px;">Estimated Power
+                                                                    Loss</span>
+                                                            </div>
+
+                                                        </div>
+                                                        <!-- <div class="progress mt-1 " data-height="0" style="height: 0px;">
+                                                    <div class="progress-bar l-bg-cyan" role="progressbar" data-width="25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25%;">
+                                                    </div>
+                                                </div> -->
+                                                    </div>
+                                                    <div class="col-4" style="padding-left: 0px;padding-top: 40px;">
+                                                        <div class="col-4 text-left">
+                                                            <button mat-fab color="white" aria-label="Example icon button with a bookmark icon" style="background-color: var(--primary);color:white;">
+                                                                <mat-icon>flash_on</mat-icon>
+                                                            </button>
+                                                            <!-- <apx-chart [series]="chartOptions5.series" [chart]="chartOptions5.chart" [dataLabels]="chartOptions5.dataLabels" [plotOptions]="chartOptions5.plotOptions" [yaxis]="chartOptions5.yaxis" [legend]="chartOptions5.legend" [fill]="chartOptions5.fill" [tooltip]="chartOptions5.tooltip"
+                                                        [xaxis]="chartOptions5.xaxis" [grid]="chartOptions5.grid">
+                                                    </apx-chart> -->
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </div>
+                                <div class="col-md-4">
+                                    <td>
+                                        <div class="stats-container">
+                                            <div class="card l-box" style="background-color: #f2f2f2 ;">
+                                                <div class="rowcard">
+                                                    <div class="col-8" style="padding-left: 30px;padding-top: 20px;">
+                                                        <div class="mb-4">
+                                                            <h5 class="card-title mb-0" style="font-size: 17px;">
+                                                                <b>No. of
+                                                                    Issues</b>
+                                                            </h5>
+                                                        </div>
+                                                        <div class="rowcard align-items-center mb-2 d-flex">
+                                                            <div class="col-8">
+                                                                <h2 class="d-flex align-items-center mb-0" style="font-size: x-large;">
+                                                                    {{total_no_defects_datewise}}
+                                                                </h2>
+                                                                <span style="font-size:13px;">Issues detected
+                                                                </span>
+                                                            </div>
+
+                                                        </div>
+                                                        <!-- <div class="progress mt-1 " data-height="0" style="height: 0px;">
+                                                    <div class="progress-bar l-bg-cyan" role="progressbar" data-width="25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25%;">
+                                                    </div>
+                                                </div> -->
+                                                    </div>
+                                                    <div class="col-4" style="padding-left: 0px;padding-top: 40px;">
+                                                        <div class="col-4 text-left">
+                                                            <button mat-fab color="white" aria-label="Example icon button with a bookmark icon" style="background-color: var(--primary);color:white;">
+                                                                <mat-icon>device_hub</mat-icon>
+                                                            </button>
+                                                            <!-- <apx-chart [series]="chartOptions5.series" [chart]="chartOptions5.chart" [dataLabels]="chartOptions5.dataLabels" [plotOptions]="chartOptions5.plotOptions" [yaxis]="chartOptions5.yaxis" [legend]="chartOptions5.legend" [fill]="chartOptions5.fill" [stroke]="chartOptions5.stroke"
+                                                        [tooltip]="chartOptions5.tooltip" [xaxis]="chartOptions5.xaxis" [grid]="chartOptions5.grid" [colors]="chartOptions5.colors">
+                                                    </apx-chart> -->
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </div>
+                            </div>
+                            <div class="graph-card">
+
+                                <div class="statistic col-4">
+
+                                    <div id="summary_im" class="banner">
+                                        <img [src]="lin" width="100%" class="banner">
+                                    </div>
+
+                                    <div class="p-2">
+
+                                        <div class="title">
+                                            Defect Details
+                                        </div>
+
+                                        <div class="mt-2">
+                                            <div class="details" *ngIf="summary_def_def">
+                                                <div class="key">
+                                                    Defect Type
+                                                </div>
+                                                <div class="value" id="summary_def">
+                                                    {{summary_def_def}}
+                                                </div>
+                                            </div>
+
+                                            <div class="details" *ngIf="summary_def_cou">
+                                                <div class="key">
+                                                    Estimated Power Loss(kW)
+                                                </div>
+                                                <div class="value" id="summary_cou">
+                                                    {{summary_def_cou}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="graph-container col-4">
+                                    <div id="chart1">
+                                        <apx-chart [series]="chartOptions1.series" [chart]="chartOptions1.chart" [labels]="chartOptions1.labels" [title]="chartOptions1.title" [theme]="chartOptions1.theme" [tooltip]="chartOptions1.tooltip" [colors]="chartOptions1.colors" [responsive]="chartOptions1.responsive"
+                                            [dataLabels]="chartOptions1.dataLabels" [legend]="chartOptions1.legend">
+                                        </apx-chart>
+
+                                    </div>
+
+                                </div>
+                                <div class="graph-container col-4">
+                                    <div>
+                                        <apx-chart [series]="chartOptions4s.series" [chart]="chartOptions4s.chart" [labels]="chartOptions4s.labels" [responsive]="chartOptions4s.responsive" [legend]="chartOptions4s.legend" [tooltip]="chartOptions4s.tooltip" [colors]="chartOptions4s.colors" [dataLabels]="chartOptions4s.dataLabels"
+                                            [plotOptions]="chartOptions4s.plotOptions"></apx-chart>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </mat-card-content>
+                    </mat-card>
+                    <!-- <div class="graph-card">
+
+                        <div class="statistic">
+
+                            <div id="inverter_im" class="banner">
+                                <img [src]="inver_lin" width="100%">
+                            </div>
+
+                            <div class="p-2">
+
+                                <div class="title">
+                                    Defect Details
+                                </div>
+
+                                <div class="mt-2">
+                                    <div class="details" *ngIf="inverter_def_def">
+                                        <div class="key">
+                                            Defect Type
+                                        </div>
+                                        <div class="value" id="inverter_def">
+                                            {{inverter_def_def}}
+                                        </div>
+                                    </div>
+
+                                    <div class="details" *ngIf="inverter_def_cou">
+                                        <div class="key">
+                                            Defect Count
+                                        </div>
+                                        <div class="value" id="inverter_cou">
+                                            {{inverter_def_cou}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="graph-container">
+                            <div id="chart" *ngIf="chartOptions">
+                                <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart" [plotOptions]="chartOptions.plotOptions" [labels]="chartOptions.labels" [legend]="chartOptions.legend" [colors]="chartOptions.colors" [responsive]="chartOptions.responsive"></apx-chart>
+                            </div>
+                        </div>
+
+                    </div> -->
+                </div>
+            </ng-template>
+
+
+        </mat-tab>
+
+        <mat-tab label="Anomaly Classification">
+            <mat-spinner *ngIf="resourcesLoaded"></mat-spinner>
+            <div *ngIf="firstvalue == ''; else onchangeana">
+                <div class="stats-container" *ngIf="Project_layer_summary_values == '' else templateName" style="display:block" id="powerlo">
+                    <span *ngIf="firstvalue == ''">There is no data for the given date</span>
+                    <span *ngElse></span>
+                </div>
+                <ng-template #templateName>
+                    <div class="stats-container" style="display:block" id="powerlo">
+
+                        <mat-card class="anal-graphs">
+                            <mat-card-title>
+                                <div class="anal-graph-title">
+                                    <h3 class="page-titless">Anomaly Classification<span style="font-family: 'Montserrat', Helvetica, sans-serif;;text-transform: uppercase;"><b>
+                                                - {{Project_Name}} </b> </span></h3>
+                                </div>
+                            </mat-card-title>
+                            <mat-card-content>
+
+                                <div class="graph-card">
+
+                                    <div class="statistic">
+
+                                        <div id="ana_summary_im" class="banner">
+                                            <img [src]="lin" width="100%" class="banner">
+                                        </div>
+
+                                        <div class="p-2">
+
+                                            <div class="title">
+                                                Defect Details
+                                            </div>
+
+                                            <div class="mt-2">
+                                                <div class="details" *ngIf="ana_def_def">
+                                                    <div class="key">
+                                                        Defect Type
+                                                    </div>
+                                                    <div class="value" id="ana_summary_def">
+                                                        {{ana_def_def}}
+                                                    </div>
+                                                </div>
+
+                                                <div class="details" *ngIf="ana_def_cou">
+                                                    <div class="key">
+                                                        Defect Count
+                                                    </div>
+                                                    <div class="value" id="ana_summary_cou">
+                                                        {{ana_def_cou}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="graph-container">
+                                        <div id="chart3" *ngIf="chartOptions3">
+                                            <apx-chart [series]="chartOptions3.series" [chart]="chartOptions3.chart" [dataLabels]="chartOptions3.dataLabels" [plotOptions]="chartOptions3.plotOptions" [xaxis]="chartOptions3.xaxis" [legend]="chartOptions3.legend">
+                                            </apx-chart>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="graph-card">
+
+                                    <div class="statistic" style="height: 385px;">
+
+                                        <!-- <div id="inverter_im" class="banner">
+                                            <img [src]="inver_lin" width="100%">
+                                        </div> -->
+
+                                        <div class="p-2">
+
+                                            <div class="title">
+                                                Defect Details
+                                            </div>
+
+                                            <div class="mt-2">
+                                                <div class="details" *ngIf="ana_def_def">
+                                                    <div class="key">
+                                                        Defect Type
+                                                    </div>
+                                                    <div class="value" id="ana_summary_def_1">
+                                                        {{ana_def_def}}
+                                                    </div>
+                                                </div>
+
+                                                <div class="details" *ngIf="ana_def_cou">
+                                                    <div class="key">
+                                                        Defect Count
+                                                    </div>
+                                                    <div class="value" id="ana_summary_cou_1">
+                                                        {{ana_def_cou}}
+                                                    </div>
+                                                </div>
+                                                <div class="details" *ngIf="ana_def_cou_perc_1">
+                                                    <div class="key">
+                                                        Percentange
+                                                    </div>
+                                                    <div class="value" id="ana_summary_cou_perc_1">
+                                                        {{ana_def_cou_perc_1}}
+                                                    </div>
+                                                </div>
+                                                <div class="details">
+                                                    <div class="key" *ngIf="ana_def_cou_desc_1">
+                                                        Description
+                                                    </div>
+                                                    <div class="value" id="ana_summary_cou_desc_1">
+                                                        {{ana_def_cou_desc_1}}
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="graph-container">
+                                        <div id="chart4" *ngIf="chartOptions4" style="height: 450px; width: 500px;margin-left: 150px;margin-top: 25px;">
+                                            <apx-chart [series]="chartOptions4.series" [chart]="chartOptions4.chart" [labels]="chartOptions4.labels" [fill]="chartOptions4.fill" [tooltip]="chartOptions4.tooltip" [dataLabels]="chartOptions4.dataLabels" [legend]="chartOptions4.legend" [responsive]="chartOptions4.responsive">
+                                            </apx-chart>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </mat-card-content>
+
+                        </mat-card>
+                    </div>
+                </ng-template>
+
+            </div>
+            <ng-template #onchangeana>
+                <div class="stats-container" style="display:none" id="powerlossNo">
+                    There is no data for the given date
+                </div>
+                <div class="stats-container" style="display:none" id="powerlossYes">
+
+
+                    <mat-card class="anal-graphs">
+                        <mat-card-title>
+                            <div class="anal-graph-title">
+                                <h3 class="page-titless">Anomaly Classification<span style="font-family: 'Montserrat', Helvetica, sans-serif;;text-transform: uppercase;"><b>
+                                            - {{Project_Name}} </b> </span></h3>
+                            </div>
+                        </mat-card-title>
+                        <mat-card-content>
+                            <div class="graph-card">
+
+                                <div class="statistic">
+
+                                    <div id="ana_summary_im" class="banner">
+                                        <img [src]="lin" width="100%" class="banner">
+                                    </div>
+
+                                    <div class="p-2">
+
+                                        <div class="title">
+                                            Defect Details
+                                        </div>
+
+                                        <div class="mt-2">
+                                            <div class="details" *ngIf="ana_def_def">
+                                                <div class="key">
+                                                    Defect Type
+                                                </div>
+                                                <div class="value" id="ana_summary_def">
+                                                    {{ana_def_def}}
+                                                </div>
+                                            </div>
+
+                                            <div class="details" *ngIf="ana_def_cou">
+                                                <div class="key">
+                                                    Defect Count
+                                                </div>
+                                                <div class="value" id="ana_summary_cou">
+                                                    {{ana_def_cou}}
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="graph-container">
+                                    <div id="chart3" *ngIf="chartOptions3">
+                                        <apx-chart [series]="chartOptions3.series" [chart]="chartOptions3.chart" [tooltip]="chartOptions3.tooltip" [dataLabels]="chartOptions3.dataLabels" [plotOptions]="chartOptions3.plotOptions" [xaxis]="chartOptions3.xaxis" [legend]="chartOptions3.legend">
+                                        </apx-chart>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="graph-card" style="height: 385px;">
+
+                                <div class="statistic">
+
+                                    <!-- <div id="inverter_im" class="banner">
+                                        <img [src]="inver_lin" width="100%">
+                                    </div> -->
+
+                                    <div class="p-2">
+
+                                        <div class="title">
+                                            Defect Details
+                                        </div>
+
+                                        <div class="mt-2">
+                                            <div class="details" *ngIf="ana_def_def">
+                                                <div class="key">
+                                                    Defect Type
+                                                </div>
+                                                <div class="value" id="ana_summary_def_1">
+                                                    {{ana_def_def}}
+                                                </div>
+                                            </div>
+
+                                            <div class="details" *ngIf="ana_def_cou">
+                                                <div class="key">
+                                                    Defect Count
+                                                </div>
+                                                <div class="value" id="ana_summary_cou_1">
+                                                    {{ana_def_cou}}
+                                                </div>
+                                            </div>
+                                            <div class="details" *ngIf="ana_def_cou_perc_1">
+                                                <div class="key">
+                                                    Percentange
+                                                </div>
+                                                <div class="value" id="ana_summary_cou_perc_1">
+                                                    {{ana_def_cou_perc_1}}
+                                                </div>
+                                            </div>
+                                            <div class="details">
+                                                <div class="key" *ngIf="ana_def_cou_desc_1">
+                                                    Description
+                                                </div>
+                                                <div class="value" id="ana_summary_cou_desc_1">
+                                                    {{ana_def_cou_desc_1}}
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="graph-container">
+                                    <div id="chart4" *ngIf="chartOptions4" style="height: 450px; width: 500px;margin-left: 150px;margin-top: 25px;">
+                                        <apx-chart [series]="chartOptions4.series" [chart]="chartOptions4.chart" [labels]="chartOptions4.labels" [fill]="chartOptions4.fill" [tooltip]="chartOptions4.tooltip" [dataLabels]="chartOptions4.dataLabels" [legend]="chartOptions4.legend" [responsive]="chartOptions4.responsive">
+                                        </apx-chart>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+            </ng-template>
+
+
+
+
+
+        </mat-tab>
+
+        <mat-tab label="Inverter-Wise Analysis">
+            <mat-spinner *ngIf="resourcesLoaded"></mat-spinner>
+            <div *ngIf="firstvalue == ''; else onchangeinv">
+                <div class="stats-container" *ngIf="Project_layer_inverter_data_values == '' else templateName" style="display:block" id="powerlo">
+                    <span *ngIf="firstvalue == '';">There is no data for the given date</span>
+                    <span *ngElse></span>
+                </div>
+                <ng-template #templateName>
+                    <div class="stats-container" style="display:block" id="powerlo">
+                        <mat-card class="anal-graphs">
+                            <mat-card-title>
+                                <div class="anal-graph-title">
+                                    <h3 class="page-titless">Inverter-Wise Analysis<span style="font-family: 'Montserrat', Helvetica, sans-serif;;text-transform: uppercase;"><b>
+                                                - {{Project_Name}} </b> </span></h3>
+                                </div>
+                            </mat-card-title>
+                            <mat-card-content>
+                                <div class="graph-card">
+
+                                    <div class="statistic">
+
+                                        <!--    <div id="inver_wise_img" class="banner">
+                                            <img [src]="inver_lin" width="100%" class="banner">
+                                        </div> -->
+
+                                        <div class="p-2">
+
+                                            <div class="title">
+                                                <b>Defect Details</b>
+                                            </div>
+
+                                            <div class="mt-2">
+                                                <div class="details_val" *ngIf="inver_wise_def_lable">
+                                                    <div class="key">
+                                                        ITC
+                                                    </div>
+                                                    <div class="value" id="inver_wise_itc">
+                                                        {{inver_wise_def_lable}}
+                                                    </div>
+                                                </div>
+
+                                                <div class="details_val" *ngIf="inver_wise_def_hot">
+                                                    <div class="key">
+                                                        {{Project_layer_summary[0]}}
+                                                    </div>
+                                                    <div class="value" id="inver_wise_hotspot">
+                                                        {{inver_wise_def_hot}}
+                                                    </div>
+                                                </div>
+
+                                                <div class="details_val" *ngIf="inver_wise_def_sc">
+                                                    <div class="key">
+                                                        {{Project_layer_summary[1]}}
+                                                    </div>
+                                                    <div class="value" id="inver_wise_sc">
+                                                        {{inver_wise_def_sc}}
+                                                    </div>
+                                                </div>
+
+                                                <div class="details_val" *ngIf="inver_wise_def_os">
+                                                    <div class="key">
+                                                        {{Project_layer_summary[2]}}
+                                                    </div>
+                                                    <div class="value" id="inver_wise_op">
+                                                        {{inver_wise_def_os}}
+                                                    </div>
+                                                </div>
+
+                                                <div class="details_val" *ngIf="inver_wise_def_pf">
+                                                    <div class="key">
+                                                        {{Project_layer_summary[3]}}
+                                                    </div>
+                                                    <div class="value" id="inver_wise_pf">
+                                                        {{inver_wise_def_pf}}
+                                                    </div>
+                                                </div>
+
+                                                <div class="details" *ngIf="inver_wise_def_pid">
+                                                    <div class="key">
+                                                        {{Project_layer_summary[4]}}
+                                                    </div>
+                                                    <div class="value" id="inver_wise_pid">
+                                                        {{inver_wise_def_pid}}
+                                                    </div>
+                                                </div>
+                                                <div class="titless">
+                                                    <b>Note: </b> Click on the bar graph to switch between the inverters.
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="graph-container">
+                                        <div id="chart5" *ngIf="chartOptions5">
+                                            <apx-chart [series]="chartOptions5.series" [chart]="chartOptions5.chart" [dataLabels]="chartOptions5.dataLabels" [plotOptions]="chartOptions5.plotOptions" [responsive]="chartOptions5.responsive" [grid]="chartOptions5.grid" [xaxis]="chartOptions5.xaxis"
+                                                [legend]="chartOptions5.legend" [fill]="chartOptions5.fill"></apx-chart>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="graph-card">
+
+                                    <div class="statistic">
+
+                                        <!-- <div id="inver_wise_img" class="banner">
+                                            <img [src]="inver_lin" width="100%" class="banner">
+                                        </div> -->
+
+                                        <div class="p-2">
+
+                                            <div class="title" style="text-align: center;">
+                                                <b>Defect Details</b>
+                                            </div>
+
+                                            <div class="mt-2">
+                                                <div class="details_val" *ngIf="inver_wise_def_lable">
+                                                    <div class="key">
+                                                        ITC
+                                                    </div>
+                                                    <div class="value" id="inver_wise_itc_1">
+                                                        {{inver_wise_def_lable}}
+                                                    </div>
+                                                </div>
+
+                                                <div class="details_val" *ngIf="inver_wise_def_hot">
+                                                    <div class="key">
+                                                        {{Project_layer_summary[0]}}
+                                                    </div>
+                                                    <div class="value" id="inver_wise_hotspot_1">
+                                                        {{inver_wise_def_hot}}
+                                                    </div>
+                                                </div>
+
+                                                <div class="details_val" *ngIf="inver_wise_def_sc">
+                                                    <div class="key">
+                                                        {{Project_layer_summary[1]}}
+                                                    </div>
+                                                    <div class="value" id="inver_wise_sc_1">
+                                                        {{inver_wise_def_sc}}
+                                                    </div>
+                                                </div>
+
+                                                <div class="details_val" *ngIf="inver_wise_def_os">
+                                                    <div class="key">
+                                                        {{Project_layer_summary[2]}}
+                                                    </div>
+                                                    <div class="value" id="inver_wise_op_1">
+                                                        {{inver_wise_def_os}}
+                                                    </div>
+                                                </div>
+
+                                                <div class="details_val" *ngIf="inver_wise_def_pf">
+                                                    <div class="key">
+                                                        {{Project_layer_summary[3]}}
+                                                    </div>
+                                                    <div class="value" id="inver_wise_pf_1">
+                                                        {{inver_wise_def_pf}}
+                                                    </div>
+                                                </div>
+
+                                                <div class="details_val" *ngIf="inver_wise_def_pid">
+                                                    <div class="key">
+                                                        {{Project_layer_summary[4]}}
+                                                    </div>
+                                                    <div class="value" id="inver_wise_pid_1">
+                                                        {{inver_wise_def_pid}}
+                                                    </div>
+                                                </div>
+                                                <div class="titless">
+                                                    <b>Note: </b> Click on the bar graph to switch between the inverters.
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="graph-container">
+                                        <div id="chart6" *ngIf="chartOptions6">
+                                            <apx-chart [series]="chartOptions6.series" [chart]="chartOptions6.chart" [dataLabels]="chartOptions6.dataLabels" [plotOptions]="chartOptions6.plotOptions" [xaxis]="chartOptions6.xaxis" [stroke]="chartOptions6.stroke" [fill]="chartOptions6.fill" [grid]="chartOptions6.grid"
+                                                [yaxis]="chartOptions6.yaxis" [title]="chartOptions6.title" [tooltip]="chartOptions6.tooltip" [legend]="chartOptions6.legend"></apx-chart>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+                </ng-template>
+
+            </div>
+            <ng-template #onchangeinv>
+                <div class="stats-container" style="display:none" id="powerlossNo">
+                    There is no data for the given date
+                </div>
+                <div class="stats-container" style="display:none" id="powerlossYes">
+                    <mat-card class="anal-graphs">
+                        <mat-card-title>
+                            <div class="anal-graph-title">
+                                <h3 class="page-titless">Inverter-Wise Analysis<span style="font-family: 'Montserrat', Helvetica, sans-serif;;text-transform: uppercase;"><b>
+                                            - {{Project_Name}} </b> </span></h3>
+                            </div>
+                        </mat-card-title>
+                        <mat-card-content>
+                            <div class="graph-card">
+
+                                <div class="statistic">
+
+                                    <!-- <div id="inver_wise_img" class="banner">
+                                        <img [src]="inver_lin" width="100%" class="banner">
+                                    </div> -->
+
+                                    <div class="p-2">
+
+                                        <div class="title" style="text-align: center;">
+                                            <b>Defect Details</b>
+                                        </div>
+
+                                        <div class="mt-2">
+                                            <div class="details_val" *ngIf="inver_wise_def_lable">
+                                                <div class="key">
+                                                    ITC
+                                                </div>
+                                                <div class="value" id="inver_wise_itc">
+                                                    {{inver_wise_def_lable}}
+                                                </div>
+                                            </div>
+
+                                            <div class="details_val" *ngIf="inver_wise_def_hot">
+                                                <div class="key">
+                                                    {{Project_layer_summary[0]}}
+                                                </div>
+                                                <div class="value" id="inver_wise_hotspot">
+                                                    {{inver_wise_def_hot}}
+                                                </div>
+                                            </div>
+
+                                            <div class="details_val" *ngIf="inver_wise_def_sc">
+                                                <div class="key">
+                                                    {{Project_layer_summary[1]}}
+                                                </div>
+                                                <div class="value" id="inver_wise_sc">
+                                                    {{inver_wise_def_sc}}
+                                                </div>
+                                            </div>
+
+                                            <div class="details_val" *ngIf="inver_wise_def_os">
+                                                <div class="key">
+                                                    {{Project_layer_summary[2]}}
+                                                </div>
+                                                <div class="value" id="inver_wise_op">
+                                                    {{inver_wise_def_os}}
+                                                </div>
+                                            </div>
+
+                                            <div class="details_val" *ngIf="inver_wise_def_pf">
+                                                <div class="key">
+                                                    {{Project_layer_summary[3]}}
+                                                </div>
+                                                <div class="value" id="inver_wise_pf">
+                                                    {{inver_wise_def_pf}}
+                                                </div>
+                                            </div>
+
+                                            <div class="details_val" *ngIf="inver_wise_def_pid">
+                                                <div class="key">
+                                                    {{Project_layer_summary[4]}}
+                                                </div>
+                                                <div class="value" id="inver_wise_pid">
+                                                    {{inver_wise_def_pid}}
+                                                </div>
+                                            </div>
+                                            <div class="titless">
+                                                <b>Note: </b> Click on the bar graph to switch between the inverters.
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="graph-container">
+                                    <div id="chart5" *ngIf="chartOptions5">
+                                        <apx-chart [series]="chartOptions5.series" [chart]="chartOptions5.chart" [dataLabels]="chartOptions5.dataLabels" [plotOptions]="chartOptions5.plotOptions" [responsive]="chartOptions5.responsive" [grid]="chartOptions5.grid" [xaxis]="chartOptions5.xaxis"
+                                            [legend]="chartOptions5.legend" [fill]="chartOptions5.fill" [tooltip]="chartOptions5.tooltip"></apx-chart>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="graph-card">
+
+                                <div class="statistic">
+
+                                    <!-- <div id="inver_wise_img" class="banner">
+                                        <img [src]="inver_lin" width="100%" class="banner">
+                                    </div> -->
+
+                                    <div class="p-2">
+
+                                        <div class="title">
+                                            Defect Details
+                                        </div>
+
+                                        <div class="mt-2">
+                                            <div class="details_val" *ngIf="inver_wise_def_lable">
+                                                <div class="key">
+                                                    ITC
+                                                </div>
+                                                <div class="value" id="inver_wise_itc_1">
+                                                    {{inver_wise_def_lable}}
+                                                </div>
+                                            </div>
+
+                                            <div class="details_val" *ngIf="inver_wise_def_hot">
+                                                <div class="key">
+                                                    {{Project_layer_summary[0]}}
+                                                </div>
+                                                <div class="value" id="inver_wise_hotspot_1">
+                                                    {{inver_wise_def_hot}}
+                                                </div>
+                                            </div>
+
+                                            <div class="details_val" *ngIf="inver_wise_def_sc">
+                                                <div class="key">
+                                                    {{Project_layer_summary[1]}}
+                                                </div>
+                                                <div class="value" id="inver_wise_sc_1">
+                                                    {{inver_wise_def_sc}}
+                                                </div>
+                                            </div>
+
+                                            <div class="details_val" *ngIf="inver_wise_def_os">
+                                                <div class="key">
+                                                    {{Project_layer_summary[2]}}
+                                                </div>
+                                                <div class="value" id="inver_wise_op_1">
+                                                    {{inver_wise_def_os}}
+                                                </div>
+                                            </div>
+
+                                            <div class="details_val" *ngIf="inver_wise_def_pf">
+                                                <div class="key">
+                                                    {{Project_layer_summary[3]}}
+                                                </div>
+                                                <div class="value" id="inver_wise_pf_1">
+                                                    {{inver_wise_def_pf}}
+                                                </div>
+                                            </div>
+
+                                            <div class="details_val" *ngIf="inver_wise_def_pid">
+                                                <div class="key">
+                                                    {{Project_layer_summary[4]}}
+                                                </div>
+                                                <div class="value" id="inver_wise_pid_1">
+                                                    {{inver_wise_def_pid}}
+                                                </div>
+                                            </div>
+                                            <div class="titless">
+                                                <b>Note: </b> Click on the bar graph to switch between the inverters.
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="graph-container">
+                                    <div id="chart6" *ngIf="chartOptions6">
+                                        <apx-chart [series]="chartOptions6.series" [chart]="chartOptions6.chart" [dataLabels]="chartOptions6.dataLabels" [plotOptions]="chartOptions6.plotOptions" [xaxis]="chartOptions6.xaxis" [stroke]="chartOptions6.stroke" [fill]="chartOptions6.fill" [grid]="chartOptions6.grid"
+                                            [yaxis]="chartOptions6.yaxis" [title]="chartOptions6.title" [tooltip]="chartOptions6.tooltip" [legend]="chartOptions6.legend"></apx-chart>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+            </ng-template>
+        </mat-tab>
+
+        <mat-tab label="Health History">
+            <mat-spinner *ngIf="resourcesLoaded"></mat-spinner>
+            <div *ngIf="firstvalue == ''; else onchange">
+                <div class="stats-container" *ngIf="health_history == '' else templateName" style="display:block" id="powerlo">
+                    <span *ngIf="firstvalue == ''">There is no data for the given date</span>
+                    <span *ngElse></span>
+                </div>
+                <ng-template #templateName>
+                    <div class="stats-container" style="display:block" id="powerlo">
+                        <div class="row mt-4" style="width: 100%;margin-left: 0px;">
+                            <div class="col-6">
+                                <mat-card class="anal-graphs">
+                                    <mat-card-title>
+                                        <div class="anal-graph-title">
+                                            <h3 class="page-titless">Health History<span style="font-family: 'Montserrat', Helvetica, sans-serif;;text-transform: uppercase;"><b>
+                                                        - {{Project_Name}} </b> </span>
+                                            </h3>
+                                        </div>
+                                    </mat-card-title>
+                                    <mat-card-content>
+                                        <div id="chart8" *ngIf="chartOptions8" style="padding-left: 10px;">
+                                            <apx-chart [series]="chartOptions8.series" [chart]="chartOptions8.chart" [yaxis]="chartOptions8.yaxis" [xaxis]="chartOptions8.xaxis" [labels]="chartOptions8.labels" [stroke]="chartOptions8.stroke" [title]="chartOptions8.title" [dataLabels]="chartOptions8.dataLabels"
+                                                [fill]="chartOptions8.fill" [tooltip]="chartOptions8.tooltip" [colors]="chartOptions8.colors"></apx-chart>
+                                        </div>
+
+                                    </mat-card-content>
+                                </mat-card>
+                            </div>
+                            <div class="col-6">
+                                <mat-card class="anal-graphs" style="height: 417px;">
+                                    <mat-card-title>
+                                        <div class="anal-graph-title">
+                                            <h3 class="page-titless">Total Thermal Defects Identified<span style="font-family: 'Montserrat', Helvetica, sans-serif;;text-transform: uppercase;"><b>
+                                                        - {{Project_Name}} </b> </span></h3>
+                                        </div>
+                                    </mat-card-title>
+                                    <mat-card-content>
+                                        <div id="chart7" *ngIf="chartOptions7">
+                                            <apx-chart [series]="chartOptions7.series" [chart]="chartOptions7.chart" [labels]="chartOptions7.labels" [title]="chartOptions7.title" [colors]="chartOptions7.colors" [responsive]="chartOptions7.responsive" [labels]="chartOptions7.labels" [dataLabels]="chartOptions7.dataLabels"
+                                                [tooltip]="chartOptions7.tooltip">
+                                            </apx-chart>
+                                        </div>
+                                    </mat-card-content>
+                                </mat-card>
+                            </div>
+                        </div>
+
+                    </div>
+                </ng-template>
+            </div>
+            <ng-template #onchange>
+                <div class="stats-container" style="display:none" id="powerlossNo">
+                    There is no data for the given date
+                </div>
+                <div class="stats-container" style="display:none" id="powerlossYes">
+
+                    <div class="row mt-4" style="width: 100%;margin-left: 0px;">
+                        <div class="col-6">
+                            <mat-card class="anal-graphs">
+                                <mat-card-title>
+                                    <div class="anal-graph-title">
+                                        <h3 class="page-titless">Health History<span style="font-family: 'Montserrat', Helvetica, sans-serif;;text-transform: uppercase;"><b>
+                                                    - {{Project_Name}} </b> </span></h3>
+                                    </div>
+                                </mat-card-title>
+                                <mat-card-content>
+                                    <div id="chart8" *ngIf="chartOptions8" style="padding-left: 10px;">
+                                        <apx-chart [series]="chartOptions8.series" [chart]="chartOptions8.chart" [yaxis]="chartOptions8.yaxis" [xaxis]="chartOptions8.xaxis" [labels]="chartOptions8.labels" [stroke]="chartOptions8.stroke" [title]="chartOptions8.title" [dataLabels]="chartOptions8.dataLabels"
+                                            [fill]="chartOptions8.fill" [tooltip]="chartOptions8.tooltip" [colors]="chartOptions8.colors"></apx-chart>
+                                    </div>
+
+                                </mat-card-content>
+                            </mat-card>
+                        </div>
+                        <div class="col-6">
+                            <mat-card class="anal-graphs" style="height: 417px;">
+                                <mat-card-title>
+                                    <div class="anal-graph-title">
+                                        <h3 class="page-titless">Total Thermal Defects Identified<span style="font-family: 'Montserrat', Helvetica, sans-serif;;text-transform: uppercase;"><b>
+                                                    - {{Project_Name}} </b> </span></h3>
+                                    </div>
+                                </mat-card-title>
+                                <mat-card-content>
+                                    <div id="chart7" *ngIf="chartOptions7">
+                                        <apx-chart [series]="chartOptions7.series" [chart]="chartOptions7.chart" [labels]="chartOptions7.labels" [title]="chartOptions7.title" [colors]="chartOptions7.colors" [responsive]="chartOptions7.responsive" [labels]="chartOptions7.labels" [dataLabels]="chartOptions7.dataLabels"
+                                            [tooltip]="chartOptions7.tooltip">
+                                        </apx-chart>
+                                    </div>
+                                </mat-card-content>
+                            </mat-card>
+                        </div>
+                    </div>
+
+                </div>
+            </ng-template>
+
+        </mat-tab>
+
+        <mat-tab label="Losses">
+            <div *ngIf="power_loss_values_energy != ''; else templateName_energy_defectwise_empty">
+                <div class="stats-container">
+
+                    <div class="row">
+                        <div class="col-6">
+                            <mat-card class="anal-graphs">
+                                <mat-card-title>
+                                    <div class="anal-graph-title">
+                                        <h3 class="page-titless">Energy Loss<span style="font-family: 'Montserrat', Helvetica, sans-serif;;text-transform: uppercase;"><b>
+                                                    - {{Project_Name}} </b> </span></h3>
+                                    </div>
+                                </mat-card-title>
+                                <mat-card-content>
+                                    <div class="row mt-4" style="width: 100%; height: 180px; margin-left: 0px;">
+                                        <table>
+                                            <tr>
+                                                <td style="height: 30px; padding-left: 25px;"><b>Specific prod</b>
+                                                </td>
+                                                <td style="height: 30px; padding-left: 25px;"><input type="text" style="width: 100px;" #energy> kWh/kWp/year</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="height: 30px; padding-left: 25px;"><b> Total power loss
+                                                        in kW as
+                                                        calculated</b></td>
+                                                <td style="height: 30px; padding-left: 25px;">
+                                                    {{total_power_loss_datewise}} kW
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="height: 30px; padding-left: 25px;"></td>
+                                                <td style="height: 30px; padding-left: 25px;"><button mat-button class="mr-3" style="background-color: var(--primary); color: #fff;" (click)="energyloss_calc(energy.value)">Calculate</button>
+                                                </td>
+                                            </tr>
+                                            <!-- <tr id="Energy" style="display: none;">
+                                                <td style="height: 30px; padding-left: 25px;width: fit-content;">
+                                                    <b>Total energy loss
+                                                        is</b>
+                                                </td>
+                                                <td style="height: 30px; padding-left: 25px;width: fit-content;">
+                                                    {{total_energy_loss}} kWh/year
+                                                </td>
+                                            </tr> -->
+                                        </table>
+                                    </div>
+                                    <div *ngIf="Chart_hide_show == 'show' else chart_show">
+                                        <div class="row mt-4" style="width: 100%;margin-left: 0px;">
+                                            <div style="padding-left: 200px">
+                                                <mat-card class="anal-graphs" style="width: 260px;height: 120px;background-color: #e9e9e9;padding-top: 30px; text-align: center; border-radius: 10px;">
+
+                                                    <mat-card-content>
+                                                        <div class="header_shared_name">
+                                                            Total energy loss is
+                                                        </div>
+                                                        <div class="header_shared_email">
+                                                            {{total_energy_loss}} kWh/year
+                                                        </div>
+                                                        <!-- <b>Total energy loss is</b> {{total_energy_loss}} kWh/year -->
+                                                    </mat-card-content>
+                                                </mat-card>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <ng-template #chart_show>
+                                        <div class="row mt-4" style="width: 100%;margin-left: 0px;"></div>
+                                    </ng-template>
+                                    <div class="row mt-4" style="width: 100%;margin-left: 0px;padding-top: 10px;">
+                                        <table>
+                                            <tr>
+                                                <th class="col-2" style="height: 30px; padding-left: 25px;">
+                                                    <b>Energy Loss Category wise</b>
+                                                </th>
+                                                <th class="col-1" style="height: 30px; padding-left: 25px;"></th>
+                                                <th class="col-2" style="height: 30px; padding-left: 25px;"></th>
+                                            </tr>
+                                            <tr *ngFor="let i of power_loss_keys;let d = index">
+                                                <td class="col-2" style="height: 30px; padding-left: 25px;">
+                                                    <b>{{power_loss_keys[d]}}</b>
+                                                </td>
+                                                <td class="col-1" style="height: 30px; padding-left: 25px;text-align: right;">
+                                                    <b>{{energy_defectwise[d]}}</b>
+                                                </td>
+                                                <td class="col-2" style="height: 30px; padding-left: 25px;text-align: left;">
+                                                    kWh/kWp/year</td>
+                                            </tr>
+
+                                        </table>
+                                    </div>
+                                    <div class="row mt-4" style="width: 100%;margin-left: 0px;"></div>
+
+                                    <div *ngIf="Chart_hide_show == 'show' else chart_show">
+
+                                        <div class="row mt-4" style="margin-left: 0px;height: 380px;padding-top: 20px;padding-left:110px">
+                                            <div style="height: 300px;width: 500px">
+                                                <div *ngIf="energy_defectwise == '0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0' else templateName_energy_defectwise">
+                                                </div>
+                                                <ng-template #templateName_energy_defectwise>
+                                                    <div *ngIf="energy_defectwise == '0,0,0,0,0,0,0,0,0' else templateName_energy_defectwise_empty">
+                                                    </div>
+                                                    <ng-template #templateName_energy_defectwise_empty>
+                                                        <div id="chart10" style="height: 300px;width: 100%">
+                                                            <apx-chart [series]="chartOptions10.series" [chart]="chartOptions10.chart" [labels]="chartOptions10.labels" [title]="chartOptions10.title" [theme]="chartOptions10.theme" [tooltip]="chartOptions10.tooltip" [colors]="chartOptions10.colors" [responsive]="chartOptions10.responsive"
+                                                                [dataLabels]="chartOptions10.dataLabels" [legend]="chartOptions10.legend">
+                                                            </apx-chart>
+                                                        </div>
+                                                    </ng-template>
+                                                </ng-template>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <ng-template #chart_show>
+                                        <div class="row mt-4" style="width: 100%;margin-left: 0px;"></div>
+                                    </ng-template>
+
+                                </mat-card-content>
+                            </mat-card>
+
+                        </div>
+                        <div class="col-6">
+                            <mat-card class="anal-graphs">
+                                <mat-card-title>
+                                    <div class="anal-graph-title">
+                                        <h3 class="page-titless">Revenue Loss<span style="font-family: 'Montserrat', Helvetica, sans-serif;;text-transform: uppercase;"><b>
+                                                    - {{Project_Name}} </b> </span></h3>
+                                    </div>
+                                </mat-card-title>
+                                <mat-card-content>
+                                    <div class="row mt-4" style="width: 100%; height: 180px; margin-left: 0px;">
+                                        <table>
+                                            <tr>
+                                                <td style="height: 30px; padding-left: 25px;"><b>Tarrif </b></td>
+                                                <td style="height: 30px; padding-left: 25px;"><input type="text" style="width: 100px;" #revenue> INR/kWh
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="height: 30px; padding-left: 25px;"></td>
+                                                <td style="height: 30px; padding-left: 25px;"><button mat-button class="mr-3" style="background-color: var(--primary); color: #fff;" (click)="tariff_cal(revenue.value)">Calculate</button></td>
+                                            </tr>
+                                            <!-- <tr id="Revenue" style="display: none;">
+                                                <td style="height: 30px; padding-left: 25px;width: fit-content;"><b>
+                                                        Revenue Loss</b>
+                                                </td>
+                                                <td style="height: 30px; padding-left: 25px;width: fit-content;">
+                                                    {{total_tariff}} INR / Year
+                                                </td>
+                                            </tr> -->
+                                        </table>
+                                    </div>
+                                    <div *ngIf="Chart_hide_show_revenue == 'show' else chart_show_revenue">
+                                        <div class="row mt-4" style="width: 100%;margin-left: 0px;">
+                                            <div style="padding-left: 200px">
+                                                <mat-card class="anal-graphs" style="width: 260px;height: 120px;background-color: #e9e9e9;padding-top: 30px; text-align: center; border-radius: 10px;">
+
+                                                    <mat-card-content>
+                                                        <div class="header_shared_name">
+                                                            Revenue Loss is
+                                                        </div>
+                                                        <div class="header_shared_email">
+                                                            {{total_tariff}} INR / Year
+                                                        </div>
+                                                        <!-- <b>Total energy loss is</b> {{total_energy_loss}} kWh/year -->
+                                                    </mat-card-content>
+                                                </mat-card>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <ng-template #chart_show_revenue>
+                                        <div class="row mt-4" style="width: 100%;margin-left: 0px;"></div>
+                                    </ng-template>
+                                    <div class="row mt-4" style="width: 100%;margin-left: 0px;padding-top: 10px;">
+                                        <table>
+                                            <tr>
+                                                <th class="col-3" style="height: 30px; padding-left: 25px;">
+                                                    <b>Revenue Loss Category wise</b>
+                                                </th>
+                                                <th class="col-1" style="height: 30px; padding-left: 25px;"></th>
+                                                <th class="col-2" style="height: 30px; padding-left: 25px;"></th>
+                                            </tr>
+                                            <tr *ngFor="let i of power_loss_keys;let y = index">
+                                                <td class="col-3" style="height: 30px; padding-left: 25px;">
+                                                    <b>{{power_loss_keys[y]}}</b>
+                                                </td>
+                                                <td class="col-1" style="height: 30px; padding-left: 25px; text-align: right;">
+                                                    <b>{{revenue_defectwise[y]}}</b>
+                                                </td>
+                                                <td class="col-2" style="height: 30px; padding-left: 25px; text-align: left;">
+                                                    INR / Year </td>
+                                            </tr>
+
+                                        </table>
+                                    </div>
+                                    <div class="row mt-4" style="width: 100%;margin-left: 0px;"></div>
+
+                                    <div *ngIf="Chart_hide_show_revenue == 'show' else chart_show_revenue">
+                                        <div class="row mt-4" style="width: 100%;margin-left: 0px;"></div>
+
+                                        <div class="row" style="margin-left: 0px;height: 380px;padding-top: 20px;padding-left:110px">
+                                            <div style="height: 300px;width: 500px">
+                                                <div *ngIf="revenue_defectwise == '0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0' else templateName_revenue_defectwise">
+
+                                                </div>
+                                                <ng-template #templateName_revenue_defectwise>
+                                                    <div *ngIf="energy_defectwise == '0,0,0,0,0,0,0,0,0' else templateName_revenue_defectwise_empty">
+
+                                                    </div>
+                                                    <ng-template #templateName_revenue_defectwise_empty>
+
+                                                        <div id="chart11" style="height: 300px;width: 100%">
+                                                            <apx-chart [series]="chartOptions11.series" [chart]="chartOptions11.chart" [labels]="chartOptions11.labels" [title]="chartOptions11.title" [theme]="chartOptions11.theme" [tooltip]="chartOptions11.tooltip" [colors]="chartOptions11.colors" [responsive]="chartOptions11.responsive"
+                                                                [dataLabels]="chartOptions11.dataLabels" [legend]="chartOptions11.legend">
+                                                            </apx-chart>
+                                                        </div>
+
+                                                    </ng-template>
+                                                </ng-template>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <ng-template #chart_show_revenue>
+
+                                        <!-- <div class="row mt-4" style="width: 100%;margin-left: 0px;"></div> -->
+                                    </ng-template>
+
+                                </mat-card-content>
+                            </mat-card>
+
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <ng-template #templateName_energy_defectwise_empty>
+                <div class="stats-container">
+                    <span>There is no data for the given date</span>
+                </div>
+            </ng-template>
+
+
+
+        </mat-tab>
+
+        <mat-tab label="Parts per million">
+            <div *ngIf="power_loss_values_revenue != ''; else templateName_revenue_defectwise_empty">
+                <div class="stats-container">
+                    <div class="row mt-4" style="width: 100%;margin-left: 0px;">
+
+                        <div class="col-12">
+                            <mat-card class="anal-graphs">
+                                <mat-card-title>
+                                    <div class="anal-graph-title" style="text-align:center">
+                                        <h3 class="page-titless">Parts per million (PPM) - Losses<span style="font-family: 'Montserrat', Helvetica, sans-serif;;text-transform: uppercase;"><b>
+                                                    - {{Project_Name}} </b> </span></h3>
+                                    </div>
+                                </mat-card-title>
+                                <mat-card-content>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <mat-card-title>
+                                                <div class="anal-graph-title">
+                                                    <h3 class="page-titless">For Power loss</h3>
+                                                </div>
+                                            </mat-card-title>
+                                            <mat-card-content>
+                                                <table>
+                                                    <tr>
+                                                        <td style="height: 30px; padding-left: 25px;">
+                                                            <b>DC Capacity in kW </b>
+                                                        </td>
+
+                                                        <td style="height: 30px; padding-left: 25px;">
+                                                            {{DC_Capacity_in_KW}} kW</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="height: 30px; padding-left: 25px;">
+                                                            <b>Power loss in kW </b>
+                                                        </td>
+
+                                                        <td style="height: 30px; padding-left: 25px;">
+                                                            {{total_power_loss_datewise}} kW</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="height: 30px; padding-left: 25px;">
+                                                            <b>PPM</b>
+                                                        </td>
+
+                                                        <td style="height: 30px; padding-left: 25px;">
+                                                            {{Total_power_loss_in_ppm}} PPM(kWH)</td>
+                                                    </tr>
+                                                    <!-- <tr>
+                                                    <td style="height: 65px; padding-left: 25px;"><b> Revenue Loss</b></td>
+                                                    <td style="height: 65px; padding-left: 25px;">{{total_tariff}} INR / Year</td>
+                                                </tr> -->
+                                                </table>
+                                            </mat-card-content>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <mat-card-title>
+                                                <div class="anal-graph-title">
+                                                    <h3 class="page-titless">For Energy loss</h3>
+                                                </div>
+                                            </mat-card-title>
+                                            <mat-card-content>
+                                                <table>
+                                                    <tr>
+                                                        <td style="height: 30px; padding-left: 25px;">
+                                                            <b>Total Energy </b>
+                                                        </td>
+                                                        <td style="height: 30px; padding-left: 25px;">
+                                                            {{total_energy_loss_in_ppm}} kWh</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="height: 30px; padding-left: 25px;">
+                                                            <b>Energy loss in kW </b>
+                                                        </td>
+                                                        <td style="height: 30px; padding-left: 25px;">
+                                                            {{total_energy_loss_in_KW_ppm}} kWh</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="height: 30px; padding-left: 25px;">
+                                                            <b>PPM</b>
+                                                        </td>
+                                                        <td style="height: 30px; padding-left: 25px;">
+                                                            {{total_energy_loss_calc_in_ppm}} PPM (kWh)</td>
+                                                    </tr>
+                                                    <!-- <tr>
+                                                    <td style="height: 65px; padding-left: 25px;"><b> Revenue Loss</b></td>
+                                                    <td style="height: 65px; padding-left: 25px;">{{total_tariff}} INR / Year</td>
+                                                </tr> -->
+                                                </table>
+                                            </mat-card-content>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <mat-card-title>
+                                                <div class="anal-graph-title">
+                                                    <h3 class="page-titless">For Revenue loss</h3>
+                                                </div>
+                                            </mat-card-title>
+                                            <mat-card-content>
+                                                <table>
+                                                    <tr>
+                                                        <td style="height: 30px; padding-left: 25px;">
+                                                            <b>Total Expected Revenue</b>
+                                                        </td>
+                                                        <td style="height: 30px; padding-left: 25px;">
+                                                            {{total_revenue_loss_in_ppm}} INR</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="height: 30px; padding-left: 25px;">
+                                                            <b>Predicted Revenue loss</b>
+                                                        </td>
+                                                        <td style="height: 30px; padding-left: 25px;">
+                                                            {{total_revenue_loss_in_KW_ppm}} INR</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="height: 30px; padding-left: 25px;">
+                                                            <b>PPM</b>
+                                                        </td>
+                                                        <td style="height: 30px; padding-left: 25px;">
+                                                            {{total_revenue_loss_in_ppm_INR}} PPM (INR)</td>
+                                                    </tr>
+                                                    <!-- <tr>
+                                                    <td style="height: 65px; padding-left: 25px;"><b> Revenue Loss</b></td>
+                                                    <td style="height: 65px; padding-left: 25px;">{{total_tariff}} INR / Year</td>
+                                                </tr> -->
+                                                </table>
+                                            </mat-card-content>
+                                        </div>
+                                    </div>
+                                </mat-card-content>
+                            </mat-card>
+
+                        </div>
+                    </div>
+                    <div class="row mt-4" style="width: 100%;margin-left: 0px;padding-top: 20px;">
+
+                        <div class="col-12">
+                            <mat-card class="anal-graphs">
+                                <mat-card-title>
+                                    <div class="anal-graph-title" style="text-align:center">
+                                        <h3 class="page-titless">Parts per million (PPM) - Defects (DPPM) <span style="font-family: 'Montserrat', Helvetica, sans-serif;;text-transform: uppercase;"><b>
+                                                    - {{Project_Name}} </b> </span></h3>
+                                    </div>
+                                </mat-card-title>
+                                <mat-card-content>
+
+
+                                    <div class="row">
+                                        <div class="col-5">
+                                            <table>
+                                                <tr *ngFor="let i of health_history_key_data;let k = index">
+                                                    <td class="col-md-3" style="height: 30px; padding-left: 25px;">
+                                                        <b>{{health_history_key_data[k]}} </b>
+                                                    </td>
+                                                    <td class="col-md-1" style="height: 30px; padding-left: 25px; text-align: right;">
+                                                        <b> {{module_count_defectwise_value[k]}}</b>
+                                                    </td>
+                                                    <td class="col-md-1" style="height: 30px; padding-left: 25px; text-align: left;">
+                                                        PPM
+                                                    </td>
+                                                </tr>
+
+                                            </table>
+                                        </div>
+                                        <div class="col-6" style="padding-left: 10px;">
+                                            <div id="chart12">
+
+                                                <div id="chart12" *ngIf="chartOptions12" style="padding-left: 10px;">
+                                                    <apx-chart [series]="chartOptions12.series" [chart]="chartOptions12.chart" [yaxis]="chartOptions12.yaxis" [xaxis]="chartOptions12.xaxis" [labels]="chartOptions12.labels" [stroke]="chartOptions12.stroke" [title]="chartOptions12.title" [dataLabels]="chartOptions12.dataLabels"
+                                                        [fill]="chartOptions12.fill" [tooltip]="chartOptions12.tooltip" [colors]="chartOptions12.colors"></apx-chart>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-1" style="padding-left: 10px;"></div>
+                                    </div>
+
+                                </mat-card-content>
+                            </mat-card>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <ng-template #templateName_revenue_defectwise_empty>
+                <div class="stats-container">
+                    <span>There is no data for the given date</span>
+                </div>
+            </ng-template>
+
+        </mat-tab>
+    </mat-tab-group>
+    <div style="z-index: 1000;  color: gray;">
+        <!-- <button class="ForMapIcon" mat-icon-button (click)="gotomap()">
+         
+            <li class="material-icons" style="padding-bottom: 10px;size: 50px;" matTooltip="Map">
+                map
+            </li>
+        </button> -->
+
+        <div class="ForDateSelect">
+            <mat-card appearance="outlined" style="width:140px;background-color: white;padding: 0px;margin: 0px;">
+                <mat-select name="date" [(ngModel)]="date" id="testing" (ngModelChange)="selectChange(date); outerdata(date);" style="height: 30px;vertical-align: middle;padding-left: 5px;padding-top: 5px;text-align: center;font-family: 'Montserrat', Helvetica, sans-serif;"
+                    [disableOptionCentering]="true" matTooltip="Change Date">
+                    <mat-option [value]=" date " *ngFor="let date of Completed_date_array; let i=index " style="background-color: white;font-family: 'Montserrat', Helvetica, sans-serif;">
+                        {{date}}
+
+                    </mat-option>
+
+                </mat-select>
+            </mat-card>
+        </div>
+
+    </div>
+
+</div>

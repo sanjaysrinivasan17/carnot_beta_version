@@ -1,0 +1,295 @@
+.project-container {
+    height: 100%;
+    padding: 20px;
+    display: flex;
+    width: 100%;
+    position: relative;
+}
+
+mat-progress-bar {
+    background-color: #fd077a;
+}
+
+::ng-deep.mat-step-text-label {
+    font-family: 'Montserrat', Helvetica, sans-serif;
+}
+
+.leaflet-div-icon2 {
+    background: red;
+    border: 5px solid rgba(255, 255, 255, 0.5);
+    color: blue;
+    font-family: 'Montserrat', Helvetica, sans-serif;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 50%;
+    line-height: 30px;
+}
+
+.active-project {
+    width: 100%;
+    border-radius: 10px;
+    background-color: #f2f2f2;
+    height: 100px;
+    border: none;
+    padding: 10px;
+    display: inline-block;
+    color: #1b1b1b;
+    box-shadow: 0 3px 6px var(--shadow);
+}
+
+.active-project .project-image {
+    height: 80px;
+    border-radius: 10px;
+    float: left;
+}
+
+.active-project .project-active-details {
+    float: left;
+    padding-left: 30px;
+    width: 75%;
+}
+
+.project-active-details p {
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+
+.project-card {
+    width: 30%;
+}
+
+.project-list {
+    width: 70%;
+    position: relative;
+    flex: 1;
+}
+
+@media only screen and (max-width: 768px) {
+    .project-container {
+        display: flow-root;
+    }
+    .project-card {
+        width: 100%;
+    }
+    .project-list {
+        width: 100%;
+    }
+}
+
+.horizontal-card {
+    background-color: var(--primary);
+    height: 100%;
+    width: 100%;
+    border-radius: 20px;
+    border: none;
+    padding: 90px 20px;
+    position: relative;
+}
+
+.horizontal-card-bg {
+    background-color: var(--primary);
+    height: 100%;
+    width: 25%;
+    border-radius: 20px;
+    border: none;
+    padding: 250px 20px;
+    position: relative;
+}
+
+.horizontal-card-bg-null {
+    background-color: white;
+    height: 100%;
+    width: 60%;
+    border-radius: 20px;
+    box-shadow: none;
+    border: transparent;
+    padding: 90px 20px;
+    position: relative;
+}
+
+.horizontal-card .title {
+    font-family: 'Montserrat', Helvetica, sans-serif;
+    font-size: 160px;
+    font-weight: 900;
+    color: rgba(187, 187, 187, 0.719);
+    letter-spacing: 2px;
+}
+
+.horizontal-card .project-details {
+    position: absolute;
+    bottom: 20px;
+    padding-right: 50px;
+    width: 100%;
+}
+
+.progress-percentage {
+    position: absolute;
+    right: 50px;
+    top: 35px;
+}
+
+.custom-progress {
+    height: 8px;
+    border-radius: 20px;
+}
+
+.project-details h5 {
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-family: 'Montserrat', Helvetica, sans-serif;
+    font-size: 25px;
+    font-weight: 600;
+    color: #eee;
+}
+
+.project-details p {
+    color: #eee;
+    font-size: 14px;
+    font-family: 'Montserrat', Helvetica, sans-serif;
+}
+
+.horizontal-card .project-image .img {
+    width: 300px;
+    height: auto;
+    width: 300px;
+    height: auto;
+    position: absolute;
+    /* left: 0; */
+    right: -150px;
+    bottom: 0;
+    top: 0;
+    margin: auto;
+    z-index: 100;
+}
+
+.mobile-card {
+    width: 100%;
+    background-color: rebeccapurple;
+}
+
+@media only screen and (max-width: 768px) {
+    .horizontal-card .project-image .img {
+        display: none;
+    }
+    .horizontal-card {
+        height: 30%;
+        border-radius: 10px;
+        padding: 40px;
+    }
+    .horizontal-card .title {
+        display: none
+    }
+    .horizontal-card .project-details {
+        bottom: 0;
+    }
+}
+
+.stepper {
+    padding: 20px;
+    margin-left: 20px;
+    /* margin-top: 60px; */
+}
+
+.stepper .title {
+    font-size: 25px;
+    font-family: 'Montserrat', Helvetica, sans-serif;
+    letter-spacing: 1px;
+}
+
+.title .icon {
+    position: relative;
+    top: 4px;
+}
+
+.stepper .steps {
+    margin: 20px 0;
+}
+
+.steps .custom-btn {
+    margin: 10px 20px;
+}
+
+.steps .custom-btn .icon {
+    top: -2px;
+    font-family: 'Montserrat', Helvetica, sans-serif;
+    font-size: 25px;
+    position: relative;
+}
+
+@media only screen and (max-width: 768px) {
+    .stepper {
+        margin: 0;
+    }
+}
+
+.prev,
+.next {
+    position: absolute;
+    z-index: 1000;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+}
+
+.prev {
+    left: 10px;
+}
+
+.next {
+    right: 10px;
+}
+
+::ng-deep .mat-step-label-selected {
+    font-size: 1.125rem !important;
+    font-weight: 500;
+    font-family: 'Montserrat', Helvetica, sans-serif;
+}
+
+::ng-deep .mat-step-label {
+    font-size: 1rem;
+    font-family: 'Montserrat', Helvetica, sans-serif;
+}
+
+.state-content {
+    font-family: 'Montserrat', Helvetica, sans-serif;
+    font-size: 1rem;
+}
+
+.mat-button {
+    background-color: var(--primary);
+    border: none;
+    color: blue;
+    padding: 2px 26px;
+    font-family: 'Montserrat', Helvetica, sans-serif;
+    font-size: 14px;
+    text-align: center;
+    margin: 4px 2px;
+    opacity: 1;
+    transition: 0.3s;
+}
+
+.mat-button:hover {
+    opacity: 1;
+    background-color: var(--primary);
+    border: none;
+    color: white;
+    padding: 2px 29px;
+    font-family: 'Montserrat', Helvetica, sans-serif;
+    font-size: 14px;
+    text-align: center;
+    margin: 4px 2px;
+    opacity: 0.6;
+    transition: 0.3s;
+}
+
+.title {
+    font-family: 'Montserrat', Helvetica, sans-serif;
+    font-size: 25px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    padding-left: 20px;
+}
+
+p {
+    font-family: 'Montserrat', Helvetica, sans-serif;
+}

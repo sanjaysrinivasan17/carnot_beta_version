@@ -1,0 +1,228 @@
+.document-container {
+    margin-top: 10px;
+}
+
+.file-avatar {
+    background-image: url('../../../../../assets/images/folder.png');
+    background-size: cover;
+}
+
+mat-card-title {
+    font-size: 16px !important;
+}
+
+mat-card-subtitle {
+    font-size: 12px !important;
+    color: var(--dark);
+}
+
+@media only screen and (max-width: 600px) {
+    .stepper-action-btn {
+        width: 100px;
+        text-align: center !important;
+        padding: 5px !important;
+    }
+}
+
+#style-1::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background-color: white;
+}
+
+#style-1::-webkit-scrollbar {
+    width: 12px;
+    background-color: #F5F5F5;
+}
+
+#style-1::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: #ffffff;
+}
+
+#style-1:hover::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: #afaeae;
+}
+
+.bgi {
+    /* margin: 20px auto; */
+    height: 25%;
+    display: flex;
+    margin-top: 8%;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.box:hover {
+    animation: shake 0.82s cubic-bezier(.36, .07, .19, .97) both;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+}
+
+@keyframes shake {
+    10%,
+    90% {
+        transform: translate3d(-1px, 0, 0);
+    }
+    20%,
+    80% {
+        transform: translate3d(2px, 0, 0);
+    }
+    30%,
+    50%,
+    70% {
+        transform: translate3d(-4px, 0, 0);
+    }
+    40%,
+    60% {
+        transform: translate3d(4px, 0, 0);
+    }
+}
+
+.upload-btn-wrapper {
+    position: relative;
+    display: inline-block;
+    margin-left: 1%;
+}
+
+.upload-btn-wrapper input[type=file] {
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    height: 36px;
+    width: 153px;
+    cursor: pointer;
+}
+
+.upload {
+    width: 69%;
+    margin: 20px auto;
+    height: 10%;
+    margin-top: 50px;
+    margin-bottom: 2%;
+    border: 1px dashed #adadad;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 26px 10px;
+}
+
+.startbut:disabled {
+    background-color: #E0E0E0 !important;
+    color: #ABABAB !important;
+}
+
+.container {
+    width: 69%;
+    margin: 20px auto;
+    margin-top: 0%;
+    max-height: 60%;
+    /* border: 0.5px solid rgb(224, 222, 222); */
+    overflow: auto;
+    padding: 0;
+}
+
+.ic {
+    height: 100px;
+    border-bottom: 0.5px solid rgb(224, 222, 222);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.img {
+    width: 130px;
+    height: 80%;
+    /* border:0.5px solid rgb(224, 222, 222); */
+    flex: 1;
+    margin-left: 20px;
+}
+
+.name {
+    width: 130px;
+    height: 80%;
+    /* border:0.5px solid rgb(224, 222, 222); */
+    flex: 1;
+    margin-left: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 2;
+}
+
+.size {
+    width: 40px;
+    height: 40%;
+    flex: 1;
+    /* border:0.5px solid rgb(224, 222, 222); */
+    margin-right: 5px;
+    margin-left: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #565656;
+}
+
+.progress {
+    width: 200px;
+    /* border:0.5px solid rgb(224, 222, 222); */
+    flex: 3;
+    margin-left: 10px;
+    margin-right: 5px;
+}
+
+.cancel {
+    width: 40px;
+    height: 40%;
+    /* border:0.5px solid rgb(224, 222, 222); */
+    margin-left: 5px;
+    margin-right: 20px;
+}
+
+mat-icon {
+    color: #565656;
+}
+
+.filec {
+    width: 69%;
+    margin: 20px auto;
+    margin-bottom: 0;
+    /* border:0.5px solid rgb(224, 222, 222); */
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.statustxt {
+    /* border:0.5px solid rgb(224, 222, 222); */
+    flex: 2;
+}
+
+.whitespace {
+    /* border:0.5px solid rgb(224, 222, 222); */
+    flex: 3;
+}
+
+.pause {
+    /* border:0.5px solid rgb(224, 222, 222); */
+    flex: 0.5;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.resume {
+    /* border:0.5px solid rgb(224, 222, 222); */
+    flex: 0.5;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    height: 100%;
+}
+
+
+/* animation */

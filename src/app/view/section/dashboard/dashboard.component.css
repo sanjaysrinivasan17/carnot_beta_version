@@ -1,0 +1,45 @@
+.newproject {
+    /* text-align: center; */
+    padding-top: 100px;
+    padding-left: 600px;
+}
+
+.compact-menu-item {
+    position: relative;
+}
+
+.compact-menu-icon {
+    position: fixed;
+    left: 17px;
+    width: 20px;
+    height: 20px;
+    color: var(--lite);
+}
+
+.material-icons {
+    font-size: large;
+    color: rgb(207, 202, 202);
+    font-size: 2em;
+    height: 200px;
+    width: 200px;
+    /* font-size: 200px; */
+}
+
+.header {
+    font-family: 'Montserrat', Helvetica, sans-serif;
+    font-weight: bold;
+}
+
+.header_newproject {
+    /* text-align: center; */
+    padding-top: 400px;
+    padding-left: 130px;
+    width: 600px;
+    /* font-size: 20px; */
+}
+
+.form-fields {
+    position: relative;
+    margin-top: 60px;
+    padding: 10px 20px;
+}

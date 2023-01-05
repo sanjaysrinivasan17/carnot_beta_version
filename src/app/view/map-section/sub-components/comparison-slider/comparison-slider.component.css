@@ -1,0 +1,35 @@
+::ng-deep .cdk-overlay-dark-backdrop {
+    background: none !important;
+}
+
+button:focus {
+    outline: none !important;
+}
+
+.mat-icon-button ::ng-deep .mat-button-focus-overlay {
+    display: none;
+}
+
+.datebuttonleft {
+    position: absolute;
+    right: 10px;
+    top: 50px;
+    width: 20px;
+    float: right;
+    position: relative;
+    z-index: 100;
+    align-content: left;
+    font-family: 'Montserrat', Helvetica, sans-serif;
+}
+
+.datebuttonright {
+    position: absolute;
+    right: 10px;
+    top: 50px;
+    width: 20px;
+    float: right;
+    position: relative;
+    z-index: 100;
+    align-content: right;
+    font-family: 'Montserrat', Helvetica, sans-serif;
+}

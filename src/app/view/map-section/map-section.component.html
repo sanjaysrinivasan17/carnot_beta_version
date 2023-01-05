@@ -1,0 +1,424 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/bootstrap-select.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+<body class="capture">
+    <sidebar (current_summary_state_event)="LoadKml($event)" (inverter_page_event)="LoadGBKml($event)" (removing_kml_event)="RemoveKml($event)" (subdefects_page_event)="subdefects_page_load($event)" (cadastrial_map_page_event)="LoadKml($event)"></sidebar>
+    <subdefects *ngIf="subdefects_visibility == 'visible' else visibility_off" (subdefects_page_event)="subdefects_page($event)" (rectify_defect_event)="rectification_defect($event)"></subdefects>
+    <ng-template #visibility_off>
+
+    </ng-template>
+    <!-- (rectify_defect_event)="rectification_defect($event)" -->
+    <gradinggraph *ngIf="grading_visibility == 'visible' else grading_visibility_off" (removing_kml_event)="RemoveKml($event)"> </gradinggraph>
+
+    <ng-template #grading_visibility_off>
+
+    </ng-template>
+
+    <defectrectification *ngIf="defect_rectify_visibility == 'visible' else defect_rectification_off"></defectrectification>
+    <ng-template #defect_rectification_off>
+
+    </ng-template>
+    
+    <div id="map" style="height: 100%; width: 100%;"></div>
+    <span class="material-icons" (click)="zoomreset()" id='resetzoom' style="z-index: 1000; ">
+        zoom_out_map
+    </span>
+    <span class="material-icons" (click)="zoomin()" id='in' style="z-index: 1000; ">
+        zoom_in
+    </span>
+    <span class="material-icons" (click)="zoomout()" id='out' style="z-index: 1000; ">
+        zoom_out
+    </span>
+
+    
+
+    <div class="bottom-container " style="right:10px">
+        <div class="drawer ">
+            <app-draw [map]="map "></app-draw>
+        </div>
+
+       
+        <div class="view-container ml-4 " style="position: relative; margin: auto; margin-bottom: 0; color:white;font-family: Montserrat, sans-serif;">
+
+            <mat-expansion-panel style="z-index: 1000; ">
+                <mat-expansion-panel-header>
+                    <mat-panel-title class="menu-header ">
+                        <span style="font-family: Montserrat, sans-serif;">Layouts </span>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="details-section" *ngIf="adani_proj_name == 'Adani-Limbaganesh' else other_sites">
+                    <!-- <mat-checkbox class="example-margin" (click)="ViewMenu('thermal')" id="checkbox">Thermal</mat-checkbox>
+                        <mat-checkbox class="example-margin" (click)="ViewMenu('cad')">Cad</mat-checkbox> -->
+                    <input type="checkbox" id="Checkbox" class="example-margin" [checked]="accepted" (click)="ViewMenu('thermal')">Thermal
+                    <input type="checkbox" id="vehicle1" class="example-margin" [checked]="accepted1" (click)="ViewMenu('cad')">Cad
+                </div>
+
+                <ng-template #other_sites>
+                    <div class="details-section " *ngIf="Project_data !=''  else other_layouts">
+                        <!-- <mat-checkbox class="example-margin" (click)="ViewMenu('thermal')" id="checkbox">Thermal</mat-checkbox>
+                        <mat-checkbox class="example-margin" (click)="ViewMenu('cad')">Cad</mat-checkbox> -->
+                        <input type="checkbox" id="Checkbox" class="example-margin" [checked]="accepted" (click)="ViewMenu('thermal')">Thermal
+                        <input type="checkbox" id="vehicle1" class="example-margin" [checked]="accepted1" (click)="ViewMenu('cad')">Cad
+                    </div>
+                    <ng-template #other_layouts>
+                        <div class="details-section ">
+                            <mat-checkbox class="example-margin" (click)="ViewMenu('DTM')" [checked]="accepted2">DTM
+                            </mat-checkbox>
+                            <mat-checkbox class="example-margin" (click)="ViewMenu('slope')" *ngIf="project_feature == 'visible' else project_feature_visible_off">Slope (Degree)
+                            </mat-checkbox>
+                            <ng-template #project_feature_visible_off>
+
+                            </ng-template>
+
+                        </div>
+                    </ng-template>
+                </ng-template>
+
+            </mat-expansion-panel>
+
+
+        </div>
+
+
+    </div>
+
+
+
+
+
+    <div class="exam ml-3 ">
+
+        <div class="header" style="z-index: 1000; text-transform:uppercase; background-color: transparent;width: 300px;height: 40px;">
+            
+            <marquee width="60%" direction="left" height="100px" scrollamount=3 >
+                {{project_name}}
+            </marquee>
+              
+        </div>
+
+        <div class="exam ml-3 " style="z-index: 1000;">
+
+            <mat-card appearance="outlined" style="width:140px;background-color: white;padding: 0px;margin: 0px;font-family: 'Montserrat', Helvetica, sans-serif;">
+                <!-- <mat-label>Date</mat-label> -->
+                <mat-select name="date" [(ngModel)]="date" style="height: 30px;vertical-align: middle;padding-left: 5px;padding-top: 5px;text-align: center;" (ngModelChange)="Datemenu(date); outerfunction(date);" [disableOptionCentering]="true">
+                    <mat-option [value]=" date " *ngFor="let date of Completed_date_array; let i=index " style="background-color: white;font-family: 'Montserrat', Helvetica, sans-serif;">
+                        {{date}}
+
+                    </mat-option>
+
+                </mat-select>
+            </mat-card>
+
+        </div>
+
+    </div>
+
+    <div class="location" style="z-index: 1000;" *ngIf="project_feature1 == 'visible' else location_hide">
+
+        <mat-card appearance="outlined" style="width:140px;background-color: white;padding: 0px;margin: 0px;font-family: 'Montserrat', Helvetica, sans-serif;">
+            <!-- <mat-label>Date</mat-label> -->
+            <mat-select name="selected" [(ngModel)]="selected" style="height: 30px;vertical-align: middle;padding-left: 5px;padding-top: 5px;text-align: center;" (ngModelChange)="Change_location(selected);" [disableOptionCentering]="true">
+                <mat-option [value]="location['name']" *ngFor="let location of location_value; let i=index " style="background-color: white;font-family: 'Montserrat ', Helvetica, sans-serif; ">
+                    {{location['name']}}
+
+                </mat-option>
+
+            </mat-select>
+        </mat-card>
+
+    </div>
+    <ng-template #location_hide>
+
+    </ng-template>
+
+    <div class="satellite_view ml-3 " style="z-index: 1000; ">
+
+        <!-- <mat-card style="width:115px;background-color: white;padding: 0px;margin: 0px;font-family: 'Montserrat ', Helvetica, sans-serif; "> -->
+        <!-- <mat-label>Date</mat-label> -->
+        <!-- <button mat-button>
+                satellite view
+            </button> -->
+        <img [src]="default" alt="Default view " (click)="satellite_view() " style="text-align: center;border-radius: 10px;border-color: black; " *ngIf="satelliteview =='satellite' else terrainview " width="36px" height="40px">
+        <ng-template #terrainview>
+            <img [src]="satellite" alt="Satellite view " (click)="satellite_view() " style="text-align: center;border-radius: 10px;border-color: black " width="36px" height="40px">
+        </ng-template>
+        <!-- </mat-card> -->
+
+
+    </div>
+
+    <div class="dtm_view l-3 " style="z-index: 1000; ">
+        <img [src]="default_dtm " alt="DTM view " style="text-align: center;border-radius: 10px;border-color: black " *ngIf="isShown1 == 'visibility' else visibility_off " width="75px " height="250px ">
+        <!-- </mat-card> -->
+        <ng-template #visibility_off>
+
+
+        </ng-template>
+
+    </div>
+    <div class="slope_view l-3 " style="z-index: 1000; ">
+
+        <img [src]="default_slope " alt="Default view " style="text-align: center;border-radius: 10px;border-color: black; " *ngIf="isShown2 == 'visibility' else visibility_off_slope " width="70px " height="245px ">
+        <!-- </mat-card> -->
+        <ng-template #visibility_off_slope>
+
+
+        </ng-template>
+
+    </div>
+
+    <div *ngIf="popupDesc==' ' ; else elseBlock ">
+
+
+        <mat-card [style.visibility]="(popup_card_visibility ) ? 'visible ' : 'hidden ' " style="margin-left: 4rem; margin-top: 75px;width: 16%; height:70px; position: fixed;top:0;right:50px; z-index: 1000; ">
+
+            <b style="margin: 2rem; ">
+                <mat-card-content style="height: 40%; font-family: 'Montserrat ', Helvetica, sans-serif; ">Click on a
+                    feature to view details</mat-card-content>
+            </b>
+        </mat-card>
+    </div>
+
+    <ng-template #elseBlock>
+
+        <mat-card [style.visibility]="(popup_card_visibility ) ? 'visible ' : 'hidden ' " style="margin-left: 4rem; margin-top: 75px;width: 24%; height:auto; position: fixed;top:0;right:50px; z-index: 1000;border-radius: 10px; ">
+
+            <mat-card-header>
+                <!-- <div mat-card-avatar class="example-header-image " style="background-color: green; "></div> -->
+                <!-- <mat-card-title>{{ITC_No}}</mat-card-title>
+                <mat-card-subtitle> {{Defect}}</mat-card-subtitle> -->
+
+                <div style="margin-left: auto;margin-top: -10px; ">
+                    <button mat-icon-button>
+                        <mat-icon (click)="close_popup_card() " style="cursor: pointer; ">close</mat-icon>
+                    </button>
+
+                </div>
+            </mat-card-header>
+            <!-- <img style="padding-left: 10px; " mat-card-image src={{Thermal_Image_src}}> -->
+
+            <mat-card-content>
+                <div class="row ">
+                    <div class="col-3 "><b> Table No</b></div>
+                    <div class="col-1 "><b>:</b></div>
+                    <div class="col-6 " style="font-family: 'Montserrat ', Helvetica, sans-serif; "> {{Table_No}}</div>
+                </div>
+                <br>
+                <div class="row ">
+                    <div class="col-3 "><b> Module No</b></div>
+                    <div class="col-1 "><b>:</b></div>
+                    <div class="col-6 " style="font-family: 'Montserrat ', Helvetica, sans-serif; "> {{Module_no}}</div>
+                </div>
+                <br>
+                <div class="row ">
+                    <div class="col-3 "><b> Defect</b></div>
+                    <div class="col-1 "><b>:</b></div>
+                    <div class="col-6 " style="font-family: 'Montserrat ', Helvetica, sans-serif; "> {{Defect}}</div>
+                </div>
+                <br>
+                <div class="row ">
+                    <div class="col-3 "><b> Description</b></div>
+                    <div class="col-1 "><b>:</b></div>
+                    <div class="col-6 " style="font-family: 'Montserrat ', Helvetica, sans-serif; "> {{Description}}
+                    </div>
+                </div>
+                <div class="row ">
+                    <div class="col-3 "><b> Latitude</b></div>
+                    <div class="col-1 "><b>:</b></div>
+                    <div class="col-6 " style="font-family: 'Montserrat ', Helvetica, sans-serif; "> {{popup_lat}}</div>
+                </div>
+                <br>
+                <div class="row ">
+                    <div class="col-3 "><b> Longitude</b></div>
+                    <div class="col-1 "><b>:</b></div>
+                    <div class="col-6 " style="font-family: 'Montserrat ', Helvetica, sans-serif; "> {{popup_lng}}</div>
+                </div>
+                <br>
+                <div class="row ">
+                    <div class="col-3 "><b> Minimum Temperature</b></div>
+                    <div class="col-1 "><b>:</b></div>
+                    <div class="col-6 " style="font-family: 'Montserrat ', Helvetica, sans-serif; "> {{Min_temp}}</div>
+                </div>
+                <br>
+                <div class="row ">
+                    <div class="col-3 "><b> Maximum Temperature</b></div>
+                    <div class="col-1 "><b>:</b></div>
+                    <div class="col-6 " style="font-family: 'Montserrat ', Helvetica, sans-serif; "> {{Max_temp}}</div>
+                </div>
+                <br>
+
+                <div class="row " *ngIf="thermal_img ">
+                    <div class="col-3 "><b> Thermal Image</b></div>
+                    <div class="col-1 "><b>:</b></div>
+                    <div class="col-6 " style="font-family: 'Montserrat ', Helvetica, sans-serif; "> <img style="padding-left: 10px;width: 80px; " mat-card-image src={{thermal_img}}>
+                    </div>
+                </div>
+                <br>
+                <br>
+                <!-- <b style="margin-top:rem; ">Description :</b>
+                <p>
+                    {{Description}}
+                </p>
+                <p> <b style="margin-bottom: 1rem; ">Table Number :</b> &ensp;{{Table_No}} </p>
+                <div style="display: flex;flex-direction: column; ">
+                    <p> </p>
+                    <p> <b> Module No :</b> {{Module_no}} </p>
+                    <p> <b> LAT :</b> {{popup_lat}} </p>
+                    <p> <b> LNG :</b> {{popup_lng}} </p>
+                    !-- <p> <b> LNG :</b> {{popup_lng}} </p>
+                    <p> <b> LNG :</b> {{popup_lng}} </p>
+                    <p> <b> LNG :</b> {{popup_lng}} </p>
+                    <p> <b> LNG :</b> {{popup_lng}} </p>
+                    <p> <b> LNG :</b> {{popup_lng}} </p>
+                    <p> <b> LNG :</b> {{popup_lng}} </p> --
+                </div>
+
+                !-- this.ITC_No = dec_obj['Inverter No: ']
+                this.Table_No = dec_obj['Table No: ']
+                this.Defect = dec_obj['Defect: ']
+                this.Description = dec_obj['Description: ']
+                this.popup_lat = dec_obj['Latitude: ']
+                this.popup_lng = dec_obj['Longitude: ']
+                this.Max_temp = dec_obj['Maximum Temperature: ']
+                this.Min_temp = dec_obj['Minimum Temperature: ']
+                this.Module_no = dec_obj['Module No: ']
+                this.thermal_img = dec_obj['Thermal Image: '] -- -->
+
+
+            </mat-card-content>
+        </mat-card>
+
+    </ng-template>
+
+    <div *ngIf="popupDesc==' ' ; else elseBlock_cadestral ">
+
+
+        <mat-card [style.visibility]="(popup_card_visibility_cadestral ) ? 'visible ' : 'hidden ' " style="margin-left: 4rem; margin-top: 75px;width: 16%; height:70px; position: fixed;top:0;right:50px; z-index: 1000; ">
+
+            <b style="margin: 2rem; ">
+                <mat-card-content style="height: 40%; font-family: 'Montserrat ', Helvetica, sans-serif; ">Click on a
+                    feature to view details</mat-card-content>
+            </b>
+        </mat-card>
+    </div>
+
+    <ng-template #elseBlock_cadestral>
+
+        <mat-card [style.visibility]="(popup_card_visibility_cadestral ) ? 'visible ' : 'hidden ' " style="margin-left: 4rem; margin-top: 75px;width: 24%; height:auto; position: fixed;top:0;right:50px; z-index: 1000;border-radius: 10px; ">
+
+            <mat-card-header>
+                <!-- <div mat-card-avatar class="example-header-image " style="background-color: green; "></div> -->
+                <!-- <mat-card-title>{{ITC_No}}</mat-card-title>
+                <mat-card-subtitle> {{Defect}}</mat-card-subtitle> -->
+
+                <div style="margin-left: auto;margin-top: -10px; ">
+                    <button mat-icon-button>
+                        <mat-icon (click)="close_popup_card() " style="cursor: pointer; ">close</mat-icon>
+                    </button>
+
+                </div>
+            </mat-card-header>
+            <!-- <img style="padding-left: 10px; " mat-card-image src={{Thermal_Image_src}}> -->
+
+            <mat-card-content>
+                <div *ngIf="Survey_No else empty_value ">
+                    <div class="row " *ngIf="Survey_No ">
+                        <div class="col-3 "><b> Survey No</b></div>
+                        <div class="col-1 "><b>:</b></div>
+                        <div class="col-6 " style="font-family: 'Montserrat ', Helvetica, sans-serif; "> {{Survey_No}}
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row " *ngIf="Description_cadestral ">
+                        <div class="col-3 "><b> Description</b></div>
+                        <div class="col-1 "><b>:</b></div>
+                        <div class="col-6 " style="font-family: 'Montserrat ', Helvetica, sans-serif; ">
+                            {{Description_cadestral}}</div>
+                    </div>
+                    <br>
+
+                    <div class="row " *ngIf="Document ">
+                        <div class="col-3 "><b> Document</b></div>
+                        <div class="col-1 "><b>:</b></div>
+                        <div class="col-6 " style="font-family: 'Montserrat ', Helvetica, sans-serif; ">
+                            <a style="padding-left: 10px;width: 80px; " href={{Document_link}}>{{Document}}</a>
+                        </div>
+                    </div>
+                </div>
+                <ng-template #empty_value>
+                    <div class="row " *ngIf="Description_cadestral ">
+                        <div class="col-2 "></div>
+                        <div class="col-6 " style="font-family: 'Montserrat ', Helvetica, sans-serif; ">
+                            {{Description_cadestral}}</div>
+                        <div class="col-2 "></div>
+                    </div>
+                </ng-template>
+                <br>
+                <br>
+
+
+            </mat-card-content>
+        </mat-card>
+
+    </ng-template>
+    <div *ngIf="popupDesc ==' ' ; else elseBlock_grading ">
+
+    </div>
+
+    <ng-template #elseBlock_grading>
+
+        <mat-card [style.visibility]="(popup_card_visibility_grading ) ? 'visible ' : 'hidden ' " style="margin-left: 4rem; margin-top: 75px;width: 24%; height:auto; position: fixed;top:0;right:50px; z-index: 1000;border-radius: 10px; ">
+
+            <mat-card-header>
+                <!-- <div mat-card-avatar class="example-header-image " style="background-color: green; "></div> -->
+                <!-- <mat-card-title>{{ITC_No}}</mat-card-title>
+                <mat-card-subtitle> {{Defect}}</mat-card-subtitle> -->
+
+                <div style="margin-left: auto;margin-top: -10px; ">
+                    <button mat-icon-button>
+                        <mat-icon (click)="close_popup_card() " style="cursor: pointer; ">close</mat-icon>
+                    </button>
+
+                </div>
+            </mat-card-header>
+            <!-- <img style="padding-left: 10px; " mat-card-image src={{Thermal_Image_src}}> -->
+
+            <mat-card-content>
+
+
+                <div id="chart" *ngIf="chartOptions" style="padding-left: 10px;">
+                    <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart" [yaxis]="chartOptions.yaxis" [xaxis]="chartOptions.xaxis" [labels]="chartOptions.labels" [stroke]="chartOptions.stroke" [title]="chartOptions.title" [dataLabels]="chartOptions.dataLabels"
+                        [fill]="chartOptions.fill" [tooltip]="chartOptions.tooltip" [colors]="chartOptions.colors" [grid]="chartOptions.grid">
+                    </apx-chart>
+                </div>
+
+                <br>
+                <br>
+                <div class="row ">
+                    <div class="col-3 "><b> Table No</b></div>
+                    <div class="col-1 "><b>:</b></div>
+                    <div class="col-6 " style="font-family: 'Montserrat ', Helvetica, sans-serif; "> {{table_number}}
+                    </div>
+                </div>
+                <br>
+
+            </mat-card-content>
+        </mat-card>
+
+    </ng-template>
+    <app-date></app-date>
+
+</body>

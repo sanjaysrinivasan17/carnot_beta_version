@@ -1,0 +1,175 @@
+.compact-sidebar {
+    height: 100%;
+    width: 60px;
+    position: fixed;
+    z-index: 100;
+    /* background-color: var(--white); */
+    box-shadow: 0px 3px 6px var(--shadow);
+    overflow-x: hidden;
+    display: flex;
+    justify-content: center;
+    left: 0px;
+    background-color: #000080;
+    
+}
+
+
+
+/* styling navlist */
+
+.compact-sidebar .menu {
+    height: 50px;
+    width: 50px;
+    color: #eee;
+    position: relative;
+    cursor: pointer;
+}
+
+.compact-sidebar .menu .menu-icon {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    width: 24px;
+    color: #eee;
+}
+
+.compact-sidebar .menu .fa {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    width: 20px;
+    color: #eee;
+}
+
+.menu .active {
+    color: var(--primary);
+}
+
+.compact-sidebar .menu .menu-active {
+    width: 0px;
+    height: 75%;
+    background-color: var(--primary);
+    border-radius: 25%;
+    position: absolute;
+    right: -5px;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+}
+
+.compact-sidebar .sidebar-menu .top-section {
+    position: relative;
+    top: 50px;
+    width: 52px;
+    color: #d9d9d9;
+}
+
+.compact-sidebar .sidebar-menu .bottom-section {
+    position: fixed;
+    bottom: 40px;
+    width: 52px;
+}
+
+
+/* extended sidenav */
+
+.sidebar-card {
+    background-color: var(--white);
+    box-shadow: 0 3px 6px var(--shadow);
+    width: 0px;
+    left: 60px !important;
+    height: 100%;
+    position: absolute;
+    padding: 20px;
+    overflow-y: auto;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    transition: 0.3s;
+    display: none;
+}
+
+
+/* title  */
+
+.sidebar-card .header {
+    padding: 15px 0px;
+    display: inline-block;
+    position: relative;
+}
+
+.sidebar-card .header .title {
+    font-size: 25px;
+    font-family: 'Montserrat', Helvetica, sans-serif;
+    font-weight: 800;
+    letter-spacing: 1px;
+    position: relative;
+    top: 5px;
+    float: left;
+}
+
+.sidebar-card .header .action {
+    float: right;
+    font-family: 'Montserrat', Helvetica, sans-serif;
+    font-size: 14px;
+}
+
+
+.details-section {
+    /* display: flex; */
+    flex-direction: column;
+    cursor: pointer;
+    padding: 5px 0px;
+}
+
+.example-section {
+    margin: 12px 0;
+}
+
+.example-margin {
+    margin: 0 12px;
+    background-color: white;
+}
+
+
+.status-indication {
+    display: inline-flex;
+}
+
+.status-indication .indication-bar {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    padding-left: 5px;
+}
+
+::ng-deep tr {
+    height: 42px !important;
+    font-size: 25px;
+    font-family: 'Montserrat', Helvetica, sans-serif;
+    
+}
+
+::ng-deep hr {
+    box-sizing: content-box;
+    height: 0;
+    margin-top: 0rem;
+    border: 0;
+    border-top: 1px solid rgba(0, 0, 0, .1);
+    width: 100%;
+    border-bottom: 1px solid white;
+    margin-left: -5px;
+    margin-bottom: 5px;
+}
+
+.fix-bottom {
+    position: fixed;
+    bottom: 20px;
+    width: 52px;
+    margin-left: 22px;
+}

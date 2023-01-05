@@ -1,0 +1,136 @@
+::ng-deep .cdk-overlay-dark-backdrop {
+    background: none !important;
+}
+
+button:focus {
+    outline: none !important;
+}
+
+.mat-icon-button ::ng-deep .mat-button-focus-overlay {
+    display: none;
+}
+
+::ng-deep .mat-select-panel-wrap {
+    flex-basis: 105%;
+    position: top;
+    top: 30px;
+    left: 11px;
+}
+
+.datebuttonleft {
+    position: fixed;
+    top: 5%;
+    left: 10%;
+    z-index: 1000;
+}
+
+.visibility_left {
+    position: fixed;
+    left: 6%;
+    width: 30px;
+    border-radius: 5px;
+    top: 30%;
+    z-index: 1000;
+    background-color: darkgray;
+    cursor: pointer;
+}
+
+.statusbuttonleft {
+    position: fixed;
+    left: 5%;
+    bottom: 5%;
+    z-index: 1000;
+}
+
+.datebuttonright {
+    position: fixed;
+    right: 5%;
+    top: 5%;
+    z-index: 1000;
+}
+
+.visibility_right {
+    position: fixed;
+    right: 3%;
+    width: 30px;
+    border-radius: 5px;
+    top: 30%;
+    z-index: 1000;
+    background-color: darkgray;
+    cursor: pointer;
+}
+
+.statusbuttonright {
+    position: fixed;
+    right: 5%;
+    bottom: 5%;
+    z-index: 1000;
+}
+
+.view-container {
+    width: 200px;
+    position: fixed;
+    margin: auto;
+    margin-left: 30px;
+    padding-left: 50px;
+    padding-top: 700px;
+    z-index: 1000;
+    vertical-align: bottom;
+}
+
+@media only screen and (max-width: 720px) {
+    .bottom-container {
+        display: block !important;
+    }
+    .view-container {
+        width: 100% !important;
+        margin-left: 0 !important;
+        margin-top: 10px;
+    }
+}
+
+.left_card {
+    width: 140px;
+    /* height: 500px; */
+    background-color: white;
+    padding: 0px;
+    margin: 0px;
+    left: 0px;
+    bottom: 10px;
+    margin-left: 580px;
+}
+
+.left_status_card {
+    /* width: 140px; */
+    background-color: white;
+    padding: 0px;
+    margin: 0px;
+    left: 0px;
+    bottom: 10px;
+}
+
+.right_status_card {
+    /* width: 140px; */
+    background-color: white;
+    padding: 0px;
+    margin: 0px;
+    left: 0px;
+    bottom: 10px;
+}
+
+.status-indication {
+    display: inline-flex;
+    align-items: center;
+}
+
+.status-indication .indication-bar {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+}
+
+.status-indication .indication-text {
+    font-size: 15px;
+    font-family: 'Montserrat', Helvetica, sans-serif;
+    font-weight: 500;
+}

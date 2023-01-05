@@ -1,0 +1,175 @@
+<assetsidebar [resetFormSubject]="resetFormSubject" (current_summary_state_event)="Loadkml($event)"
+    (removing_kml_event)="RemoveKml($event)" (close_sidebar_event)="close_popup_card()"
+    (project_info_event)="projectInfo($event)"></assetsidebar>
+
+<div id="Assetmap" style="height: 100%; width: 100%;"></div>
+
+<!-- <div class="Date ml-3"> -->
+
+<div class="project_name"
+    style="z-index: 1000; text-transform:uppercase; background-color: transparent;width: 300px;height: 40px;">
+
+    <marquee width="40%" direction="left" height="100px" scrollamount=3>
+        {{project_name}}
+    </marquee>
+
+</div>
+<div class="project_type">
+    SCPM <mat-slide-toggle [checked]="checked" (toggleChange)="toggleChangeType(checked)">SCQM</mat-slide-toggle>
+</div>
+
+<div class="Date ml-3" style="z-index: 1000;">
+
+    <mat-card appearance="outlined"
+        style="width:140px;background-color: white;padding: 0px;margin: 0px;font-family: 'Montserrat', Helvetica, sans-serif;">
+        <mat-select name="Date" [(ngModel)]="Date"
+            style="height: 30px;vertical-align: middle;padding-left: 5px;padding-top: 5px;text-align: center;"
+            [disableOptionCentering]="true" (ngModelChange)="ChangeDate(Date);">
+            <mat-option [value]="Date" *ngFor="let Date of Date_list; let i=index"
+                style="background-color: white;font-family: 'Montserrat', Helvetica, sans-serif;">
+                {{Date}}
+
+            </mat-option>
+
+        </mat-select>
+    </mat-card>
+
+</div>
+
+<div class="satellite_view ml-3" style="z-index: 1000;">
+
+    <img [src]="default" alt="Default view" (click)="satellite_view()"
+        style="text-align: center;border-radius: 10px;border-color: black;"
+        *ngIf="satelliteview =='satellite' else terrainview" width="36px" height="40px">
+    <ng-template #terrainview>
+        <img [src]="satellite" alt="Satellite view" (click)="satellite_view()"
+            style="text-align: center;border-radius: 10px;border-color: black" width="36px" height="40px">
+    </ng-template>
+
+</div>
+
+
+
+<div class="bottom-container" style="right:30px;bottom: -12px;">
+    <div class="drawer" *ngIf="map">
+        <assetdraw [map]="map"></assetdraw>
+    </div>
+    <div  class="measure" *ngIf="map">
+        <app-measure [map]="map"></app-measure>
+    </div>
+</div>
+<div class="bottom-container" style="right:10px">
+    <div class="view-container ml-4"
+        style="position: relative; margin: auto; margin-bottom: 0; color:white;font-family: 'Montserrat', Helvetica, sans-serif;">
+
+        <mat-expansion-panel style="z-index: 1000;">
+            <mat-expansion-panel-header>
+                <mat-panel-title class="menu-header">
+                    <span style="font-family: 'Montserrat', Helvetica, sans-serif;"><b>Layouts</b> </span>
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="details-section">
+                <table>
+                    <tr>
+                        <td>
+                            <input type="checkbox" id="Checkbox" class="example-margin" [checked]="accepted"
+                                (click)="ViewMenu('AC_CAD')">AC CAD
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="checkbox" id="vehicle1" class="example-margin" [checked]="accepted1"
+                                (click)="ViewMenu('DC_CAD')">DC CAD
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="checkbox" id="Raw_image" class="example-margin" [checked]="accepted3"
+                                (click)="ViewMenu('Raw_image')">Raw Image
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+
+        </mat-expansion-panel>
+
+
+    </div>
+
+
+</div>
+
+<mat-card [style.visibility]="(popup_card_info) ? 'visible ' : 'hidden '"
+    style="margin-left: 0rem; margin-top: 75px;width: auto; height:auto; position: fixed;bottom:0;left:60px; z-index: 1000;border-radius: 10px;">
+    <mat-card-header>
+        <div style="margin-left: auto;margin-top: -10px;">
+            <button mat-icon-button>
+                <mat-icon (click)="close_popup_card()" style="cursor: pointer;">close</mat-icon>
+            </button>
+
+        </div>
+    </mat-card-header>
+    <mat-card-content>
+        <table>
+            <tr>
+                <td style="font-size: 16px;font-family: 'Montserrat', Helvetica, sans-serif;">Project Name :</td>
+                <td style="font-size: 16px;font-family: 'Montserrat', Helvetica, sans-serif;">{{project_name}}</td>
+            </tr>
+            <tr>
+                <td style="font-size: 16px;font-family: 'Montserrat', Helvetica, sans-serif;">Description :</td>
+                <td style="font-size: 16px;font-family: 'Montserrat', Helvetica, sans-serif;">{{description}}</td>
+            </tr>
+            <tr>
+                <td style="font-size: 16px;font-family: 'Montserrat', Helvetica, sans-serif;">Location :</td>
+                <td style="font-size: 16px;font-family: 'Montserrat', Helvetica, sans-serif;">{{location}}</td>
+            </tr>
+        </table>
+    </mat-card-content>
+</mat-card>
+<mat-card [style.visibility]="(popup_card_visibility ) ? 'visible ' : 'hidden '"
+    style="margin-left: 0rem; margin-top: 75px;width: 19%; height:auto; position: fixed;bottom:0;left:60px; z-index: 1000;border-radius: 10px;">
+
+    <mat-card-header>
+        <!-- <div mat-card-avatar class="example-header-image" style="background-color: green;"></div> -->
+        <mat-card-title>{{pop_up_header}}</mat-card-title>
+        <!-- <mat-card-subtitle> {{Defect}}</mat-card-subtitle> -->
+
+        <div style="margin-left: auto;margin-top: -10px;">
+            <button mat-icon-button>
+                <mat-icon (click)="close_popup_card()" style="cursor: pointer;">close</mat-icon>
+            </button>
+
+        </div>
+    </mat-card-header>
+    <mat-card-content>
+        <table>
+            <tr>
+                <td>
+                    <table>
+                        <tr>
+                            <td style="font-size:14px;font-family:'Montserrat', Helvetica, sans-serif">
+                                <b>Actual:</b> {{pop_up_Actual}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="font-size:14px;font-family:'Montserrat', Helvetica, sans-serif">
+                                <b>Planned:</b> {{pop_up_planned}}
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td>
+                    <div id="chart" *ngIf="chartOptions">
+                        <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart"
+                            [plotOptions]="chartOptions.plotOptions" [colors]="chartOptions.colors"></apx-chart>
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+
+    </mat-card-content>
+</mat-card>
+
+<!-- </div> -->

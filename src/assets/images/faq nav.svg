@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="16.25" height="16.25" viewBox="0 0 16.25 16.25">
+  <g id="Icon_ionic-md-help-circle-outline" data-name="Icon ionic-md-help-circle-outline" transform="translate(-1.875 -1.875)">
+    <path id="Path_2021" data-name="Path 2021" d="M10,3.516a6.482,6.482,0,1,1-4.586,1.9A6.457,6.457,0,0,1,10,3.516m0-1.641A8.125,8.125,0,1,0,18.125,10,8.124,8.124,0,0,0,10,1.875Z" fill="#0060fe"/>
+    <g id="Group_9940" data-name="Group 9940">
+      <path id="Path_2022" data-name="Path 2022" d="M9.18,13.242H10.82v1.641H9.18Z" fill="#0060fe"/>
+      <path id="Path_2023" data-name="Path 2023" d="M10.813,12.422H9.188c0-2.617,2.438-2.43,2.438-4.055A1.632,1.632,0,0,0,10,6.738,1.649,1.649,0,0,0,8.375,8.359H6.75a3.25,3.25,0,0,1,6.5,0C13.25,10.395,10.813,10.625,10.813,12.422Z" fill="#0060fe"/>
+    </g>
+  </g>
+</svg>

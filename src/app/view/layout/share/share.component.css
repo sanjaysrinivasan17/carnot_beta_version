@@ -1,0 +1,108 @@
+.mat-button {
+    background-color: var(--primary);
+    border: none;
+    color: blue;
+    padding: 2px 26px;
+    font-family: 'Montserrat', Helvetica, sans-serif;
+    font-size: 14px;
+    text-align: center;
+    margin: 4px 2px;
+    opacity: 1;
+    transition: 0.3s;
+    left: 405px;
+}
+.sharedata{
+    height: 155px;
+    width: 620px;
+}
+
+.info_text {
+    position: relative;
+    top: 10px;
+    margin: auto;
+    text-transform: uppercase;
+    font-size: 25px;
+    font-family: 'Montserrat', Helvetica, sans-serif;
+    text-align: center;
+}
+
+.info_text1{
+    position: relative;
+    top: -25px;
+    margin: auto;
+    text-transform: uppercase;
+    font-size: 23px;
+    font-family: 'Montserrat', Helvetica, sans-serif;
+    text-align: center;
+}
+.btn-container2 {
+    position: absolute;
+    right: 20px;
+    bottom: -20px;
+}
+
+.header_shared_name {
+    font-size: 16px;
+    font-family: 'Montserrat', Helvetica, sans-serif;
+}
+
+.header_shared_email {
+    font-size: 12px;
+    font-family: 'Montserrat', Helvetica, sans-serif;
+    padding-left: 25px;
+}
+
+.header_shared_title {
+    font-size: 30px;
+    font-family: 'Montserrat', Helvetica, sans-serif;
+}
+
+.header_shared_account_count {
+    font-size: 16px;
+    font-family: 'Montserrat', Helvetica, sans-serif;
+    padding-left: 5px;
+}
+
+h4 {
+    font-family: 'Montserrat', Helvetica, sans-serif;
+}
+
+
+/* ::ng-deep mat-card {
+    padding-bottom: 0 !important;
+    width: 510px;
+    height: 250px;
+    box-shadow: 1px 1px #ffffff !important;
+    box-shadow: 1px 1px #b1b1b19a !important;
+} */
+
+.custom-btn {
+    border-radius: 20px;
+    border-color: transparent;
+    padding-top: 6px;
+    background-color: var(--primary);
+    color: white;
+    padding-left: 8px;
+    margin-bottom: 52px;
+}
+
+table {
+    /* margin-left: 80px; */
+    width: 100%;
+    font-family: 'Montserrat', Helvetica, sans-serif;
+    
+}
+
+tr {
+    height: 40px;
+    font-size: 18px;
+    text-align: left;
+}
+
+th {
+    font-family: 'Montserrat', Helvetica, sans-serif;
+    background-color: #e9ecef;
+    text-align: left;
+    font-size: 20px;
+    
+}

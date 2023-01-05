@@ -1,0 +1,30 @@
+.example-card {
+    max-width: 400px;
+    margin: 1rem;
+    
+  }
+
+  .example-card1 {
+    max-width: 400px;
+    margin: 1rem;
+  }
+
+  .example-card2 {
+    max-width: 400px;
+    margin: 1rem;
+  }
+
+ .mat-button{
+
+ background-color: var(--primary);
+  border: none;
+  color: white;
+  padding: 2px 26px;
+  font-size: 14px;
+  text-align: center;
+  margin: 4px 2px;
+  opacity: 0.6;
+  transition: 0.3s;
+}
+
+.mat-button:hover {opacity: 1}

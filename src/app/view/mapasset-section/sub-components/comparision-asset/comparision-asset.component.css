@@ -1,0 +1,58 @@
+@media only screen and (max-width: 720px) {
+    .bottom-container {
+        display: block !important;
+    }
+    .view-container {
+        width: 100% !important;
+        margin-left: 0 !important;
+        margin-top: 10px;
+    }
+}
+
+::ng-deep .mat-select-panel-wrap {
+    flex-basis: 105%;
+    position: top;
+    top: 30px;
+    left: 11px;
+}
+
+.datebuttonleft {
+    position: fixed;
+    top: 5%;
+    left: 10%;
+    z-index: 1000;
+}
+
+.datebuttonright {
+    position: fixed;
+    right: 5%;
+    top: 5%;
+    z-index: 1000;
+}
+
+.NavbarBack {
+    position: fixed;
+    top: 5%;
+    left: 10px;
+    z-index: 1000;
+}
+
+.Navbarsummary{
+    position: fixed;
+    top: 20%;
+    left: 10px;
+    z-index: 1000;
+}
+
+.Navbarinverter{
+    position: fixed;
+    top: 30%;
+    left: 10px;
+    z-index: 1000;
+}
+.Navbarfeaturewiseinverter{
+    position: fixed;
+    top: 40%;
+    left: 10px;
+    z-index: 1000;
+}

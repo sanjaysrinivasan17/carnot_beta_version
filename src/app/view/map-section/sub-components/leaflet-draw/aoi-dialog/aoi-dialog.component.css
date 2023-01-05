@@ -1,0 +1,12 @@
+.btn {
+    background: var(--primary);
+    color: #fff;
+}
+
+::ng-deep .cdk-overlay-pane {
+    max-width: 80vw;
+    pointer-events: auto;
+    width: 522px !important;
+    position: static;
+    padding-left: 240px;
+}

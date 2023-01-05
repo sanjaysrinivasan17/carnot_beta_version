@@ -1,0 +1,39 @@
+.summary {
+    width: 50%;
+    height: 50%;
+}
+
+.project_type {
+    /* position: fixed; */
+    right: 0px;
+    top: 0px;
+    width: 160px;
+    z-index: 1000;
+    font-size: 16px;
+}
+
+.feature_type{
+    left:0px;
+    z-index: 1000;
+    font-size: 16px;
+}
+
+::ng-deep .mat-dialog-container {
+    display: block;
+    padding: 24px;
+    border-radius: 4px;
+    box-sizing: border-box;
+    overflow: auto;
+    outline: 0;
+    width: 60rem;
+    height: auto;
+    min-height: inherit;
+    max-height: inherit;
+}
+
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    font-size: 16px;
+    font-family: 'Montserrat', Helvetica, sans-serif;
+  }

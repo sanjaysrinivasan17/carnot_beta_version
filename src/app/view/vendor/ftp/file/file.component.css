@@ -1,0 +1,80 @@
+mat-card {
+    background-color: var(--light) !important;
+    text-align: center !important;
+    box-shadow: 1px 1px #b1b1b19a !important;
+    width: 260px;
+    height: 60px;
+}
+
+.upload-icon {
+    position: relative;
+    right: 10px;
+}
+
+.text-button {
+    position: relative;
+    top: -6px;
+}
+
+.custom-href {
+    text-decoration: none !important;
+    cursor: pointer !important;
+}
+
+.uploaded-file {
+    display: flex;
+}
+
+.file-icon {
+    display: flex;
+    justify-content: flex-start;
+    padding: 6px;
+    position: relative;
+    right: 5px;
+}
+
+.icon {
+    font-size: 25px;
+}
+
+.file-details {
+    width: 100%;
+    padding-right: 40px;
+}
+
+.file-title {
+    font-size: 14px;
+    position: relative;
+    margin-bottom: 6px;
+}
+
+.upload-percentage {
+    font-size: 12px;
+    float: right;
+}
+
+.file-progress {
+    position: relative;
+    top: 5px;
+}
+
+.file-remove {
+    display: flex;
+    justify-content: flex-end;
+    position: absolute;
+    right: 20px;
+}
+
+.icon {
+    font-size: 25px;
+    font-size: 25px;
+    position: relative;
+    top: 3px;
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 600px) {
+    mat-card {
+        width: 200px !important;
+    }
+}

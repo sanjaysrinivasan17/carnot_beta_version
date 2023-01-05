@@ -1,0 +1,92 @@
+.mat-tab-labels {
+    justify-content: center;
+}
+
+.Forcard {
+    position: fixed;
+    right: 20px;
+    top: 95px;
+    width: 200px;
+    position: absolute;
+    z-index: 1000;
+    align-content: left;
+    border-color: black;
+    font-family: 'Montserrat', Helvetica, sans-serif;
+}
+
+.Forstatus {
+    position: fixed;
+    right: 900px;
+    top: 115px;
+    width: 200px;
+    position: absolute;
+    z-index: 1000;
+    align-content: left;
+    border-color: black;
+    font-family: 'Montserrat', Helvetica, sans-serif;
+}
+
+table {
+    border-collapse: collapse;
+    font-family: 'Montserrat', Helvetica, sans-serif;
+    width: 100%;
+}
+
+td {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+    font-family: 'Montserrat', Helvetica, sans-serif;
+}
+
+th {
+    border: 1px solid #dddddd;
+    text-align: center;
+    padding: 8px;
+    font-family: 'Montserrat', Helvetica, sans-serif;
+}
+
+.cardd {
+    width: 540px;
+    margin-top: 50px;
+    height: 200px;
+    margin-left: 35%;
+    font-family: 'Montserrat', Helvetica, sans-serif;
+}
+
+.card1 {
+    padding-top: 30px;
+    margin-left: 100px;
+    font-family: 'Montserrat', Helvetica, sans-serif;
+}
+
+.card2 {
+    width: 100%;
+    overflow-y: scroll;
+    font-family: 'Montserrat', Helvetica, sans-serif;
+    /* margin-left:500px; */
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: 3px;
+    margin-left: 2px;
+}
+.header {
+    right: 100px;
+    /* right: 215px; */
+    top: 19px;
+    width: fit-content;
+    height: auto;
+    position: absolute;
+    z-index: 1000;
+    font-family: 'Montserrat', Helvetica, sans-serif;
+    font-size: x-large;
+    align-content: center;
+    text-align: center;
+    cursor: text;
+    border-radius: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+}

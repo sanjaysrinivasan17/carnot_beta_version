@@ -1,0 +1,106 @@
+.exam{
+    position: fixed;
+    right: 100px;
+    top: 50px;
+
+    position: absolute;
+    z-index: 1000;
+    align-content: right;
+}
+.bottom-container {
+    display: flex;
+    position: absolute;
+    bottom: 0;
+    padding: 10px;
+}
+
+.bottom-container .drawer {
+    position: relative;
+    margin: auto;
+    width: 100%;
+    margin-bottom: 0;
+}
+
+.bottom-container .view-container {
+    width: 250px;
+    position: relative;
+    margin: auto;
+    margin-left: 15px;
+}
+
+.details-section {
+    /* display: flex; */
+    flex-direction: column;
+    cursor: pointer;
+    padding: 5px 0px;
+}
+
+.btn {
+    text-align: left;
+}
+
+.menu-header {
+    color: #1b1b1b;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.stats-card {
+    position: fixed;
+    top: 10px;
+    left: 65px;
+    background-color: rgba(240, 248, 255, 0.123);
+    padding: 20px;
+    width: 20%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    z-index: 1000;
+}
+
+.stats-card .details {
+    margin: 10px 0px;
+    display: flex;
+}
+
+.details .key {
+    width: 60%;
+    font-weight: 500;
+}
+
+.details .value {
+    width: 40%;
+}
+
+
+@media only screen and (max-width: 720px) { 
+    .bottom-container { 
+        display: block !important;
+    }
+
+    .view-container {
+        width: 100% !important;
+        margin-left: 0 !important;
+        margin-top: 10px;
+    }
+}
+
+.custom-btn {
+ line-height: 23px;
+ border-bottom: 3px solid #ccc;
+ border-top: 2px solid #ccc;
+ border-left:  2px solid #ccc;
+ border-right:  2px solid #ccc;
+ background-color: #fff;
+ width: 37px;
+ height: 42px;
+}
+.mat-icon-button {
+    width: 36px;
+    height: 31px;
+
+}
+
+.example-additional-selection {
+    opacity: 0.75;
+    font-size: 0.75em;
+  }
