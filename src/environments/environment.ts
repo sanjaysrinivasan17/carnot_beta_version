@@ -5,10 +5,10 @@
 export const environment = {
   production: false,
   // api_name: "https://asset.datasee.ai/Carnot_BE/carnot/" //production api
-  api_name: "http://ec2-3-110-224-113.ap-south-1.compute.amazonaws.com:8000/carnot/" //production api beta version
-  // api_name: "http://localhost:8000/carnot/" // test instance api new
+  // api_name: "http://ec2-3-110-224-113.ap-south-1.compute.amazonaws.com:8000/carnot/" //production api beta version
+  api_name: "http://localhost:8000/carnot/" // test instance api new
   // api_name: "http://carnot-app.herokuapp.com/carnot/" // test instance api new
-  // api_name: "https://carnot-app.herokuapp.com/carnot/" // test instance api 
+  // api_name: "https://carnot-app.herokuapp.com/carnot/" // test instance api
 };
 
 /*
