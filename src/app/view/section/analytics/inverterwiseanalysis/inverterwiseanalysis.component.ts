@@ -110,12 +110,12 @@ export class InverterwiseanalysisComponent implements OnInit {
 
 //         this.total_count.push(+this.Hotspot_inv[n]+ +this.ShortCircit_inv[n]+ +this.Open_Circuit_inv[n]+ +this.pannel_inv[n]+ +this.Pid[n])
 //       }
-// console.log(this.total_count)
-//       // console.log(this.Hotspot_inv)
-//       // console.log(this.ShortCircit_inv)
-//       // console.log(this.Open_Circuit_inv)
-//       // console.log(this.pannel_inv)
-//       // console.log(this.Pid)
+// // console.log(this.total_count)
+//       // // console.log(this.Hotspot_inv)
+//       // // console.log(this.ShortCircit_inv)
+//       // // console.log(this.Open_Circuit_inv)
+//       // // console.log(this.pannel_inv)
+//       // // console.log(this.Pid)
 
 
 

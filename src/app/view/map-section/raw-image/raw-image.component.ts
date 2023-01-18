@@ -1,31 +1,35 @@
 import { Component, OnInit } from '@angular/core';
+import { mapsection, mapsectionC } from '../map-section'
+import { FormBuilder, FormControl } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { environment } from 'src/environments/environment';
+import { HttpService } from '../services-map/http.service'
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { FormBuilder } from '@angular/forms';
-import { HttpAssetService } from '../../mapasset-section/services-assetmap/http.assetservice';
+
 
 @Component({
-  selector: 'app-raw-image',
+  selector: 'raw-image',
   templateUrl: './raw-image.component.html',
   styleUrls: ['./raw-image.component.css']
 })
-export class RawImageComponent {
+export class RawImageComponent implements OnInit {
   mission: string = "";
   flight: string = "";
   maindata: any[] = [];
   mission_data: any[] = []
   flight_data: any[] = [];
 
-  constructor(private _http: HttpAssetService, private formBuilder: FormBuilder) { }
+  constructor(private _http: HttpService, private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
+    alert()
     const newtoken = localStorage.getItem("token");
     let project_id = localStorage.getItem("project_id");
     let date = localStorage.getItem("date");
-    const headers = { 'Authorization': 'token ' + newtoken }
+    const headers = { 'Authorization': 'Bearer ' + newtoken }
     this.maindata = this._http.get_mision_flight_detail()
     this.mission_data = Object.keys(this.maindata).sort()
+// console.log(this.maindata)
     // var url = environment.api_name + 'project/get_missions_flights/' + project_id + '/' + date
     // fetch(url, { headers })
     //   .then(response => response.json())

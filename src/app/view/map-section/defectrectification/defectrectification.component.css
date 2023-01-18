@@ -1,19 +1,22 @@
-.compact-sidebar {
+.compact-sidebar-defect {
     height: 100%;
-    width: 50%;
+    width: 100%;
+    /* left: 25%; */
     position: fixed;
-    z-index: 9999;
+    z-index: 9999 !important;
     background-color: var(--white);
     box-shadow: 0px 3px 6px var(--shadow);
-    overflow-x: hidden;
+    /* overflow-x: auto; */
+    overflow: auto;
     display: flex;
     justify-content: center;
     /* right: 0px; */
     background-color: #f9f9f9;
-    margin: -250px;
+    margin-left: -58px;
+    /* margin-top: 60px; */
 }
 
-.compact-sidebar .menu {
+.compact-sidebar-defect .menu {
     height: 50px;
     width: 50px;
     color: #eee;
@@ -21,7 +24,7 @@
     cursor: pointer;
 }
 
-.compact-sidebar .menu .menu-icon {
+.compact-sidebar-defect .menu .menu-icon {
     position: absolute;
     top: 0;
     right: 0;
@@ -32,7 +35,7 @@
     color: #eee;
 }
 
-.compact-sidebar .menu .fa {
+.compact-sidebar-defect .menu .fa {
     position: absolute;
     top: 0;
     right: 0;
@@ -47,7 +50,7 @@
     color: var(--primary);
 }
 
-.compact-sidebar .menu .menu-active {
+.compact-sidebar-defect .menu .menu-active {
     width: 0px;
     height: 75%;
     background-color: var(--primary);
@@ -59,14 +62,299 @@
     margin: auto;
 }
 
-.compact-sidebar .sidebar-menu .top-section {
+.compact-sidebar-defect .sidebar-menu .top-section {
     position: relative;
     top: 50px;
     width: 52px;
 }
 
-.compact-sidebar .sidebar-menu .bottom-section {
+.compact-sidebar-defect .sidebar-menu .bottom-section {
     position: fixed;
     bottom: 40px;
     width: 52px;
 }
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 96%;
+    margin-left: 5px;
+}
+
+td {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+th {
+    border: 1px solid #dddddd;
+    text-align: center;
+    padding: 8px;
+}
+
+mat-icon {
+    cursor: pointer;
+}
+
+.file-upload-button {
+    background-color: #ff5252;
+    border-radius: 50%;
+    height: 3rem;
+    overflow: hidden;
+    position: relative;
+    width: 3rem;
+}
+
+.file-upload-button::after {
+    content: '⇪';
+    color: #fff;
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+
+/* input[type="file"] {
+    font-size: 100px;
+    left: 0;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+} */
+
+.file-info {
+    color: #999;
+    font-family: Lato;
+    margin-left: 0.5rem;
+}
+
+::ng-deep .mat-toolbar-row,
+.mat-toolbar-single-row {
+    height: 50px;
+    font-family: 'Montserrat', Helvetica, sans-serif;
+    font-size: 14px;
+    background-color: white;
+    box-shadow: 0 5px 1px 1px #9999990d;
+    z-index: 200 !important;
+    width: 100%;
+    position: fixed;
+    padding-left: 10px;
+}
+
+::ng-deep .mat-select {
+    height: 30px;
+    width: 200px;
+    vertical-align: middle;
+    padding-left: 5px;
+    padding-top: 5px;
+    text-align: center;
+    font-family: 'Montserrat', Helvetica, sans-serif;
+    background-color: white;
+}
+
+::ng-deep .mat-option {
+    background-color: white;
+    font-family: 'Montserrat', Helvetica, sans-serif;
+}
+
+/* .ForStatusSelect {
+    position: fixed;
+    right: -5px;
+    top: 79px;
+    width: 180px;
+    position: absolute;
+    z-index: 1000;
+    align-content: left;
+} */
+.Forstatus1 {
+    position: fixed;
+    right: 20px;
+    top: 95px;
+    width: 200px;
+    position: absolute;
+    z-index: 1000;
+    align-content: left;
+    border-color: black;
+}
+.cardd {
+    width: 1630px;
+    margin-top: 45px;
+    height:670px;
+    margin-left: 5%;
+    font-family: 'Montserrat', Helvetica, sans-serif;
+    overflow: auto;
+}
+
+.signup-card1 {
+    position: absolute;
+    margin: auto;
+    top: 0px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 40%;
+    height: fit-content;
+    border-radius: 10px;
+    box-shadow: 6px 6px 33px var(--shadow);
+}
+
+.signup-card {
+    position: absolute;
+    margin: auto;
+    top: 335px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 40%;
+    height: 1010px;
+    border-radius: 10px;
+    box-shadow: 6px 6px 33px var(--shadow);
+}
+
+.user-container {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background-color: var(--primary);
+    position: relative;
+    margin: auto;
+}
+
+.user-icon {
+    font-size: 40px;
+    height: 40px;
+    width: 40px;
+    color: var(--white);
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+}
+
+.info_text {
+    position: relative;
+    /* top: 10px; */
+    margin: auto;
+    text-transform: uppercase;
+    font-size: 14px;
+    text-align: center;
+    font-family: 'Montserrat', Helvetica, sans-serif;
+}
+
+.signup-form {
+    position: relative;
+    top: 20px;
+    margin: auto;
+    padding: 10px;
+}
+
+.field-icon {
+    color: #aaa;
+}
+
+.field-content {
+    margin-left: 10px;
+    font-family: 'Montserrat', Helvetica, sans-serif;
+}
+
+.signup-btn-container {
+    text-align: center;
+    margin-top: 20px;
+    font-family: 'Montserrat', Helvetica, sans-serif;
+}
+
+.signup-btn {
+    position: relative;
+    text-align: center;
+    background-color: var(--primary);
+    color: var(--white);
+    width: 200px;
+    height: 50px;
+}
+
+.forgot {
+    float: right;
+    color: var(--lite) !important;
+    position: relative;
+    top: 3px;
+}
+
+.signup-text {
+    color: var(--primary);
+    cursor: pointer;
+}
+
+.action-container {
+    display: flow-root;
+}
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-infix {
+    padding: 1em 0px 1em 10px;
+}
+
+::ng-deep .mat-form-field-wrapper {
+    padding-bottom: 1em;
+}
+
+::ng-deep input.mat-input-element {
+    position: relative;
+    top: -3px;
+}
+
+@media only screen and (max-width: 600px) {
+    .signup-card {
+        width: 100% !important;
+    }
+    .signup-card1 {
+        width: 100% !important;
+    }
+}
+
+@media only screen and (max-width: 960px) {
+    .signup-card {
+        width: 80%;
+    }
+    .signup-card1 {
+        width: 80%;
+    }
+}
+
+.profile-pic-div {
+    height: 190px;
+    width: 186px;
+    transform: translate(115%, -5%);
+    border-radius: 50%;
+    overflow: hidden;
+    border: 1px solid wheat;
+    box-shadow: 0px 3px 6px var(--shadow);
+    margin-top: 25px;
+    margin-left: -5px;
+}
+
+#photo {
+    height: 100%;
+    width: 100%;
+}
+
+#file {
+    display: none;
+}
+
+#uploadBtn {
+    height: 40px;
+    width: 100%;
+    position: absolute;
+    bottom: -4%;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    background: #12233536;
+    color: var(--white);
+    line-height: 30px;
+    font-family: 'Montserrat', Helvetica, sans-serif;
+    font-size: 13px;
+    cursor: pointer;
+}
+

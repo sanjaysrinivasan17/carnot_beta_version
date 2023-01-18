@@ -31,7 +31,7 @@ export class DownloadreportComponent implements OnInit {
 
     this._http.Asset_project().subscribe(data => {
       this.main_data = data['data']
-      // console.log(this.main_data)
+      // // console.log(this.main_data)
       this.onload()
 
     })
@@ -39,7 +39,7 @@ export class DownloadreportComponent implements OnInit {
 
   onload() {
 
-    console.log(this.main_data)
+    // console.log(this.main_data)
     this.report_link = this.main_data['projectdata'][this.date][this.type]['project_properties']['Report'][this.type]
     this.inverter_keys = Object.keys(this.main_data['projectdata'][this.date][this.type]['inverter_deviation']['data'])
 

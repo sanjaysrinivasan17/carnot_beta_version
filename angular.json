@@ -49,6 +49,8 @@
               "node_modules/jquery/dist/jquery.min.js",
               "src/assets/leaflet-side-by-side/leaflet-side-by-side.js",
               "node_modules/leaflet-measure/dist/leaflet-measure.js",
+              "node_modules/exifreader/src/exif-reader.js",
+              "node_modules/exif-js/exif.js",
               "src/assets/js/main.min.js",
               "src/assets/js/scripts.min.js"
             ],

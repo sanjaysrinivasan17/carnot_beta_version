@@ -42,12 +42,14 @@ import html2canvas from 'html2canvas';
 // Leaflet declarations and imports
 import 'leaflet';
 import 'leaflet-kml';
-import { Observable } from 'rxjs';
+import { empty, Observable } from 'rxjs';
 import { HttpService } from './services-map/http.service';
 import * as $ from 'jquery';
 import { FormControl } from '@angular/forms';
 import { type } from 'os';
 import { visibility } from 'html2canvas/dist/types/css/property-descriptors/visibility';
+import { ToastrService } from 'ngx-toastr';
+import { RawImageComponent } from './raw-image/raw-image.component';
 // import 'leaflet-draw/dist/leaflet.draw-src.js';
 
 export type ChartOptions = {
@@ -238,8 +240,16 @@ export class MapSectionComponent implements OnInit {
   public userArray_value: any;
   public userArray_Distance: any;
   table_number: any;
+  get_missions_flights_data: any;
+  mission_data: any[] = [];
+  markers: any;
+  marker_data: any[] = [];
+  uploaded_raw_image: any;
+  get_missions_flights_status: string;
+  accepted3: boolean
+  accepted4: boolean
 
-  constructor(private _http: HttpService, private http: HttpClient, private router: Router, public dialog: MatDialog) { }
+  constructor(private _http: HttpService, private http: HttpClient, private router: Router, private toastr: ToastrService, public dialog: MatDialog) { }
 
   public ngOnInit(): void {
     localStorage.setItem('thermal', 'thermal');
@@ -248,6 +258,7 @@ export class MapSectionComponent implements OnInit {
     localStorage.setItem('slope', 'slope');
     localStorage.setItem('satellite', 'satellite');
     localStorage.getItem('product');
+    sessionStorage.setItem('rawImage', 'rawImage');
     this.adani_proj_name = localStorage.getItem('name')
     // this.zoom_level = Number(sessionStorage.getItem("zoom_level"))
     // alert(this.adani_proj_name+"=")
@@ -286,10 +297,10 @@ export class MapSectionComponent implements OnInit {
           this.summ = data['data']
           this.Completed_date_array = [];
           data['data']['dates'] = Object.keys(data['data']['date_status'])
-          // console.log(data['data'])
+          // // console.log(data['data'])
           this.project_id_summary = Object.keys(data['data']['date_status'])
           // this.date_inv = Object.values(data[this.project_id_summary])[2]
-          // console.log(data[this.project_id_summary]['zoom_level'])
+          // // console.log(data[this.project_id_summary]['zoom_level'])
           // this.zoom_level = Number((data[this.project_id_summary])[7])
           // alert(Number((data[this.project_id_summary])[7]))
           this.date_inv_status_key = Object.keys(data['data']["date_status"])
@@ -300,7 +311,7 @@ export class MapSectionComponent implements OnInit {
               // // alert(this.Completed_date_array)
             }
           }
-          // console.log(this.Completed_date_array)
+          // // console.log(this.Completed_date_array)
           // this.project_name = Object.values(data[this.project_id_summary])[1]
           // alert(this.project_name)
           // this.center = Object.values(data[this.project_id_summary])[5]
@@ -321,7 +332,7 @@ export class MapSectionComponent implements OnInit {
 
             // // alert(localStorage.getItem('thermal'))
 
-            // console.log(this.splitted_project_name)
+            // // console.log(this.splitted_project_name)
             this.project_name = this.splitted_project_name[1];
           } else {
             this.project_feature1 = "visible_off"
@@ -336,7 +347,7 @@ export class MapSectionComponent implements OnInit {
             this.project_feature = "visible_off"
           }
           var date_local = localStorage.getItem('date')
-          // console.log('date')
+          // // console.log('date')
           // if (date_local == "undefined" || date_local == "" || date_local == null) {
           //   if (this.newDatefromAllProjects == "undefined" || this.newDatefromAllProjects == "" || this.newDatefromAllProjects == null) {
           //     if (this.SelectedDatefromanalytics == "undefined" || this.SelectedDatefromanalytics == "" || this.SelectedDatefromanalytics == null) {
@@ -372,14 +383,14 @@ export class MapSectionComponent implements OnInit {
           this.str_center = this.center.split(",");
           this.lat = this.str_center[0];
           this.long = this.str_center[1];
-          // console.log((data['data']));
-          // console.log(Object.keys(data['data']['processed_data']));
-          // console.log(Object.keys(data['data']['processed_data'][this.dateonload]));
-          // console.log(Object.keys(data['data']['processed_data'][this.dateonload]['summary_layers']));
-          // console.log(Object.keys(data['data']['processed_data'][this.dateonload]['summary_layers']));
+          // // console.log((data['data']));
+          // // console.log(Object.keys(data['data']['processed_data']));
+          // // console.log(Object.keys(data['data']['processed_data'][this.dateonload]));
+          // // console.log(Object.keys(data['data']['processed_data'][this.dateonload]['summary_layers']));
+          // // console.log(Object.keys(data['data']['processed_data'][this.dateonload]['summary_layers']));
 
           this.Project_data = Object.keys(data['data']['processed_data'][this.dateonload]['summary_layers'])
-          console.log(this.Project_data);
+          // console.log(this.Project_data);
 
           this.ortho_file_location_onLoad = data['data']['processed_data'][this.dateonload]['ortho_file_location']
           this.ortho_file_location = data['data']['processed_data'][this.dateonload]['ortho_file_location']
@@ -405,6 +416,7 @@ export class MapSectionComponent implements OnInit {
         })
       })
     })
+    this.onload_get_mission_flights()
 
     this.Adani_locations = {
       "Adas": {
@@ -707,16 +719,16 @@ export class MapSectionComponent implements OnInit {
     };
     this.project_name = localStorage.getItem('name')
     this.splitted_project_name = this.project_name.split('-', 2)
-    // console.log(this.splitted_project_name)
+    // // console.log(this.splitted_project_name)
     this.selected = this.splitted_project_name[1];
     this.location_value = Object.values(this.Adani_locations)
     // for (var k = 0; k < Object.values(this.location_value).length; k++) {
-    //   console.log(this.location_value)
+    //   // console.log(this.location_value)
     // }
     // const headers = { 'Authorization': 'token 9881e95800afe06c804e6ea3417591cfcaa50164'}
     // this.http.get<any>(environment.api_name+'project/retrieve_project_data/hero', { headers }).subscribe(data => {
     //   this.inv_main_data = data;
-    //   // console.log(this.inv_main_data)
+    //   // // console.log(this.inv_main_data)
     //   this.project_id_inv = Object.keys(this.inv_main_data)
     //   this.date_inv = Object.values(this.inv_main_data[this.project_id_inv])[2]
     //   // alert("----oninit---"+this.date_inv)
@@ -766,7 +778,28 @@ export class MapSectionComponent implements OnInit {
 
   }
 
-
+  onload_get_mission_flights() {
+    const newtoken = localStorage.getItem("token");
+    let project_id = localStorage.getItem("project_id");
+    let project_type = localStorage.getItem("project_type");
+    let date = localStorage.getItem("date");
+    const headers = { 'Authorization': 'Bearer ' + newtoken }
+    var url = environment.api_name + 'api/project/get_missions_flights/' + project_id + '/' + date + '/' + project_type
+    // console.log(url);
+    fetch(url, { headers })
+      .then(response => response.json())
+      .then(datavalue => {
+        // console.log(datavalue);
+        
+        if (datavalue['data'] != "Data Not Available" && datavalue['data'].length > 0) {
+          this.toastr.success('Mission and Flight data are ready');
+        }
+        this.get_missions_flights_data = datavalue['data']
+        this.get_missions_flights_data = datavalue['status']
+        // console.log(datavalue['data'])
+        this._http.set_mision_flight_detail(datavalue['data'])
+      })
+  }
   Carnot_map_page() {
     // default MAP layer
     // // alert("1")
@@ -849,10 +882,10 @@ export class MapSectionComponent implements OnInit {
   // loadPopUpContent_cadestralmap(dec_obj_cadestral) {
   //   this.popup_card_visibility_cadestral = true;
   //   this.popup_card_visibility = false;
-  //   // console.log(dec_obj_cadestral)
+  //   // // console.log(dec_obj_cadestral)
   //   if (dec_obj_cadestral != "") {
   //     selected_point.clearLayers();
-  //     // console.log("popupdetails cadestral");
+  //     // // console.log("popupdetails cadestral");
   //     this.Survey_No = dec_obj_cadestral["Survey No "]
   //     this.Description_cadestral = dec_obj_cadestral['Description']
   //     this.Document =dec_obj_cadestral['Document']
@@ -872,8 +905,8 @@ export class MapSectionComponent implements OnInit {
 
       selected_point.clearLayers();
 
-      // console.log("popupdetails");
-      // // console.log(kml.getElementById(placemarkId).childNodes[1].textContent);
+      // // console.log("popupdetails");
+      // // // console.log(kml.getElementById(placemarkId).childNodes[1].textContent);
 
 
 
@@ -894,7 +927,7 @@ export class MapSectionComponent implements OnInit {
       // this.marker = L.marker([this.popup_lat, this.popup_lng])
       // selected_point.addLayer(this.marker).addTo(this.map);
 
-      // // console.log(dec_obj.Defect+':')
+      // // // console.log(dec_obj.Defect+':')
     }
   }
   loadPopUpContent_grading(table_no) {
@@ -917,7 +950,7 @@ export class MapSectionComponent implements OnInit {
     this.grading_visibility = "visiblity_off"
     this.defect_rectify_visibility = "visibility_off"
 
-    // console.log("cosing_component")
+    // // console.log("cosing_component")
     if (this.summaryLayerGroup !== null) {
 
 
@@ -939,8 +972,8 @@ export class MapSectionComponent implements OnInit {
   polygonMarkerCreating(lat, col, dec) {
     var proj_name = localStorage.getItem('name')
     var polygonPoints = []
-    // console.log(dec)
-    // console.log("---------------------------")
+    // // console.log(dec)
+    // // console.log("---------------------------")
     let j = 1
     let k = 0
     let l = 2
@@ -955,7 +988,7 @@ export class MapSectionComponent implements OnInit {
     var project_feature_show = proj_name.includes("Sudair")
     if (project_feature_show) {
       var kml_name = localStorage.getItem("kml_name")
-      // // console.log(kml_name)
+      // // // console.log(kml_name)
       var kml_name_for_spotheight = kml_name.includes("Spotheight")
 
       if (kml_name == "Transmission_Tower" || kml_name == "Benchmark") {
@@ -965,7 +998,7 @@ export class MapSectionComponent implements OnInit {
 
       }
       if (kml_name_for_spotheight) {
-        // console.log("inside")
+        // // console.log("inside")
         this.poly = L.polygon(polygonPoints, { color: col }, { weight: 6 }).addTo(this.map);
 
       }
@@ -973,15 +1006,15 @@ export class MapSectionComponent implements OnInit {
     } else {
       this.poly = L.polygon(polygonPoints, { color: col }, { weight: 6 }).addTo(this.map);
     }
-    // // console.log(this.poly)
+    // // // console.log(this.poly)
     this.polies.push(this.poly)
     this.poly.on("click", (e) => {
-      // // console.log(e["latlng"])
+      // // // console.log(e["latlng"])
       const parser = new DOMParser();
       var markup = parser.parseFromString(dec, "text/html");
       // var markup_img = parser.parseFromString(dec, "image/svg+xml");
-      // // console.log(markup_img)
-      // // console.log("---------------------------")
+      // // // console.log(markup_img)
+      // // // console.log("---------------------------")
       var y = markup.getElementsByTagName("td");
       let i = 0;
       let s = 0;
@@ -991,32 +1024,32 @@ export class MapSectionComponent implements OnInit {
       this.descObj_cadestral = {};
       b = "";
 
-      // console.log(y.length)
-      // // console.log("---------------------------")
+      // // console.log(y.length)
+      // // // console.log("---------------------------")
       // // alert("------"+this.current_kml_data)
       if (y.length > 0) {
 
         for (var t = 0; t < y.length; t++) {
-          // // console.log(y[19].lastChild)
+          // // // console.log(y[19].lastChild)
           if (this.current_kml_data == "cadastral_map") {
-            // console.log(y)
-            // console.log(y[t].textContent)
+            // // console.log(y)
+            // // console.log(y[t].textContent)
             if ((y[t].textContent == "" || y[t].textContent == undefined) && (y[t].lastChild['tagName'] == "IMG")) {
-              // // console.log(y[t].lastChild['src'])
+              // // // console.log(y[t].lastChild['src'])
               let image_src = y[t].lastChild['src']
               // // alert(image_src)
-              // console.log(y)
+              // // console.log(y)
 
               this.descObj_cadestral[b] = image_src
               s++;
-              // console.log(this.descObj_cadestral)
+              // // console.log(this.descObj_cadestral)
 
             } else {
-              // // console.log("//////////////////////////")
+              // // // console.log("//////////////////////////")
 
               if (i % 2 == 0) {
                 b = y[t].textContent;
-                //  // console.log(b)
+                //  // // console.log(b)
               } else {
                 if (b == "Table No") {
                   d = b;
@@ -1030,8 +1063,8 @@ export class MapSectionComponent implements OnInit {
               i++;
             }
           } else if (this.current_kml_data == "Grading") {
-            // console.log(y)
-            console.log(y[t].textContent)
+            // // console.log(y)
+            // console.log(y[t].textContent)
             if (t == 0) {
               b = y[t].textContent;
             } else {
@@ -1040,7 +1073,7 @@ export class MapSectionComponent implements OnInit {
                 var userArray_Distance = []
                 var userArray_value = []
                 this.table_no = y[t].textContent;
-                console.log(y[t].textContent)
+                // console.log(y[t].textContent)
                 // this.http.get(this.csv_path + y[t].textContent + ".csv", { responseType: 'text' })
                 //   .subscribe(
                 //     data => {
@@ -1054,36 +1087,36 @@ export class MapSectionComponent implements OnInit {
                 //         userArray_value.push([row[3].split("\r")[0], row[0]])
 
                 //       }
-                //       // console.log(userArray_Distance);
-                //       // console.log(userArray_value);
+                //       // // console.log(userArray_Distance);
+                //       // // console.log(userArray_value);
                 //     },
                 //     error => {
-                //       console.log(error);
+                //       // console.log(error);
                 //     }
                 //   );
 
-                // console.log(b+"---------------"+this.table_no)new User( parseInt( row[0], 10), row[1], row[2].trim())
+                // // console.log(b+"---------------"+this.table_no)new User( parseInt( row[0], 10), row[1], row[2].trim())
               }
             }
 
 
           } else {
             if ((y[t].textContent == "" || y[t].textContent == undefined) && (y[t].lastChild['tagName'] == "IMG")) {
-              // // console.log(y[t].lastChild['src'])
+              // // // console.log(y[t].lastChild['src'])
               let image_src = y[t].lastChild['src']
               // // alert(image_src)
-              // console.log(y)
+              // // console.log(y)
 
               this.descObj[b] = image_src
               s++;
-              // console.log(this.descObj)
+              // // console.log(this.descObj)
 
             } else {
-              // // console.log("//////////////////////////")
+              // // // console.log("//////////////////////////")
 
               if (i % 2 == 0) {
                 b = y[t].textContent;
-                //  // console.log(b)
+                //  // // console.log(b)
               } else {
                 if (b == "Table No") {
                   d = b;
@@ -1100,10 +1133,10 @@ export class MapSectionComponent implements OnInit {
           // alert(this.subdefects_visibility)
           // this.subdefects_visibility = "visible"
 
-          // console.log(this.descObj)
+          // // console.log(this.descObj)
         }
       } else {
-        // console.log("else")
+        // // console.log("else")
         this.descObj_cadestral["Description"] = dec
       }
       // // alert(this.current_kml_data )
@@ -1120,7 +1153,7 @@ export class MapSectionComponent implements OnInit {
         this.popup_opened = true
 
       } else if (this.current_kml_data == "Grading") {
-        // console.log(userArray_value)
+        // // console.log(userArray_value)
         // alert(this.table_no)
         this.loadPopUpContent_grading(this.table_no)
         // this.loadPopUpContent_grading(userArray_value, dec)
@@ -1144,10 +1177,10 @@ export class MapSectionComponent implements OnInit {
   }
 
   LoadKml(value: any) {
-    // console.log(value) 
+    // // console.log(value) 
     // alert("in Map")
     // alert(value.menu)
-    // console.log(value)
+    // // console.log(value)
     // return
     this.remove_Popup_card()
     if (value.menu == 'cadastral_map') {
@@ -1170,25 +1203,25 @@ export class MapSectionComponent implements OnInit {
         this.map.removeLayer(this.polies[l])
       }
       this.summaryState = value.tab;
-      // console.log(this.summaryState)
+      // // console.log(this.summaryState)
       localStorage.setItem("kml_name", this.summaryState)
       var kml_name_load_sub = this.summaryState.split(",")
       this.subdefects_page_load('visibilty_off')
 
-      // console.log(this.kml_file_location + 'GLOBAL/' + kml_name_load_sub[i] + '.kml')
+      // // console.log(this.kml_file_location + 'GLOBAL/' + kml_name_load_sub[i] + '.kml')
       if (kml_name_load_sub.length >= 1) {
         for (var i = 0; i < kml_name_load_sub.length; i++) {
-          console.log(this.kml_file_location + 'GLOBAL/' + kml_name_load_sub[i] + '.kml')
+          // console.log(this.kml_file_location + 'GLOBAL/' + kml_name_load_sub[i] + '.kml')
 
           fetch(this.kml_file_location + 'GLOBAL/' + kml_name_load_sub[i] + '.kml')
             .then(res => res.text())
             .then(kmltext => {
-              // console.log(kmltext)
+              // // console.log(kmltext)
 
               const parser = new DOMParser();
               const kml = parser.parseFromString(kmltext, 'text/xml');
               // // alert("wait")
-              // console.log(kml)
+              // // console.log(kml)
 
 
               this.track = new L.KML(kml);
@@ -1202,7 +1235,7 @@ export class MapSectionComponent implements OnInit {
 
               for (var i in place) {
                 let dec = place[i].childNodes[1].textContent
-                // // console.log(dec)
+                // // // console.log(dec)
                 let coor = place[i].getElementsByTagName('coordinates')
                 let latlngArray = coor[0].textContent.replace(/\n/g, " ").split(/[ ,]+/).filter(Boolean)
                 var pa = parser.parseFromString(dec, "text/html")
@@ -1210,20 +1243,20 @@ export class MapSectionComponent implements OnInit {
                 for (var r in u) {
                   if (n % 2 == 0) {
                     b = u[r].textContent;
-                    //  // console.log(b)
+                    //  // // console.log(b)
                   }
                   else {
                     if (b == "Defect:") {
                       d = b;
                       this.table_no = u[r].textContent;
 
-                      // // console.log(u[r].textContent)
+                      // // // console.log(u[r].textContent)
                     }
 
                   }
                   n++
                 }
-                // console.log(this.table_no)
+                // // console.log(this.table_no)
 
                 if (this.table_no == 'Hotspot') {
                   //  green
@@ -1240,7 +1273,7 @@ export class MapSectionComponent implements OnInit {
 
 
               this.map.on('click', (e) => {
-                // console.log("reg" + localStorage.getItem('kml_popup_node'));
+                // // console.log("reg" + localStorage.getItem('kml_popup_node'));
                 // this.popupDesc = localStorage.getItem('kml_popup_node');
                 // this.loadPopUpContent(this.popupKml, this.popupDesc);
               })
@@ -1250,12 +1283,12 @@ export class MapSectionComponent implements OnInit {
         fetch(this.kml_file_location + 'GLOBAL/' + kml_name_load_sub + '.kml')
           .then(res => res.text())
           .then(kmltext => {
-            // console.log(kmltext)
+            // // console.log(kmltext)
 
             const parser = new DOMParser();
             const kml = parser.parseFromString(kmltext, 'text/xml');
             // // alert("wait")
-            // console.log(kml)
+            // // console.log(kml)
 
 
             this.track = new L.KML(kml);
@@ -1269,7 +1302,7 @@ export class MapSectionComponent implements OnInit {
 
             for (var i in place) {
               let dec = place[i].childNodes[1].textContent
-              // // console.log(dec)
+              // // // console.log(dec)
               let coor = place[i].getElementsByTagName('coordinates')
               let latlngArray = coor[0].textContent.replace(/\n/g, " ").split(/[ ,]+/).filter(Boolean)
               var pa = parser.parseFromString(dec, "text/html")
@@ -1277,20 +1310,20 @@ export class MapSectionComponent implements OnInit {
               for (var r in u) {
                 if (n % 2 == 0) {
                   b = u[r].textContent;
-                  //  // console.log(b)
+                  //  // // console.log(b)
                 }
                 else {
                   if (b == "Defect:") {
                     d = b;
                     this.table_no = u[r].textContent;
 
-                    // // console.log(u[r].textContent)
+                    // // // console.log(u[r].textContent)
                   }
 
                 }
                 n++
               }
-              // console.log(this.table_no)
+              // // console.log(this.table_no)
 
               if (this.table_no == 'Hotspot') {
                 //  green
@@ -1307,7 +1340,7 @@ export class MapSectionComponent implements OnInit {
 
 
             this.map.on('click', (e) => {
-              // console.log("reg" + localStorage.getItem('kml_popup_node'));
+              // // console.log("reg" + localStorage.getItem('kml_popup_node'));
               // this.popupDesc = localStorage.getItem('kml_popup_node');
               // this.loadPopUpContent(this.popupKml, this.popupDesc);
             })
@@ -1334,16 +1367,16 @@ export class MapSectionComponent implements OnInit {
         this.map.removeLayer(this.polies[l])
       }
       this.summaryState = value.tab;
-      // console.log(this.summaryState)
+      // // console.log(this.summaryState)
       localStorage.setItem("kml_name", this.summaryState)
       var kml_name_load_sub = this.summaryState.split(",")
       this.subdefects_page_load('visibilty_off')
       // alert(kml_name_load_sub.length)
-      // console.log(this.kml_file_location + 'GLOBAL/' + kml_name_load_sub[i] + '.kml')
+      // // console.log(this.kml_file_location + 'GLOBAL/' + kml_name_load_sub[i] + '.kml')
       // if (kml_name_load_sub.length >= 1) {
 
       for (var q = 0; q < kml_name_load_sub.length; q++) {
-        console.log(this.kml_file_location + 'GLOBAL/' + kml_name_load_sub[q] + '.kml' + "---------" + q)
+        // console.log(this.kml_file_location + 'GLOBAL/' + kml_name_load_sub[q] + '.kml' + "---------" + q)
         var elevation = kml_name_load_sub[q].includes("Elevation")
         // alert(elevation)
         if (elevation) {
@@ -1358,12 +1391,12 @@ export class MapSectionComponent implements OnInit {
         fetch(this.kml_file_location + 'GLOBAL/' + kml_name_load_sub[q] + '.kml')
           .then(res => res.text())
           .then(kmltext => {
-            // console.log(kmltext)
+            // // console.log(kmltext)
 
             const parser = new DOMParser();
             const kml = parser.parseFromString(kmltext, 'text/xml');
             // // alert("wait")
-            // console.log(kml)
+            // // console.log(kml)
 
 
             this.track = new L.KML(kml);
@@ -1376,15 +1409,15 @@ export class MapSectionComponent implements OnInit {
             let d
 
             for (var i in place) {
-              // console.log(place[i])
+              // // console.log(place[i])
               let dec = place[i].childNodes[1].textContent
               let coor = place[i].getElementsByTagName('coordinates')
               let latlngArray = coor[0].textContent.replace(/\n/g, " ").split(/[ ,]+/).filter(Boolean)
               var pa = parser.parseFromString(dec, "text/html")
               let u = pa.getElementsByTagName("td")
               for (var r in u) {
-                // console.log(r+"---------r")
-                // console.log(u[r].textContent);
+                // // console.log(r+"---------r")
+                // // console.log(u[r].textContent);
                 if (r != "1") {
                   b = u[r].textContent;
                 } else {
@@ -1392,12 +1425,12 @@ export class MapSectionComponent implements OnInit {
                     d = b;
                     this.table_no = u[r].textContent;
 
-                    // console.log(b+"---------------"+u[r].textContent)
+                    // // console.log(b+"---------------"+u[r].textContent)
                   }
                 }
 
                 n++
-                // console.log(u[r].textContent)
+                // // console.log(u[r].textContent)
               }
 
 
@@ -1418,7 +1451,7 @@ export class MapSectionComponent implements OnInit {
 
 
             this.map.on('click', (e) => {
-              // console.log("reg" + localStorage.getItem('kml_popup_node'));
+              // // console.log("reg" + localStorage.getItem('kml_popup_node'));
               // this.popupDesc = localStorage.getItem('kml_popup_node');
               // this.loadPopUpContent(this.popupKml, this.popupDesc);
             })
@@ -1477,7 +1510,7 @@ export class MapSectionComponent implements OnInit {
             let d
             for (var i in place) {
               let dec = place[i].childNodes[1].textContent
-              // // console.log(dec)
+              // // // console.log(dec)
               let coor = place[i].getElementsByTagName('coordinates')
               let latlngArray = coor[0].textContent.replace(/\n/g, " ").split(/[ ,]+/).filter(Boolean)
               var pa = parser.parseFromString(dec, "text/html")
@@ -1485,21 +1518,21 @@ export class MapSectionComponent implements OnInit {
               for (var r in u) {
                 if (n % 2 == 0) {
                   b = u[r].textContent;
-                  //  // console.log(b)
+                  //  // // console.log(b)
                 }
                 else {
                   if (b == "Defect:") {
                     d = b;
                     this.table_no = u[r].textContent;
 
-                    // // console.log(u[r].textContent)
+                    // // // console.log(u[r].textContent)
                   }
 
                 }
                 n++
               }
 
-              // console.log(this.table_no)
+              // // console.log(this.table_no)
 
               if (this.table_no == 'Hotspot') {
                 //  green
@@ -1515,13 +1548,13 @@ export class MapSectionComponent implements OnInit {
 
             // this.track = new L.KML(kml);
 
-            // // console.log(this.track)
+            // // // console.log(this.track)
             // this.summaryLayerGroup = L.layerGroup([this.track]).addTo(this.map);
             // this.removekml_list_inv.push(this.summaryLayerGroup)
 
 
 
-            // // console.log(this.track)
+            // // // console.log(this.track)
             // this.popupKml = kml
             // var el = kml.getElementsByTagName('coordinates')[0].parentNode.parentNode;
 
@@ -1535,7 +1568,7 @@ export class MapSectionComponent implements OnInit {
           })
       }
       this.map.on('click', (e) => {
-        // console.log("reg" + localStorage.getItem('kml_popup_node'));
+        // // console.log("reg" + localStorage.getItem('kml_popup_node'));
         // this.popupDesc = localStorage.getItem('kml_popup_node');
         // this.loadPopUpContent(this.popupKml, this.popupDesc);
       })
@@ -1565,11 +1598,11 @@ export class MapSectionComponent implements OnInit {
         url = this.kml_file_location + 'INVERTER0' + value.pageno + '/'
       }
       else {
-        // console.log("esle")
+        // // console.log("esle")
         url = this.kml_file_location + 'INVERTER' + value.pageno + '/'
       }
       for (var m = 0; m < kml_name_load_inv_sub.length; m++) {
-        // console.log(url + kml_name_load_inv_sub[m] + '.kml')
+        // // console.log(url + kml_name_load_inv_sub[m] + '.kml')
 
 
         fetch(url + kml_name_load_inv_sub[m] + '.kml')
@@ -1589,7 +1622,7 @@ export class MapSectionComponent implements OnInit {
             let d
             for (var i in place) {
               let dec = place[i].childNodes[1].textContent
-              // // console.log(dec)
+              // // // console.log(dec)
               let coor = place[i].getElementsByTagName('coordinates')
               let latlngArray = coor[0].textContent.replace(/\n/g, " ").split(/[ ,]+/).filter(Boolean)
               var pa = parser.parseFromString(dec, "text/html")
@@ -1597,21 +1630,21 @@ export class MapSectionComponent implements OnInit {
               for (var r in u) {
                 if (n % 2 == 0) {
                   b = u[r].textContent;
-                  //  // console.log(b)
+                  //  // // console.log(b)
                 }
                 else {
                   if (b == "Defect:") {
                     d = b;
                     this.table_no = u[r].textContent;
 
-                    // // console.log(u[r].textContent)
+                    // // // console.log(u[r].textContent)
                   }
 
                 }
                 n++
               }
-              // console.log(this.table_no)
-              // console.log(value.color)
+              // // console.log(this.table_no)
+              // // console.log(value.color)
               if (this.table_no == 'Hotspot') {
                 //  green
                 this.polygonMarkerCreating(latlngArray, 'green', dec)
@@ -1665,8 +1698,8 @@ export class MapSectionComponent implements OnInit {
             // // Create new kml overlay
             // const parser = new DOMParser();
             // const kml = parser.parseFromString(kmltext, 'text/xml');
-            // // // console.log(kml);
-            // // console.log(kmltext)
+            // // // // console.log(kml);
+            // // // console.log(kmltext)
             // this.track = new L.KML(kml);
 
             // // Add track to map
@@ -1676,7 +1709,7 @@ export class MapSectionComponent implements OnInit {
 
             // this.popupKml = kml
             // var el = kml.getElementsByTagName('coordinates')[0].parentNode.parentNode;
-            // // console.log(el)
+            // // // console.log(el)
 
 
 
@@ -1710,15 +1743,15 @@ export class MapSectionComponent implements OnInit {
       this.subdefects_page_load('visible')
 
 
-      // console.log(value)
+      // // console.log(value)
       this.summaryState = value.tab;
       localStorage.setItem("kml_name", this.summaryState)
 
       var kml_name_load = this.summaryState.split(",")
-      console.log(kml_name_load)
+      // console.log(kml_name_load)
       sessionStorage.setItem("kmlfilename", this.summaryState)
       for (var i = 0; i < kml_name_load.length; i++) {
-        // console.log(kml_name_load[i])
+        // // console.log(kml_name_load[i])
 
         fetch(this.kml_file_location + 'GLOBAL/' + kml_name_load[i] + '.kml')
           .then(res => res.text())
@@ -1740,7 +1773,7 @@ export class MapSectionComponent implements OnInit {
             let d
             for (var i in place) {
               let dec = place[i].childNodes[1].textContent
-              // console.log(dec)
+              // // console.log(dec)
 
               let coor = place[i].getElementsByTagName('coordinates')
               let latlngArray = coor[0].textContent.replace(/\n/g, " ").split(/[ ,]+/).filter(Boolean)
@@ -1749,14 +1782,14 @@ export class MapSectionComponent implements OnInit {
               for (var r in u) {
                 if (n % 2 == 0) {
                   b = u[r].textContent;
-                  //  // console.log(b)
+                  //  // // console.log(b)
                 }
                 else {
                   if (b == "Defect:") {
                     d = b;
                     this.table_no = u[r].textContent;
 
-                    // // console.log(u[r].textContent)
+                    // // // console.log(u[r].textContent)
                   }
 
                 }
@@ -1766,8 +1799,8 @@ export class MapSectionComponent implements OnInit {
 
               // alert(this.subdefects_visibility )
 
-              // // console.log(this.table_no)
-              // // console.log(value.color)
+              // // // console.log(this.table_no)
+              // // // console.log(value.color)
               if (this.table_no == 'Hotspot') {
                 //  green
 
@@ -1805,7 +1838,7 @@ export class MapSectionComponent implements OnInit {
                 this.polygonMarkerCreating(latlngArray, value.color[1], dec)
               }
               if (this.table_no == 'Open Circuit' || this.table_no == 'Open_Circuit') {
-                // console.log("op")
+                // // console.log("op")
                 this.polygonMarkerCreating(latlngArray, value.color[0], dec)
               }
               if (this.table_no == 'Short Circuit' || this.table_no == 'Short_Circuit') {
@@ -1829,7 +1862,7 @@ export class MapSectionComponent implements OnInit {
 
 
 
-            // // console.log(this.track)
+            // // // console.log(this.track)
             this.popupKml = kml
             // var el = kml.getElementsByTagName('coordinates')[0].parentNode.parentNode;
 
@@ -1844,7 +1877,7 @@ export class MapSectionComponent implements OnInit {
       }
 
       this.map.on('click', (e) => {
-        // console.log("reg" + localStorage.getItem('kml_popup_node'));
+        // // console.log("reg" + localStorage.getItem('kml_popup_node'));
         // this.popupDesc = localStorage.getItem('kml_popup_node');
         // this.loadPopUpContent(this.popupKml, this.popupDesc);
       })
@@ -1877,17 +1910,17 @@ export class MapSectionComponent implements OnInit {
         url = this.kml_file_location + 'INVERTER0' + value.pageno + '/'
       }
       else {
-        // console.log("esle")
+        // // console.log("esle")
         url = this.kml_file_location + 'INVERTER' + value.pageno + '/'
       }
       this.summaryState = value.tab;
       sessionStorage.setItem("kmlfilename", this.summaryState)
       var kml_name_load_inv = this.summaryState.split(",")
-      // console.log(value)
+      // // console.log(value)
       this.subdefects_page_load('visible')
 
       for (var m = 0; m < kml_name_load_inv.length; m++) {
-        // console.log(url + kml_name_load_inv[m] + '.kml')
+        // // console.log(url + kml_name_load_inv[m] + '.kml')
 
 
         fetch(url + kml_name_load_inv[m] + '.kml')
@@ -1909,7 +1942,7 @@ export class MapSectionComponent implements OnInit {
             let d
             for (var i in place) {
               let dec = place[i].childNodes[1].textContent
-              // // console.log(dec)
+              // // // console.log(dec)
               let coor = place[i].getElementsByTagName('coordinates')
               let latlngArray = coor[0].textContent.replace(/\n/g, " ").split(/[ ,]+/).filter(Boolean)
               var pa = parser.parseFromString(dec, "text/html")
@@ -1917,14 +1950,14 @@ export class MapSectionComponent implements OnInit {
               for (var r in u) {
                 if (n % 2 == 0) {
                   b = u[r].textContent;
-                  // console.log(b)
+                  // // console.log(b)
                 }
                 else {
                   if (b == "Defect:") {
                     d = b;
                     this.table_no = u[r].textContent;
 
-                    // // console.log(u[r].textContent)
+                    // // // console.log(u[r].textContent)
                   }
 
                 }
@@ -1934,8 +1967,8 @@ export class MapSectionComponent implements OnInit {
 
 
 
-              // console.log(this.table_no)
-              // console.log(value.color)
+              // // console.log(this.table_no)
+              // // console.log(value.color)
               if (this.table_no == 'Hotspot') {
                 //  green
 
@@ -1967,7 +2000,7 @@ export class MapSectionComponent implements OnInit {
                 this.polygonMarkerCreating(latlngArray, value.color[1], dec)
               }
               if (this.table_no == 'Open Circuit' || this.table_no == 'Open_Circuit') {
-                // console.log("op")
+                // // console.log("op")
                 this.polygonMarkerCreating(latlngArray, value.color[0], dec)
               }
               if (this.table_no == 'Short Circuit' || this.table_no == 'Short_Circuit') {
@@ -1988,8 +2021,8 @@ export class MapSectionComponent implements OnInit {
             // // Create new kml overlay
             // const parser = new DOMParser();
             // const kml = parser.parseFromString(kmltext, 'text/xml');
-            // // // console.log(kml);
-            // // console.log(kmltext)
+            // // // // console.log(kml);
+            // // // console.log(kmltext)
             // this.track = new L.KML(kml);
 
             // // Add track to map
@@ -1999,7 +2032,7 @@ export class MapSectionComponent implements OnInit {
 
             // this.popupKml = kml
             // var el = kml.getElementsByTagName('coordinates')[0].parentNode.parentNode;
-            // // console.log(el)
+            // // // console.log(el)
 
 
 
@@ -2012,7 +2045,7 @@ export class MapSectionComponent implements OnInit {
 
 
       this.map.on('click', (e) => {
-        // console.log("reg");
+        // // console.log("reg");
         // this.popupDesc = localStorage.getItem('kml_popup_node');
 
 
@@ -2045,7 +2078,7 @@ export class MapSectionComponent implements OnInit {
 
     var url;
     // // alert(value + 'sdsd');
-    // console.log(value, 'sdsd');
+    // // console.log(value, 'sdsd');
 
     if (this.gb_layer !== null) {
       // this.summaryLayerGroup.removeLayer(this.track)
@@ -2055,10 +2088,10 @@ export class MapSectionComponent implements OnInit {
 
     if (value <= 9 && value >= 1) {
       url = this.kml_file_location + 'INVERTER0' + value + '/gb.kml'
-      // console.log("if")
+      // // console.log("if")
     }
     else {
-      // console.log("else")
+      // // console.log("else")
       url = this.kml_file_location + 'INVERTER' + value + '/gb.kml'
     }
     // // alert(url)
@@ -2071,7 +2104,7 @@ export class MapSectionComponent implements OnInit {
         // Create new kml overlay
         const parser = new DOMParser();
         const kml = parser.parseFromString(kmltext, 'text/xml');
-        // // console.log(kml);
+        // // // console.log(kml);
         // // alert("kml")
 
         this.gb_layer = new L.KML(kml);
@@ -2082,10 +2115,10 @@ export class MapSectionComponent implements OnInit {
 
         this.popupKml = kml
         var el = kml.getElementsByTagName('coordinates')[0].parentNode.parentNode;
-        // console.log(el)
+        // // console.log(el)
         // // alert("el"+this.track)
 
-        // // console.log(this.track)
+        // // // console.log(this.track)
         // Adjust map to show the kml
         const bounds = this.gb_layer.getBounds();
         this.map.fitBounds(bounds);
@@ -2144,7 +2177,7 @@ export class MapSectionComponent implements OnInit {
           maxZoom: 22,
           // maxNativeZoom: 20
         }).addTo(this.map);
-        this.accepted = 'true'
+        this.accepted = true
 
       } else if (thermal_val == "none") {
         // Removing Thermal layer
@@ -2155,8 +2188,7 @@ export class MapSectionComponent implements OnInit {
       }
 
 
-    }
-    else if (option === 'cad') {
+    } else if (option === 'cad') {
       // Adding CAD layer
       var proj_name = localStorage.getItem('name')
       // alert(proj_name)
@@ -2180,7 +2212,7 @@ export class MapSectionComponent implements OnInit {
           this.LoadKml(value)
 
         }
-        this.accepted1 = 'true'
+        this.accepted1 = true
       } else if (cad_val == "none") {
         // Removing CAD layer
         this.map.removeLayer(this.cad_layer);
@@ -2194,84 +2226,184 @@ export class MapSectionComponent implements OnInit {
           }
         }
       }
-
-
-
-    }
-    else if (option === 'DTM') {
+    } else if (option === 'DTM') {
       // Adding DTM layer
       var proj_name = localStorage.getItem('name')
       this.proj_name_contains = proj_name.includes("Sudair")
-      if (this.proj_name_contains) {
-        this.default_dtm = 'https://datasee-ai-public-assets.s3.ap-south-1.amazonaws.com/2k22/Infrastructure/' + proj_name + '/DTM/DTM.PNG'
-        // // alert(this.default_dtm )
-      }
-      this.proj_name_contains = proj_name.includes("Bhadla_R")
-      if (this.proj_name_contains) {
-        this.default_dtm = 'https://datasee-ai-public-assets.s3.ap-south-1.amazonaws.com/2k22/AT/' + proj_name + '/DTM/DTM.PNG'
-      }
+      // if (this.proj_name_contains) {
+      //   this.default_dtm = 'https://datasee-ai-public-assets.s3.ap-south-1.amazonaws.com/2k22/Infrastructure/' + proj_name + '/DTM/DTM.PNG'
+      //   // // alert(this.default_dtm )
+      // }
+      // this.proj_name_contains = proj_name.includes("Bhadla_R")
+      // if (this.proj_name_contains) {
+      //   this.default_dtm = 'https://datasee-ai-public-assets.s3.ap-south-1.amazonaws.com/2k22/AT/' + proj_name + '/DTM/DTM.PNG'
+      // }
       var cad_val = localStorage.getItem('DTM');
+      if (this.cad_file_location != null) {
 
-      if (cad_val == "DTM") {
+        if (cad_val == "DTM") {
 
-        localStorage.setItem('DTM', 'none');
-
-
-        this.dtm_layer = L.tileLayer(this.cad_file_location + '{z}/{x}/{y}.png', {
-          attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-          center: [this.center],
-          minZoom: 1,
-          maxZoom: 22,
-          // maxNativeZoom: 20
-        }).addTo(this.map);
-        this.isShown1 = "visibility"
+          localStorage.setItem('DTM', 'none');
 
 
-      } else if (cad_val == "none") {
-        // Removing CAD layer
-        this.map.removeLayer(this.dtm_layer);
-        this.isShown1 = "visibility_off"
+          this.dtm_layer = L.tileLayer(this.cad_file_location + '{z}/{x}/{y}.png', {
+            attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+            center: [this.center],
+            minZoom: 1,
+            maxZoom: 22,
+            // maxNativeZoom: 20
+          }).addTo(this.map);
+          this.isShown1 = "visibility"
+          this.accepted2 = false
 
-        localStorage.setItem('DTM', "DTM");
+
+        } else if (cad_val == "none") {
+          // Removing CAD layer
+          this.map.removeLayer(this.dtm_layer);
+          this.isShown1 = "visibility_off"
+
+          localStorage.setItem('DTM', "DTM");
+          this.accepted2 = true
+        }
+      } else {
+        alert("There is no DTM for this project")
+        this.accepted2 = true
       }
-
       // // alert(this.isShown1)
-      this.accepted2 = 'true'
 
-    }
-    else if (option === 'slope') {
+    } else if (option === 'slope') {
       // Adding SLOPE layer
       var proj_name = localStorage.getItem('name')
-      this.proj_name_contains = proj_name.includes("Sudair")
-      if (this.proj_name_contains) {
-        this.default_slope = 'https://datasee-ai-public-assets.s3.ap-south-1.amazonaws.com/2k22/Infrastructure/' + proj_name + '/SLOPE/Slope.PNG'
+      // this.proj_name_contains = proj_name.includes("Sudair")
+      // if (this.proj_name_contains) {
+      //   this.default_slope = 'https://datasee-ai-public-assets.s3.ap-south-1.amazonaws.com/2k22/Infrastructure/' + proj_name + '/SLOPE/Slope.PNG'
 
-      }
+      // }
 
       var cad_val = localStorage.getItem('slope');
+      if (this.thermal_location != null) {
+        if (cad_val == "slope") {
 
-      if (cad_val == "slope") {
-
-        localStorage.setItem('slope', 'none');
+          localStorage.setItem('slope', 'none');
 
 
-        this.slope_layer = L.tileLayer(this.thermal_location + '{z}/{x}/{y}.png', {
-          attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-          center: [this.center],
-          minZoom: 1,
-          maxZoom: 22,
-          // maxNativeZoom: 20
-        }).addTo(this.map);
-        this.isShown2 = "visibility"
+          this.slope_layer = L.tileLayer(this.thermal_location + '{z}/{x}/{y}.png', {
+            attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+            center: [this.center],
+            minZoom: 1,
+            maxZoom: 22,
+            // maxNativeZoom: 20
+          }).addTo(this.map);
+          this.isShown2 = "visibility"
+          this.accepted4 = false
+        } else if (cad_val == "none") {
+          // Removing CAD layer
+          this.map.removeLayer(this.slope_layer);
+          this.isShown2 = "visibility_off"
 
-      } else if (cad_val == "none") {
-        // Removing CAD layer
-        this.map.removeLayer(this.slope_layer);
-        this.isShown2 = "visibility_off"
-
-        localStorage.setItem('slope', "slope");
+          localStorage.setItem('slope', "slope");
+          this.accepted4 = true
+        }
+      } else {
+        alert("There is no SLOPE for this project")
+        this.accepted4 = true
       }
 
+
+    } else if (option === 'RawThermal') {
+      this.markers = L.layerGroup()
+      var rawImg = sessionStorage.getItem('rawImage');
+
+      if (rawImg == 'rawImage') {
+        // // console.log(this.get_missions_flights_data)
+        // alert(this.get_missions_flights_status)
+        if (this.get_missions_flights_status == undefined) {
+          this.toastr.warning('Please wait.... getting mission and Flight data.');
+          this.accepted3 = false;
+        }
+        if (this.get_missions_flights_data == "Data Not Available" && this.get_missions_flights_status == "success") {
+          alert("There is no Raw image for this project.")
+          this.accepted3 = false;
+
+        } else if (this.get_missions_flights_data != "Data Not Available" && this.get_missions_flights_status == "success") {
+          sessionStorage.setItem('rawImage', 'rawImage');
+          // setTimeout(() => {
+          //   this.ngxService.stop();
+          // }, 10000)
+          const dialogRef = this.dialog.open(RawImageComponent, {
+            width: '250px',
+            // data: {mission: this.mission, flight: this.flight}
+          });
+
+          dialogRef.afterClosed().subscribe(result => {
+            let dataval = this._http.getmissiondata();
+            // console.log(dataval['mission'])
+            // this.accepted3 = false;
+
+
+            const newtoken = localStorage.getItem("token");
+            let project_id = localStorage.getItem("project_id");
+            let project_type = localStorage.getItem("project_type");
+            let date = localStorage.getItem("date");
+            const headers = { 'Authorization': 'token ' + newtoken }
+            var url = environment.api_name + 'api/project/get_thermal_assets/' + project_id + '/' + date + '/' + project_type + '?filter={"mission":"' + dataval['mission'] + '","flight":"' + dataval['flight'] + '"}'
+            fetch(url, { headers })
+              .then(response => response.json())
+              .then(datavalue => {
+                // console.log(datavalue['data'])
+                this.uploaded_raw_image = datavalue['data']
+                let popupContent = `
+                  <form class="popup-form">  
+                    <div class="form-group">
+                      <label class="mb-0" for="comment">Comment:</label>
+                      <textarea class="form-control" rows="4" class="comment"></textarea>
+                    </div>
+                    <div class="d-flex">  
+                      <button class="btn btn-outline-info btn-sm">Save</button>
+                      <button class="delete-button btn btn-outline-danger btn-sm ml-auto">
+                         Delete
+                      </button>
+                    </div>
+                  </form>
+                  `;
+                var greenIcon = L.icon({
+                  iconSize: [30, 30],
+                  iconUrl: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
+                });
+
+                // var marker = L.marker([23.91353722222222, 71.19426805555555], { icon: greenIcon }).bindPopup(popupContent)
+                // // var marker = L.marker([23.91353722222222, 71.19426805555555], { icon: greenIcon }).bindPopup("<html><head></head><body><table><tr><td>url:</td><td><image src="' + element["url"] + '"</td></tr></body></html>")
+                // selected_point.addLayer(marker).addTo(this.map);
+                // marker.on('click', this.open_dialog())
+                this.uploaded_raw_image.forEach(element => {
+
+                  // let popupContent = '<form class="popup-form"><div class="row"><label class="mb-0" for="comment">Note: <b>use ctrl+ click link <b> <br>to view the image in new tab</label><label class="mb-0" for="comment">url:<span><a href="' + element["url"] + '">' + element["filename"] + '</a></span></label></div></form>'
+                  let popupContent = '<html><head><style> .leaflet-popup-content-wrapper {width:680px}</style></head><body><table><tr><td><img src="' + element["url"] + '"/></td></tr><tr><td>' + element["filename"] + '</td></tr></body></html>'
+                  var markers = L.marker([element['latitude'], element['longitude']], { icon: greenIcon }).bindPopup(popupContent)
+                  // var marker = L.marker([23.91353722222222, 71.19426805555555], { icon: greenIcon }).bindPopup("<html><head></head><body><table><tr><td>url:</td><td><button click='open_dialog()'>asdasd</button></td></tr></body></html>")
+                  this.marker_data.push(markers)
+                  this.markers.addLayer(markers).addTo(this.map)
+
+                });
+
+              })
+          })
+          sessionStorage.setItem('rawImage', 'none');
+        }
+        // })
+
+
+        // // console.log("---")
+        // // console.log(this.mission_data)
+      } else {
+        sessionStorage.setItem('rawImage', 'rawImage');
+        // this.map.removeLayer()
+        // this.map.removeLayer(this.markers)
+        for (var l in this.marker_data) {
+          this.map.removeLayer(this.marker_data[l])
+        }
+
+      }
 
 
     }
@@ -2351,19 +2483,19 @@ export class MapSectionComponent implements OnInit {
 
 
     // if ($event === true) {
-    //   // console.log("slider on");
+    //   // // console.log("slider on");
     //   this.thermal_layer = L.tileLayer('http://106.51.3.224:6660/HERO_Ichawar/Thermal_Ortho/{z}/{x}/{y}.png', {
     //     attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     //   }).addTo(this.map);
     //   this.sliderControl = L.control.sideBySide(this.base_ortho_layer, this.thermal_layer);
     //   this.sliderControl.addTo(this.map);
 
-    //   // console.log(this.sliderControl);
+    //   // // console.log(this.sliderControl);
 
 
     // }
     // else {
-    //   // console.log("off");
+    //   // // console.log("off");
 
     //   this.sliderControl.remove()
 
@@ -2375,7 +2507,7 @@ export class MapSectionComponent implements OnInit {
   // summaryStateEventReciever(value: any) {
   //   this.summaryState = value;
 
-  //   // console.log(value);
+  //   // // console.log(value);
 
   // }
   // public gotoAnalytics(){
@@ -2387,7 +2519,7 @@ export class MapSectionComponent implements OnInit {
     //   document.body.appendChild(canvas);
     // });
     let element = document.querySelector(".capture");
-    // console.log(document.querySelector("#map"))
+    // // console.log(document.querySelector("#map"))
     html2canvas(document.querySelector("#map,.capture"), {
       // backgroundColor: null,
       useCORS: true,
@@ -2399,10 +2531,10 @@ export class MapSectionComponent implements OnInit {
         // To download directly on browser default 'downloads' location
         let link = document.createElement("a");
         link.download = "image.png";
-        // console.log(blob);
+        // // console.log(blob);
 
         link.href = URL.createObjectURL(blob);
-        // console.log(link.href);
+        // // console.log(link.href);
         link.click();
 
         // To save manually somewhere in file explorer
@@ -2428,17 +2560,17 @@ export class MapSectionComponent implements OnInit {
     this.map.removeLayer(this.rgb_layer);
 
     const headers = { 'Authorization': 'Bearer ' + newtoken }
-    // console.log(environment.api_name+"project/retrieve_project_data/Adani-" + this.Adani_locations[location_name]['name'])
+    // // console.log(environment.api_name+"project/retrieve_project_data/Adani-" + this.Adani_locations[location_name]['name'])
 
     fetch(environment.api_name + "project/retrieve_project_data/Adani-" + this.Adani_locations[location_name]['name'], { headers })
       .then(response => response.json())
       .then(datavalue => {
         var main_data = datavalue
-        // console.log(datavalue)
+        // // console.log(datavalue)
 
         this.project_id_summary = Object.keys(datavalue)
         this.date_inv = Object.values(datavalue[this.project_id_summary])[2]
-        // console.log(datavalue)
+        // // console.log(datavalue)
 
         this.date_inv_status_key = Object.keys(datavalue[this.project_id_summary]["date_status"])
         // // alert(datavalue[this.project_id_summary][this.date_inv_status_key[0]]['report_path'])
@@ -2490,12 +2622,12 @@ export class MapSectionComponent implements OnInit {
     // const dialogRef = this.dialog.open(DefectrectificationComponent);
 
     // dialogRef.afterClosed().subscribe(result => {
-    //   // console.log(`Dialog result: ${result}`);
+    //   // // console.log(`Dialog result: ${result}`);
     // });
-    // console.log(this.item);
+    // // console.log(this.item);
 
     // alert("inside")
-    // console.log(defect)
+    // // console.log(defect)
 
   }
 

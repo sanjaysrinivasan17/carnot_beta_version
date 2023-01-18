@@ -1,5 +1,192 @@
-<div class="compact-sidebar" id="defectssidebar" style="z-index: 9999;">
-    <div class="sidebar-menu">
+<div class="compact-sidebar" id="defectssidebar" style="z-index: 9999;max-width: 100vw !important;" [formGroup]="Form">
 
+    <mat-toolbar>
+        <button mat-button mat-dialog-close style=" background-color: var(--primary); left: 10px;" matTooltip="close">X</button>
+        <h4 style="text-align: center; margin-left: 690px;">
+            Defect Rectification </h4>
+    </mat-toolbar>
+    <div class="sidebar-menu" style="padding-top: 60px;height: 800px;overflow: auto;">
+        <table>
+            <tr>
+                <th>Table No.</th>
+                <!-- !-- <th>Inverter No.</th> -- -->
+                <th>Module No.</th>
+
+                <th>Defect type
+                    <mat-icon mat-button [matMenuTriggerFor]="menu" style="cursor: pointer;font-size: 18px;padding-top: 8px;margin-top: 0px;width: 18px;">
+                        arrow_drop_down</mat-icon>
+
+                    <mat-menu #menu="matMenu">
+                        <div class="row" mat-menu-item id="defect_{{j}}" (click)="selectChange(defect,'Defect');" *ngFor="let defect of defectType[0]['Defect']; let j = index">
+                            <span style="text-align: center;">{{defect}}</span>
+                        </div>
+                    </mat-menu>
+
+                </th>
+                <th>Assignees
+                    <mat-icon mat-button [matMenuTriggerFor]="menu1" style="cursor: pointer;font-size: 18px;padding-top: 8px;margin-top: 0px;width: 18px;">arrow_drop_down</mat-icon>
+
+                    <mat-menu #menu1="matMenu">
+                        <div class="row" mat-menu-item id="assigned_to_{{j}}" (click)="selectChange(assigned_to_head,'assigned_to');" *ngFor="let assigned_to_head of defectType[0]['Assign_to']; let j = index">
+                            <span style="text-align: center;">{{assigned_to_head}}</span>
+                        </div>
+                    </mat-menu>
+                </th>
+                <th>Assigned Date
+                    <mat-icon mat-button [matMenuTriggerFor]="menu2" style="cursor: pointer;font-size: 18px;padding-top: 8px;margin-top: 0px;width: 18px;">arrow_drop_down</mat-icon>
+
+                    <mat-menu #menu2="matMenu">
+                        <div class="row" mat-menu-item id="assigned_date_{{j}}" (click)="selectChange(assigned_date,'assigned_date');" *ngFor="let assigned_date of defectType[0]['Assigned_date']; let j = index">
+                            <span style="text-align: center;">{{assigned_date}}</span>
+                        </div>
+                    </mat-menu>
+                </th>
+                <th>Status
+                    <mat-icon mat-button [matMenuTriggerFor]="menu3" style="cursor: pointer;font-size: 18px;padding-top: 8px;margin-top: 0px;width: 18px;">
+                        arrow_drop_down</mat-icon>
+
+                    <mat-menu #menu3="matMenu">
+                        <div class="row" mat-menu-item id="header_status_{{j}}" (click)="selectChange(status,'status');" *ngFor="let status of defectType[0]['Status']; let j = index">
+                            <span style="text-align: center;">{{status}}</span>
+                        </div>
+                    </mat-menu>
+                </th>
+                <!-- <th>Defect type
+                    <mat-icon style="font-size: 20px;">sort</mat-icon>
+                    <mat-icon (click)="sort('Defect')" style="font-size: 20px;">sort</mat-icon>
+                </th>
+                <th>Assignees
+                    <mat-icon style="font-size: 20px;">sort</mat-icon>
+                    <mat-icon (click)="sort('Defect_status')" style="font-size: 20px;">sort</mat-icon>
+                </th>
+                <th>Assigned Date
+                    <mat-icon style="font-size: 20px;">sort</mat-icon>
+                    <mat-icon (click)="sort('assigned_date')" style="font-size: 20px;">sort</mat-icon>
+                </th>
+                <th>Status
+                    <mat-icon style="font-size: 20px;">sort</mat-icon>
+                    <mat-icon (click)="sort('status')" style="font-size: 20px;">sort</mat-icon>
+                </th> -->
+                <th>Time stamp</th>
+                <th>Images</th>
+                <th></th>
+            </tr>
+            <tr *ngFor="let i of defect_data;let k=index">
+                <td #table_no id="Table_no_{{k}}">{{defect_data[k]['Table_No']}}</td>
+                <td #module_no id="Module_No_{{k}}">{{defect_data[k]['Module_No']}}</td>
+                <td #defect id="Defect_{{k}}">{{defect_data[k]['Defect']}}</td>
+                <td>
+                    <div *ngIf="i['Defect_status'] == 'new'">
+                        <input type="text" id="assignee_{{k}}" name="assignee_{{k}}" [value]="i['assigned_to']" [disabled]="true">
+                    </div>
+                    <div *ngIf="i['Defect_status'] == 'edit'">
+                        <input type="text" id="assignee_{{k}}" name="assignee_{{k}}" [value]="i['assigned_to']">
+
+                    </div>
+                    <div *ngIf="i['Defect_status'] != 'new' && i['Defect_status'] != 'edit'">
+                        <input type="text" id="assignee_{{k}}" name="assignee_{{k}}">
+
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="i['Defect_status'] == 'new'">
+
+                        <mat-form-field appearance="fill">
+                            <mat-label>Choose a date</mat-label>
+                            <input matInput id="date_{{k}}" [value]="i['assigned_date']" name="date_{{k}}" style="z-index: 9999;" #date [disabled]="true">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+
+                        </mat-form-field>
+                    </div>
+                    <div *ngIf="i['Defect_status'] == 'edit'">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Choose a date</mat-label>
+                            <input matInput [matDatepicker]="picker" id="date_{{k}}" name="date_{{k}}" [value]="" #date>
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field><br> {{i['assigned_date']}}
+                    </div>
+                    <div *ngIf="i['Defect_status'] != 'new' && i['Defect_status'] != 'edit'">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Choose a date</mat-label>
+                            <input matInput [matDatepicker]="picker" id="date_{{k}}" name="date_{{k}}" #date>
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+
+                </td>
+                <td>
+                    <div *ngIf="i['Defect_status'] == 'new'">
+
+
+                        <mat-select placeholder="Status" id="status_{{k}}" [value]="i['status']" matTooltip="Change Status" #status [disabled]="true">
+                            <mat-option value="Rectified">Rectified</mat-option>
+                            <mat-option value="Ongoing">Ongoing</mat-option>
+                        </mat-select>
+
+
+                    </div>
+                    <div *ngIf="i['Defect_status'] == 'edit'">
+                        <mat-select placeholder="Status" id="status_{{k}}" [value]="i['status']" (selectionChange)="change_status(k, $event.value);" matTooltip="Change Status" #status>
+                            <mat-option value="Rectified">Rectified</mat-option>
+                            <mat-option value="Ongoing">Ongoing</mat-option>
+                        </mat-select>
+                    </div>
+                    <div *ngIf="i['Defect_status'] != 'new' && i['Defect_status'] != 'edit'">
+
+
+                        <mat-select placeholder="Status" id="status_{{k}}" matTooltip="Change Status" #status>
+                            <mat-option value="Rectified">Rectified</mat-option>
+                            <mat-option value="Ongoing">Ongoing</mat-option>
+                        </mat-select>
+
+                    </div>
+
+                </td>
+                <td>
+                    <div *ngIf="i['Defect_status'] == 'new'">
+                        {{defect_data[k]['timestamp']}}
+
+                    </div>
+                    <div *ngIf="i['Defect_status'] == 'edit'">
+                        {{defect_data[k]['timestamp']}}
+                    </div>
+                    <div *ngIf="i['Defect_status'] != 'new' && i['Defect_status'] != 'edit'">
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="i['Defect_status'] == 'new'">
+                        <span (click)="image_click(i['files'])" matTooltip="Click to see image" style="cursor:pointer;">{{i['files'].length}} Files</span>
+                        <!-- <div *ngFor="let m of i['files'];let z=index">
+                            <img src="{{m['url']}}" alt="{{m['filename']}}" style="text-align: center;border-radius: 10px;border-color: black;" (click)="image_click(i['files'])" width="60px" height="60px ">
+                        </div> -->
+                    </div>
+                    <div *ngIf="i['Defect_status'] == 'edit'">
+                        <input #fileUpload type="file" multiple (change)="onSelectFile($event,k)" accept=".jpg,.png">
+                    </div>
+                    <div *ngIf="i['Defect_status'] != 'new' && i['Defect_status'] != 'edit'">
+                        <input #fileUpload type="file" multiple (change)="onSelectFile($event,k)" accept=".jpg,.png">
+
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="i['Defect_status'] == 'new'">
+                        <span class="material-icons" style="color: #4d94ff;cursor:pointer;" (click)="edit_line_item(k)">edit</span>
+                        <span class="material-icons" style="color: #4d94ff;padding-left: 10px;cursor:pointer;" (click)="delete_line_item(k)">delete</span>
+                    </div>
+                    <div *ngIf="i['Defect_status'] == 'edit'">
+                        <span class='material-icons' style="color: #4d94ff;cursor:pointer;" (click)="cancel_line_item(k)">cancel</span>
+                        <span class='material-icons' style="color: #4d94ff;padding-left: 10px;cursor:pointer;" (click)="Defect_rectified_update(k)">send</span>
+
+                    </div>
+                    <div *ngIf="i['Defect_status'] != 'new' && i['Defect_status'] != 'edit'">
+                        <button mat-button class="btn pl-5 pr-5 stepper-action-btn login-btn text-uppercase" style="font-family: 'Montserrat', Helvetica, sans-serif;cursor:pointer;" (click)="Defect_rectified_data(k)">Submit</button>
+
+                    </div>
+                </td>
+            </tr>
+        </table>
     </div>
 </div>

@@ -52,13 +52,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
 import { MatBadgeModule } from '@angular/material/badge';
-
+import { ImageviewerComponent } from './imageviewer/imageviewer.component';
+import { RawImageComponent } from './raw-image/raw-image.component';
 import { allIcons } from 'angular-feather/icons';
 import { FeatherModule } from 'angular-feather';
 
 
 @NgModule({
-  declarations: [SidebarComponent, MapSectionComponent, AoiDialogComponent, DrawComponent, ComparisonSliderComponent, DialogPreviewComponent, ComparisionComponent, DateComponent, SubdefectsComponent, GradinggraphComponent, DefectrectificationComponent],
+  declarations: [SidebarComponent, MapSectionComponent, AoiDialogComponent, DrawComponent, ComparisonSliderComponent, DialogPreviewComponent, ComparisionComponent, DateComponent, SubdefectsComponent, GradinggraphComponent, DefectrectificationComponent, ImageviewerComponent, RawImageComponent],
   imports: [
     CommonModule,
     MapSectionRoutingModule,

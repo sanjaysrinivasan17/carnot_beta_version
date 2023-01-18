@@ -15,6 +15,7 @@ import { AssetaoiDrawComponent } from './sub-components/leaflet-draw/assetaoi-dr
 import { AssetdialogPreviewComponent } from './sub-components/leaflet-draw/assetdialog-preview/assetdialog-preview.component';
 import { AssetdrawComponent } from './sub-components/leaflet-draw/assetdraw/assetdraw.component';
 import { MeasureComponent } from './sub-components/leaflet-measure/measure/measure.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import { MeasureComponent } from './sub-components/leaflet-measure/measure/measu
     CommonModule,
     MaterialLibrary,
     MapassetSectionRoutingModule,
-    NgApexchartsModule
+    NgApexchartsModule,
+    MatDialogModule
   ]
 })
 export class MapassetSectionModule { }

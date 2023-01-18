@@ -104,14 +104,14 @@ export class ProjectDetailsComponent implements OnInit {
     this._http.setNewMapIcon({
       dateval: "create"
     });
-    // // console.log(this.states[0])
-    // // console.log(this.countries[0])
+    // // // console.log(this.states[0])
+    // // // console.log(this.countries[0])
     // // alert(this.countries)
-    // // console.log(this.cities[0])
+    // // // console.log(this.cities[0])
   }
   selectChange(countryval: any) {
     // alert("inside"+countryval)
-    // // console.log(this.states)
+    // // // console.log(this.states)
     // alert(this.states.length)
     for (var i = 0; i < this.countries.length; i++) {
       if (this.countries[i]["isoCode"] == countryval) {
@@ -125,7 +125,7 @@ export class ProjectDetailsComponent implements OnInit {
       if (this.states[i]["countryCode"] == countryval) {
         var cou = this.states[i].length
         this.states_data.push(this.states[i])
-        // // console.log(this.states_data)
+        // // // console.log(this.states_data)
 
       }
     }
@@ -139,7 +139,7 @@ export class ProjectDetailsComponent implements OnInit {
     // alert(stateval)
     for (var i = 0; i < this.states_data.length; i++) {
       if (this.states_data[i]["isoCode"] == stateval) {
-        // // console.log(this.states_data[i]["name"])
+        // // // console.log(this.states_data[i]["name"])
 
         var state_name_val = this.states_data[i]["name"]
         this.state(state_name_val)
@@ -149,7 +149,7 @@ export class ProjectDetailsComponent implements OnInit {
     for (var i = 0; i < this.cities.length; i++) {
       if (this.cities[i]["stateCode"] == stateval && this.cities[i]["countryCode"] == this.countryval_data) {
         this.cities_data.push(this.cities[i])
-        // // console.log(this.cities_data)
+        // // // console.log(this.cities_data)
 
       }
     }
@@ -172,7 +172,7 @@ export class ProjectDetailsComponent implements OnInit {
 
 
     let files = event.dataTransfer ? event.dataTransfer.files : event.target.files;
-    // console.log('event::::::', event)
+    // // console.log('event::::::', event)
     for (let i = 0; i < files.length; i++) {
       let file = files[i];
 
@@ -181,13 +181,13 @@ export class ProjectDetailsComponent implements OnInit {
       if (this.validate(file)) {
         //      if(this.isImage(file)) {
         file.objectURL = this.sanitizer.bypassSecurityTrustUrl((window.URL.createObjectURL(files[i])));
-        // console.log(file.objectURL.changingThisBreaksApplicationSecurity)
+        // // console.log(file.objectURL.changingThisBreaksApplicationSecurity)
         //      }
         if (!this.isMultiple()) {
           this.files = []
         }
         this.files.push(files[i]);
-        // console.log(this.files)
+        // // console.log(this.files)
         //  }
       }
       //}
@@ -246,7 +246,7 @@ export class ProjectDetailsComponent implements OnInit {
       "state": this.state_name,
       "city": this.city_name
     }
-    // console.log(create_project_data)
+    // // console.log(create_project_data)
 
   }
 
@@ -283,9 +283,9 @@ export class ProjectDetailsComponent implements OnInit {
     }
 
 
-    // return // console.log(create_new_Project_data)
+    // return // // console.log(create_new_Project_data)
     const body = JSON.stringify(create_new_Project_data);
-    // console.log(body)
+    // // console.log(body)
 
     const newtoken = localStorage.getItem("token");
 
@@ -294,7 +294,7 @@ export class ProjectDetailsComponent implements OnInit {
     };
     this.http.post(environment.api_name+"project/create_project/", body, httpOptions).subscribe(data => {
       this.postId = data;
-      // console.log(data)
+      // // console.log(data)
       this.success = data["status"]
 
     // alert(this.success)

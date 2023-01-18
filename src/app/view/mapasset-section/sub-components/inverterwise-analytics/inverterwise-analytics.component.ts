@@ -63,7 +63,7 @@ export class InverterwiseAnalyticsComponent {
   ngOnInit(): void {
     this._http.Asset_project().subscribe(data => {
       this.main_data = data['data']
-      console.log(this.main_data)
+      // console.log(this.main_data)
       this.onload()
 
     })
@@ -75,7 +75,7 @@ export class InverterwiseAnalyticsComponent {
     this.inverter_keys = Object.keys(this.main_data['projectdata'][this.dateright]['SCPM']['inverter']['Inverter'])
 
 
-    // console.log(this.inverter_group_keys);
+    // // console.log(this.inverter_group_keys);
 
 
     this.series = [{
@@ -112,8 +112,8 @@ export class InverterwiseAnalyticsComponent {
       this.feature_value_total.push(this.main_data['projectdata'][this.dateright]['SCPM']['inverter']['Inverter'][this.inverter_val][feature][element]['Total'])
     });
 
-    // console.log(this.date_left_sub_group_values);
-    // console.log(this.date_right_sub_group_values);
+    // // console.log(this.date_left_sub_group_values);
+    // // console.log(this.date_right_sub_group_values);
 
     this.series = [{
       name: this.dateleft,
@@ -124,7 +124,7 @@ export class InverterwiseAnalyticsComponent {
       data: this.date_right_feature_values
     }]
 
-    // console.log(this.series);
+    // // console.log(this.series);
 
 
     for (let index = 0; index < this.inverter_keys.length; index++) {

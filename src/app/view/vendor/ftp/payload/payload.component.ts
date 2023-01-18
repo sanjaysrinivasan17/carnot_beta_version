@@ -36,7 +36,7 @@ export class PayloadComponent implements OnInit {
       "Integration":this.inter,
       "Lens_focal":this.lens_focal
     }
-    // console.log(payload)
+    // // console.log(payload)
   }
 
   prev() {
