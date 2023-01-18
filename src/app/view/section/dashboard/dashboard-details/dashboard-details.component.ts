@@ -158,37 +158,37 @@ export class DashboardDetailsComponent implements OnInit {
       .then(data => {
         this.main_data_get_all = data['data']
         this.project_id_summary_alldata = Object.keys(this.main_data_get_all)
-        // console.log(this.main_data_get_all);
+        // // console.log(this.main_data_get_all);
         for (var x = 0; x < this.main_data_get_all.length; x++) {
          
           this.add(this.main_data_get_all[x]['category'])
         }
-        // // console.log(this.main_data_get_all)
+        // // // console.log(this.main_data_get_all)
         // alert(this.project_id_summary_alldata.length)
-        // console.log(this.main_data_get_all);
+        // // console.log(this.main_data_get_all);
 
         for (this.i = 0; this.i < this.project_id_summary_alldata.length; this.i++) {
           this.str = this.main_data_get_all[this.i]['center']
-          // // console.log(this.project_id_summary_alldata[this.i] )
+          // // // console.log(this.project_id_summary_alldata[this.i] )
           if (this.str != '') {
-            // console.log(this.str)
+            // // console.log(this.str)
             this.str = this.str.split(",");
             this.lat = this.str[0];
             this.long = this.str[1];
 
             this.center.push({ "lat": this.lat, "long": this.long, "name": this.main_data_get_all[this.i]["name"] })
             // alert(this.lat+ "---long"+ this.long)
-            // console.log(this.main_data_get_all[this.i]["name"]);
+            // // console.log(this.main_data_get_all[this.i]["name"]);
 
             if (this.items.indexOf(this.main_data_get_all[this.i]["name"]) === -1) {
               this.items.push(this.main_data_get_all[this.i]["name"]);
 
             }
-            // console.log(this.items)
+            // // console.log(this.items)
           }
         }
         this.all_project(this.items)
-        // console.log(this.center)
+        // // console.log(this.center)
         setTimeout(() => {
           this.ngxService.stop();
         }, 4000)
@@ -230,7 +230,7 @@ export class DashboardDetailsComponent implements OnInit {
 
         for (this.j = 0; this.j < this.center.length; this.j++) {
           this.new_center = this.center[this.j]
-          // // console.log([this.center[this.j]["lat"], this.center[this.j]["long"]])
+          // // // console.log([this.center[this.j]["lat"], this.center[this.j]["long"]])
 
           // L.marker([this.center[this.j]["lat"],this.center[this.j]["long"]]).addTo(this.map);
           var marker = L.marker([this.center[this.j]["lat"], this.center[this.j]["long"]], { icon: greenIcon }).bindPopup(this.center[this.j]["name"])
@@ -252,8 +252,8 @@ export class DashboardDetailsComponent implements OnInit {
       .then(response => response.json())
       .then(data => {
         this.main_data = data
-        console.log(data)
-        console.log("---------------------------------------------")
+        // console.log(data)
+        // console.log("---------------------------------------------")
         this.dashboard_total_key = Object.keys(data['dashboard_total'])
         // alert(this.dashboard_total_key)
         this.dashboard_total_values = Object.values(data['dashboard_total'])
@@ -445,7 +445,7 @@ add(category){
   // alert(category)
   if (this.categorywise_project.indexOf(category) === -1) {
     this.categorywise_project.push(category);
-    console.log(this.categorywise_project);
+    // console.log(this.categorywise_project);
   }
 }
 
@@ -467,13 +467,13 @@ add(category){
     this.Total_count = []
 
     const newtoken = localStorage.getItem("token");
-    // console.log(all_project_data)
+    // // console.log(all_project_data)
     // var keys =[]
 
     const newName = localStorage.getItem("name");
     const headers = { 'Authorization': 'token ' + newtoken }
     for (let index = 0; index < all_project_data.length; index++) {
-      // console.log(all_project_data[index]);
+      // // console.log(all_project_data[index]);
       var proj_name = all_project_data[index]
       // }
       // all_project_data.forEach(proj_name => {
@@ -483,7 +483,7 @@ add(category){
 
           this.project_id_summary = Object.keys(data)
           this.dates = Object.values(data[this.project_id_summary])[2]
-          // console.log(this.dates);
+          // // console.log(this.dates);
           var hotspot = 0
           var short_circuit = 0
           var open_circuit = 0
@@ -494,7 +494,7 @@ add(category){
           this.dates.forEach(element => {
             // if (.length > 0) {
             for (var k in data[this.project_id_summary][element]['summary_data']) {
-              // console.log(data[this.project_id_summary][element]['summary_data'][k]['Count']);
+              // // console.log(data[this.project_id_summary][element]['summary_data'][k]['Count']);
               if (k == 'Hotspot') {
                 var hotspot_key = k
                 hotspot = hotspot + data[this.project_id_summary][element]['summary_data'][k]['Count']
@@ -525,18 +525,18 @@ add(category){
         })
 
     }
-    // console.log(this.Total_count[0])
+    // // console.log(this.Total_count[0])
     // this.all_defects_count()
   }
   all_defects_count(proj_name, key_count, count_total, total_proj, index) {
-    // console.log(Total_defect_count.length)
+    // // console.log(Total_defect_count.length)
     // for (var i = 0; i < 10; i++) {
     // this.count_defects.push({ 'proj_name': proj_name, 'key': key_count, 'Count': count_total })
     this.Total_count.push(count_total)
-    // console.log( this.Total_count)
+    // // console.log( this.Total_count)
     this.Total_key.push(key_count)
     this.Total_project.push(proj_name)
-    //     // console.log(total_proj);
+    //     // // console.log(total_proj);
     if ((total_proj - 1) == index) {
       this.chart_rendering_projectwise(total_proj - 1)
     }

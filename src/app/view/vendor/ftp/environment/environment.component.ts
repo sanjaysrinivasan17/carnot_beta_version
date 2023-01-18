@@ -30,7 +30,7 @@ export class EnvironmentComponent implements OnInit {
       "Cloud_coverage":cloud_cov,
       "soiling":this.soiling
     }
-    // console.log(environment_detail)
+    // // console.log(environment_detail)
 
   }
 

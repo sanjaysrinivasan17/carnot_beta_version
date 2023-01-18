@@ -59,23 +59,23 @@ export class ShareComponent implements OnInit {
       .then(response => response.json())
       .then(datavalue => {
         this.main_data = datavalue
-        // console.log(this.main_data)
+        // // console.log(this.main_data)
         this.shared_to = []
         this.project_id_summary = Object.keys(datavalue)
-        // console.log(this.project_id_summary.length)
+        // // console.log(this.project_id_summary.length)
         // for (var i = 0; i < this.project_id_summary.length; i++) {
         // alert("---name ---"+this.project_id_summary[1])
-        // // console.log("---------------------------------------------"+this.id)
+        // // // console.log("---------------------------------------------"+this.id)
         this.project_id_summary_val = this.project_id_summary[this.user_id]
         this.project_id = this.main_data[this.project_id_summary_val]['id']
         this.shared_array = this.main_data[this.project_id_summary_val]['shared']
-        // console.log(this.shared_array)
+        // // console.log(this.shared_array)
 
         this.created_by = this.shared_array['created_by']
-        // console.log(this.created_by)
+        // // console.log(this.created_by)
 
         this.shared_to_data = this.shared_array['shared_to']
-        // console.log(this.shared_to_data)
+        // // console.log(this.shared_to_data)
         if (this.shared_to_data.length == 0) {
           this.shared_account_count = 0
         }
@@ -88,8 +88,8 @@ export class ShareComponent implements OnInit {
             }
 
             this.shared_to.push({ "name": this.shared_to_data[j]["name"], "email": this.shared_to_data[j]["email"] })
-            // // console.log("---------------------------------------------"+j)
-            // console.log(this.shared_to_data[j]["email"])
+            // // // console.log("---------------------------------------------"+j)
+            // // console.log(this.shared_to_data[j]["email"])
           }
 
 
@@ -109,11 +109,11 @@ export class ShareComponent implements OnInit {
     fetch(environment.api_name + 'api/accounts/manage_users' , { headers })
       .then(response => response.json())
       .then(datavalue => {
-        // console.log(datavalue)
+        // // console.log(datavalue)
         var user_name = datavalue['data']
         var count_user = 0
         for (let i = 0; i < user_name.length; i++) {
-          console.log(user_name[i]['is_active'])
+          // console.log(user_name[i]['is_active'])
           if (user_name[i]['is_active'] == true) {
             this.user.push(user_name[i])
           }
@@ -140,15 +140,15 @@ Get_shared_list(){
   const project_type = localStorage.getItem("project_type")
   if (project_type == "asset") {
 
-    fetch(environment.api_name + 'api/asset/get_asset_project/' + user_id, { headers })
+    fetch(environment.api_name + 'api/asset/get_asset_project/' + project_id, { headers })
       .then(response => response.json())
       .then(datavalue => {
-        console.log(datavalue)
+        // console.log(datavalue)
         var list = datavalue['data']
         this.user_arr = datavalue['data']['users']
         var count_user = 0
         for (let i = 0; i < this.user_arr.length; i++) {
-          console.log(this.user_arr[i])
+          // console.log(this.user_arr[i])
           if (this.user_arr[i]['role'] != 'superadmin') {
             this.roles.push(this.user_arr[i])
 
@@ -158,15 +158,15 @@ Get_shared_list(){
       })
   }
   else if(project_type == "carnot"){
-    fetch(environment.api_name + 'api/project/get_project/' + user_id, { headers })
+    fetch(environment.api_name + 'api/project/get_project/' + project_id, { headers })
       .then(response => response.json())
       .then(datavalue => {
-        console.log(datavalue)
+        // console.log(datavalue)
         var list = datavalue['data']
         this.user_arr = datavalue['data']['users']
-       console.log(this.user_arr)
+       // console.log(this.user_arr)
         // for (let i = 0; i < list.length; i++) {
-        //   console.log(list[i])
+        //   // console.log(list[i])
         //   if (list[i]['is_active'] == true) {
         //     this.user.push(list[i])
         //   }
@@ -176,7 +176,7 @@ Get_shared_list(){
             this.roles.push(this.user_arr[index])
 
           }
-          // console.log(datavalue[index])
+          // // console.log(datavalue[index])
 
 
         }
@@ -188,23 +188,24 @@ Get_shared_list(){
 }
 
   user_mapping(role) {
+    // console.log(role)
     this.Yet_to_share_profile_list = role
   }
   send_user() {
 
     var project_id = localStorage.getItem("project_id")
-    var user_id = localStorage.getItem("user_id");
+    var user_id = this.Yet_to_share_profile_list.id
     // for (let i = 0; i < this.Yet_to_share_profile_list.length; i++) {
-    // console.log(this.Yet_to_share_profile_list[i]['id'])
+    // // console.log(this.Yet_to_share_profile_list[i]['id'])
 
 
     var user_mapping = {
       // "": parseInt(this.Yet_to_share_profile_list),
-      "proj_id": parseInt(project_id),
-      "project_user": parseInt(user_id)
+      "id": parseInt(project_id),
+      "user": parseInt(user_id)
     }
 
-    // console.log(user_mapping)
+    // // console.log(user_mapping)
 
     // }
     const newtoken = localStorage.getItem("token");
@@ -216,7 +217,7 @@ Get_shared_list(){
     var posturl = environment.api_name + "api/accounts/add_project_users/" + project_type
     this.http.post(posturl, user_mapping, httpOptions).subscribe(data => {
       this.post_id = data;
-      console.log(this.post_id)
+      // console.log(this.post_id)
       this.success = data["status"]
       var notification = data["message"]
       // alert(this.success)
@@ -244,7 +245,7 @@ Get_shared_list(){
     var userdata = {
       "email_id": emailid,
     }
-    // console.log(userdata)
+    // // console.log(userdata)
     const newtoken = localStorage.getItem("token");
     var httpOptions = {
 

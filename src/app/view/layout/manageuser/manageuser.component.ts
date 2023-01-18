@@ -49,7 +49,7 @@ export class ManageuserComponent implements OnInit {
     //   .then(response => response.json())
     //   .then(datavalue => {
     //     this.user = datavalue['data']
-    //     // console.log(this.user)
+    //     // // console.log(this.user)
     //     // this.user = [];
     //     for (var i = 0; i < this.user.length; i++) {
     //       // alert(this.user.length)
@@ -74,13 +74,13 @@ export class ManageuserComponent implements OnInit {
         //   var Created_date = year + "-" + month + "-" + day;
         //   this.user.push({ "id": i, "username": this.main_data[i]["Username"], "fullname": this.main_data[i]["Full name"], "email": this.main_data[i]["E mail"], "date": Created_date })
         // 
-        // console.log(this.user)
+        // // console.log(this.user)
       // })
 
 
     // this._http.getNewadduser().subscribe(info => {
     //   this.Adduser = info;
-    //   // console.log(this.Adduser.userdetailsfname+"----"+this.Adduser.userdetailslname)
+    //   // // console.log(this.Adduser.userdetailsfname+"----"+this.Adduser.userdetailslname)
 
     //   this.user = [];
     //   this.firstname = localStorage.getItem("firstname");
@@ -95,6 +95,7 @@ export class ManageuserComponent implements OnInit {
     const dialogRef = this.dialog.open(AdduserComponent);
     dialogRef.afterClosed().subscribe(result => {
       this.show_user()
+      this.user=[]
       
     })
   }
@@ -103,13 +104,13 @@ export class ManageuserComponent implements OnInit {
     const newtoken = localStorage.getItem("token");
     const headers = { 'Authorization': 'Bearer ' + newtoken }
     const user_id = localStorage.getItem("user_id");
-    fetch(environment.api_name + "api/accounts/manage_users/" + user_id, { headers })
+    fetch(environment.api_name + "api/accounts/manage_users", { headers })
       .then(response => response.json())
       .then(datavalue => {
         var user_data = datavalue['data']
         var count_user = 0
         for (let i = 0; i < user_data.length; i++) {
-          console.log(user_data[i]['is_active'])
+          // console.log(user_data[i]['is_active'])
           if(user_data[i]['is_active'] == true){
             this.user.push(user_data[i])
             count_user = count_user + 1
@@ -140,7 +141,7 @@ export class ManageuserComponent implements OnInit {
       headers: { 'Authorization': 'Bearer ' + newtoken }
     };
     this.http.put(put_url, data, httpOptions).subscribe(data => {
-      console.log(data)
+      // console.log(data)
 
       this.putId = data;
 

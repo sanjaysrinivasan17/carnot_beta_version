@@ -64,7 +64,7 @@ export class SummaryAnalyticsComponent implements OnInit {
   ngOnInit(): void {
     this._http.Asset_project().subscribe(data => {
       this.main_data = data['data']
-      // console.log(this.main_data)
+      // // console.log(this.main_data)
       this.onload()
 
     })

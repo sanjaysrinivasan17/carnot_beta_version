@@ -1,0 +1,10 @@
+<div style="width:1000px;">
+    <div style="overflow-x:scroll; height: 80px;">
+        <img *ngFor="let m of files;let z=index" src="{{m['url']}}" (click)="show_big_image(m['url'])" width="70px" height="70px" style="padding-left:10px;border-radius: 10px;">
+    </div>
+    <div style="margin-left: 210px;">
+        <img id="myimage" [src]=url width="600px" height="600px" style="border-radius: 10px;">
+
+    </div>
+    <div id="myresult" class="img-zoom-result"></div>
+</div>

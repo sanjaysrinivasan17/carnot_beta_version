@@ -61,24 +61,24 @@ export class ValidationComponent implements OnInit {
     this.user_id = localStorage.getItem("user_id")
 
     this.mail = sessionStorage.getItem("email")
-    // console.log(this.mail);
+    // // console.log(this.mail);
 
     this.countries = Country.getAllCountries()
     this.states = State.getAllStates()
     this.cities = City.getAllCities()
     this.country_data = this.countries
 
-    // console.log(document.getElementById('email'))
-    // console.log(this.states[0])
-    // console.log(this.countries[0])
+    // // console.log(document.getElementById('email'))
+    // // console.log(this.states[0])
+    // // console.log(this.countries[0])
     // alert(this.countries)
-    // console.log(this.cities[0])
+    // // console.log(this.cities[0])
   }
 
 
   validate() {
     // this.mnum = (<HTMLInputElement>document.getElementById("mnum")).value
-    // console.log(document.getElementById("validate"))
+    // // console.log(document.getElementById("validate"))
     // return
     var doc = document.getElementById("validate")
     doc!.setAttribute("disabled","disabled");
@@ -91,7 +91,7 @@ export class ValidationComponent implements OnInit {
       "type": "email"
     }
     this.dashboard.Generate_otp(data).subscribe((data: any) => {
-      // console.log(data)
+      // // console.log(data)
 
       this.message = data['message']
       this.otp_success = data['success']
@@ -104,7 +104,7 @@ export class ValidationComponent implements OnInit {
       }
     })
 
-    // console.log(this.mnum)
+    // // console.log(this.mnum)
   }
   // throw a error whether form field is valid or invalid
   public hasError = (controlName: string, errorName: string) => {
@@ -135,7 +135,7 @@ export class ValidationComponent implements OnInit {
       "otp": parseInt(this.mailOTP)
     }
     this.dashboard.OTPemailVerify(data).subscribe((data: any) => {
-      // console.log(data)
+      // // console.log(data)
 
       this.message = data['message']
       this.otp_verify_success = data['success']

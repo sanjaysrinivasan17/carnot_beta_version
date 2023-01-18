@@ -96,9 +96,9 @@ export class AssetsidebarComponent implements OnInit {
         this.summary_data = this.Asset_typewise_data['summary']
         this.inverter_data = this.Asset_typewise_data['inverter']
         this.summary_title = Object.keys(this.Asset_typewise_data['summary'])
-        // console.log(this.summary_title)
+        // // console.log(this.summary_title)
         this.summary_keys = Object.keys(this.Asset_typewise_data['summary'][this.summary_title])
-        // console.log(this.summary_keys)
+        // // console.log(this.summary_keys)
         this.summary_keys.forEach(element => {
           var kml_file_name = []
           var kml_file_color = []
@@ -115,7 +115,7 @@ export class AssetsidebarComponent implements OnInit {
 
           });
 
-          // console.log(kml_file_name);
+          // // console.log(kml_file_name);
 
           this.kml_data.push({ 'type': this.Asset_type, 'menu': 'summary', 'key': this.kml_name_key, 'data': this.kml_name_value, 'sub_group': kml_sub_group, 'name': element, 'kml_list': kml_file_name, 'color': kml_file_color })
 
@@ -169,7 +169,7 @@ export class AssetsidebarComponent implements OnInit {
   public sliderToggle() {
     this.slider_state = !this.slider_state;
     this.compare_slider_event.emit(this.slider_state)
-    //  // console.log("slider", this.slider_state);
+    //  // // console.log("slider", this.slider_state);
   }
 
   Send_kml_data(data, hide) {
@@ -184,8 +184,8 @@ export class AssetsidebarComponent implements OnInit {
 
 
   send_subgroup_kml_data(i, row_id, data) {
-    // console.log(i)
-    // console.log(data)
+    // // console.log(i)
+    // // console.log(data)
     var key_array = []
     key_array.push(data['key'][row_id])
     var color_array = []
@@ -193,7 +193,7 @@ export class AssetsidebarComponent implements OnInit {
     var new_data = []
     new_data.push({ 'type': this.Asset_type, 'menu': 'summary_subgroup', 'key': key_array, 'data': this.kml_name_value, 'sub_group': data['data'][row_id], 'name': data['name'], 'kml_list': data['kml_list'][row_id], 'color': color_array })
 
-    // console.log(new_data)
+    // // console.log(new_data)
     this.current_summary_state_event.emit(new_data[0])
 
 

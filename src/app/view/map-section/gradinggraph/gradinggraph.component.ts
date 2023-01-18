@@ -87,7 +87,7 @@ export class GradinggraphComponent implements OnInit {
     this.userArray_value = []
     this.userArray_Distance = []
     this.table_number = table_no
-    // console.log(this.table_number);
+    // // console.log(this.table_number);
     this.grading_visibility = "visible"
     // alert(csv_path + table_no + ".csv")
 
@@ -106,8 +106,8 @@ export class GradinggraphComponent implements OnInit {
             this.userArray_Distance.push(parseFloat(parseFloat(row[0]).toFixed(3)))
 
           }
-          // console.log(this.userArray_Distance);
-          // console.log(this.userArray_value);
+          // // console.log(this.userArray_Distance);
+          // // console.log(this.userArray_value);
           this.minimum_value = Math.min(...this.userArray_value);
           this.maximum_value = Math.max(...this.userArray_value);
           var maximum_value = Math.max(...this.userArray_Distance);
@@ -116,7 +116,7 @@ export class GradinggraphComponent implements OnInit {
 
         },
         error => {
-          console.log(error);
+          // console.log(error);
         }
       );
   }
@@ -192,7 +192,7 @@ export class GradinggraphComponent implements OnInit {
 
 closeSidebar(id: string) {
     // alert(document.getElementById(id))
-    // console.log("closing_sidebar")
+    // // console.log("closing_sidebar")
     let sideBar = document.getElementById(id);
     sideBar.style.display = 'none';
     sideBar.style.width = '0px';

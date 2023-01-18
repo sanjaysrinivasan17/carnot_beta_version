@@ -31,7 +31,7 @@ export class AssetaoiDrawComponent {
   {
     const data = this.myform.value;
     data.polygon = this.map_data.co;
-    // console.log(data);
+    // // console.log(data);
    
     const newtoken = localStorage.getItem("token");
 
@@ -46,7 +46,7 @@ export class AssetaoiDrawComponent {
     })
       .then(response => response.json())
       .then(data => {
-        // console.log('Success:', data);
+        // // console.log('Success:', data);
         this.dialogRef.close([]);
       })
       .catch((error) => {
@@ -56,7 +56,7 @@ export class AssetaoiDrawComponent {
 
   public removeUnusedInstance()
   {
-      // console.log(this.map_data.elayer);
+      // // console.log(this.map_data.elayer);
       this.map_data.event.removeLayer(this.map_data.elayer)
       
   }

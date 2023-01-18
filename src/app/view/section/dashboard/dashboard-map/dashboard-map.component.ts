@@ -146,10 +146,10 @@ export class DashboardMapComponent implements OnInit {
         this.main_data_get_all = data['data']
         this.project_id_summary_alldata = Object.keys(this.main_data_get_all)
         // get category wise based on the user account.
-        // console.log(this.main_data_get_all)
-        // console.log("lenght" + this.main_data_get_all.length)
+        // // console.log(this.main_data_get_all)
+        // // console.log("lenght" + this.main_data_get_all.length)
         for (var x = 0; x < this.main_data_get_all.length; x++) {
-          // console.log(this.main_data_get_all[x])
+          // // console.log(this.main_data_get_all[x])
           if (this.categorywise_project.indexOf(this.main_data_get_all[x]['category']) === -1) {
             this.categorywise_project.push(this.main_data_get_all[x]['category']);
           }
@@ -173,8 +173,8 @@ export class DashboardMapComponent implements OnInit {
 
           var processed_data_keys = Object.keys(this.main_data_get_all[i]['processed_data'])
           var processed_data_values = Object.values(this.main_data_get_all[i]['processed_data'])
-          // console.log(processed_data_keys)
-          // console.log(processed_data_keys.length)
+          // // console.log(processed_data_keys)
+          // // console.log(processed_data_keys.length)
           processed_data.push({ "processed_data_key": processed_data_keys, "processed_data_values": processed_data_values, "category": this.main_data_get_all[i]['category'], "name": this.main_data_get_all[i]['name'], "Data": this.main_data_get_all[i], "center": this.main_data_get_all[i]['center'] })
 
           // for (var j = 0; j < processed_data_keys.length; j++) {
@@ -246,8 +246,8 @@ export class DashboardMapComponent implements OnInit {
       let uph_pf = [];
       let PID = [];
       let Project = []
-      // console.log(this.project_list.length)
-      // console.log(this.project_list[k])
+      // // console.log(this.project_list.length)
+      // // console.log(this.project_list[k])
       var temp_array = this.project_list[k]
 
 
@@ -261,11 +261,11 @@ export class DashboardMapComponent implements OnInit {
         var count_total = []
         var proj_name = []
 
-        // console.log(temp_array)
+        // // console.log(temp_array)
         var array = this.project_list[k][0]['processed_data_values']
-        // console.log(array)
+        // // console.log(array)
         for (var m = 0; m < array.length; m++) {
-          // console.log(m)
+          // // console.log(m)
           var summary_keys = Object.keys(array[m]['summary_layers'])
 
           for (var n = 0; n < summary_keys.length; n++) {
@@ -290,8 +290,8 @@ export class DashboardMapComponent implements OnInit {
 
         count_total = [hotspot_val, short_circuit, open_circuit, upf_or_pf, pid]
         key_count = [hotspot_key, short_circuit_key, open_circuit_key, upf_or_pf_key, pid_key]
-        //   console.log(key_count)
-        // console.log(count_total)
+        //   // console.log(key_count)
+        // // console.log(count_total)
 
 
         proj_name = [this.project_list[k][0]['name']]
@@ -665,7 +665,7 @@ export class DashboardMapComponent implements OnInit {
         return hero[0].category.toLowerCase().includes(category.toLowerCase());
       });
     }
-    // console.log(this.project_list)
+    // // console.log(this.project_list)
 
     for (this.j = 0; this.j < this.project_list.length; this.j++) {
 
@@ -714,10 +714,10 @@ export class DashboardMapComponent implements OnInit {
 
   switchHeaders(tab: any) {
     this.removeMap_marker()
-    // console.log(tabNumber)
+    // // console.log(tabNumber)
     var d = tab["tab"]["textLabel"]
     var tab_name = tab["tab"]["textLabel"]
-    // console.log(tabNumber.index)
+    // // console.log(tabNumber.index)
     this.map_location_marker(tab_name)
   }
   scrollTabs(event) {
