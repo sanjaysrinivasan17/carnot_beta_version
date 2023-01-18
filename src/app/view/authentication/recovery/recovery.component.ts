@@ -48,7 +48,7 @@ export class RecoveryComponent implements OnInit {
       "password": password1
     }
     this.http.post(environment.api_name + 'api/accounts/reset_password/', data).subscribe(data => {
-      // console.log(data)
+      // // console.log(data)
       if (data['success'] == true) {
         this.toastr.success('Password updated successfully');
         this.router.navigate(['auth/login/'])

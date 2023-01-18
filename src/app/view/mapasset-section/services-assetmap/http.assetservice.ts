@@ -42,7 +42,7 @@ export class HttpAssetService {
     return this.Asset_typewise_data
   }
   getAreaofinterest() {
-    // console.log("----sanjayaasadasdasdasd-------"+this.newDate)
+    // // console.log("----sanjayaasadasdasdasd-------"+this.newDate)
     return this.newAoI.asObservable();
   }
   getmissiondata(){

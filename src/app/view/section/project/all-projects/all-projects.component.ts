@@ -78,6 +78,9 @@ export class AllProjectsComponent implements OnInit {
   project_list_asset: any = [];
   tabGroup!: { _tabHeader: { _elementRef: { nativeElement: { children: any; }; }; }; };
   project_list_asset_copy: any= [];
+  // category_list : ['Topography','Grading','Construction Monitoring','Thermography','Vegetation','Due Deligence']
+  projectcount_catwise: boolean = true;
+  projectcount_catwise_asset: boolean = true;
 
 
   constructor(private _http: HttpService, private http: HttpClient, public dialog: MatDialog, private ngxService: NgxUiLoaderService, private router: Router) {
@@ -88,17 +91,19 @@ export class AllProjectsComponent implements OnInit {
     const dialogRef = this.dialog.open(DialogContentComponent);
 
     dialogRef.afterClosed().subscribe(result => {
-      // console.log(`Dialog result: ${result}`);
+      // // console.log(`Dialog result: ${result}`);
     });
   }
-  openSharedialog(project_name : any, id: any) {
+  openSharedialog(project_name : any, id: any,project_type) {
     localStorage.setItem("project_id", id)
     localStorage.setItem("project_name", project_name);
+    localStorage.setItem("project_type", project_type);
 
     let dialogRef = this.dialog.open(ShareComponent);
     dialogRef.afterClosed().subscribe(result => {
       localStorage.removeItem("id")
-      localStorage.removeItem("project_name");
+    localStorage.removeItem("project_type");
+    localStorage.removeItem("project_name");
     })
   }
   openDialog(project_name: any) {
@@ -124,9 +129,9 @@ export class AllProjectsComponent implements OnInit {
           day = day
         }
         this.newdate_to_add = year + "-" + month + "-" + day;
-        console.log(project_name + 'Date: ' + this.newdate_to_add)
+        // console.log(project_name + 'Date: ' + this.newdate_to_add)
         var post_url = environment.api_name + "project/add_new_date/" + project_name + "/" + this.newdate_to_add
-        // console.log(post_url)
+        // // console.log(post_url)
         const newtoken = localStorage.getItem("token");
 
         // const headers = { 'Authorization': 'token '+newtoken}
@@ -152,7 +157,7 @@ export class AllProjectsComponent implements OnInit {
 
     var proj_name = ""
     this.status = 'All Project'
-    this.tab_name = 'Thermography'
+    this.tab_name = 'topography'
 
     this.onloadfunc()
     this._http.setNewMapIcon({
@@ -184,13 +189,13 @@ export class AllProjectsComponent implements OnInit {
       .then(response => response.json())
       .then(datavalue => {
         this.main_data = datavalue['data']
-        console.log(this.main_data)
+        // console.log(this.main_data)
         this.project_id_summary = Object.keys(this.main_data)
-        // console.log(this.project_id_summary)
+        // // console.log(this.project_id_summary)
 
 
         for (let index = 0; index < this.project_id_summary.length; index++) {
-          // console.log(this.main_data[this.project_id_summary[index]])
+          // // console.log(this.main_data[this.project_id_summary[index]])
           this.main_data[this.project_id_summary[index]]
           // for (let m = 0; m < this.main_data[this.project_id_summary[index]].length; m++) {
           //   this.main_data[this.project_id_summary[index]][m]["product"] = "Carnot"
@@ -203,14 +208,14 @@ export class AllProjectsComponent implements OnInit {
         }
 
       })
-      // console.log(this.project_category)
+      // // console.log(this.project_category)
 
     fetch(environment.api_name + 'api/asset/get_asset_project_by_category', { headers })
     // fetch(environment.api_name + 'api/project/get_all/'+this.user_id+'/?filter={"count":""}', { headers })
     .then(response => response.json())
     .then(datavalue => {
       this.main_data_asset = datavalue['data']
-      console.log(this.main_data_asset)
+      // console.log(this.main_data_asset)
       var site_img = null
       var date_status = {}
       var get_date
@@ -227,7 +232,13 @@ export class AllProjectsComponent implements OnInit {
           site_img = '../../../../../assets/images/solar.jpg'
 
         }
+        if(this.main_data_asset.length > 0 ){
+          this.projectcount_catwise_asset = true
+        }else{
+          this.projectcount_catwise_asset = false
+        }
         if (this.main_data_asset[element].length > 0) {
+
           for (let index = 0; index < this.main_data_asset[element].length; index++) {
             // const element = array[index];
             var demo_project = this.main_data_asset[element][index].name.includes("DEMO")
@@ -249,7 +260,7 @@ export class AllProjectsComponent implements OnInit {
                 if(lat == null){
                   lat = this.main_data_asset[element][index]['projectdata'][element_date][element_type]['project_properties']['center']['lat']
                   long = this.main_data_asset[element][index]['projectdata'][element_date][element_type]['project_properties']['center']['lng']
-                  // console.log(this.main_data_asset[element][index]['projectdata'][element_date][element_type]['project_properties']['center']['lat'])
+                  // // console.log(this.main_data_asset[element][index]['projectdata'][element_date][element_type]['project_properties']['center']['lat'])
 
                 }
               });
@@ -261,10 +272,10 @@ export class AllProjectsComponent implements OnInit {
             var center = lat+","+long
             temp_date = (Object.keys(date_status))
             temp_date_status = (Object.values(date_status))
-            // console.log(date_status);
-            // console.log(temp_date_status);
-            // console.log(temp_date_status[0]['Report']);
-            // console.log(temp_date_status[0]['SCQM']);
+            // // console.log(date_status);
+            // // console.log(temp_date_status);
+            // // console.log(temp_date_status[0]['Report']);
+            // // console.log(temp_date_status[0]['SCQM']);
             
             this.main_data_asset[element][index]["share_project"] = share_project_status
             this.main_data_asset[element][index]['site_img'] = site_img
@@ -286,17 +297,17 @@ export class AllProjectsComponent implements OnInit {
             // temp_date_status = []
             this.project_list_asset.push(this.main_data_asset[element][index])
            
-            // console.log(this.main_data_asset[element][index])
+            // // console.log(this.main_data_asset[element][index])
 
           }
         }
       });
-      console.log(this.project_list_asset)
+      // console.log(this.project_list_asset)
 
 
       this.project_id_summary_asset = Object.keys(this.main_data_asset)
 
-      this.category_project(this.project_category[0])
+      this.category_project('topography')
 
 
     })
@@ -308,11 +319,17 @@ export class AllProjectsComponent implements OnInit {
 
   }
 
-  category_project(category: string | number) {
+  category_project(category) {
 
-    console.log(this.main_data[category])
+    // console.log(this.main_data[category])
     this.project_list = this.main_data[category]
-    this.project_list.forEach((element: { [x: string]: any; date_status: any; processed_data: { [x: string]: { report_path: any; }; }; name: string | string[]; }, index: string | number) => {
+    // alert(this.main_data[category].length)
+    if(this.main_data[category].length > 0 ){
+      this.projectcount_catwise = true
+    }else{
+      this.projectcount_catwise = false
+    }
+    this.project_list.forEach((element, index) => {
 
       var temp_date: any[] = []
       var temp_date_status = []
@@ -321,7 +338,7 @@ export class AllProjectsComponent implements OnInit {
 
       temp_date = (Object.keys(date_status))
       temp_date_status = (Object.values(date_status))
-      // console.log(element.processed_data)
+      // // console.log(element.processed_data)
       temp_date.forEach((processed_data_for_dates, iter) => {
         temp_report_path.push(element.processed_data[temp_date[iter]].report_path)
       })
@@ -358,7 +375,7 @@ export class AllProjectsComponent implements OnInit {
       this.project_list[index]["report_path"] = temp_report_path
       this.project_list[index]["current_reportpath"] = temp_report_path[0]
     });
-    // console.log(this.project_list)
+    // // console.log(this.project_list)
 
   }
 
@@ -382,14 +399,14 @@ export class AllProjectsComponent implements OnInit {
       var Thermography_project = this.all_project.filter(function (hero: { current_date_status: string; category: string; }) {
         if (hero.current_date_status == 'ftp' || hero.current_date_status == 'processing') {
           status = hero.current_date_status
-          // console.log(status + "------" + hero.current_date_status);
+          // // console.log(status + "------" + hero.current_date_status);
 
         }
         return hero.category.toLowerCase().includes(tab_name.toLowerCase()) && hero.current_date_status.toLowerCase().includes(status.toLowerCase());
       });
       this.project_values = Thermography_project
       this.project_values_copy = Thermography_project
-      // console.log(this.project_values)
+      // // console.log(this.project_values)
     } else if (status == 'Created') {
       var Thermography_project = this.all_project.filter(function (hero: { category: string; current_date_status: string; }) {
 
@@ -397,7 +414,7 @@ export class AllProjectsComponent implements OnInit {
       });
       this.project_values = Thermography_project
       this.project_values_copy = Thermography_project
-      // console.log(this.project_values)
+      // // console.log(this.project_values)
     } else if (status == 'Completed') {
       var Thermography_project = this.all_project.filter(function (hero: { category: string; current_date_status: string; }) {
 
@@ -405,23 +422,23 @@ export class AllProjectsComponent implements OnInit {
       });
       this.project_values = Thermography_project
       this.project_values_copy = Thermography_project
-      // console.log(this.project_values)
+      // // console.log(this.project_values)
     }
-    // console.log(this.project_values)
+    // // console.log(this.project_values)
 
     this.resourcesLoaded = false;
 
   }
 
   load_invDiv(proj_name: string) {
-    // console.log(proj_name.length)
-    // console.log(this.project_values)
+    // // console.log(proj_name.length)
+    // // console.log(this.project_values)
     if (proj_name.length > 2) {
       if (proj_name.length >= this.proj_name_length || this.proj_name_length == undefined) {
         var marvelHeroes = this.project_values.filter(function (hero: { name: string; }) {
           return hero.name.toLowerCase().includes(proj_name.toLowerCase());
         });
-        // console.log(marvelHeroes)
+        // // console.log(marvelHeroes)
         this.project_values = marvelHeroes
         this.proj_name_length = proj_name.length
       } else if (proj_name.length < this.proj_name_length) {
@@ -431,7 +448,7 @@ export class AllProjectsComponent implements OnInit {
           return hero.name.toLowerCase().includes(proj_name.toLowerCase());
         });
         this.proj_name_length = proj_name.length
-        // console.log(marvelHeroes)
+        // // console.log(marvelHeroes)
         this.project_values = marvelHeroes
       }
     } else {
@@ -525,7 +542,7 @@ export class AllProjectsComponent implements OnInit {
       style = "block"
       color = "green"
     }
-    // // console.log("style", style)
+    // // // console.log("style", style)
     this.changed_date = date
     var div = document.getElementById('date_' + proj_count_id);
     div!.innerHTML = date;
@@ -536,9 +553,9 @@ export class AllProjectsComponent implements OnInit {
     var formElement = document.getElementById("bgcolor" + proj_count_id);
     formElement!.style.backgroundColor = color;
     // var formElement = document.getElementById("Map_" + proj_count_id);
-    // console.log(formElement)
-    // console.log(formElement.style)
-    // console.log(formElement.style.display)
+    // // console.log(formElement)
+    // // console.log(formElement.style)
+    // // console.log(formElement.style.display)
     // formElement.style.display = "none";
 
     this._http.setChangedCompletedDate({
@@ -547,13 +564,13 @@ export class AllProjectsComponent implements OnInit {
 
 
 
-    // // console.log(div)
+    // // // console.log(div)
 
   }
 
   selectChange_asset(date: string, proj_count_id: any, status: any, date_count_id: any, i: any) {
     // alert(status)
-    console.log(i['status'][date_count_id]);
+    // console.log(i['status'][date_count_id]);
     
     this.first_value = 1
     var colorSCPM = "";
@@ -603,7 +620,7 @@ export class AllProjectsComponent implements OnInit {
         colorSCQM = "green"
     }
     
-    // // console.log("style", style)
+    // // // console.log("style", style)
 
     this.changed_date = date
     var div = document.getElementById('date_' + proj_count_id);
@@ -619,9 +636,9 @@ export class AllProjectsComponent implements OnInit {
     var formElement2 = document.getElementById("bgcolorSCQM" + proj_count_id);
     formElement2!.style.backgroundColor = colorSCQM;
     // var formElement = document.getElementById("Map_" + proj_count_id);
-    // console.log(formElement)
-    // console.log(formElement.style)
-    // console.log(formElement.style.display)
+    // // console.log(formElement)
+    // // console.log(formElement.style)
+    // // console.log(formElement.style.display)
     // formElement.style.display = "none";
 
     // this._http.setChangedCompletedDate({
@@ -630,11 +647,13 @@ export class AllProjectsComponent implements OnInit {
 
 
 
-    // // console.log(div)
+    // // // console.log(div)
 
   }
 
-  selectedUploadPage(current_date: string, project_id: string, proj_name: string) {
+  selectedUploadPage(current_date, project_id, proj_name,project_type) {
+    // alert(project_id)
+    localStorage.setItem("project_type", project_type);
     localStorage.setItem("project_id", project_id);
     localStorage.setItem("date", current_date);
     localStorage.setItem("proj_name", proj_name);

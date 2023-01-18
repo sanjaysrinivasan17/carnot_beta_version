@@ -45,7 +45,7 @@ export class ComparisionAssetComponent implements OnInit {
   }
 
   onload() {
-    console.log(this.main_data['projectdata']);
+    // console.log(this.main_data['projectdata']);
     this.Date = localStorage.getItem('date')
     this.dateleft = localStorage.getItem('date')
     this.dateright = localStorage.getItem('date')
@@ -53,7 +53,7 @@ export class ComparisionAssetComponent implements OnInit {
     sessionStorage.setItem("dateright",this.dateright)
 
     this.Asset_Datelist = Object.keys(this.main_data['projectdata'])
-    console.log(this.Asset_Datelist)
+    // console.log(this.Asset_Datelist)
     this.ortho_onleft = this.main_data['projectdata'][this.Date]['SCPM']['project_properties']['ortho']['RGB']
     this.ortho_onright = this.main_data['projectdata'][this.Date]['SCPM']['project_properties']['ortho']['RGB']
 
@@ -90,21 +90,21 @@ export class ComparisionAssetComponent implements OnInit {
 
   Load_comparemaps(left_ortho, right_ortho) {
 
-    this.LeftLayer1 = L.tileLayer(left_ortho + '{z}/{x}/{y}.png', {
+    this.ortho_onleft = L.tileLayer(left_ortho + '{z}/{x}/{y}.png', {
       attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
       center: [this.center],
       maxZoom: 22,
       // maxNativeZoom: 20
     }).addTo(this.map); //left side map
 
-    this.rightLayer2 = L.tileLayer(right_ortho + '{z}/{x}/{y}.png', {
+    this.ortho_onright = L.tileLayer(right_ortho + '{z}/{x}/{y}.png', {
       attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
       center: [this.center],
       maxZoom: 22,
       // maxNativeZoom: 20
     }).addTo(this.map) //right side map
 
-    this.base_ortho_layer = L.control.sideBySide(this.LeftLayer1, this.rightLayer2).addTo(this.map);
+    this.base_ortho_layer = L.control.sideBySide(this.ortho_onleft, this.ortho_onright).addTo(this.map);
 
 
   }
@@ -113,7 +113,7 @@ export class ComparisionAssetComponent implements OnInit {
     // alert(dateleft + "-----------")
     sessionStorage.setItem("dateleft",dateleft)
 
-    this.RemoveKml(this.LeftLayer1)
+    this.map.removeLayer(this.ortho_onleft)
     this.ortho_onleft = this.main_data['projectdata'][dateleft]['SCPM']['project_properties']['ortho']['RGB']
 
     this.Load_comparemaps(this.ortho_onleft, this.ortho_onright)
@@ -124,7 +124,7 @@ export class ComparisionAssetComponent implements OnInit {
     // alert(dateright + "-----------")
     sessionStorage.setItem("dateright",dateright)
 
-    this.RemoveKml(this.LeftLayer1)
+    this.map.removeLayer(this.ortho_onright)
     this.ortho_onright = this.main_data['projectdata'][dateright]['SCPM']['project_properties']['ortho']['RGB']
 
     this.Load_comparemaps(this.ortho_onleft, this.ortho_onright)

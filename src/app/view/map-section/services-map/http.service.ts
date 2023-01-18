@@ -59,6 +59,9 @@ export class HttpService {
     Table_no: ''
   });
   total_rectify_data: any[] = [];
+  files: any[] = [];
+  mission_val: any[] = [];
+  set_mision_flight_data: any[] = []
 
   constructor(private http: HttpClient) { }
 
@@ -151,8 +154,20 @@ export class HttpService {
   setrectify_data(rectify_data) {
     this.total_rectify_data = rectify_data
   }
+  setfiles(files) {
+    this.files = files
+
+  }
+  setmissiondata(data) {
+    this.mission_val = data
+
+  }
+  set_mision_flight_detail(data) {
+    this.set_mision_flight_data = data
+
+  }
   getproject_name() {
-    // console.log("----sanjayaasadasdasdasd-------"+this.newDate)
+    // // console.log("----sanjayaasadasdasdasd-------"+this.newDate)
     return this.projname.asObservable();
   }
   getgradingtable() {
@@ -160,39 +175,39 @@ export class HttpService {
 
   }
   getAreaofinterest() {
-    // console.log("----sanjayaasadasdasdasd-------"+this.newDate)
+    // // console.log("----sanjayaasadasdasdasd-------"+this.newDate)
     return this.newAoI.asObservable();
   }
   getNewUserInfo() {
-    // console.log("----sanjayaasadasdasdasd-------"+this.newDate)
+    // // console.log("----sanjayaasadasdasdasd-------"+this.newDate)
     return this.newDate.asObservable();
   }
   getclosesidebar() {
-    // console.log("----sanjayaasadasdasdasd-------"+this.newDate)
+    // // console.log("----sanjayaasadasdasdasd-------"+this.newDate)
     return this.close_side_bar.asObservable();
   }
   getNewdateanalyticsInfo() {
-    // console.log("----sanjayaasadasdasdasd-------"+this.newDate)
+    // // console.log("----sanjayaasadasdasdasd-------"+this.newDate)
     return this.newDatefromanalytics.asObservable();
   }
   getNewMapIcon() {
-    // console.log("----sanjayaasadasdasdasd-------"+this.newDate)
+    // // console.log("----sanjayaasadasdasdasd-------"+this.newDate)
     return this.NewMapIcon.asObservable();
   }
   getNewadduser() {
-    // console.log("----sanjayaasadasdasdasd-------"+this.newDate)
+    // // console.log("----sanjayaasadasdasdasd-------"+this.newDate)
     return this.NewAdduser.asObservable();
   }
   getChangedCompletedDate() {
-    // console.log("----sanjayaasadasdasdasd-------"+this.newDate)
+    // // console.log("----sanjayaasadasdasdasd-------"+this.newDate)
     return this.newDatefromAllProjects.asObservable();
   }
   getscreenshotmap() {
-    // console.log("----sanjayaasadasdasdasd-------"+this.newDate)
+    // // console.log("----sanjayaasadasdasdasd-------"+this.newDate)
     return this.newscreenshotmap.asObservable();
   }
   getsubdefects() {
-    // console.log("----sanjayaasadasdasdasd-------"+this.newDate)
+    // // console.log("----sanjayaasadasdasdasd-------"+this.newDate)
     return this.visibility.asObservable();
   }
   getdefect_table_no() {
@@ -202,5 +217,14 @@ export class HttpService {
   }
   getrectify_data() {
     return this.total_rectify_data
+  }
+  getfiles() {
+    return this.files
+  }
+  getmissiondata() {
+    return this.mission_val
+  }
+  get_mision_flight_detail() {
+    return this.set_mision_flight_data
   }
 }

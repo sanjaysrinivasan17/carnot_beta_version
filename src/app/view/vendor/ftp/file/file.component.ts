@@ -21,7 +21,7 @@ export class FileComponent implements OnInit {
       for (let index = 0; index < fileInput.files.length; index++) { 
         const file = fileInput.files[index];
         this.file = file;
-        // console.log('file', this.file)
+        // // console.log('file', this.file)
       }
     };
     fileInput.click();

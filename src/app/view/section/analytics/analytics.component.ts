@@ -450,8 +450,8 @@ this.Chart_hide_show_revenue = "hide";
           .then(response => response.json())
           .then(data1 => {
             this.main_data1 = data1
-            // // console.log(data1)
-            // // console.log("---------------------------------------------")
+            // // // console.log(data1)
+            // // // console.log("---------------------------------------------")
             this.dashboard_total_key = Object.keys(data1['dashboard_total'])
             // alert(this.dashboard_total_key)
             this.dashboard_total_values = Object.values(data1['dashboard_total'])
@@ -465,8 +465,8 @@ this.Chart_hide_show_revenue = "hide";
           .then(response => response.json())
           .then(data => {
             this.main_data = data
-            // // console.log(this.main_data)
-            // // console.log("------------------------------------------------------------------------")
+            // // // console.log(this.main_data)
+            // // // console.log("------------------------------------------------------------------------")
             // alert()
             this.project_id_summary = Object.keys(data)
             this.date_summary = Object.values(data[this.project_id_summary])[2]
@@ -530,7 +530,7 @@ this.Chart_hide_show_revenue = "hide";
 
               this.Project_layer_summary_values = 0
 
-              // // console.log(this.firstvalue + "-----" + this.Project_layer_summary_values.length)
+              // // // console.log(this.firstvalue + "-----" + this.Project_layer_summary_values.length)
               var formElement = document.getElementById("powerlossNo");
               formElement.style.display = style;
               var formElement2 = document.getElementById("powerlossYes");
@@ -539,7 +539,7 @@ this.Chart_hide_show_revenue = "hide";
 
 
             }
-            // // console.log(Object.keys(this.main_data[this.project_id_summary][this.datevalue]['summary_data']))
+            // // // console.log(Object.keys(this.main_data[this.project_id_summary][this.datevalue]['summary_data']))
             localStorage.setItem("date", this.datevalue);
             this.power_loss_keys = []
             this.Project_layer_summary = Object.keys(this.main_data[this.project_id_summary][this.datevalue]['summary_data'])
@@ -557,9 +557,9 @@ this.Chart_hide_show_revenue = "hide";
             this.total_no_defects_datewise = (this.main_data[this.project_id_summary][this.datevalue]['total_no_defects'])
             this.total_module_count = (this.main_data[this.project_id_summary][this.datevalue]['total_modules_present'])
             // alert(this.total_module_count)
-            // // console.log(this.power_loss_keys)
+            // // // console.log(this.power_loss_keys)
             // alert(this.power_loss_values)
-            // // console.log("------------------------------------------------------------------------"+this.datevalue)
+            // // // console.log("------------------------------------------------------------------------"+this.datevalue)
             // alert('-'+Object.keys(this.main_data[this.project_id_summary][this.datevalue]['power_loss'])+'-')
 
             this.current_year = this.datevalue
@@ -576,7 +576,7 @@ this.Chart_hide_show_revenue = "hide";
             for (var v = 0; v < this.health_history_key_data.length; v++) {
               var modulecount_defectwise = ((this.health_history[v] / this.total_module_count) * 1000000).toFixed(2)
               this.module_count_defectwise_value.push(modulecount_defectwise)
-              // console.log(this.module_count_defectwise_value + "--------" + this.health_history[v])
+              // // console.log(this.module_count_defectwise_value + "--------" + this.health_history[v])
             }
             for (var p = 0; p < this.date_summary_status_key.length; p++) {
               const d = new Date(this.current_year);
@@ -608,15 +608,15 @@ this.Chart_hide_show_revenue = "hide";
 
               this.summary_data_values.push(this.Project_layer_summary_values[i]['Count'])
 
-              // console.log("----------" + this.summary_data_values)
+              // // console.log("----------" + this.summary_data_values)
               this.project_layer_summary_data.push(this.Project_layer_summary_values[i]['Count'])
               this.project_layer_summary_lable.push(this.Project_layer_summary[i])
               this.summary_color.push(colourNameToHex(this.Project_layer_summary_values[i]["color"]))
 
-              //   // console.log("----data----"+this.Project_layer_summary_values[i]['Count']) 
-              //   // console.log("----lable----"+this.Project_layer_summary[i])  
+              //   // // console.log("----data----"+this.Project_layer_summary_values[i]['Count']) 
+              //   // // console.log("----lable----"+this.Project_layer_summary[i])  
             }
-            // // console.log("=====ytehdn======"+this.project_layer_summary_lable)
+            // // // console.log("=====ytehdn======"+this.project_layer_summary_lable)
             this.ana_def_def = this.project_layer_summary_lable[0]
             this.ana_def_cou = this.project_layer_summary_data[0]
             // alert("----thisana_def_def--"+this.ana_def_def)
@@ -630,7 +630,7 @@ this.Chart_hide_show_revenue = "hide";
               this.pannel_inv_val.push(this.Project_layer_inverter_data_values[i][this.Project_layer_summary[3]]['count'])
               this.Pid_val.push(this.Project_layer_inverter_data_values[i][this.Project_layer_summary[4]]['count'])
               this.inver_wise_lable.push(this.Project_layer_inverter_data[i])
-              // // console.log(this.datevalue+"====="+[i]+"====="+this.Project_layer_inverter_data_values[i]['Hotspot']['count']+"---"+this.Project_layer_inverter_data_values[0]['Short Circuit']['count']+"===="+this.Project_layer_inverter_data_values[i]['Open Circuit']['count']+"-----"+this.Project_layer_inverter_data_values[i]['Panel Failure']['count']+"====="+this.Project_layer_inverter_data_values[i]['PID']['count']) colourNameToHex(
+              // // // console.log(this.datevalue+"====="+[i]+"====="+this.Project_layer_inverter_data_values[i]['Hotspot']['count']+"---"+this.Project_layer_inverter_data_values[0]['Short Circuit']['count']+"===="+this.Project_layer_inverter_data_values[i]['Open Circuit']['count']+"-----"+this.Project_layer_inverter_data_values[i]['Panel Failure']['count']+"====="+this.Project_layer_inverter_data_values[i]['PID']['count']) colourNameToHex(
               this.inver_wise_def_lable = this.inver_wise_lable[0]
               this.inver_wise_def_hot = this.Project_layer_inverter_data_values[0][this.Project_layer_summary[0]]['count']
               this.inver_wise_def_sc = this.Project_layer_inverter_data_values[0][this.Project_layer_summary[1]]['count']
@@ -679,7 +679,7 @@ this.Chart_hide_show_revenue = "hide";
               "power_loss_keys": [{ "keys0": this.power_loss_keys[0], "keys1": this.power_loss_keys[1], "keys2": this.power_loss_keys[2], "keys3": this.power_loss_keys[3], "keys4": this.power_loss_keys[4], "keys5": this.power_loss_keys[5], "keys6": this.power_loss_keys[6], "keys7": this.power_loss_keys[7] }],
               "power_loss_values": [{ "values0": this.power_loss_values[0], "values1": this.power_loss_values[1], "values2": this.power_loss_values[2], "values3": this.power_loss_values[3], "values4": this.power_loss_values[4], "values5": this.power_loss_values[5], "values6": this.power_loss_values[6], "values7": this.power_loss_values[7] }]
             }
-            // console.log(graph_data)
+            // // console.log(graph_data)
             function colourNameToHex(colour) {
               var colours = {
                 "aliceblue": "#f0f8ff", "antiquewhite": "#faebd7", "aqua": "#00ffff", "aquamarine": "#7fffd4", "azure": "#f0ffff",
@@ -731,11 +731,11 @@ this.Chart_hide_show_revenue = "hide";
             this.inverter_def_cou = Object.values(graph_data['Inverter'][0])[0]
 
 
-            // // console.log(this.inverter_def_def + "-----" + this.inverter_def_cou)
+            // // // console.log(this.inverter_def_def + "-----" + this.inverter_def_cou)
             this.resourcesLoaded = false;
             // Object.keys(this.main_data[this.project_id_summary][this.datevalue]['inverter_data'])
-            // // console.log(Object.values(this.Project_layer_summary))
-            // // console.log("----------------------------------------------------------------------------------")
+            // // // console.log(Object.values(this.Project_layer_summary))
+            // // // console.log("----------------------------------------------------------------------------------")
             this.chartOptions1 = {
               series: this.power_loss_values,
               chart: {
@@ -749,7 +749,7 @@ this.Chart_hide_show_revenue = "hide";
                     this.selector = config['dataPointIndex'];
                     document.getElementById('summary_def').innerHTML = `<p>` + powerloss_key[this.selector]; + `<p>`
                     document.getElementById('summary_cou').innerHTML = `<p>` + (powerloss_data[this.selector] / 1000).toFixed(1); + `<p>`
-                    // // console.log(lin[0])
+                    // // // console.log(lin[0])
                     document.getElementById('summary_im').innerHTML = ` <img src='` + lin[this.selector] + `' width="100%">`
                   }
                 },
@@ -1033,7 +1033,7 @@ this.Chart_hide_show_revenue = "hide";
     }
     if (sel === 'Inverter-Wise Analysis') {
       this.resourcesLoaded = true;
-      // // console.log(this.inver_wise_data, "=========", this.inver_wise_lable)
+      // // // console.log(this.inver_wise_data, "=========", this.inver_wise_lable)
 
       this.inver(this.Project_layer_inverter_data_values, this.inver_wise_lable, this.Project_layer_summary)
     }
@@ -1057,7 +1057,7 @@ this.Chart_hide_show_revenue = "hide";
   }
   losses() {
     this.power_loss_values_energy = Object.values(this.main_data[this.project_id_summary][this.datevalue]['power_loss'])
-    // console.log(this.power_loss_values_energy)
+    // // console.log(this.power_loss_values_energy)
     this.firstvalue = "n"
     // alert(this.energy_defectwise)
     this.resourcesLoaded = false;
@@ -1078,7 +1078,7 @@ this.Chart_hide_show_revenue = "hide";
 
       }
       // alert("length")
-      // // console.log(this.firstvalue + "-----" + this.Project_layer_summary_values.length)
+      // // // console.log(this.firstvalue + "-----" + this.Project_layer_summary_values.length)
       var formElement = document.getElementById("powerlossNo");
       formElement.style.display = style;
       var formElement2 = document.getElementById("powerlossYes");
@@ -1100,7 +1100,7 @@ this.Chart_hide_show_revenue = "hide";
   partspermil() {
 
     this.power_loss_values_revenue = Object.values(this.main_data[this.project_id_summary][this.datevalue]['power_loss'])
-    // console.log(this.power_loss_values_revenue)
+    // // console.log(this.power_loss_values_revenue)
 
     var health_history_keys = [];
     var health_history_keys2 = [];
@@ -1111,13 +1111,13 @@ this.Chart_hide_show_revenue = "hide";
       var modulecount_defectwise = ((this.health_history[v] / this.total_module_count) * 1000000).toFixed(2)
       this.module_count_defectwise_value.push(parseInt(modulecount_defectwise))
         
-      // // console.log(this.module_count_defectwise_value + "--------" + health_history)
+      // // // console.log(this.module_count_defectwise_value + "--------" + health_history)
     }
     health_history_keys.push({ "name": "label", "data": this.health_history_key_data })
     health_history_keys2.push({ "name": "For Defects", "data": this.module_count_defectwise_value })
-    // console.log("------------------")
-    // console.log(health_history_keys)
-    // console.log(health_history_keys2)
+    // // console.log("------------------")
+    // // console.log(health_history_keys)
+    // // console.log(health_history_keys2)
     
     // this.firstvalue = "n"
     // var style = "";
@@ -1136,7 +1136,7 @@ this.Chart_hide_show_revenue = "hide";
 
     //   }
     //   // alert("length"+this.module_count_defectwise_value)
-    //   // // console.log(this.firstvalue + "-----" + this.Project_layer_summary_values.length)
+    //   // // // console.log(this.firstvalue + "-----" + this.Project_layer_summary_values.length)
     //   var formElement = document.getElementById("powerlossNo");
     //   formElement.style.display = style;
     //   var formElement2 = document.getElementById("powerlossYes");
@@ -1293,7 +1293,7 @@ this.Chart_hide_show_revenue = "hide";
 
       this.Project_layer_summary_values = 0
 
-      // // console.log(this.firstvalue + "-----" + this.Project_layer_summary_values.length)
+      // // // console.log(this.firstvalue + "-----" + this.Project_layer_summary_values.length)
       var formElement = document.getElementById("powerlossNo");
       formElement.style.display = style;
       var formElement2 = document.getElementById("powerlossYes");
@@ -1303,7 +1303,7 @@ this.Chart_hide_show_revenue = "hide";
 
 
     }
-    // // console.log(this.main_data)
+    // // // console.log(this.main_data)
     // alert()
     this.power_loss_keys = []
     this.Total_power_loss_percenntage = []
@@ -1338,7 +1338,7 @@ this.Chart_hide_show_revenue = "hide";
 
       }
       // alert("length")
-      // // console.log(this.firstvalue + "-----" + this.Project_layer_summary_values.length)
+      // // // console.log(this.firstvalue + "-----" + this.Project_layer_summary_values.length)
       var formElement = document.getElementById("powerlossNo");
       formElement.style.display = style;
       var formElement2 = document.getElementById("powerlossYes");
@@ -1346,22 +1346,22 @@ this.Chart_hide_show_revenue = "hide";
     }
 
 
-    // // console.log(this.Project_layer_inverter_data)
+    // // // console.log(this.Project_layer_inverter_data)
     this.summary_data_values = []
     for (var i = 0; i < this.Project_layer_summary.length; i++) {
 
-      // // console.log(this.Project_layer_summary[i])
-      // // console.log(this.Project_layer_summary_values[i])
-      // // console.log(this.Project_layer_summary_values[i]['Count'])
+      // // // console.log(this.Project_layer_summary[i])
+      // // // console.log(this.Project_layer_summary_values[i])
+      // // // console.log(this.Project_layer_summary_values[i]['Count'])
       // alert(this.Project_layer_summary[i])
       this.summary_data_values.push(this.Project_layer_summary_values[i]['Count'])
 
       this.project_layer_summary_data.push(this.Project_layer_summary_values[i]['Count'])
       this.project_layer_summary_lable.push(this.Project_layer_summary[i])
-      //   // console.log("----data----"+this.Project_layer_summary_values[i]['Count']) 
-      //   // console.log("----lable----"+this.Project_layer_summary[i])  
+      //   // // console.log("----data----"+this.Project_layer_summary_values[i]['Count']) 
+      //   // // console.log("----lable----"+this.Project_layer_summary[i])  
     }
-    // // console.log("=====ytehdn======"+this.project_layer_summary_lable)
+    // // // console.log("=====ytehdn======"+this.project_layer_summary_lable)
     this.ana_def_def = this.project_layer_summary_lable[0]
     this.ana_def_cou = this.project_layer_summary_data[0]
     // alert("----thisana_def_def--"+this.ana_def_def)
@@ -1378,7 +1378,7 @@ this.Chart_hide_show_revenue = "hide";
       this.pannel_inv_val.push(this.Project_layer_inverter_data_values[i][this.Project_layer_summary[3]]['count'])
       this.Pid_val.push(this.Project_layer_inverter_data_values[i][this.Project_layer_summary[4]]['count'])
       this.inver_wise_lable.push(this.Project_layer_inverter_data[i])
-      // // console.log(this.datevalue+"====="+[i]+"====="+this.Project_layer_inverter_data_values[i]['Hotspot']['count']+"---"+this.Project_layer_inverter_data_values[0]['Short Circuit']['count']+"===="+this.Project_layer_inverter_data_values[i]['Open Circuit']['count']+"-----"+this.Project_layer_inverter_data_values[i]['Panel Failure']['count']+"====="+this.Project_layer_inverter_data_values[i]['PID']['count'])
+      // // // console.log(this.datevalue+"====="+[i]+"====="+this.Project_layer_inverter_data_values[i]['Hotspot']['count']+"---"+this.Project_layer_inverter_data_values[0]['Short Circuit']['count']+"===="+this.Project_layer_inverter_data_values[i]['Open Circuit']['count']+"-----"+this.Project_layer_inverter_data_values[i]['Panel Failure']['count']+"====="+this.Project_layer_inverter_data_values[i]['PID']['count'])
       this.inver_wise_def_lable = this.inver_wise_lable[0]
       this.inver_wise_def_hot = this.Project_layer_inverter_data_values[0][this.Project_layer_summary[0]]['count']
       this.inver_wise_def_sc = this.Project_layer_inverter_data_values[0][this.Project_layer_summary[1]]['count']
@@ -1393,7 +1393,7 @@ this.Chart_hide_show_revenue = "hide";
     for (var v = 0; v < this.health_history_key_data.length; v++) {
       var modulecount_defectwise = ((this.health_history[v] / this.total_module_count) * 1000000).toFixed(2)
       this.module_count_defectwise_value.push(modulecount_defectwise)
-      // console.log(this.module_count_defectwise_value + "--------" + this.health_history[v])
+      // // console.log(this.module_count_defectwise_value + "--------" + this.health_history[v])
     }
     for (var n = 0; n < this.Project_layer_inverter_data.length; n++) {
 
@@ -1515,7 +1515,7 @@ this.Chart_hide_show_revenue = "hide";
       ]
     };
 
-    // console.log(this.power_loss_values)
+    // // console.log(this.power_loss_values)
     this.chartOptions1 = {
       series: this.power_loss_values,
       chart: {
@@ -1529,7 +1529,7 @@ this.Chart_hide_show_revenue = "hide";
             this.selector = config['dataPointIndex'];
             document.getElementById('summary_def').innerHTML = `<p>` + powerloss_key[this.selector] + `<p>`
             document.getElementById('summary_cou').innerHTML = `<p>` + (powerloss_data[this.selector] / 1000).toFixed(1) + `<p>`
-            // // console.log(lin[0])
+            // // // console.log(lin[0])
             document.getElementById('summary_im').innerHTML = ` <img src='` + lin[this.selector] + `' width="100%">`
           }
         },
@@ -1794,7 +1794,7 @@ this.Chart_hide_show_revenue = "hide";
 
       }
       // alert("length")
-      // // console.log(this.firstvalue + "-----" + this.Project_layer_summary_values.length)
+      // // // console.log(this.firstvalue + "-----" + this.Project_layer_summary_values.length)
       var formElement = document.getElementById("powerlossNo");
       formElement.style.display = style;
       var formElement2 = document.getElementById("powerlossYes");
@@ -1815,9 +1815,9 @@ this.Chart_hide_show_revenue = "hide";
         health_history_keys2.push({ "name": this.health_history_data[z]["name"][z], "data": this.health_history_data[z]["data"], "type": type })
       }
     }
-    // console.log(health_history_keys2)
+    // // console.log(health_history_keys2)
     // var data_charts = [this.health_history_data]
-    // console.log(health_history_keys)
+    // // console.log(health_history_keys)
     // alert(this.total_no_defects_dates)
     this.chartOptions7 = {
       series: this.total_no_defects_dates,
@@ -2031,7 +2031,7 @@ this.Chart_hide_show_revenue = "hide";
   inver(da, lable, Project_layer_summary) {
     // alert(da+"--label=="+lable)
     // // this.firstvalue = "n"
-    // // console.log(da,"-----"+lable)
+    // // // console.log(da,"-----"+lable)
     this.firstvalue = "n"
     var style = "";
     var style2 = "";
@@ -2046,7 +2046,7 @@ this.Chart_hide_show_revenue = "hide";
       style2 = "none";
 
     }
-    // // console.log(this.firstvalue + "-----" + this.Project_layer_summary_values.length)
+    // // // console.log(this.firstvalue + "-----" + this.Project_layer_summary_values.length)
     var formElement = document.getElementById("powerlossNo");
     formElement.style.display = style;
     var formElement2 = document.getElementById("powerlossYes");
@@ -2203,7 +2203,7 @@ this.Chart_hide_show_revenue = "hide";
       },
     };
 
-    // // console.log("=====total_count====" + this.total_count)
+    // // // console.log("=====total_count====" + this.total_count)
 
 
     this.chartOptions5 = {
@@ -2351,7 +2351,7 @@ this.Chart_hide_show_revenue = "hide";
       style2 = "none";
 
     }
-    // console.log(this.firstvalue + "-----" + this.Project_layer_summary_values.length)
+    // // console.log(this.firstvalue + "-----" + this.Project_layer_summary_values.length)
     var formElement = document.getElementById("powerlossNo");
     formElement.style.display = style;
     var formElement2 = document.getElementById("powerlossYes");
@@ -2720,7 +2720,7 @@ this.Chart_hide_show_revenue = "hide";
     this.total_energy_loss_in_ppm = this.energy * this.DC_Capacity_in_KW
     this.total_energy_loss_in_KW_ppm = this.energy * this.total_power_loss_datewise
     this.total_energy_loss_calc_in_ppm = ((this.total_energy_loss_in_KW_ppm / this.total_energy_loss_in_ppm) * 1000000).toFixed(2)
-    // // console.log("-------------"+this.total_power_loss_datewise)
+    // // // console.log("-------------"+this.total_power_loss_datewise)
     for (var k = 0; k < this.power_loss_keys.length; k++) {
       energy_calc = (this.power_loss_values[k] / 1000).toFixed(1)
       var power = (this.energy * energy_calc).toFixed(0)
@@ -2878,7 +2878,7 @@ this.Chart_hide_show_revenue = "hide";
     this.tariff = revenue;
     this.total_tariff = (this.total_energy_loss * this.tariff).toFixed(2)
     for (var y = 0; y < this.power_loss_keys.length; y++) {
-      // // console.log(this.tariff+"-------------" + this.energy_defectwise[y])
+      // // // console.log(this.tariff+"-------------" + this.energy_defectwise[y])
       var rev = (this.energy_defectwise[y] * this.tariff).toFixed(2)
       this.revenue_defectwise.push(parseInt(rev))
     }
@@ -3014,7 +3014,7 @@ this.Chart_hide_show_revenue = "hide";
     this.total_revenue_loss_in_ppm = this.total_revenue_loss_in_ppm.toFixed(2)
     this.total_revenue_loss_in_KW_ppm = (this.tariff * this.total_energy_loss_in_KW_ppm).toFixed(3)
     ppm_inr = (this.total_revenue_loss_in_KW_ppm / this.total_revenue_loss_in_ppm)
-    // console.log(ppm_inr)
+    // // console.log(ppm_inr)
     this.total_revenue_loss_in_ppm_INR = (ppm_inr * 1000000).toFixed(2)
 
     if(revenue == null || revenue == ""){
@@ -3022,7 +3022,7 @@ this.Chart_hide_show_revenue = "hide";
     }else{
       this.Chart_hide_show_revenue = "show"
     }
-    // // console.log(this.revenue_defectwise)
+    // // // console.log(this.revenue_defectwise)
   }
   public gotomap() {
 
@@ -3112,7 +3112,7 @@ this.Chart_hide_show_revenue = "hide";
     for (var v = 0; v < this.health_history_key_data.length; v++) {
       var modulecount_defectwise = ((this.health_history[v] / this.total_module_count) * 1000000).toFixed(2)
       this.module_count_defectwise_value.push(modulecount_defectwise)
-      // console.log(this.module_count_defectwise_value + "--------" + this.health_history[v])
+      // // console.log(this.module_count_defectwise_value + "--------" + this.health_history[v])
     }
     for (var p = 0; p < this.date_summary_status_key.length; p++) {
       const d = new Date(this.current_year);
@@ -3149,7 +3149,7 @@ this.Chart_hide_show_revenue = "hide";
       style2 = "none";
 
     }
-    // // console.log(this.firstvalue + "-----" + this.Project_layer_summary_values.length)
+    // // // console.log(this.firstvalue + "-----" + this.Project_layer_summary_values.length)
     var formElement = document.getElementById("powerlossNo");
     formElement.style.display = style;
     var formElement2 = document.getElementById("powerlossYes");
@@ -3175,8 +3175,8 @@ this.Chart_hide_show_revenue = "hide";
 
       this.project_layer_summary_data.push(this.Project_layer_summary_values[i]['Count'])
       this.project_layer_summary_lable.push(this.Project_layer_summary[i])
-      //   // console.log("----data----"+this.Project_layer_summary_values[i]['Count']) 
-      //   // console.log("----lable----"+this.Project_layer_summary[i])  
+      //   // // console.log("----data----"+this.Project_layer_summary_values[i]['Count']) 
+      //   // // console.log("----lable----"+this.Project_layer_summary[i])  
     }
 
 
@@ -3201,7 +3201,7 @@ this.Chart_hide_show_revenue = "hide";
         this.pannel_inv_val.push(this.Project_layer_inverter_data_values[ja][this.Project_layer_summary[3]]['count'])
         this.Pid_val.push(this.Project_layer_inverter_data_values[ja][this.Project_layer_summary[4]]['count'])
         this.inver_wise_lable.push(this.Project_layer_inverter_data[ja])
-        // // console.log(this.datevalue+"====="+[i]+"====="+this.Project_layer_inverter_data_values[i]['Hotspot']['count']+"---"+this.Project_layer_inverter_data_values[0]['Short Circuit']['count']+"===="+this.Project_layer_inverter_data_values[i]['Open Circuit']['count']+"-----"+this.Project_layer_inverter_data_values[i]['Panel Failure']['count']+"====="+this.Project_layer_inverter_data_values[i]['PID']['count'])
+        // // // console.log(this.datevalue+"====="+[i]+"====="+this.Project_layer_inverter_data_values[i]['Hotspot']['count']+"---"+this.Project_layer_inverter_data_values[0]['Short Circuit']['count']+"===="+this.Project_layer_inverter_data_values[i]['Open Circuit']['count']+"-----"+this.Project_layer_inverter_data_values[i]['Panel Failure']['count']+"====="+this.Project_layer_inverter_data_values[i]['PID']['count'])
         this.inver_wise_def_lable = this.inver_wise_lable[0]
         this.inver_wise_def_hot = this.Project_layer_inverter_data_values[0][this.Project_layer_summary[0]]['count']
         this.inver_wise_def_sc = this.Project_layer_inverter_data_values[0][this.Project_layer_summary[1]]['count']

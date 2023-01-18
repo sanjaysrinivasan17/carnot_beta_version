@@ -48,9 +48,9 @@ export class DashboardComponent implements OnInit {
       .then(response => response.json())
       .then(data => {
         this.main_data = data['data']
-        // console.log("-------------------------------------------")
-        // console.log(this.main_data.length)
-        // console.log("-------------------------------------------")
+        // // console.log("-------------------------------------------")
+        // // console.log(this.main_data.length)
+        // // console.log("-------------------------------------------")
         this.project_id_summary_count = Object.keys(data['data'])
         // alert("project_id_summary_count---"+this.project_id_summary_count)
 

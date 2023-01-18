@@ -1,0 +1,25 @@
+<div>
+
+    <h2 mat-dialog-title>Select the Details</h2>
+
+    <div mat-dialog-content>
+        <mat-form-field>
+            <!-- <input matInput placeholder="Mission" [(ngModel)]="mission" required> -->
+            <mat-select placeholder="Mission" id="mission" [(ngModel)]="mission" (ngModelChange)="find_flight(mission)">
+                <mat-option value="All">All</mat-option>
+                <mat-option value="{{mission}}" *ngFor="let mission of mission_data; let i=index">{{mission}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+            <!-- <input matInput placeholder="Flight" [(ngModel)]="flight" required> -->
+            <mat-select placeholder="Flight" id="flight" [(ngModel)]="flight">
+                <mat-option value="All">All</mat-option>
+                <mat-option value="{{flight}}" *ngFor="let flight of flight_data; let i=index">{{flight}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div mat-dialog-actions>
+        <button mat-button mat-dialog-close class="" style="background-color: var(--primary); color: #fff;">No Thanks</button>
+        <button mat-button mat-dialog-close class="" style="background-color: var(--primary); color: #fff;"(click)='submit_details()'>Ok</button>
+    </div>
+</div>
