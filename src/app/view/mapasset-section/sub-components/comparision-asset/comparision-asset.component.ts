@@ -9,7 +9,7 @@ import { InverterwiseAnalyticsComponent } from '../inverterwise-analytics/invert
 declare const L: any;
 
 declare var require: any
-require('leaflet-side-by-side');
+//require('leaflet-side-by-side');
 var selected_point = new L.LayerGroup();
 
 @Component({

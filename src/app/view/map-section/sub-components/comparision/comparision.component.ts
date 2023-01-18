@@ -5,7 +5,7 @@ import 'leaflet-kml';
 declare const L: any;
 
 declare var require: any
-require('leaflet-side-by-side');
+//require('leaflet-side-by-side');
 var selected_point = new L.LayerGroup();
 @Component({
   selector: 'app-comparision',
@@ -156,7 +156,7 @@ export class ComparisionComponent implements OnInit {
               // this.keys_kml.push(this.main_data[this.project_id_summary][this.datevalue_first]['summary_layers'][key]['sub_group']['kml'])
 
             }
-          
+
 
 
         }
@@ -401,7 +401,7 @@ export class ComparisionComponent implements OnInit {
 
             // this.myLayer4.addTo(this.map1)
             // this.myLayer2.addLayer(this.myLayer4)
-            //              
+            //
           }
           // Adjust map to show the kml
           const bounds = this.track.getBounds();
