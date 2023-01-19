@@ -131,7 +131,7 @@
 
 
         <mat-tab-group  (wheel)="scrollTabs($event)" animationDuration="0ms" (selectedTabChange)="switchHeaders($event)">
-            <mat-tab label={{category}} *ngFor="let category of categorywise_project; let i=index" style="text-transform:capitalize;">
+            <mat-tab label={{category}} *ngFor="let category of categorywise_project; let i=index">
 
                 <div *ngIf="category=='all'">
 

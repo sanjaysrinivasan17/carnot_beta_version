@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
     this.loginForm = new FormGroup({
       username: new FormControl('', Validators.required),
       password: new FormControl('', Validators.required),
-      recaptcha: new FormControl('', Validators.required)
+      // recaptcha: new FormControl('', Validators.required)
     });
   }
 
@@ -57,12 +57,14 @@ export class LoginComponent implements OnInit {
   login(UserName, Password) {
     // // console.log(username,password)
     // // console.log('resolved captcha with response: ' + this.captcha);
-    if (this.captcha) {
+    // if (this.captcha) {
       document.getElementById("login").setAttribute("disabled","disabled");
     setTimeout(function () {
       document.getElementById("login").removeAttribute("disabled");
     }, 30000);
-      this.autservice.userauth(UserName, Password,this.captcha).subscribe((data: any) => {
+    this.captcha = ""
+      // this.autservice.userauth(UserName, Password,this.captcha).subscribe((data: any) => {
+        this.autservice.userauth(UserName, Password,this.captcha).subscribe((data: any) => {
         // // console.log(data)
         // alert("wait"+data['privilege'])
 
@@ -103,9 +105,9 @@ export class LoginComponent implements OnInit {
         this.toastr.error("Password Expired. Please set new password.");
         this.gotoresetpassword()
       });
-    }else{
-      alert("please authorize captcha")
-    }
+    // }else{
+    //   alert("please authorize captcha")
+    // }
   }
 
   // throw a error whether form field is valid or invalid

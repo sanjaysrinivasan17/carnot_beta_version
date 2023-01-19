@@ -310,6 +310,7 @@ button:focus {
     font-weight: bolder;
     width: 165px;
     font-size: 16px !important;
+    text-transform: center;
 }
 
 ::ng-deep .mat-select-value-text {
