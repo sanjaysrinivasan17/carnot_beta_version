@@ -40,9 +40,13 @@ export class ManageuserComponent implements OnInit {
     // alert(this.privilege)
     this.firstletter = this.firstname.substring(0, 1)
     this.show_user()
-    const newtoken = localStorage.getItem("token");
 
-    const headers = { 'Authorization': 'Bearer ' + newtoken }
+    const newtoken = localStorage.getItem("token");
+    const headers = {
+      'Authorization': 'Bearer ' + newtoken ,
+      'Content-Type': 'application/json',
+    };
+
     const user_id = localStorage.getItem("user_id");
 
     // fetch(environment.api_name + "api/accounts/manage_users/" + user_id, { headers })
@@ -73,7 +77,7 @@ export class ManageuserComponent implements OnInit {
         //   }
         //   var Created_date = year + "-" + month + "-" + day;
         //   this.user.push({ "id": i, "username": this.main_data[i]["Username"], "fullname": this.main_data[i]["Full name"], "email": this.main_data[i]["E mail"], "date": Created_date })
-        // 
+        //
         // // console.log(this.user)
       // })
 
@@ -96,15 +100,24 @@ export class ManageuserComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       this.show_user()
       this.user=[]
-      
+
     })
   }
 
   show_user() {
-    const newtoken = localStorage.getItem("token");
-    const headers = { 'Authorization': 'Bearer ' + newtoken }
+
     const user_id = localStorage.getItem("user_id");
-    fetch(environment.api_name + "api/accounts/manage_users", { headers })
+
+    const newtoken = localStorage.getItem("token");
+    const headers = {
+      'Authorization': 'Bearer ' + newtoken ,
+      'Content-Type': 'application/json',
+    };
+
+    fetch(`${environment.api_name}api/accounts/manage_users`, {
+     headers ,
+     method: 'GET',
+     credentials: 'omit'})
       .then(response => response.json())
       .then(datavalue => {
         var user_data = datavalue['data']
@@ -137,9 +150,13 @@ export class ManageuserComponent implements OnInit {
       "id": sub_user_id,
       "user_id": parseInt(user_id)
     }
-    var httpOptions = {
-      headers: { 'Authorization': 'Bearer ' + newtoken }
-    };
+     var httpOptions = {
+        headers: new HttpHeaders({
+            'Content-Type':  'application/json',
+            'Authorization': 'Bearer ' + newtoken,
+          }),
+        withCredentials: false,
+     };
     this.http.put(put_url, data, httpOptions).subscribe(data => {
       // console.log(data)
 
@@ -171,7 +188,7 @@ export class ManageuserComponent implements OnInit {
 
   }
 
-  
+
   public openSidebar() {
     this.toggleSidebar.emit();
   }

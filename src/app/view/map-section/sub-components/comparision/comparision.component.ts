@@ -91,10 +91,16 @@ export class ComparisionComponent implements OnInit {
     const project_id = localStorage.getItem("project_id");
 
     const newtoken = localStorage.getItem("token");
-    // alert(newtoken)
-    const headers = { 'Authorization': 'Bearer ' + newtoken }
+    const headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer ' + newtoken,
+    };
 
-    fetch(environment.api_name + 'api/project/get_project/' + project_id, { headers })
+    fetch(`${environment.api_name}api/project/get_project/${project_id}`, {
+      method: 'GET',
+      headers,
+      credentials: 'omit',
+    })
       .then(response => response.json())
       .then(data => {
         this.main_data = data['data']

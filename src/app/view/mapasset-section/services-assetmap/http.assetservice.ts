@@ -14,13 +14,13 @@ export class HttpAssetService {
   mission_val: any[] = [];
   set_mision_flight_data : any[] = []
 
-  
+
   private newAoI = new BehaviorSubject<any>({
     AOI: 'Capture'
   });
 
   constructor(private http: HttpClient) { }
-  
+
   setAsset_data(Asset_data) {
     this.Asset_typewise_data = Asset_data
   }
@@ -56,8 +56,11 @@ export class HttpAssetService {
     const project_id = localStorage.getItem("project_id");
 
     const newtoken = localStorage.getItem("token");
-    // alert(newtoken)
-    const headers = { 'Authorization': 'Bearer ' + newtoken }
+    const headers = {
+     'Content-Type': 'application/json',
+     'Authorization': 'Bearer ' + newtoken,
+    };
+
     // return this.http.get(environment.api_name + 'api/project/get_project/' + project_id, { headers })
     return this.http.get(environment.api_name + 'api/asset/get_asset_project/' + project_id, { headers })
     // return this.http.get(environment.api_name+'project/retrieve_project_data/hero')

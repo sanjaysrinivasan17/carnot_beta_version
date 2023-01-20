@@ -2,7 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse , HttpHeaders} from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 import { Country, State, City } from 'country-state-city';
 import { DashboardComponent } from '../dashboard.component';
@@ -144,8 +144,13 @@ export class ValidationComponent implements OnInit {
         const newtoken = localStorage.getItem("token");
 
         var httpOptions = {
-          headers: { 'Authorization': 'token ' + newtoken }
-        };
+            headers: new HttpHeaders({
+                'Content-Type':  'application/json',
+                'Authorization': 'Bearer ' + newtoken,
+              }),
+            withCredentials: false,
+         };
+
         this.http.get(environment.api_name + "accounts/logout/" + httpOptions)
         this.router.navigate(['auth/login']);
       }

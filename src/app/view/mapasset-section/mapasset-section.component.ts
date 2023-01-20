@@ -569,11 +569,16 @@ export class MapassetSectionComponent implements OnInit {
             // this.accepted3 = false;
 
 
-            const newtoken = localStorage.getItem("token");
             let project_id = localStorage.getItem("project_id");
             let project_type = localStorage.getItem("project_type");
             let date = localStorage.getItem("date");
-            const headers = { 'Authorization': 'token ' + newtoken }
+
+            const newtoken = localStorage.getItem("token");
+            const headers = {
+             'Content-Type': 'application/json',
+             'Authorization': 'token ' + newtoken,
+            };
+
             var url = environment.api_name + 'api/project/get_thermal_assets/' + project_id + '/' + date + '/' + project_type + '?filter={"mission":"' + dataval['mission'] + '","flight":"' + dataval['flight'] + '"}'
             fetch(url, { headers })
               .then(response => response.json())
@@ -581,12 +586,12 @@ export class MapassetSectionComponent implements OnInit {
                 // console.log(datavalue['data'])
                 this.uploaded_raw_image = datavalue['data']
                 let popupContent = `
-                  <form class="popup-form">  
+                  <form class="popup-form">
                     <div class="form-group">
                       <label class="mb-0" for="comment">Comment:</label>
                       <textarea class="form-control" rows="4" class="comment"></textarea>
                     </div>
-                    <div class="d-flex">  
+                    <div class="d-flex">
                       <button class="btn btn-outline-info btn-sm">Save</button>
                       <button class="delete-button btn btn-outline-danger btn-sm ml-auto">
                          Delete
@@ -640,13 +645,17 @@ export class MapassetSectionComponent implements OnInit {
   }
 
   onload_get_mission_flights() {
-    const newtoken = localStorage.getItem("token");
     let project_id = localStorage.getItem("project_id");
     let project_type = localStorage.getItem("project_type");
     let date = localStorage.getItem("date");
-    const headers = { 'Authorization': 'Bearer ' + newtoken }
+
+    const newtoken = localStorage.getItem("token");
+    const headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer ' + newtoken,
+    };
+
     var url = environment.api_name + 'api/project/get_missions_flights/' + project_id + '/' + date + '/' + project_type
-    // console.log(url);
     fetch(url, { headers })
       .then(response => response.json())
       .then(datavalue => {

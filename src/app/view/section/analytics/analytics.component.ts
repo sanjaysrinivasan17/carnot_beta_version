@@ -440,13 +440,19 @@ this.Chart_hide_show_revenue = "hide";
         this.SelectedDate = this.ChangedDate.dateval
         this.Completed_date_array = [];
 
-        const newtoken = localStorage.getItem("token");
         const newName = localStorage.getItem("name");
         this.Project_Name = localStorage.getItem("name");
 
-        const headers = { 'Authorization': 'token ' + newtoken }
+        const newtoken = localStorage.getItem("token");
+        const headers = {
+          'Content-Type': 'application/json',
+         'Authorization': 'token ' + newtoken,
+        };
 
-        fetch(environment.api_name+"project/get_dashboard_data/", { headers })
+        fetch(`${environment.api_name}project/get_dashboard_data/`, {
+          headers,
+          credentials: 'omit',
+        })
           .then(response => response.json())
           .then(data1 => {
             this.main_data1 = data1
@@ -461,7 +467,10 @@ this.Chart_hide_show_revenue = "hide";
             this.total_power_loss = data1['total_power_loss']
           })
 
-        fetch(environment.api_name+"project/retrieve_project_data/" + newName, { headers })
+        fetch(`${environment.api_name}project/retrieve_project_data/${newName}`, {
+          headers ,
+          credentials: 'omit',
+        })
           .then(response => response.json())
           .then(data => {
             this.main_data = data
@@ -613,8 +622,8 @@ this.Chart_hide_show_revenue = "hide";
               this.project_layer_summary_lable.push(this.Project_layer_summary[i])
               this.summary_color.push(colourNameToHex(this.Project_layer_summary_values[i]["color"]))
 
-              //   // // console.log("----data----"+this.Project_layer_summary_values[i]['Count']) 
-              //   // // console.log("----lable----"+this.Project_layer_summary[i])  
+              //   // // console.log("----data----"+this.Project_layer_summary_values[i]['Count'])
+              //   // // console.log("----lable----"+this.Project_layer_summary[i])
             }
             // // // console.log("=====ytehdn======"+this.project_layer_summary_lable)
             this.ana_def_def = this.project_layer_summary_lable[0]
@@ -1110,7 +1119,7 @@ this.Chart_hide_show_revenue = "hide";
     for (var v = 0; v < this.health_history_key_data.length; v++) {
       var modulecount_defectwise = ((this.health_history[v] / this.total_module_count) * 1000000).toFixed(2)
       this.module_count_defectwise_value.push(parseInt(modulecount_defectwise))
-        
+
       // // // console.log(this.module_count_defectwise_value + "--------" + health_history)
     }
     health_history_keys.push({ "name": "label", "data": this.health_history_key_data })
@@ -1118,7 +1127,7 @@ this.Chart_hide_show_revenue = "hide";
     // // console.log("------------------")
     // // console.log(health_history_keys)
     // // console.log(health_history_keys2)
-    
+
     // this.firstvalue = "n"
     // var style = "";
     // var style2 = "";
@@ -1185,7 +1194,7 @@ this.Chart_hide_show_revenue = "hide";
           style: {
             fontSize: '12px',
             fontFamily: "'Montserrat', Helvetica, sans-serif",
-  
+
           },
           theme: 'dark',
           onDatasetHover: {
@@ -1198,7 +1207,7 @@ this.Chart_hide_show_revenue = "hide";
           style: {
             fontSize: '14px',
             fontFamily: "'Montserrat', Helvetica, sans-serif",
-  
+
             fontWeight: 'bold',
             colors: undefined
           },
@@ -1240,7 +1249,7 @@ this.Chart_hide_show_revenue = "hide";
             },
             offsetX: 10,
             offsetY: 0,
-  
+
           },
           axisTicks: {
             show: false,
@@ -1358,8 +1367,8 @@ this.Chart_hide_show_revenue = "hide";
 
       this.project_layer_summary_data.push(this.Project_layer_summary_values[i]['Count'])
       this.project_layer_summary_lable.push(this.Project_layer_summary[i])
-      //   // // console.log("----data----"+this.Project_layer_summary_values[i]['Count']) 
-      //   // // console.log("----lable----"+this.Project_layer_summary[i])  
+      //   // // console.log("----data----"+this.Project_layer_summary_values[i]['Count'])
+      //   // // console.log("----lable----"+this.Project_layer_summary[i])
     }
     // // // console.log("=====ytehdn======"+this.project_layer_summary_lable)
     this.ana_def_def = this.project_layer_summary_lable[0]
@@ -2700,7 +2709,7 @@ this.Chart_hide_show_revenue = "hide";
   }
   energyloss_calc(energy) { // appending the updated value to the variable
 // alert("-"+energy+"-")
-    
+
     this.energy_defectwise = []
     this.energy_defectwise_chart = []
     var energy_calc = null
@@ -2865,7 +2874,7 @@ this.Chart_hide_show_revenue = "hide";
   }
   tariff_cal(revenue) { // appending the updated value to the variable
     // alert(revenue)
-    
+
     var ppm_inr = null
     this.revenue_defectwise = []
     // if (revenue != "") {
@@ -3175,8 +3184,8 @@ this.Chart_hide_show_revenue = "hide";
 
       this.project_layer_summary_data.push(this.Project_layer_summary_values[i]['Count'])
       this.project_layer_summary_lable.push(this.Project_layer_summary[i])
-      //   // // console.log("----data----"+this.Project_layer_summary_values[i]['Count']) 
-      //   // // console.log("----lable----"+this.Project_layer_summary[i])  
+      //   // // console.log("----data----"+this.Project_layer_summary_values[i]['Count'])
+      //   // // console.log("----lable----"+this.Project_layer_summary[i])
     }
 
 

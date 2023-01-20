@@ -4,7 +4,7 @@ import { HttpService } from "../../map-section/services-map/http.service";
 import { environment } from '../../../../environments/environment';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgxUiLoaderService } from "ngx-ui-loader";
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-dashboard',
@@ -35,16 +35,24 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.login = localStorage.getItem("login");
     this.redirect = localStorage.getItem("redirect");
-    const newtoken = localStorage.getItem("token");
     this.message = localStorage.getItem("message")
     const newName = localStorage.getItem("name");
     this.user_id = localStorage.getItem("user_id");
-    const headers = { 'Authorization': 'Bearer ' + newtoken }
+
+    const newtoken = localStorage.getItem("token");
+    const headers = {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + newtoken,
+    };
+
     this._http.setNewMapIcon({
       dateval: "dashboard"
     });
 
-    fetch(environment.api_name + 'api/project/get_all?filter={"count":"3"}', { headers })
+    fetch(`${environment.api_name}api/project/get_all?filter={\"count\":\"3\"}`, {
+     headers,
+     credentials: 'omit',
+    })
       .then(response => response.json())
       .then(data => {
         this.main_data = data['data']
@@ -86,9 +94,12 @@ export class DashboardComponent implements OnInit {
     const newtoken = localStorage.getItem("token");
 
     var httpOptions = {
-      headers: { 'Authorization': 'Bearer ' + newtoken }
-    };
-
+        headers: new HttpHeaders({
+            'Content-Type':  'application/json',
+            'Authorization': 'Bearer ' + newtoken,
+          }),
+        withCredentials: false,
+     };
     // return this.http.post(environment.api_name + 'api/accounts/generate_otp/', data)
     return this.http.post(environment.api_name + 'api/accounts/generate_otp/', data, httpOptions)
 
@@ -99,9 +110,13 @@ export class DashboardComponent implements OnInit {
     const newtoken = localStorage.getItem("token");
 
     var httpOptions = {
-      headers: { 'Authorization': 'Bearer ' + newtoken }
-    };
-    
+        headers: new HttpHeaders({
+            'Content-Type':  'application/json',
+            'Authorization': 'Bearer ' + newtoken,
+          }),
+        withCredentials: false,
+     };
+
     return this.http.post(environment.api_name + 'api/accounts/verify_otp/', data, httpOptions)
 
   }

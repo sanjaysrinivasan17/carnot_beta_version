@@ -146,21 +146,28 @@ export class DashboardDetailsComponent implements OnInit {
     this.Total_project = []
 
 
-    const newtoken = localStorage.getItem("token");
     // const newName = localStorage.getItem("name");
     this.user_id = localStorage.getItem("user_id");
-    const headers = { 'Authorization': 'token ' + newtoken }
+
+    const newtoken = localStorage.getItem("token");
+    const headers = {
+        'Content-Type': 'application/json',
+        'Authorization': 'token ' + newtoken,
+    };
 
     this.center = [];
     this.items = [];
-    fetch(environment.api_name + 'api/project/get_all?filter={"count":""}', { headers })
+    fetch(`${environment.api_name}api/project/get_all?filter={\"count\":\"\"}`, {
+      headers,
+      credentials: 'omit',
+    })
       .then(response => response.json())
       .then(data => {
         this.main_data_get_all = data['data']
         this.project_id_summary_alldata = Object.keys(this.main_data_get_all)
         // // console.log(this.main_data_get_all);
         for (var x = 0; x < this.main_data_get_all.length; x++) {
-         
+
           this.add(this.main_data_get_all[x]['category'])
         }
         // // // console.log(this.main_data_get_all)
@@ -248,7 +255,10 @@ export class DashboardDetailsComponent implements OnInit {
 
 
 
-      fetch(environment.api_name + "api/project/get_dashboard_data/1", { headers })
+      fetch(`${environment.api_name}api/project/get_dashboard_data/1`, {
+        headers,
+        credentials: 'omit',
+      })
       .then(response => response.json())
       .then(data => {
         this.main_data = data
@@ -466,18 +476,26 @@ add(category){
   all_project(all_project_data) {
     this.Total_count = []
 
-    const newtoken = localStorage.getItem("token");
     // // console.log(all_project_data)
     // var keys =[]
 
     const newName = localStorage.getItem("name");
-    const headers = { 'Authorization': 'token ' + newtoken }
+
+    const newtoken = localStorage.getItem("token");
+    const headers = {
+            'Content-Type': 'application/json',
+            'Authorization': 'token ' + newtoken,
+    };
+
     for (let index = 0; index < all_project_data.length; index++) {
       // // console.log(all_project_data[index]);
       var proj_name = all_project_data[index]
       // }
       // all_project_data.forEach(proj_name => {
-      fetch(environment.api_name + "project/retrieve_project_data/" + proj_name, { headers })
+      fetch(`${environment.api_name}project/retrieve_project_data/${proj_name}`, {
+        headers,
+        credentials: 'omit',
+      })
         .then(response => response.json())
         .then(data => {
 

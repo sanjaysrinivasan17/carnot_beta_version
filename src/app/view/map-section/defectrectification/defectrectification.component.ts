@@ -144,8 +144,12 @@ export class DefectrectificationComponent implements OnInit {
 
     // console.log(userdata)
     var httpOptions = {
-      headers: { 'Authorization': 'token ' + newtoken }
-    };
+        headers: new HttpHeaders({
+            'Content-Type':  'application/json',
+            'Authorization': 'Bearer ' + newtoken,
+          }),
+        withCredentials: false,
+     };
     this.files_data = []
     this.http.post(post_url, userdata, httpOptions).subscribe(data => {
       // this.postId = data;
@@ -176,9 +180,12 @@ export class DefectrectificationComponent implements OnInit {
     if (sub_defect == null) {
       sub_defect = ""
     }
-    const headers = { 'Authorization': 'token ' + newtoken }
+    const headers = {
+      'Authorization': 'token ' + newtoken,
+      'Content-Type': 'application/json',
+    };
+
     var url = environment.api_name + 'project/get_defects/' + project_id + '?filter={"date":"' + date + '","defect_type":"' + defect + '","sub_defect_type":"' + sub_defect + '"}'
-// console.log(url)
     fetch(url, { headers })
       .then(response => response.json())
       .then(datavalue => {
@@ -364,10 +371,14 @@ export class DefectrectificationComponent implements OnInit {
 
       const newtoken = localStorage.getItem("token");
 
-      var httpOptions = {
-        headers: { 'Authorization': 'token ' + newtoken }
-      };
-      this.http.delete(delete_url, httpOptions).subscribe(data => {
+     var httpOptions = {
+        headers: new HttpHeaders({
+            'Content-Type':  'application/json',
+            'Authorization': 'Bearer ' + newtoken,
+          }),
+        withCredentials: false,
+     };
+     this.http.delete(delete_url, httpOptions).subscribe(data => {
         // this.postId = data;
 
         var success = data["status"]
@@ -439,8 +450,12 @@ export class DefectrectificationComponent implements OnInit {
     // // console.log(userdata)
 
     var httpOptions = {
-      headers: { 'Authorization': 'token ' + newtoken }
-    };
+        headers: new HttpHeaders({
+            'Content-Type':  'application/json',
+            'Authorization': 'Bearer ' + newtoken,
+          }),
+        withCredentials: false,
+     };
     this.files_data = []
     this.http.put(put_url, userdata, httpOptions).subscribe(data => {
       // this.postId = data;
@@ -511,7 +526,7 @@ export class DefectrectificationComponent implements OnInit {
   //     }
   //   }
 
-  // this.defect_data = 
+  // this.defect_data =
   // // console.log(this.defect_data[col_name])
   // // console.log(this.defect_data[col_name].sort())
   // }

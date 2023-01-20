@@ -779,18 +779,23 @@ export class MapSectionComponent implements OnInit {
   }
 
   onload_get_mission_flights() {
-    const newtoken = localStorage.getItem("token");
     let project_id = localStorage.getItem("project_id");
     let project_type = localStorage.getItem("project_type");
     let date = localStorage.getItem("date");
-    const headers = { 'Authorization': 'Bearer ' + newtoken }
+
+    const newtoken = localStorage.getItem("token");
+    const headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + newtoken,
+    };
+
     var url = environment.api_name + 'api/project/get_missions_flights/' + project_id + '/' + date + '/' + project_type
     // console.log(url);
     fetch(url, { headers })
       .then(response => response.json())
       .then(datavalue => {
         // console.log(datavalue);
-        
+
         if (datavalue['data'] != "Data Not Available" && datavalue['data'].length > 0) {
           this.toastr.success('Mission and Flight data are ready');
         }
@@ -1177,7 +1182,7 @@ export class MapSectionComponent implements OnInit {
   }
 
   LoadKml(value: any) {
-    // // console.log(value) 
+    // // console.log(value)
     // alert("in Map")
     // alert(value.menu)
     // // console.log(value)
@@ -1265,7 +1270,7 @@ export class MapSectionComponent implements OnInit {
                 else {
                   this.polygonMarkerCreating(latlngArray, value.color, dec)
                 }
-                //              
+                //
               }
               // Adjust map to show the kml
               const bounds = this.track.getBounds();
@@ -1332,7 +1337,7 @@ export class MapSectionComponent implements OnInit {
               else {
                 this.polygonMarkerCreating(latlngArray, value.color, dec)
               }
-              //              
+              //
             }
             // Adjust map to show the kml
             const bounds = this.track.getBounds();
@@ -1443,7 +1448,7 @@ export class MapSectionComponent implements OnInit {
 
                 this.polygonMarkerCreating(latlngArray, value.color, dec)
               }
-              //              
+              //
             }
             // Adjust map to show the kml
             const bounds = this.track.getBounds();
@@ -1963,7 +1968,7 @@ export class MapSectionComponent implements OnInit {
                 }
                 n++
               }
-              // this.subdefects_visibility = 
+              // this.subdefects_visibility =
 
 
 
@@ -2341,11 +2346,16 @@ export class MapSectionComponent implements OnInit {
             // this.accepted3 = false;
 
 
-            const newtoken = localStorage.getItem("token");
             let project_id = localStorage.getItem("project_id");
             let project_type = localStorage.getItem("project_type");
             let date = localStorage.getItem("date");
-            const headers = { 'Authorization': 'token ' + newtoken }
+
+            const newtoken = localStorage.getItem("token");
+            const headers = {
+              'Content-Type': 'application/json',
+              'Authorization': 'token ' + newtoken,
+            };
+
             var url = environment.api_name + 'api/project/get_thermal_assets/' + project_id + '/' + date + '/' + project_type + '?filter={"mission":"' + dataval['mission'] + '","flight":"' + dataval['flight'] + '"}'
             fetch(url, { headers })
               .then(response => response.json())
@@ -2353,12 +2363,12 @@ export class MapSectionComponent implements OnInit {
                 // console.log(datavalue['data'])
                 this.uploaded_raw_image = datavalue['data']
                 let popupContent = `
-                  <form class="popup-form">  
+                  <form class="popup-form">
                     <div class="form-group">
                       <label class="mb-0" for="comment">Comment:</label>
                       <textarea class="form-control" rows="4" class="comment"></textarea>
                     </div>
-                    <div class="d-flex">  
+                    <div class="d-flex">
                       <button class="btn btn-outline-info btn-sm">Save</button>
                       <button class="delete-button btn btn-outline-danger btn-sm ml-auto">
                          Delete
@@ -2551,7 +2561,6 @@ export class MapSectionComponent implements OnInit {
     localStorage.setItem("name", "Adani-" + this.Adani_locations[location_name]['name'])
     localStorage.setItem("center", this.Adani_locations[location_name]['center'])
     this.map.removeLayer(this.rgb_layer);
-    const newtoken = localStorage.getItem("token");
     const newName = localStorage.getItem("name");
 
     if (newName == "Adani-Limbaganesh") {
@@ -2559,8 +2568,11 @@ export class MapSectionComponent implements OnInit {
     }
     this.map.removeLayer(this.rgb_layer);
 
-    const headers = { 'Authorization': 'Bearer ' + newtoken }
-    // // console.log(environment.api_name+"project/retrieve_project_data/Adani-" + this.Adani_locations[location_name]['name'])
+    const newtoken = localStorage.getItem("token");
+    const headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + newtoken,
+    };
 
     fetch(environment.api_name + "project/retrieve_project_data/Adani-" + this.Adani_locations[location_name]['name'], { headers })
       .then(response => response.json())

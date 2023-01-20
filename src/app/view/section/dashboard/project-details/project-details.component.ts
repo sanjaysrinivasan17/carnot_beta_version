@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MatStepper } from '@angular/material/stepper';
 import 'leaflet';
 import 'leaflet-kml';
@@ -93,20 +93,25 @@ export class ProjectDetailsComponent implements OnInit {
   constructor(private router: Router, private http: HttpClient, private ngxService: NgxUiLoaderService) { }
   ngOnInit(): void {
 
-    
+
     setTimeout(() => {
       this.ngxService.stop();
     }, 3000)
     // alert("proj det")
-    const newtoken = localStorage.getItem("token");
     this.user_id = localStorage.getItem("user_id")
-
     const newName = localStorage.getItem("name");
-    const headers = { 'Authorization': 'Bearer ' + newtoken }
 
-// console.log(environment.api_name + 'api/project/get_all?filter={"count":"3"}', { headers })
+    const newtoken = localStorage.getItem("token");
+    const headers = {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer ' + newtoken,
+    };
+
     // fetch(environment.api_name+'api/project/get_all/1/?filter={"count":""}', { headers })
-    fetch(environment.api_name + 'api/project/get_all?filter={"count":"3"}', { headers })
+    fetch(`${environment.api_name}api/project/get_all?filter={\"count\":\"3\"}`, {
+      headers,
+      credentials: 'omit',
+    })
       .then(response => response.json())
       .then(data => {
         this.main_data = data['data']

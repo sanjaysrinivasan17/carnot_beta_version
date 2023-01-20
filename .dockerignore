@@ -1,4 +1,5 @@
 .git
+.gitignore
 /.vscode/*
 /.angular/
 /node_modules/
