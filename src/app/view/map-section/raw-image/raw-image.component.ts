@@ -23,10 +23,15 @@ export class RawImageComponent implements OnInit {
 
   ngOnInit(): void {
     alert()
-    const newtoken = localStorage.getItem("token");
     let project_id = localStorage.getItem("project_id");
     let date = localStorage.getItem("date");
-    const headers = { 'Authorization': 'Bearer ' + newtoken }
+
+    const newtoken = localStorage.getItem("token");
+    const headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer ' + newtoken,
+    };
+
     this.maindata = this._http.get_mision_flight_detail()
     this.mission_data = Object.keys(this.maindata).sort()
 // console.log(this.maindata)

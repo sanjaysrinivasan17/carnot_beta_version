@@ -134,13 +134,15 @@ export class AllProjectsComponent implements OnInit {
         // // console.log(post_url)
         const newtoken = localStorage.getItem("token");
 
-        // const headers = { 'Authorization': 'token '+newtoken}
-        var httpOptions = {
-
-
-          headers: { 'Authorization': 'token ' + newtoken }
-        };
-        this.http.post(post_url, httpOptions).subscribe(data => {
+      const headers = {
+      'Content-Type':  'application/json',
+      'Authorization': 'token '+newtoken
+      };
+      var httpOptions = {
+          headers,
+          withCredentials: false,
+       };
+          this.http.post(post_url, httpOptions).subscribe(data => {
           this.postId = data;
           // location.reload();
           this.onloadfunc()
@@ -168,7 +170,10 @@ export class AllProjectsComponent implements OnInit {
   onloadfunc() {
     const newtoken = localStorage.getItem("token");
 
-    const headers = { 'Authorization': 'Bearer ' + newtoken }
+    const headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer ' + newtoken,
+    };
 
     this.all_project = [];
     this.all_project_copy = [];
@@ -184,7 +189,10 @@ export class AllProjectsComponent implements OnInit {
     this.Created_Date_values_status = [];
     this.new_project_values = [];
 
-    fetch(environment.api_name + 'api/project/get_project_by_category', { headers })
+    fetch(`${environment.api_name}api/project/get_project_by_category`, {
+      headers,
+      credentials: 'omit',
+     })
       // fetch(environment.api_name + 'api/project/get_all/'+this.user_id+'/?filter={"count":""}', { headers })
       .then(response => response.json())
       .then(datavalue => {
@@ -210,7 +218,10 @@ export class AllProjectsComponent implements OnInit {
       })
       // // console.log(this.project_category)
 
-    fetch(environment.api_name + 'api/asset/get_asset_project_by_category', { headers })
+    fetch(`${environment.api_name}api/asset/get_asset_project_by_category`, {
+     headers,
+     credentials: 'omit',
+    })
     // fetch(environment.api_name + 'api/project/get_all/'+this.user_id+'/?filter={"count":""}', { headers })
     .then(response => response.json())
     .then(datavalue => {
@@ -268,7 +279,7 @@ export class AllProjectsComponent implements OnInit {
               date_status[element_date] =  type_status
               type_status = {}
             });
-            
+
             var center = lat+","+long
             temp_date = (Object.keys(date_status))
             temp_date_status = (Object.values(date_status))
@@ -276,7 +287,7 @@ export class AllProjectsComponent implements OnInit {
             // // console.log(temp_date_status);
             // // console.log(temp_date_status[0]['Report']);
             // // console.log(temp_date_status[0]['SCQM']);
-            
+
             this.main_data_asset[element][index]["share_project"] = share_project_status
             this.main_data_asset[element][index]['site_img'] = site_img
             this.main_data_asset[element][index]['project_name'] = this.main_data_asset[element][index]['name']
@@ -289,14 +300,14 @@ export class AllProjectsComponent implements OnInit {
             // this.main_data_asset[element][index]["report_path"] = temp_date_status
             this.main_data_asset[element][index]["current_reportpath"] = temp_date_status[0]['Report']
             date_status = []
-            var temp_date = null 
+            var temp_date = null
             var temp_date_status = null
             var lat: string | null = null
             var long = null
             // temp_date_status = []
             // temp_date_status = []
             this.project_list_asset.push(this.main_data_asset[element][index])
-           
+
             // // console.log(this.main_data_asset[element][index])
 
           }
@@ -571,7 +582,7 @@ export class AllProjectsComponent implements OnInit {
   selectChange_asset(date: string, proj_count_id: any, status: any, date_count_id: any, i: any) {
     // alert(status)
     // console.log(i['status'][date_count_id]);
-    
+
     this.first_value = 1
     var colorSCPM = "";
     var colorSCQM = "";
@@ -597,12 +608,12 @@ export class AllProjectsComponent implements OnInit {
       Current_date_statusSCPM = "In Progress"
       style = "none"
       colorSCPM = "yellow"
-    
+
     } else if (Current_date_statusval_SCPM == 'Complete'){
       Current_date_statusSCPM = "Complete"
       style = "block"
       colorSCPM = "green"
-    
+
     }
     if(Current_date_statusval_SCQM == 'Incomplete') {
       Current_date_statusSCQM = "Yet to start"
@@ -613,13 +624,13 @@ export class AllProjectsComponent implements OnInit {
       Current_date_statusSCQM = "In Progress"
       style = "none"
       colorSCQM = "yellow"
-    
+
     } else if(Current_date_statusval_SCQM == 'Complete'){
         Current_date_statusSCQM = "Complete"
         style = "block"
         colorSCQM = "green"
     }
-    
+
     // // // console.log("style", style)
 
     this.changed_date = date

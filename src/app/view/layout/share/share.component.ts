@@ -51,11 +51,18 @@ export class ShareComponent implements OnInit {
 
     this.user_id = localStorage.getItem("id");
     this.project_name = localStorage.getItem("project_name");
+
     const newtoken = localStorage.getItem("token");
+    const headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer ' + newtoken,
+    };
 
-    const headers = { 'Authorization': 'Bearer ' + newtoken }
-
-    fetch(environment.api_name + "project/get_projects_status/", { headers })
+    fetch(`${environment.api_name}project/get_projects_status/`, {
+      method: 'GET',
+      headers ,
+      credentials: 'omit'
+    })
       .then(response => response.json())
       .then(datavalue => {
         this.main_data = datavalue
@@ -106,7 +113,12 @@ export class ShareComponent implements OnInit {
       })
 
     const user_id = localStorage.getItem("user_id");
-    fetch(environment.api_name + 'api/accounts/manage_users' , { headers })
+
+    fetch(`${environment.api_name}api/accounts/manage_users` , {
+      method: 'GET',
+      headers,
+      credentials: 'omit'
+     })
       .then(response => response.json())
       .then(datavalue => {
         // // console.log(datavalue)
@@ -121,7 +133,7 @@ export class ShareComponent implements OnInit {
         }
       })
 this.Get_shared_list()
-  
+
 
     // if(proj_type == "asset"){
     //  copy here
@@ -133,14 +145,21 @@ this.Get_shared_list()
 
 Get_shared_list(){
   const newtoken = localStorage.getItem("token");
+  const headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer ' + newtoken,
+  };
 
-  const headers = { 'Authorization': 'Bearer ' + newtoken }
   const user_id = localStorage.getItem("user_id");
   const project_id = localStorage.getItem("project_id")
   const project_type = localStorage.getItem("project_type")
   if (project_type == "asset") {
 
-    fetch(environment.api_name + 'api/asset/get_asset_project/' + project_id, { headers })
+    fetch(`${environment.api_name}api/asset/get_asset_project/${project_id}`, {
+      method: 'GET',
+      headers,
+      credentials: 'omit'
+    })
       .then(response => response.json())
       .then(datavalue => {
         // console.log(datavalue)
@@ -158,7 +177,11 @@ Get_shared_list(){
       })
   }
   else if(project_type == "carnot"){
-    fetch(environment.api_name + 'api/project/get_project/' + project_id, { headers })
+    fetch(environment.api_name + 'api/project/get_project/' + project_id, {
+      method: 'GET',
+      headers ,
+      credentials: 'omit',
+    })
       .then(response => response.json())
       .then(datavalue => {
         // console.log(datavalue)
@@ -212,8 +235,12 @@ Get_shared_list(){
     const project_type = localStorage.getItem("project_type")
 
     var httpOptions = {
-      headers: { 'Authorization': 'Bearer ' + newtoken }
-    };
+        headers: new HttpHeaders({
+            'Content-Type':  'application/json',
+            'Authorization': 'Bearer ' + newtoken,
+          }),
+        withCredentials: false,
+     };
     var posturl = environment.api_name + "api/accounts/add_project_users/" + project_type
     this.http.post(posturl, user_mapping, httpOptions).subscribe(data => {
       this.post_id = data;
@@ -248,10 +275,12 @@ Get_shared_list(){
     // // console.log(userdata)
     const newtoken = localStorage.getItem("token");
     var httpOptions = {
-
-
-      headers: { 'Authorization': 'Bearer ' + newtoken }
-    };
+        headers: new HttpHeaders({
+            'Content-Type':  'application/json',
+            'Authorization': 'Bearer ' + newtoken,
+          }),
+        withCredentials: false,
+     };
     this.http.post(post_url, userdata, httpOptions).subscribe(data => {
       this.postId = data;
       this.success = data["status"]

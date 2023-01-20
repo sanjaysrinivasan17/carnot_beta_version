@@ -53,9 +53,15 @@ export class AdduserComponent implements OnInit {
   ngOnInit(): void {
 
     const newtoken = localStorage.getItem("token");
+    const headers = {
+      'Authorization': 'Bearer ' + newtoken ,
+      'Content-Type': 'application/json',
+    };
 
-    const headers = { 'Authorization': 'Bearer ' + newtoken }
-    fetch(environment.api_name + 'api/accounts/role', { headers })
+    fetch(`${environment.api_name}api/accounts/role`, {
+    method: 'GET',
+    headers,
+    credentials: 'omit'})
       .then(response => response.json())
       .then(datavalue => {
         // this.main_data = datavalue
@@ -132,10 +138,12 @@ export class AdduserComponent implements OnInit {
     // console.log(userdata)
 
     var httpOptions = {
-
-
-      headers: { 'Authorization': 'Bearer ' + newtoken }
-    };
+        headers: new HttpHeaders({
+            'Content-Type':  'application/json',
+            'Authorization': 'Bearer ' + newtoken,
+          }),
+        withCredentials: false,
+     };
     this.http.post(post_url, userdata, httpOptions).subscribe(data => {
       this.postId = data;
       this.success = data["status"]

@@ -222,7 +222,7 @@ export class SidebarComponent implements OnInit {
 
   constructor(private _http: HttpService, public dialog: MatDialog, private router: Router) { }
 
-  // on Initializing this component 
+  // on Initializing this component
   ngOnInit(): void {
     // alert()
     sessionStorage.removeItem("current_tab")
@@ -293,7 +293,12 @@ export class SidebarComponent implements OnInit {
           //  this.proj_name = localStorage.getItem("name");
           const date = localStorage.getItem("date");
           // toalert(localStorage.getItem("date"))
-          const headers = { 'Authorization': 'token ' + newtoken }
+
+          const headers = {
+            'Content-Type': 'application/json',
+            'Authorization': 'token ' + newtoken,
+          };
+
           var demo_project = newName.includes("DEMO PROJECT")
           if (demo_project) {
             var formElement = document.getElementById("share_visibility");
@@ -305,7 +310,11 @@ export class SidebarComponent implements OnInit {
 
           }
           this.project_values = [];
-          fetch(environment.api_name + "project/get_projects_status/", { headers })
+          fetch(`${environment.api_name}project/get_projects_status/`, {
+            method: 'GET',
+            headers,
+            credentials: 'omit',
+          })
             .then(response => response.json())
             .then(datavalue => {
               this.main_data = datavalue
@@ -498,7 +507,7 @@ export class SidebarComponent implements OnInit {
     }
   }
 
-  // Function for getting current tab from summary, inverter in sidebar 
+  // Function for getting current tab from summary, inverter in sidebar
   activate_tab(name: string, i: number, currentMenu: string, defect_name, kml) {
     // alert(name)
     sessionStorage.setItem('current_tab', JSON.stringify(i))
@@ -652,7 +661,7 @@ export class SidebarComponent implements OnInit {
 
   // summary data
 
-  // Function for loading summary data 
+  // Function for loading summary data
   sub_defects_count(current_summary_state) {
     // console.log(current_summary_state.tab)
   }
@@ -1038,7 +1047,7 @@ export class SidebarComponent implements OnInit {
     this.Summary_tab = true
   }
 
-  // end inverter 
+  // end inverter
 
   // cadastrial map start
 
@@ -1178,7 +1187,7 @@ export class SidebarComponent implements OnInit {
 
     })
   }
-  // end cadastrial map 
+  // end cadastrial map
 
   // map Comparison start
   // Function for opening comparison page
@@ -1206,7 +1215,7 @@ export class SidebarComponent implements OnInit {
     });
 
   }
-  // Function for tab change event 
+  // Function for tab change event
 
   public onTabChange(event: any) {
     // // console.log('eve', event);
@@ -1337,7 +1346,7 @@ export class SidebarComponent implements OnInit {
   }
 
 
-  // Function for Report download 
+  // Function for Report download
   downloadMyFile(report_path) {
     // alert(report_path)
     var report_path_new = sessionStorage.getItem("reportPath")

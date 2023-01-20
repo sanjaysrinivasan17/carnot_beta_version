@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Input, ViewChild, ElementRef, Output } from '@angular/core';
 import { FormControl, FormControlName, FormGroup } from '@angular/forms';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Country, State, City } from 'country-state-city';
 import { Router } from '@angular/router';
 import { HttpService } from "../../../../map-section/services-map/http.service";
@@ -66,7 +66,7 @@ export class ProjectDetailsComponent implements OnInit {
   @Input()
   showUploadInfo: any
 
-  fileUpload!: ElementRef 
+  fileUpload!: ElementRef
 
   inputFileName: string = ''
 
@@ -290,8 +290,13 @@ export class ProjectDetailsComponent implements OnInit {
     const newtoken = localStorage.getItem("token");
 
     var httpOptions = {
-      headers: { 'Authorization': 'token ' + newtoken, 'content-type': 'application/json' }
-    };
+        headers: new HttpHeaders({
+            'Content-Type':  'application/json',
+            'Authorization': 'Bearer ' + newtoken,
+          }),
+        withCredentials: false,
+     };
+
     this.http.post(environment.api_name+"project/create_project/", body, httpOptions).subscribe(data => {
       this.postId = data;
       // // console.log(data)

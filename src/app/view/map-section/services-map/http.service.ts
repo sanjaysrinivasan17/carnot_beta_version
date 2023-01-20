@@ -70,19 +70,24 @@ export class HttpService {
     const project_id = localStorage.getItem("project_id");
 
     const newtoken = localStorage.getItem("token");
-    // alert(newtoken)
-    const headers = { 'Authorization': 'Bearer ' + newtoken }
+    const headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + newtoken,
+    };
+
     // return this.http.get(environment.api_name + 'api/project/get_project/' + project_id, { headers })
     return this.http.get(environment.api_name + 'api/project/get_project/' + project_id, { headers })
     // return this.http.get(environment.api_name+'project/retrieve_project_data/hero')
   }
   inverter_data() {
     const newName = localStorage.getItem("name");
-    const newtoken = localStorage.getItem("token");
     const project_id = localStorage.getItem("project_id");
-    // alert(newtoken)
-    const headers = { 'Authorization': 'Bearer ' + newtoken }
-    // const headers = { 'Authorization': 'token 9881e95800afe06c804e6ea3417591cfcaa50164'}
+
+    const newtoken = localStorage.getItem("token");
+    const headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer ' + newtoken,
+    };
     return this.http.get(environment.api_name + 'api/project/get_project/' + project_id, { headers })
   }
 

@@ -1,0 +1,7 @@
+{
+    "/carnot/api/*": {
+        "target": "http://ec2-3-110-224-113.ap-south-1.compute.amazonaws.com:8002",
+        "secure": false,
+        "logLevel": "debug"
+    }
+}

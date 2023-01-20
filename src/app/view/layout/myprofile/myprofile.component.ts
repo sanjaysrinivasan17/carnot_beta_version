@@ -91,11 +91,18 @@ export class MyprofileComponent implements OnInit {
       this.url = "../../../../assets/images/user_profile.png";
     }
 
-    const newtoken = localStorage.getItem("token");
     const user_id = localStorage.getItem("user_id");
 
-    const headers = { 'Authorization': 'Bearer ' + newtoken }
-    fetch(environment.api_name + 'api/accounts/user/'+user_id, { headers })
+    const newtoken = localStorage.getItem("token");
+    const headers = {
+      'Authorization': 'Bearer ' + newtoken ,
+      'Content-Type': 'application/json',
+    };
+    fetch(`${environment.api_name}api/accounts/user/${user_id}`, {
+    method: 'GET',
+    headers ,
+    credentials: 'include',
+    })
       .then(response => response.json())
       .then(datavalue => {
         this.main_data = datavalue
@@ -114,7 +121,7 @@ export class MyprofileComponent implements OnInit {
         for (let c = 0; c < this.countries.length; c++) {
           if (country_val === this.countries[c].name) {
             this.country = this.countries[c]
-            this.selectChange(this.country.isoCode) 
+            this.selectChange(this.country.isoCode)
           }
         }
         for (let d = 0; d < this.states.length; d++) {
@@ -155,12 +162,12 @@ export class MyprofileComponent implements OnInit {
     var lname = (<HTMLInputElement>document.getElementById("lname")).value
     var mnum = (<HTMLInputElement>document.getElementById("mnum")).value
     var mail = (<HTMLInputElement>document.getElementById("mail")).value
-    
+
     // saveDetails(fname, lname, uname, mnum, mail) {
     // // console.log(fname," ---",mail)
     this.myprofiledetails = [];
 
-    
+
     const user_id = localStorage.getItem("user_id");
     var put_url = (environment.api_name + "api/accounts/user/"+user_id)
     // console.log(put_url)
@@ -176,18 +183,20 @@ export class MyprofileComponent implements OnInit {
     // console.log(userdata)
     // return
     var httpOptions = {
-
-
-      headers: { 'Authorization': 'Bearer ' + newtoken }
-    };
+        headers: new HttpHeaders({
+            'Content-Type':  'application/json',
+            'Authorization': 'Bearer ' + newtoken,
+          }),
+        withCredentials: false,
+     };
     this.http.put(put_url, userdata, httpOptions).subscribe(data => {
       this.putId = data;
       this.success = data["status"]
-  
+
       alert(this.success)
-  
+
       if (this.success == 'success') {
-  
+
         setTimeout(() => {
           this.ngxService.stop();
         }, 2100)
@@ -196,7 +205,7 @@ export class MyprofileComponent implements OnInit {
     })
   }
 
- 
+
 
 
   selectChange(countryval) {

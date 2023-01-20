@@ -5,7 +5,7 @@ import 'leaflet-kml';
 declare const L: any;
 
 declare var require: any
-require('leaflet-side-by-side');
+//require('leaflet-side-by-side');
 var selected_point = new L.LayerGroup();
 @Component({
   selector: 'app-comparision',
@@ -91,10 +91,16 @@ export class ComparisionComponent implements OnInit {
     const project_id = localStorage.getItem("project_id");
 
     const newtoken = localStorage.getItem("token");
-    // alert(newtoken)
-    const headers = { 'Authorization': 'Bearer ' + newtoken }
+    const headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer ' + newtoken,
+    };
 
-    fetch(environment.api_name + 'api/project/get_project/' + project_id, { headers })
+    fetch(`${environment.api_name}api/project/get_project/${project_id}`, {
+      method: 'GET',
+      headers,
+      credentials: 'omit',
+    })
       .then(response => response.json())
       .then(data => {
         this.main_data = data['data']
@@ -156,7 +162,7 @@ export class ComparisionComponent implements OnInit {
               // this.keys_kml.push(this.main_data[this.project_id_summary][this.datevalue_first]['summary_layers'][key]['sub_group']['kml'])
 
             }
-          
+
 
 
         }
@@ -401,7 +407,7 @@ export class ComparisionComponent implements OnInit {
 
             // this.myLayer4.addTo(this.map1)
             // this.myLayer2.addLayer(this.myLayer4)
-            //              
+            //
           }
           // Adjust map to show the kml
           const bounds = this.track.getBounds();

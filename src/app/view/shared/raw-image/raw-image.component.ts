@@ -20,10 +20,15 @@ export class RawImageComponent {
   constructor(private _http: HttpAssetService, private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
-    const newtoken = localStorage.getItem("token");
     let project_id = localStorage.getItem("project_id");
     let date = localStorage.getItem("date");
-    const headers = { 'Authorization': 'token ' + newtoken }
+
+    const newtoken = localStorage.getItem("token");
+    const headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'token ' + newtoken,
+    };
+
     this.maindata = this._http.get_mision_flight_detail()
     this.mission_data = Object.keys(this.maindata).sort()
     // var url = environment.api_name + 'project/get_missions_flights/' + project_id + '/' + date

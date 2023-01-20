@@ -9,13 +9,19 @@ import { RecaptchaModule } from 'ng-recaptcha';
 import { HttpClientModule } from '@angular/common/http';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { NgApexchartsModule } from 'ng-apexcharts';
-import {MatMenuModule} from '@angular/material/menu'; 
+import {MatMenuModule} from '@angular/material/menu';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { MaterialLibrary } from './library/material.lib';
 import { HttpService } from './controller/http.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
-import { 
+
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { NoopInterceptor } from './interceptors/noop-interceptor';
+import { AuthInterceptor } from './interceptors/auth-interceptor';
+import { CorsInterceptor } from './interceptors/cors-interceptor';
+
+import {
   NgxUiLoaderModule,
   NgxUiLoaderConfig,
   SPINNER,
@@ -39,14 +45,14 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
 
 
 @NgModule({
-  
+
   declarations: [
     AppComponent,
     DialogExampleComponent,
     DialogContentComponent,
   ],
  entryComponents:[DialogExampleComponent , DialogContentComponent],
- 
+
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -56,7 +62,7 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     MaterialLibrary,
     NgApexchartsModule,
     NgxPaginationModule,
-    MatMenuModule, 
+    MatMenuModule,
     ReactiveFormsModule,
     NgxCaptchaModule,
     RecaptchaModule,
@@ -69,7 +75,17 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     NgxUiLoaderModule.forRoot(ngxUiLoaderConfig)
   ],
   providers: [
-    HttpService
+    HttpService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: NoopInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

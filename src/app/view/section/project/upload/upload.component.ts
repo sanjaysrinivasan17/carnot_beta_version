@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit, EventEmitter, Input } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import * as EXIF from 'exif-js';
@@ -239,9 +239,17 @@ export class UploadComponent implements OnInit {
     }
     // // console.log(user_data)
     var post_url = environment.api_name + "ftp/asset_upload/"
+
+    const newtoken = localStorage.getItem("token");
+
     var httpOptions = {
-      headers: { 'Authorization': 'Bearer ' + token }
-    };
+        headers: new HttpHeaders({
+            'Content-Type':  'application/json',
+            'Authorization': 'Bearer ' + newtoken,
+          }),
+        withCredentials: false,
+     };
+
     this.http.post(post_url, user_data, httpOptions).subscribe(data => {
       // this.postId = data;
       // // console.log(data)
@@ -361,9 +369,17 @@ export class UploadComponent implements OnInit {
     var token = localStorage.getItem("token")
     // var post_url = environment.api_name + "api/project/thermal_assets/"
     var post_url = "http://localhost:8000/carnot/api/project/thermal_assets/"
+
+    const newtoken = localStorage.getItem("token");
+
     var httpOptions = {
-      headers: { 'Authorization': 'Bearer ' + token }
-    };
+        headers: new HttpHeaders({
+            'Content-Type':  'application/json',
+            'Authorization': 'Bearer ' + newtoken,
+          }),
+        withCredentials: false,
+     };
+
     // console.log(post_url)
     await Promise.all(
       this.all_files.map(async (id, index) => {
@@ -437,8 +453,11 @@ export class UploadComponent implements OnInit {
   // }
   show_additional_file_data(project_id: any, date: any) {
     const newtoken = localStorage.getItem("token");
+    const headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer ' + newtoken,
+    };
 
-    const headers = { 'Authorization': 'Bearer ' + newtoken }
     var url = environment.api_name + 'api/project/get_thermal_assets/' + project_id + '/' + date + '/' + this.project_type
     fetch(url, { headers })
       .then(response => response.json())
