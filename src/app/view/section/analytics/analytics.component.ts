@@ -449,7 +449,7 @@ this.Chart_hide_show_revenue = "hide";
          'Authorization': 'token ' + newtoken,
         };
 
-        fetch(`${environment.api_name}project/get_dashboard_data/`, {
+        fetch(`${environment.api_name}api/project/get_dashboard_data/`, {
           headers,
           credentials: 'omit',
         })

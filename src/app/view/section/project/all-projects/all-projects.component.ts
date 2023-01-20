@@ -168,8 +168,8 @@ export class AllProjectsComponent implements OnInit {
   }
 
   onloadfunc() {
-    const newtoken = localStorage.getItem("token");
 
+    const newtoken = localStorage.getItem("token");
     const headers = {
     'Content-Type': 'application/json',
     'Authorization': 'Bearer ' + newtoken,
@@ -190,6 +190,7 @@ export class AllProjectsComponent implements OnInit {
     this.new_project_values = [];
 
     fetch(`${environment.api_name}api/project/get_project_by_category`, {
+      method: 'GET',
       headers,
       credentials: 'omit',
      })
@@ -219,6 +220,7 @@ export class AllProjectsComponent implements OnInit {
       // // console.log(this.project_category)
 
     fetch(`${environment.api_name}api/asset/get_asset_project_by_category`, {
+     method: 'GET',
      headers,
      credentials: 'omit',
     })

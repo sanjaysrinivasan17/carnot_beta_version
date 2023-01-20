@@ -101,7 +101,7 @@ export class MyprofileComponent implements OnInit {
     fetch(`${environment.api_name}api/accounts/user/${user_id}`, {
     method: 'GET',
     headers ,
-    credentials: 'include',
+    credentials: 'omit',
     })
       .then(response => response.json())
       .then(datavalue => {
