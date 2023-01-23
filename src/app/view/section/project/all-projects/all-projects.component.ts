@@ -77,7 +77,7 @@ export class AllProjectsComponent implements OnInit {
   project_list: any = [];
   project_list_asset: any = [];
   tabGroup!: { _tabHeader: { _elementRef: { nativeElement: { children: any; }; }; }; };
-  project_list_asset_copy: any= [];
+  project_list_asset_copy: any = [];
   // category_list : ['Topography','Grading','Construction Monitoring','Thermography','Vegetation','Due Deligence']
   projectcount_catwise: boolean = true;
   projectcount_catwise_asset: boolean = true;
@@ -94,7 +94,7 @@ export class AllProjectsComponent implements OnInit {
       // // console.log(`Dialog result: ${result}`);
     });
   }
-  openSharedialog(project_name : any, id: any,project_type) {
+  openSharedialog(project_name: any, id: any, project_type) {
     localStorage.setItem("project_id", id)
     localStorage.setItem("project_name", project_name);
     localStorage.setItem("project_type", project_type);
@@ -102,8 +102,8 @@ export class AllProjectsComponent implements OnInit {
     let dialogRef = this.dialog.open(ShareComponent);
     dialogRef.afterClosed().subscribe(result => {
       localStorage.removeItem("id")
-    localStorage.removeItem("project_type");
-    localStorage.removeItem("project_name");
+      localStorage.removeItem("project_type");
+      localStorage.removeItem("project_name");
     })
   }
   openDialog(project_name: any) {
@@ -134,22 +134,22 @@ export class AllProjectsComponent implements OnInit {
         // // console.log(post_url)
         const newtoken = localStorage.getItem("token");
 
-     const token = localStorage.getItem("token");
-     const headers = {
+        const token = localStorage.getItem("token");
+        const headers = {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json',
-      };
+        };
 
-      var httpOptions = {
+        var httpOptions = {
           headers,
           withCredentials: false,
-       };
-          this.http.post(post_url, httpOptions).subscribe(data => {
-          this.postId = data;
-          // location.reload();
-          this.onloadfunc()
+        };
+        //   this.http.post(post_url, httpOptions).subscribe(data => {
+        //   this.postId = data;
+        //   // location.reload();
+        //   this.onloadfunc()
 
-        })
+        // })
       }
 
     });
@@ -173,8 +173,8 @@ export class AllProjectsComponent implements OnInit {
 
     const token = localStorage.getItem("token");
     const headers = {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json',
     };
 
     this.all_project = [];
@@ -195,7 +195,7 @@ export class AllProjectsComponent implements OnInit {
       method: 'GET',
       headers,
       credentials: 'omit',
-     })
+    })
       // fetch(environment.api_name + 'api/project/get_all/'+this.user_id+'/?filter={"count":""}', { headers })
       .then(response => response.json())
       .then(datavalue => {
@@ -217,110 +217,110 @@ export class AllProjectsComponent implements OnInit {
       })
 
     fetch(`${environment.api_name}api/asset/get_asset_project_by_category`, {
-     method: 'GET',
-     headers,
-     credentials: 'omit',
+      method: 'GET',
+      headers,
+      credentials: 'omit',
     })
-    // fetch(environment.api_name + 'api/project/get_all/'+this.user_id+'/?filter={"count":""}', { headers })
-    .then(response => response.json())
-    .then(datavalue => {
-      this.main_data_asset = datavalue['data']
-      // console.log(this.main_data_asset)
-      var site_img = null
-      var date_status = {}
-      var get_date
-      var temp_date
-      var temp_date_status
-      var lat = null
-      var long = null
-      var type_status = {}
-      var asset_key = Object.keys(this.main_data_asset)
-      asset_key.forEach(element => {
-        if (element == "construction") {
-          site_img = '../../../../../assets/images/construction.jpg'
-        } else if (element == "solar") {
-          site_img = '../../../../../assets/images/solar.jpg'
-
-        }
-        if(this.main_data_asset.length > 0 ){
-          this.projectcount_catwise_asset = true
-        }else{
-          this.projectcount_catwise_asset = false
-        }
-        if (this.main_data_asset[element].length > 0) {
-
-          for (let index = 0; index < this.main_data_asset[element].length; index++) {
-            // const element = array[index];
-            var demo_project = this.main_data_asset[element][index].name.includes("DEMO")
-            if (demo_project) {
-              var share_project_status = "close"
-              // alert(this.i)
-            } else {
-              var share_project_status = "share"
-
-            }
-            get_date = Object.keys(this.main_data_asset[element][index]['projectdata'])
-            this.main_data_asset[element][index]['projectdata']
-            get_date.forEach(element_date => {
-              var type = Object.keys(this.main_data_asset[element][index]['projectdata'][element_date])
-              type.forEach(element_type => {
-                // alert(element_type)
-                type_status[element_type] = this.main_data_asset[element][index]['projectdata'][element_date][element_type]['status']
-                type_status['Report'] = this.main_data_asset[element][index]['projectdata'][element_date][element_type]['project_properties']['Report']
-                if(lat == null){
-                  lat = this.main_data_asset[element][index]['projectdata'][element_date][element_type]['project_properties']['center']['lat']
-                  long = this.main_data_asset[element][index]['projectdata'][element_date][element_type]['project_properties']['center']['lng']
-                  // // console.log(this.main_data_asset[element][index]['projectdata'][element_date][element_type]['project_properties']['center']['lat'])
-
-                }
-              });
-
-              date_status[element_date] =  type_status
-              type_status = {}
-            });
-
-            var center = lat+","+long
-            temp_date = (Object.keys(date_status))
-            temp_date_status = (Object.values(date_status))
-            // // console.log(date_status);
-            // // console.log(temp_date_status);
-            // // console.log(temp_date_status[0]['Report']);
-            // // console.log(temp_date_status[0]['SCQM']);
-
-            this.main_data_asset[element][index]["share_project"] = share_project_status
-            this.main_data_asset[element][index]['site_img'] = site_img
-            this.main_data_asset[element][index]['project_name'] = this.main_data_asset[element][index]['name']
-            this.main_data_asset[element][index]["Date"] = temp_date
-            this.main_data_asset[element][index]["current_date"] = temp_date[0]
-            this.main_data_asset[element][index]["status"] = temp_date_status
-            this.main_data_asset[element][index]["center"] = center
-            this.main_data_asset[element][index]["current_date_status_SCPM"] = temp_date_status[0]['SCPM']
-            this.main_data_asset[element][index]["current_date_status_SCQM"] = temp_date_status[0]['SCQM']
-            // this.main_data_asset[element][index]["report_path"] = temp_date_status
-            this.main_data_asset[element][index]["current_reportpath"] = temp_date_status[0]['Report']
-            date_status = []
-            var temp_date = null
-            var temp_date_status = null
-            var lat: string | null = null
-            var long = null
-            // temp_date_status = []
-            // temp_date_status = []
-            this.project_list_asset.push(this.main_data_asset[element][index])
-
-            // // console.log(this.main_data_asset[element][index])
+      // fetch(environment.api_name + 'api/project/get_all/'+this.user_id+'/?filter={"count":""}', { headers })
+      .then(response => response.json())
+      .then(datavalue => {
+        this.main_data_asset = datavalue['data']
+        // console.log(this.main_data_asset)
+        var site_img = null
+        var date_status = {}
+        var get_date
+        var temp_date
+        var temp_date_status
+        var lat = null
+        var long = null
+        var type_status = {}
+        var asset_key = Object.keys(this.main_data_asset)
+        asset_key.forEach(element => {
+          if (element == "construction") {
+            site_img = '../../../../../assets/images/construction.jpg'
+          } else if (element == "solar") {
+            site_img = '../../../../../assets/images/solar.jpg'
 
           }
-        }
-      });
-      // console.log(this.project_list_asset)
+          if (this.main_data_asset.length > 0) {
+            this.projectcount_catwise_asset = true
+          } else {
+            this.projectcount_catwise_asset = false
+          }
+          if (this.main_data_asset[element].length > 0) {
+
+            for (let index = 0; index < this.main_data_asset[element].length; index++) {
+              // const element = array[index];
+              var demo_project = this.main_data_asset[element][index].name.includes("DEMO")
+              if (demo_project) {
+                var share_project_status = "close"
+                // alert(this.i)
+              } else {
+                var share_project_status = "share"
+
+              }
+              get_date = Object.keys(this.main_data_asset[element][index]['projectdata'])
+              this.main_data_asset[element][index]['projectdata']
+              get_date.forEach(element_date => {
+                var type = Object.keys(this.main_data_asset[element][index]['projectdata'][element_date])
+                type.forEach(element_type => {
+                  // alert(element_type)
+                  type_status[element_type] = this.main_data_asset[element][index]['projectdata'][element_date][element_type]['status']
+                  type_status['Report'] = this.main_data_asset[element][index]['projectdata'][element_date][element_type]['project_properties']['Report']
+                  if (lat == null) {
+                    lat = this.main_data_asset[element][index]['projectdata'][element_date][element_type]['project_properties']['center']['lat']
+                    long = this.main_data_asset[element][index]['projectdata'][element_date][element_type]['project_properties']['center']['lng']
+                    // // console.log(this.main_data_asset[element][index]['projectdata'][element_date][element_type]['project_properties']['center']['lat'])
+
+                  }
+                });
+
+                date_status[element_date] = type_status
+                type_status = {}
+              });
+
+              var center = lat + "," + long
+              temp_date = (Object.keys(date_status))
+              temp_date_status = (Object.values(date_status))
+              // // console.log(date_status);
+              // // console.log(temp_date_status);
+              // // console.log(temp_date_status[0]['Report']);
+              // // console.log(temp_date_status[0]['SCQM']);
+
+              this.main_data_asset[element][index]["share_project"] = share_project_status
+              this.main_data_asset[element][index]['site_img'] = site_img
+              this.main_data_asset[element][index]['project_name'] = this.main_data_asset[element][index]['name']
+              this.main_data_asset[element][index]["Date"] = temp_date
+              this.main_data_asset[element][index]["current_date"] = temp_date[0]
+              this.main_data_asset[element][index]["status"] = temp_date_status
+              this.main_data_asset[element][index]["center"] = center
+              this.main_data_asset[element][index]["current_date_status_SCPM"] = temp_date_status[0]['SCPM']
+              this.main_data_asset[element][index]["current_date_status_SCQM"] = temp_date_status[0]['SCQM']
+              // this.main_data_asset[element][index]["report_path"] = temp_date_status
+              this.main_data_asset[element][index]["current_reportpath"] = temp_date_status[0]['Report']
+              date_status = []
+              var temp_date = null
+              var temp_date_status = null
+              var lat: string | null = null
+              var long = null
+              // temp_date_status = []
+              // temp_date_status = []
+              this.project_list_asset.push(this.main_data_asset[element][index])
+
+              // // console.log(this.main_data_asset[element][index])
+
+            }
+          }
+        });
+        // console.log(this.project_list_asset)
 
 
-      this.project_id_summary_asset = Object.keys(this.main_data_asset)
+        this.project_id_summary_asset = Object.keys(this.main_data_asset)
 
-      this.category_project('topography')
+        this.category_project('topography')
 
 
-    })
+      })
   }
 
   category_project_asset(category: any) {
@@ -334,9 +334,9 @@ export class AllProjectsComponent implements OnInit {
     // console.log(this.main_data[category])
     this.project_list = this.main_data[category]
     // alert(this.main_data[category].length)
-    if(this.main_data[category].length > 0 ){
+    if (this.main_data[category].length > 0) {
       this.projectcount_catwise = true
-    }else{
+    } else {
       this.projectcount_catwise = false
     }
     this.project_list.forEach((element, index) => {
@@ -487,10 +487,10 @@ export class AllProjectsComponent implements OnInit {
     this._http.setChangedCompletedDate({
       dateval: date
     });
-    if(project_type == "carnot"){
+    if (project_type == "carnot") {
       this.router.navigate(['/map'])
 
-    }else{
+    } else {
       this.router.navigate(['/Assetmap'])
 
     }
@@ -598,23 +598,23 @@ export class AllProjectsComponent implements OnInit {
     var Current_date_statusval_SCQM = status.SCQM
     var Current_date_statusval_SCPM = status.SCPM
     var style = "";
-    if (Current_date_statusval_SCPM == 'Incomplete' ) {
+    if (Current_date_statusval_SCPM == 'Incomplete') {
       Current_date_statusSCPM = "Yet to start"
       style = "none";
       colorSCPM = "red"
 
-    }else if (Current_date_statusval_SCPM == 'FTP' || Current_date_statusval_SCPM == 'Orthomosaic') {
+    } else if (Current_date_statusval_SCPM == 'FTP' || Current_date_statusval_SCPM == 'Orthomosaic') {
       Current_date_statusSCPM = "In Progress"
       style = "none"
       colorSCPM = "yellow"
 
-    } else if (Current_date_statusval_SCPM == 'Complete'){
+    } else if (Current_date_statusval_SCPM == 'Complete') {
       Current_date_statusSCPM = "Complete"
       style = "block"
       colorSCPM = "green"
 
     }
-    if(Current_date_statusval_SCQM == 'Incomplete') {
+    if (Current_date_statusval_SCQM == 'Incomplete') {
       Current_date_statusSCQM = "Yet to start"
       style = "none";
       colorSCQM = "red"
@@ -624,10 +624,10 @@ export class AllProjectsComponent implements OnInit {
       style = "none"
       colorSCQM = "yellow"
 
-    } else if(Current_date_statusval_SCQM == 'Complete'){
-        Current_date_statusSCQM = "Complete"
-        style = "block"
-        colorSCQM = "green"
+    } else if (Current_date_statusval_SCQM == 'Complete') {
+      Current_date_statusSCQM = "Complete"
+      style = "block"
+      colorSCQM = "green"
     }
 
     // // // console.log("style", style)
@@ -661,7 +661,7 @@ export class AllProjectsComponent implements OnInit {
 
   }
 
-  selectedUploadPage(current_date, project_id, proj_name,project_type) {
+  selectedUploadPage(current_date, project_id, proj_name, project_type) {
     // alert(project_id)
     localStorage.setItem("project_type", project_type);
     localStorage.setItem("project_id", project_id);

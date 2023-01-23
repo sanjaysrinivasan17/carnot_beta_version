@@ -99,9 +99,19 @@ export class LoginComponent implements OnInit {
 
       },
       (err: HttpErrorResponse) => {
-        // alert("invalid")
-        this.toastr.error("Password Expired. Please set new password.");
-        this.gotoresetpassword()
+        // console.log(err.status);
+        if (err.status == 500) {
+          this.toastr.error("Something went wrong")
+
+        } else if (err.status == 404) {
+          this.toastr.error("Something went wrong")
+        } else if (err.status == 200) {
+          this.toastr.error("Password Expired. Please set new password.")
+          this.gotoresetpassword()
+        }
+
+        // this.toastr.error("Password Expired. Please set new password.");
+        // this.gotoresetpassword()
       });
     }else{
       alert("please authorize captcha")
