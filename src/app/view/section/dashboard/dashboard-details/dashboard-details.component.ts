@@ -493,55 +493,55 @@ add(category){
       var proj_name = all_project_data[index]
       // }
       // all_project_data.forEach(proj_name => {
-      fetch(`${environment.api_name}project/retrieve_project_data/${proj_name}`, {
-        headers,
-        credentials: 'omit',
-      })
-        .then(response => response.json())
-        .then(data => {
+      // fetch(`${environment.api_name}project/retrieve_project_data/${proj_name}`, {
+      //   headers,
+      //   credentials: 'omit',
+      // })
+      //   .then(response => response.json())
+      //   .then(data => {
 
-          this.project_id_summary = Object.keys(data)
-          this.dates = Object.values(data[this.project_id_summary])[2]
-          // // console.log(this.dates);
-          var hotspot = 0
-          var short_circuit = 0
-          var open_circuit = 0
-          var upf_or_pf = 0
-          var pid = 0
-          var key_count = []
-          var count_total = []
-          this.dates.forEach(element => {
-            // if (.length > 0) {
-            for (var k in data[this.project_id_summary][element]['summary_data']) {
-              // // console.log(data[this.project_id_summary][element]['summary_data'][k]['Count']);
-              if (k == 'Hotspot') {
-                var hotspot_key = k
-                hotspot = hotspot + data[this.project_id_summary][element]['summary_data'][k]['Count']
-              } else if (k == "Short Circuit") {
-                var short_circuit_key = k
-                short_circuit = short_circuit + data[this.project_id_summary][element]['summary_data'][k]['Count']
-              } else if (k == "Open Circuit") {
-                var open_circuit_key = k
-                open_circuit = open_circuit + data[this.project_id_summary][element]['summary_data'][k]['Count']
-              } else if (k == "Uniform Panel Heating" || k == "Panel Failure") {
-                var upf_or_pf_key = k
-                upf_or_pf = upf_or_pf + data[this.project_id_summary][element]['summary_data'][k]['Count']
-              } else if (k == "PID") {
-                var pid_key = k
-                pid = pid + data[this.project_id_summary][element]['summary_data'][k]['Count']
-              }
-            }
+      //     this.project_id_summary = Object.keys(data)
+      //     this.dates = Object.values(data[this.project_id_summary])[2]
+      //     // // console.log(this.dates);
+      //     var hotspot = 0
+      //     var short_circuit = 0
+      //     var open_circuit = 0
+      //     var upf_or_pf = 0
+      //     var pid = 0
+      //     var key_count = []
+      //     var count_total = []
+      //     this.dates.forEach(element => {
+      //       // if (.length > 0) {
+      //       for (var k in data[this.project_id_summary][element]['summary_data']) {
+      //         // // console.log(data[this.project_id_summary][element]['summary_data'][k]['Count']);
+      //         if (k == 'Hotspot') {
+      //           var hotspot_key = k
+      //           hotspot = hotspot + data[this.project_id_summary][element]['summary_data'][k]['Count']
+      //         } else if (k == "Short Circuit") {
+      //           var short_circuit_key = k
+      //           short_circuit = short_circuit + data[this.project_id_summary][element]['summary_data'][k]['Count']
+      //         } else if (k == "Open Circuit") {
+      //           var open_circuit_key = k
+      //           open_circuit = open_circuit + data[this.project_id_summary][element]['summary_data'][k]['Count']
+      //         } else if (k == "Uniform Panel Heating" || k == "Panel Failure") {
+      //           var upf_or_pf_key = k
+      //           upf_or_pf = upf_or_pf + data[this.project_id_summary][element]['summary_data'][k]['Count']
+      //         } else if (k == "PID") {
+      //           var pid_key = k
+      //           pid = pid + data[this.project_id_summary][element]['summary_data'][k]['Count']
+      //         }
+      //       }
 
-            count_total = [hotspot, short_circuit, open_circuit, upf_or_pf, pid]
-            key_count = [hotspot_key, short_circuit_key, open_circuit_key, upf_or_pf_key, pid_key]
+      //       count_total = [hotspot, short_circuit, open_circuit, upf_or_pf, pid]
+      //       key_count = [hotspot_key, short_circuit_key, open_circuit_key, upf_or_pf_key, pid_key]
 
-          });
-          // this.Total_count.push({'proj_name':  all_project_data[index], 'key': key_count, 'Count': count_total })
-          this.all_defects_count(all_project_data[index], key_count, count_total, this.items.length, index)
-          count_total = []
-          key_count = []
+      //     });
+      //     // this.Total_count.push({'proj_name':  all_project_data[index], 'key': key_count, 'Count': count_total })
+      //     this.all_defects_count(all_project_data[index], key_count, count_total, this.items.length, index)
+      //     count_total = []
+      //     key_count = []
 
-        })
+      //   })
 
     }
     // // console.log(this.Total_count[0])

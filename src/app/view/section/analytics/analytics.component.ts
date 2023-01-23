@@ -467,545 +467,545 @@ this.Chart_hide_show_revenue = "hide";
             this.total_power_loss = data1['total_power_loss']
           })
 
-        fetch(`${environment.api_name}project/retrieve_project_data/${newName}`, {
-          headers ,
-          credentials: 'omit',
-        })
-          .then(response => response.json())
-          .then(data => {
-            this.main_data = data
-            // // // console.log(this.main_data)
-            // // // console.log("------------------------------------------------------------------------")
-            // alert()
-            this.project_id_summary = Object.keys(data)
-            this.date_summary = Object.values(data[this.project_id_summary])[2]
-            this.new_center = Object.values(data[this.project_id_summary])[6]
-            //  alert(this.new_center)
-            localStorage.setItem("center", this.new_center);
-            this.date_summary_status_key = Object.keys(data[this.project_id_summary]["date_status"])
-            this.date_summary_status_value = Object.values(data[this.project_id_summary]["date_status"])
-            for (var k = 0; k < this.date_summary_status_key.length; k++) {
-              if (this.date_summary_status_value[k] == "completed") {
-                this.Completed_date_array.push(this.date_summary_status_key[k])
-                // alert(this.Completed_date_array)
-              }
-            }
+        // fetch(`${environment.api_name}project/retrieve_project_data/${newName}`, {
+        //   headers ,
+        //   credentials: 'omit',
+        // })
+        //   .then(response => response.json())
+        //   .then(data => {
+        //     this.main_data = data
+        //     // // // console.log(this.main_data)
+        //     // // // console.log("------------------------------------------------------------------------")
+        //     // alert()
+        //     this.project_id_summary = Object.keys(data)
+        //     this.date_summary = Object.values(data[this.project_id_summary])[2]
+        //     this.new_center = Object.values(data[this.project_id_summary])[6]
+        //     //  alert(this.new_center)
+        //     localStorage.setItem("center", this.new_center);
+        //     this.date_summary_status_key = Object.keys(data[this.project_id_summary]["date_status"])
+        //     this.date_summary_status_value = Object.values(data[this.project_id_summary]["date_status"])
+        //     for (var k = 0; k < this.date_summary_status_key.length; k++) {
+        //       if (this.date_summary_status_value[k] == "completed") {
+        //         this.Completed_date_array.push(this.date_summary_status_key[k])
+        //         // alert(this.Completed_date_array)
+        //       }
+        //     }
 
-            this.datesumlength = this.Completed_date_array.length - 1
-            this.getting_date = this.Completed_date_array[this.datesumlength]
-            this.date = this.Completed_date_array[this.datesumlength]
-            var date_local = localStorage.getItem('date')
-            if (date_local == "undefined" || date_local == "" || date_local == null) {
-              if (this.newDatefromAllProjects == "undefined" || this.newDatefromAllProjects == "" || this.newDatefromAllProjects == null) {
-                if (this.SelectedDate == "undefined" || this.SelectedDate == "" || this.SelectedDate == null) {
-                  this.datevalue = this.getting_date
-                  // alert("---map section date ===="+this.datevalue)
+        //     this.datesumlength = this.Completed_date_array.length - 1
+        //     this.getting_date = this.Completed_date_array[this.datesumlength]
+        //     this.date = this.Completed_date_array[this.datesumlength]
+        //     var date_local = localStorage.getItem('date')
+        //     if (date_local == "undefined" || date_local == "" || date_local == null) {
+        //       if (this.newDatefromAllProjects == "undefined" || this.newDatefromAllProjects == "" || this.newDatefromAllProjects == null) {
+        //         if (this.SelectedDate == "undefined" || this.SelectedDate == "" || this.SelectedDate == null) {
+        //           this.datevalue = this.getting_date
+        //           // alert("---map section date ===="+this.datevalue)
 
-                } else if (this.SelectedDate != "undefined" && this.SelectedDate != "" && this.SelectedDate != null) {
-                  this.date = this.ChangedDate.dateval
-                  this.datevalue = this.SelectedDate
-                  // alert("---defaukt date ===="+this.datevalue)
-                }
-              } else if (this.newDatefromAllProjects != "undefined" || this.newDatefromAllProjects != "" || this.newDatefromAllProjects != null) {
-                this.datevalue = this.newDatefromAllProjects
-                this.date = this.newDatefromAllProjects
+        //         } else if (this.SelectedDate != "undefined" && this.SelectedDate != "" && this.SelectedDate != null) {
+        //           this.date = this.ChangedDate.dateval
+        //           this.datevalue = this.SelectedDate
+        //           // alert("---defaukt date ===="+this.datevalue)
+        //         }
+        //       } else if (this.newDatefromAllProjects != "undefined" || this.newDatefromAllProjects != "" || this.newDatefromAllProjects != null) {
+        //         this.datevalue = this.newDatefromAllProjects
+        //         this.date = this.newDatefromAllProjects
 
-              }
-            } else {
-              this.datevalue = date_local
-              this.date = date_local
-            }
-            // alert(this.datevalue)
-            this.project_layer_summary_data = [];
-            this.project_layer_summary_lable = [];
-            this.Hotspot_inv_val = [];
-            this.ShortCircit_inv_val = [];
-            this.Open_Circuit_inv_val = [];
-            this.pannel_inv_val = [];
-            this.Pid_val = [];
-            this.total_count = [];
-            // alert("for wait")
-            // alert(this.Completed_date_array.length)
+        //       }
+        //     } else {
+        //       this.datevalue = date_local
+        //       this.date = date_local
+        //     }
+        //     // alert(this.datevalue)
+        //     this.project_layer_summary_data = [];
+        //     this.project_layer_summary_lable = [];
+        //     this.Hotspot_inv_val = [];
+        //     this.ShortCircit_inv_val = [];
+        //     this.Open_Circuit_inv_val = [];
+        //     this.pannel_inv_val = [];
+        //     this.Pid_val = [];
+        //     this.total_count = [];
+        //     // alert("for wait")
+        //     // alert(this.Completed_date_array.length)
 
-            if (this.Completed_date_array.length == 0) {
-              // alert("empty")
-              var style = "";
-              var style2 = "";
+        //     if (this.Completed_date_array.length == 0) {
+        //       // alert("empty")
+        //       var style = "";
+        //       var style2 = "";
 
-              // this.firstvalue = "n";
-              style = "none";
-              style2 = "block";
-              this.resourcesLoaded = false;
+        //       // this.firstvalue = "n";
+        //       style = "none";
+        //       style2 = "block";
+        //       this.resourcesLoaded = false;
 
-              this.Project_layer_summary_values = 0
+        //       this.Project_layer_summary_values = 0
 
-              // // // console.log(this.firstvalue + "-----" + this.Project_layer_summary_values.length)
-              var formElement = document.getElementById("powerlossNo");
-              formElement.style.display = style;
-              var formElement2 = document.getElementById("powerlossYes");
-              formElement2.style.display = style2;
-              // alert(style)
-
-
-            }
-            // // // console.log(Object.keys(this.main_data[this.project_id_summary][this.datevalue]['summary_data']))
-            localStorage.setItem("date", this.datevalue);
-            this.power_loss_keys = []
-            this.Project_layer_summary = Object.keys(this.main_data[this.project_id_summary][this.datevalue]['summary_data'])
-            this.Project_layer_summary_values = Object.values(this.main_data[this.project_id_summary][this.datevalue]['summary_data'])
-            this.Project_layer_inverter_data = Object.keys(this.main_data[this.project_id_summary][this.datevalue]['inverter_data'])
-            this.Project_layer_inverter_data_values = Object.values(this.main_data[this.project_id_summary][this.datevalue]['inverter_data'])
-            this.health_history = Object.values(this.main_data[this.project_id_summary][this.datevalue]['health_history'])
-            this.health_history_key_data = Object.keys(this.main_data[this.project_id_summary][this.datevalue]['health_history'])
-            this.power_loss_keys = Object.keys(this.main_data[this.project_id_summary][this.datevalue]['power_loss'])
-            this.power_loss_values = Object.values(this.main_data[this.project_id_summary][this.datevalue]['power_loss'])
-            this.power_loss_values_energy = Object.values(this.main_data[this.project_id_summary][this.datevalue]['power_loss'])
-            this.power_loss_values_revenue = Object.values(this.main_data[this.project_id_summary][this.datevalue]['power_loss'])
-            this.plant_capacity_datewise = (this.main_data[this.project_id_summary]['plant_capacity'])
-            this.total_power_loss_datewise = (this.main_data[this.project_id_summary][this.datevalue]['total_power_loss'])
-            this.total_no_defects_datewise = (this.main_data[this.project_id_summary][this.datevalue]['total_no_defects'])
-            this.total_module_count = (this.main_data[this.project_id_summary][this.datevalue]['total_modules_present'])
-            // alert(this.total_module_count)
-            // // // console.log(this.power_loss_keys)
-            // alert(this.power_loss_values)
-            // // // console.log("------------------------------------------------------------------------"+this.datevalue)
-            // alert('-'+Object.keys(this.main_data[this.project_id_summary][this.datevalue]['power_loss'])+'-')
-
-            this.current_year = this.datevalue
-            this.health_history_data = []
-            this.total_power_loss_dates = []
-            this.total_no_defects_dates = []
-            this.defects_dates = []
-            var Total_power_loss = 0
-            var power_loss_merics = 0
-            this.Total_power_loss_percenntage = []
-            var new_defects = null;
-            this.module_count_defectwise_key = [];
-            this.module_count_defectwise_value = [];
-            for (var v = 0; v < this.health_history_key_data.length; v++) {
-              var modulecount_defectwise = ((this.health_history[v] / this.total_module_count) * 1000000).toFixed(2)
-              this.module_count_defectwise_value.push(modulecount_defectwise)
-              // // console.log(this.module_count_defectwise_value + "--------" + this.health_history[v])
-            }
-            for (var p = 0; p < this.date_summary_status_key.length; p++) {
-              const d = new Date(this.current_year);
-              const array_date = new Date(this.date_summary_status_key[p]);
-              let year = d.getFullYear();
-              let year_array_date = array_date.getFullYear();
-              if (year_array_date <= year) {
-                // alert(year+"----------"+year_array_date)
-                this.health_history = Object.values(this.main_data[this.project_id_summary][this.date_summary_status_key[p]]['health_history'])
-                this.total_power_loss_dates.push(this.main_data[this.project_id_summary][this.date_summary_status_key[p]]['total_power_loss'])
-                new_defects = this.main_data[this.project_id_summary][this.date_summary_status_key[p]]['total_no_defects']
-                if (new_defects != 0) {
-                  this.total_no_defects_dates.push(new_defects)
-                  this.defects_dates.push([this.date_summary_status_key[p]])
-                }
-                this.health_history_keys = Object.keys(this.main_data[this.project_id_summary][this.datevalue]['health_history'])
-
-                this.health_history_data.push({ "name": this.date_summary_status_key, "data": this.health_history })
-              }
+        //       // // // console.log(this.firstvalue + "-----" + this.Project_layer_summary_values.length)
+        //       var formElement = document.getElementById("powerlossNo");
+        //       formElement.style.display = style;
+        //       var formElement2 = document.getElementById("powerlossYes");
+        //       formElement2.style.display = style2;
+        //       // alert(style)
 
 
-            }
-            this.health_history_keys = Object.keys(this.main_data[this.project_id_summary][this.datevalue]['health_history'])
+        //     }
+        //     // // // console.log(Object.keys(this.main_data[this.project_id_summary][this.datevalue]['summary_data']))
+        //     localStorage.setItem("date", this.datevalue);
+        //     this.power_loss_keys = []
+        //     this.Project_layer_summary = Object.keys(this.main_data[this.project_id_summary][this.datevalue]['summary_data'])
+        //     this.Project_layer_summary_values = Object.values(this.main_data[this.project_id_summary][this.datevalue]['summary_data'])
+        //     this.Project_layer_inverter_data = Object.keys(this.main_data[this.project_id_summary][this.datevalue]['inverter_data'])
+        //     this.Project_layer_inverter_data_values = Object.values(this.main_data[this.project_id_summary][this.datevalue]['inverter_data'])
+        //     this.health_history = Object.values(this.main_data[this.project_id_summary][this.datevalue]['health_history'])
+        //     this.health_history_key_data = Object.keys(this.main_data[this.project_id_summary][this.datevalue]['health_history'])
+        //     this.power_loss_keys = Object.keys(this.main_data[this.project_id_summary][this.datevalue]['power_loss'])
+        //     this.power_loss_values = Object.values(this.main_data[this.project_id_summary][this.datevalue]['power_loss'])
+        //     this.power_loss_values_energy = Object.values(this.main_data[this.project_id_summary][this.datevalue]['power_loss'])
+        //     this.power_loss_values_revenue = Object.values(this.main_data[this.project_id_summary][this.datevalue]['power_loss'])
+        //     this.plant_capacity_datewise = (this.main_data[this.project_id_summary]['plant_capacity'])
+        //     this.total_power_loss_datewise = (this.main_data[this.project_id_summary][this.datevalue]['total_power_loss'])
+        //     this.total_no_defects_datewise = (this.main_data[this.project_id_summary][this.datevalue]['total_no_defects'])
+        //     this.total_module_count = (this.main_data[this.project_id_summary][this.datevalue]['total_modules_present'])
+        //     // alert(this.total_module_count)
+        //     // // // console.log(this.power_loss_keys)
+        //     // alert(this.power_loss_values)
+        //     // // // console.log("------------------------------------------------------------------------"+this.datevalue)
+        //     // alert('-'+Object.keys(this.main_data[this.project_id_summary][this.datevalue]['power_loss'])+'-')
 
-            this.summary_data_values = []
-            this.summary_color = [];
+        //     this.current_year = this.datevalue
+        //     this.health_history_data = []
+        //     this.total_power_loss_dates = []
+        //     this.total_no_defects_dates = []
+        //     this.defects_dates = []
+        //     var Total_power_loss = 0
+        //     var power_loss_merics = 0
+        //     this.Total_power_loss_percenntage = []
+        //     var new_defects = null;
+        //     this.module_count_defectwise_key = [];
+        //     this.module_count_defectwise_value = [];
+        //     for (var v = 0; v < this.health_history_key_data.length; v++) {
+        //       var modulecount_defectwise = ((this.health_history[v] / this.total_module_count) * 1000000).toFixed(2)
+        //       this.module_count_defectwise_value.push(modulecount_defectwise)
+        //       // // console.log(this.module_count_defectwise_value + "--------" + this.health_history[v])
+        //     }
+        //     for (var p = 0; p < this.date_summary_status_key.length; p++) {
+        //       const d = new Date(this.current_year);
+        //       const array_date = new Date(this.date_summary_status_key[p]);
+        //       let year = d.getFullYear();
+        //       let year_array_date = array_date.getFullYear();
+        //       if (year_array_date <= year) {
+        //         // alert(year+"----------"+year_array_date)
+        //         this.health_history = Object.values(this.main_data[this.project_id_summary][this.date_summary_status_key[p]]['health_history'])
+        //         this.total_power_loss_dates.push(this.main_data[this.project_id_summary][this.date_summary_status_key[p]]['total_power_loss'])
+        //         new_defects = this.main_data[this.project_id_summary][this.date_summary_status_key[p]]['total_no_defects']
+        //         if (new_defects != 0) {
+        //           this.total_no_defects_dates.push(new_defects)
+        //           this.defects_dates.push([this.date_summary_status_key[p]])
+        //         }
+        //         this.health_history_keys = Object.keys(this.main_data[this.project_id_summary][this.datevalue]['health_history'])
 
-            for (var i = 0; i < this.Project_layer_summary.length; i++) {
-
-              this.summary_data_values.push(this.Project_layer_summary_values[i]['Count'])
-
-              // // console.log("----------" + this.summary_data_values)
-              this.project_layer_summary_data.push(this.Project_layer_summary_values[i]['Count'])
-              this.project_layer_summary_lable.push(this.Project_layer_summary[i])
-              this.summary_color.push(colourNameToHex(this.Project_layer_summary_values[i]["color"]))
-
-              //   // // console.log("----data----"+this.Project_layer_summary_values[i]['Count'])
-              //   // // console.log("----lable----"+this.Project_layer_summary[i])
-            }
-            // // // console.log("=====ytehdn======"+this.project_layer_summary_lable)
-            this.ana_def_def = this.project_layer_summary_lable[0]
-            this.ana_def_cou = this.project_layer_summary_data[0]
-            // alert("----thisana_def_def--"+this.ana_def_def)
-
-            for (var i = 0; i < this.Project_layer_inverter_data.length; i++) {
-              // alert(this.Project_layer_inverter_data[i]+"-----"+this.Project_layer_inverter_data_values[i]['Hotspot']['count'])
-
-              this.Hotspot_inv_val.push(this.Project_layer_inverter_data_values[i][this.Project_layer_summary[0]]['count'])
-              this.ShortCircit_inv_val.push(this.Project_layer_inverter_data_values[i][this.Project_layer_summary[1]]['count'])
-              this.Open_Circuit_inv_val.push(this.Project_layer_inverter_data_values[i][this.Project_layer_summary[2]]['count'])
-              this.pannel_inv_val.push(this.Project_layer_inverter_data_values[i][this.Project_layer_summary[3]]['count'])
-              this.Pid_val.push(this.Project_layer_inverter_data_values[i][this.Project_layer_summary[4]]['count'])
-              this.inver_wise_lable.push(this.Project_layer_inverter_data[i])
-              // // // console.log(this.datevalue+"====="+[i]+"====="+this.Project_layer_inverter_data_values[i]['Hotspot']['count']+"---"+this.Project_layer_inverter_data_values[0]['Short Circuit']['count']+"===="+this.Project_layer_inverter_data_values[i]['Open Circuit']['count']+"-----"+this.Project_layer_inverter_data_values[i]['Panel Failure']['count']+"====="+this.Project_layer_inverter_data_values[i]['PID']['count']) colourNameToHex(
-              this.inver_wise_def_lable = this.inver_wise_lable[0]
-              this.inver_wise_def_hot = this.Project_layer_inverter_data_values[0][this.Project_layer_summary[0]]['count']
-              this.inver_wise_def_sc = this.Project_layer_inverter_data_values[0][this.Project_layer_summary[1]]['count']
-              this.inver_wise_def_os = this.Project_layer_inverter_data_values[0][this.Project_layer_summary[2]]['count']
-              this.inver_wise_def_pf = this.Project_layer_inverter_data_values[0][this.Project_layer_summary[3]]['count']
-              this.inver_wise_def_pid = this.Project_layer_inverter_data_values[0][this.Project_layer_summary[4]]['count']
-
-
-            }
-
-            power_loss_merics = this.total_power_loss_datewise;
-            // alert(this.total_power_loss_datewise)
-            for (var n = 0; n < this.Project_layer_inverter_data.length; n++) {
-
-              this.total_count.push(+this.Hotspot_inv_val[n] + +this.ShortCircit_inv_val[n] + +this.Open_Circuit_inv_val[n] + +this.pannel_inv_val[n] + +this.Pid_val[n])
-            }
-            for (var z = 0; z < this.power_loss_keys.length; z++) {
-              // alert(this.power_loss_values[z])
-              Total_power_loss = Total_power_loss + this.power_loss_values[z]
-            }
-            // alert(Total_power_loss)
-            var powerloss_data = [];
-            var powerloss_key = [];
-            for (var z = 0; z < this.power_loss_keys.length; z++) {
-              // alert(this.power_loss_values[z])
-              var percentage_calc = (this.power_loss_values[z] / Total_power_loss)
-              var n_percentage_calc = parseFloat((Math.round(this.total_power_loss_datewise * percentage_calc * 100) / 100).toFixed(2));
-
-              this.Total_power_loss_percenntage.push(n_percentage_calc)
-              // alert(this.power_loss_values[z])
-              powerloss_key.push(this.power_loss_keys[z])
-              powerloss_data.push(this.power_loss_values[z])
-            }
-            const graph_data = {
-              "summary": [
-                { "hotspot": this.summary_data_values[0], "shortcircuit": this.summary_data_values[1], "opencircuit": this.summary_data_values[2], "pannelfaluer": this.summary_data_values[3], "pid": this.summary_data_values[4] }
-              ],
-              "Inverter": [
-                { "INV1": this.total_count[0], "INV2": this.total_count[1], "INV3": this.total_count[2], "INV4": this.total_count[3], "INV5": this.total_count[4], "INV6": this.total_count[5], "INV7": this.total_count[6], "INV8": this.total_count[7], "INV9": this.total_count[8] }
-              ],
-              "Inverter_label": [
-                {
-                  "label1": this.Project_layer_inverter_data[0], "label2": this.Project_layer_inverter_data[1], "label3": this.Project_layer_inverter_data[2], "label4": this.Project_layer_inverter_data[3], "label5": this.Project_layer_inverter_data[4], "label6": this.Project_layer_inverter_data[5], "label7": this.Project_layer_inverter_data[6], "label8": this.Project_layer_inverter_data[7], "label9": this.Project_layer_inverter_data[8]
-                }
-              ],
-              "power_loss_keys": [{ "keys0": this.power_loss_keys[0], "keys1": this.power_loss_keys[1], "keys2": this.power_loss_keys[2], "keys3": this.power_loss_keys[3], "keys4": this.power_loss_keys[4], "keys5": this.power_loss_keys[5], "keys6": this.power_loss_keys[6], "keys7": this.power_loss_keys[7] }],
-              "power_loss_values": [{ "values0": this.power_loss_values[0], "values1": this.power_loss_values[1], "values2": this.power_loss_values[2], "values3": this.power_loss_values[3], "values4": this.power_loss_values[4], "values5": this.power_loss_values[5], "values6": this.power_loss_values[6], "values7": this.power_loss_values[7] }]
-            }
-            // // console.log(graph_data)
-            function colourNameToHex(colour) {
-              var colours = {
-                "aliceblue": "#f0f8ff", "antiquewhite": "#faebd7", "aqua": "#00ffff", "aquamarine": "#7fffd4", "azure": "#f0ffff",
-                "beige": "#f5f5dc", "bisque": "#ffe4c4", "black": "#000000", "blanchedalmond": "#ffebcd", "blue": "#0000ff", "blueviolet": "#8a2be2", "brown": "#a52a2a", "burlywood": "#deb887",
-                "cadetblue": "#5f9ea0", "chartreuse": "#7fff00", "chocolate": "#d2691e", "coral": "#ff7f50", "cornflowerblue": "#6495ed", "cornsilk": "#fff8dc", "crimson": "#dc143c", "cyan": "#00ffff",
-                "darkblue": "#00008b", "darkcyan": "#008b8b", "darkgoldenrod": "#b8860b", "darkgray": "#a9a9a9", "darkgreen": "#006400", "darkkhaki": "#bdb76b", "darkmagenta": "#8b008b", "darkolivegreen": "#556b2f",
-                "darkorange": "#ff8c00", "darkorchid": "#9932cc", "darkred": "#8b0000", "darksalmon": "#e9967a", "darkseagreen": "#8fbc8f", "darkslateblue": "#483d8b", "darkslategray": "#2f4f4f", "darkturquoise": "#00ced1",
-                "darkviolet": "#9400d3", "deeppink": "#ff1493", "deepskyblue": "#00bfff", "dimgray": "#696969", "dodgerblue": "#1e90ff",
-                "firebrick": "#b22222", "floralwhite": "#fffaf0", "forestgreen": "#228b22", "fuchsia": "#ff00ff",
-                "gainsboro": "#dcdcdc", "ghostwhite": "#f8f8ff", "gold": "#ffd700", "goldenrod": "#daa520", "gray": "#808080", "green": "#008000", "greenyellow": "#adff2f",
-                "honeydew": "#f0fff0", "hotpink": "#ff69b4",
-                "indianred ": "#cd5c5c", "indigo": "#4b0082", "ivory": "#fffff0", "khaki": "#f0e68c",
-                "lavender": "#e6e6fa", "lavenderblush": "#fff0f5", "lawngreen": "#7cfc00", "lemonchiffon": "#fffacd", "lightblue": "#add8e6", "lightcoral": "#f08080", "lightcyan": "#e0ffff", "lightgoldenrodyellow": "#fafad2",
-                "lightgrey": "#d3d3d3", "lightgreen": "#90ee90", "lightpink": "#ffb6c1", "lightsalmon": "#ffa07a", "lightseagreen": "#20b2aa", "lightskyblue": "#87cefa", "lightslategray": "#778899", "lightsteelblue": "#b0c4de",
-                "lightyellow": "#ffffe0", "lime": "#00ff00", "limegreen": "#32cd32", "linen": "#faf0e6",
-                "magenta": "#ff00ff", "maroon": "#800000", "mediumaquamarine": "#66cdaa", "mediumblue": "#0000cd", "mediumorchid": "#ba55d3", "mediumpurple": "#9370d8", "mediumseagreen": "#3cb371", "mediumslateblue": "#7b68ee",
-                "mediumspringgreen": "#00fa9a", "mediumturquoise": "#48d1cc", "mediumvioletred": "#c71585", "midnightblue": "#191970", "mintcream": "#f5fffa", "mistyrose": "#ffe4e1", "moccasin": "#ffe4b5",
-                "navajowhite": "#ffdead", "navy": "#000080",
-                "oldlace": "#fdf5e6", "olive": "#808000", "olivedrab": "#6b8e23", "orange": "#ffa500", "orangered": "#ff4500", "orchid": "#da70d6",
-                "palegoldenrod": "#eee8aa", "palegreen": "#98fb98", "paleturquoise": "#afeeee", "palevioletred": "#d87093", "papayawhip": "#ffefd5", "peachpuff": "#ffdab9", "peru": "#cd853f", "pink": "#ffc0cb", "plum": "#dda0dd", "powderblue": "#b0e0e6", "purple": "#800080",
-                "rebeccapurple": "#663399", "red": "#ff0000", "rosybrown": "#bc8f8f", "royalblue": "#4169e1",
-                "saddlebrown": "#8b4513", "salmon": "#fa8072", "sandybrown": "#f4a460", "seagreen": "#2e8b57", "seashell": "#fff5ee", "sienna": "#a0522d", "silver": "#c0c0c0", "skyblue": "#87ceeb", "slateblue": "#6a5acd", "slategray": "#708090", "snow": "#fffafa", "springgreen": "#00ff7f", "steelblue": "#4682b4",
-                "tan": "#d2b48c", "teal": "#008080", "thistle": "#d8bfd8", "tomato": "#ff6347", "turquoise": "#40e0d0",
-                "violet": "#ee82ee",
-                "wheat": "#f5deb3", "white": "#ffffff", "whitesmoke": "#f5f5f5",
-                "yellow": "#ffff00", "yellowgreen": "#9acd32"
-              };
-
-              if (typeof colours[colour.toLowerCase()] != 'undefined')
-                return colours[colour.toLowerCase()]
-              //  this.summary_color.push(color_value);
-
-              return false;
-            }
+        //         this.health_history_data.push({ "name": this.date_summary_status_key, "data": this.health_history })
+        //       }
 
 
-            // const graph_data = {
-            //       "summary": [
-            //         { "hotspot": 32, "shortcircuit": 43, "opencircuit": 98, "pannelfaluer": 65, "pid": 21 }
-            //       ],
-            //       "Inverter": [
-            //         { "INV1": 90, "INV2": 43, "INV5": 34, "INV6": 78, "inv4": 98, "inv5": 98, "inv52": 98, "INV61": 90, "INV662": 43, "INV65": 34 }
-            //       ]
-            //     }
+        //     }
+        //     this.health_history_keys = Object.keys(this.main_data[this.project_id_summary][this.datevalue]['health_history'])
 
-            this.summary_def_def = this.power_loss_keys[0]
-            this.summary_def_cou = (this.power_loss_values[0] / 1000).toFixed(1)
-            this.inverter_def_def = Object.values(graph_data['Inverter_label'][0])[0]
-            this.inverter_def_cou = Object.values(graph_data['Inverter'][0])[0]
+        //     this.summary_data_values = []
+        //     this.summary_color = [];
 
+        //     for (var i = 0; i < this.Project_layer_summary.length; i++) {
 
-            // // // console.log(this.inverter_def_def + "-----" + this.inverter_def_cou)
-            this.resourcesLoaded = false;
-            // Object.keys(this.main_data[this.project_id_summary][this.datevalue]['inverter_data'])
-            // // // console.log(Object.values(this.Project_layer_summary))
-            // // // console.log("----------------------------------------------------------------------------------")
-            this.chartOptions1 = {
-              series: this.power_loss_values,
-              chart: {
-                width: "100%",
-                height: 330,
-                type: "pie",
-                events: {
-                  dataPointSelection: function (event, chartContext, config) {
-                    const lin = ['../../../../assets/images/defects/Hotspot.png', '../../../../assets/images/defects/Short_Circuit.png', '../../../../assets/images/defects/Open_circuit.png', '../../../../assets/images/defects/Panel_Failure.png', '../../../../assets/images/defects/Bypass_Diode_Failure.png', '../../../../assets/images/defects/Dirt_Vegetation.png', '../../../../assets/images/defects/Open_String_Table.png', '../../../../assets/images/defects/Multicell_Hotspot.png', '../../../../assets/images/defects/PID.png']
+        //       this.summary_data_values.push(this.Project_layer_summary_values[i]['Count'])
 
-                    this.selector = config['dataPointIndex'];
-                    document.getElementById('summary_def').innerHTML = `<p>` + powerloss_key[this.selector]; + `<p>`
-                    document.getElementById('summary_cou').innerHTML = `<p>` + (powerloss_data[this.selector] / 1000).toFixed(1); + `<p>`
-                    // // // console.log(lin[0])
-                    document.getElementById('summary_im').innerHTML = ` <img src='` + lin[this.selector] + `' width="100%">`
-                  }
-                },
+        //       // // console.log("----------" + this.summary_data_values)
+        //       this.project_layer_summary_data.push(this.Project_layer_summary_values[i]['Count'])
+        //       this.project_layer_summary_lable.push(this.Project_layer_summary[i])
+        //       this.summary_color.push(colourNameToHex(this.Project_layer_summary_values[i]["color"]))
 
+        //       //   // // console.log("----data----"+this.Project_layer_summary_values[i]['Count'])
+        //       //   // // console.log("----lable----"+this.Project_layer_summary[i])
+        //     }
+        //     // // // console.log("=====ytehdn======"+this.project_layer_summary_lable)
+        //     this.ana_def_def = this.project_layer_summary_lable[0]
+        //     this.ana_def_cou = this.project_layer_summary_data[0]
+        //     // alert("----thisana_def_def--"+this.ana_def_def)
 
+        //     for (var i = 0; i < this.Project_layer_inverter_data.length; i++) {
+        //       // alert(this.Project_layer_inverter_data[i]+"-----"+this.Project_layer_inverter_data_values[i]['Hotspot']['count'])
 
-
-              },
+        //       this.Hotspot_inv_val.push(this.Project_layer_inverter_data_values[i][this.Project_layer_summary[0]]['count'])
+        //       this.ShortCircit_inv_val.push(this.Project_layer_inverter_data_values[i][this.Project_layer_summary[1]]['count'])
+        //       this.Open_Circuit_inv_val.push(this.Project_layer_inverter_data_values[i][this.Project_layer_summary[2]]['count'])
+        //       this.pannel_inv_val.push(this.Project_layer_inverter_data_values[i][this.Project_layer_summary[3]]['count'])
+        //       this.Pid_val.push(this.Project_layer_inverter_data_values[i][this.Project_layer_summary[4]]['count'])
+        //       this.inver_wise_lable.push(this.Project_layer_inverter_data[i])
+        //       // // // console.log(this.datevalue+"====="+[i]+"====="+this.Project_layer_inverter_data_values[i]['Hotspot']['count']+"---"+this.Project_layer_inverter_data_values[0]['Short Circuit']['count']+"===="+this.Project_layer_inverter_data_values[i]['Open Circuit']['count']+"-----"+this.Project_layer_inverter_data_values[i]['Panel Failure']['count']+"====="+this.Project_layer_inverter_data_values[i]['PID']['count']) colourNameToHex(
+        //       this.inver_wise_def_lable = this.inver_wise_lable[0]
+        //       this.inver_wise_def_hot = this.Project_layer_inverter_data_values[0][this.Project_layer_summary[0]]['count']
+        //       this.inver_wise_def_sc = this.Project_layer_inverter_data_values[0][this.Project_layer_summary[1]]['count']
+        //       this.inver_wise_def_os = this.Project_layer_inverter_data_values[0][this.Project_layer_summary[2]]['count']
+        //       this.inver_wise_def_pf = this.Project_layer_inverter_data_values[0][this.Project_layer_summary[3]]['count']
+        //       this.inver_wise_def_pid = this.Project_layer_inverter_data_values[0][this.Project_layer_summary[4]]['count']
 
 
-              colors: ["#339933", "#1be461", "#ef6c00", "#ffd54f", "#ffa64f", "#17a2b8", "#6f42c1", "#a78bda", "#117888", "#17a2b8", "#28a745"],
-              labels: this.power_loss_keys,
-              theme: {
-                monochrome: {
-                  enabled: false
-                }
-              },
-              tooltip: {
-                enabled: true,
-                enabledOnSeries: undefined,
-                shared: true,
-                followCursor: false,
-                intersect: false,
-                inverseOrder: false,
-                custom: undefined,
-                fillSeriesColor: false,
+        //     }
 
-                style: {
-                  fontSize: '12px',
-                  fontFamily: "'Montserrat', Helvetica, sans-serif"
-                },
-                onDatasetHover: {
-                  highlightDataSeries: false,
-                },
-                y: {
-                  formatter: function (val) {
-                    return (val / 1000).toFixed(1) + " kW";
-                  }
-                },
-              },
-              title: {
-                text: ""
-              },
-              dataLabels: {
-                enabled: true,
-                enabledOnSeries: undefined,
-                // formatter: function (val) {
-                //   // return val.toFixed(1) + " kW";
-                //   return (parseFloat(((val * power_loss_merics) / 100).toFixed(1))) + " kW";
-                // },
-                textAnchor: 'middle',
-                distributed: false,
-                offsetX: 0,
-                offsetY: 0,
-                style: {
-                  fontSize: '14px',
-                  fontFamily: "'Montserrat', Helvetica, sans-serif",
-                  fontWeight: 'bold',
-                  colors: undefined
-                },
-                background: {
-                  enabled: true,
-                  foreColor: '#000',
-                  padding: 4,
-                  borderRadius: 2,
-                  borderWidth: 1,
-                  borderColor: '#fff',
-                  opacity: 0.9,
-                  dropShadow: {
-                    enabled: false,
-                    top: 1,
-                    left: 1,
-                    blur: 1,
-                    color: '#000',
-                    opacity: 0.45
-                  }
-                },
-                dropShadow: {
-                  enabled: false,
-                  top: 1,
-                  left: 1,
-                  blur: 1,
-                  color: '#000',
-                  opacity: 0.45
-                }
-                // offset: 0,
-                // minAngleToShowLabel: 10
-              },
-              legend: {
-                show: true,
-                showForSingleSeries: false,
-                showForNullSeries: true,
-                fontFamily: "'Montserrat', Helvetica, sans-serif",
-                showForZeroSeries: true,
-                position: 'bottom'
-              },
-              responsive: [
-                {
-                  breakpoint: 480,
-                  options: {
-                    chart: {
-                      width: 250,
-                      height: 200
-                    },
-                    plotOptions: {
-                      pie: {
-                        startAngle: 0,
-                        endAngle: 360,
-                        expandOnClick: true,
-                        offsetX: 50,
-                        offsetY: 50,
-                        customScale: 1,
-                        dataLabels: {
-                          offset: 100,
-                          minAngleToShowLabel: 10
-                        }
-                      },
-                    },
-                    legend: {
-                      position: 'bottom'
-                    }
-                  }
-                }
+        //     power_loss_merics = this.total_power_loss_datewise;
+        //     // alert(this.total_power_loss_datewise)
+        //     for (var n = 0; n < this.Project_layer_inverter_data.length; n++) {
 
-              ]
-            };
-            this.chartOptions4s = {
-              series: this.Total_power_loss_percenntage,
-              chart: {
-                type: "donut",
-                height: 350,
-              },
+        //       this.total_count.push(+this.Hotspot_inv_val[n] + +this.ShortCircit_inv_val[n] + +this.Open_Circuit_inv_val[n] + +this.pannel_inv_val[n] + +this.Pid_val[n])
+        //     }
+        //     for (var z = 0; z < this.power_loss_keys.length; z++) {
+        //       // alert(this.power_loss_values[z])
+        //       Total_power_loss = Total_power_loss + this.power_loss_values[z]
+        //     }
+        //     // alert(Total_power_loss)
+        //     var powerloss_data = [];
+        //     var powerloss_key = [];
+        //     for (var z = 0; z < this.power_loss_keys.length; z++) {
+        //       // alert(this.power_loss_values[z])
+        //       var percentage_calc = (this.power_loss_values[z] / Total_power_loss)
+        //       var n_percentage_calc = parseFloat((Math.round(this.total_power_loss_datewise * percentage_calc * 100) / 100).toFixed(2));
 
-              colors: ["#339933", "#1be461", "#ef6c00", "#ffd54f", "#ffa64f", "#17a2b8", "#6f42c1", "#a78bda", "#117888", "#17a2b8", "#28a745"],
-              labels: this.power_loss_keys,
-              legend: {
-                show: true,
-                showForSingleSeries: false,
-                showForNullSeries: true,
-                showForZeroSeries: true,
-                fontFamily: "'Montserrat', Helvetica, sans-serif",
-                position: 'bottom'
-              },
+        //       this.Total_power_loss_percenntage.push(n_percentage_calc)
+        //       // alert(this.power_loss_values[z])
+        //       powerloss_key.push(this.power_loss_keys[z])
+        //       powerloss_data.push(this.power_loss_values[z])
+        //     }
+        //     const graph_data = {
+        //       "summary": [
+        //         { "hotspot": this.summary_data_values[0], "shortcircuit": this.summary_data_values[1], "opencircuit": this.summary_data_values[2], "pannelfaluer": this.summary_data_values[3], "pid": this.summary_data_values[4] }
+        //       ],
+        //       "Inverter": [
+        //         { "INV1": this.total_count[0], "INV2": this.total_count[1], "INV3": this.total_count[2], "INV4": this.total_count[3], "INV5": this.total_count[4], "INV6": this.total_count[5], "INV7": this.total_count[6], "INV8": this.total_count[7], "INV9": this.total_count[8] }
+        //       ],
+        //       "Inverter_label": [
+        //         {
+        //           "label1": this.Project_layer_inverter_data[0], "label2": this.Project_layer_inverter_data[1], "label3": this.Project_layer_inverter_data[2], "label4": this.Project_layer_inverter_data[3], "label5": this.Project_layer_inverter_data[4], "label6": this.Project_layer_inverter_data[5], "label7": this.Project_layer_inverter_data[6], "label8": this.Project_layer_inverter_data[7], "label9": this.Project_layer_inverter_data[8]
+        //         }
+        //       ],
+        //       "power_loss_keys": [{ "keys0": this.power_loss_keys[0], "keys1": this.power_loss_keys[1], "keys2": this.power_loss_keys[2], "keys3": this.power_loss_keys[3], "keys4": this.power_loss_keys[4], "keys5": this.power_loss_keys[5], "keys6": this.power_loss_keys[6], "keys7": this.power_loss_keys[7] }],
+        //       "power_loss_values": [{ "values0": this.power_loss_values[0], "values1": this.power_loss_values[1], "values2": this.power_loss_values[2], "values3": this.power_loss_values[3], "values4": this.power_loss_values[4], "values5": this.power_loss_values[5], "values6": this.power_loss_values[6], "values7": this.power_loss_values[7] }]
+        //     }
+        //     // // console.log(graph_data)
+        //     function colourNameToHex(colour) {
+        //       var colours = {
+        //         "aliceblue": "#f0f8ff", "antiquewhite": "#faebd7", "aqua": "#00ffff", "aquamarine": "#7fffd4", "azure": "#f0ffff",
+        //         "beige": "#f5f5dc", "bisque": "#ffe4c4", "black": "#000000", "blanchedalmond": "#ffebcd", "blue": "#0000ff", "blueviolet": "#8a2be2", "brown": "#a52a2a", "burlywood": "#deb887",
+        //         "cadetblue": "#5f9ea0", "chartreuse": "#7fff00", "chocolate": "#d2691e", "coral": "#ff7f50", "cornflowerblue": "#6495ed", "cornsilk": "#fff8dc", "crimson": "#dc143c", "cyan": "#00ffff",
+        //         "darkblue": "#00008b", "darkcyan": "#008b8b", "darkgoldenrod": "#b8860b", "darkgray": "#a9a9a9", "darkgreen": "#006400", "darkkhaki": "#bdb76b", "darkmagenta": "#8b008b", "darkolivegreen": "#556b2f",
+        //         "darkorange": "#ff8c00", "darkorchid": "#9932cc", "darkred": "#8b0000", "darksalmon": "#e9967a", "darkseagreen": "#8fbc8f", "darkslateblue": "#483d8b", "darkslategray": "#2f4f4f", "darkturquoise": "#00ced1",
+        //         "darkviolet": "#9400d3", "deeppink": "#ff1493", "deepskyblue": "#00bfff", "dimgray": "#696969", "dodgerblue": "#1e90ff",
+        //         "firebrick": "#b22222", "floralwhite": "#fffaf0", "forestgreen": "#228b22", "fuchsia": "#ff00ff",
+        //         "gainsboro": "#dcdcdc", "ghostwhite": "#f8f8ff", "gold": "#ffd700", "goldenrod": "#daa520", "gray": "#808080", "green": "#008000", "greenyellow": "#adff2f",
+        //         "honeydew": "#f0fff0", "hotpink": "#ff69b4",
+        //         "indianred ": "#cd5c5c", "indigo": "#4b0082", "ivory": "#fffff0", "khaki": "#f0e68c",
+        //         "lavender": "#e6e6fa", "lavenderblush": "#fff0f5", "lawngreen": "#7cfc00", "lemonchiffon": "#fffacd", "lightblue": "#add8e6", "lightcoral": "#f08080", "lightcyan": "#e0ffff", "lightgoldenrodyellow": "#fafad2",
+        //         "lightgrey": "#d3d3d3", "lightgreen": "#90ee90", "lightpink": "#ffb6c1", "lightsalmon": "#ffa07a", "lightseagreen": "#20b2aa", "lightskyblue": "#87cefa", "lightslategray": "#778899", "lightsteelblue": "#b0c4de",
+        //         "lightyellow": "#ffffe0", "lime": "#00ff00", "limegreen": "#32cd32", "linen": "#faf0e6",
+        //         "magenta": "#ff00ff", "maroon": "#800000", "mediumaquamarine": "#66cdaa", "mediumblue": "#0000cd", "mediumorchid": "#ba55d3", "mediumpurple": "#9370d8", "mediumseagreen": "#3cb371", "mediumslateblue": "#7b68ee",
+        //         "mediumspringgreen": "#00fa9a", "mediumturquoise": "#48d1cc", "mediumvioletred": "#c71585", "midnightblue": "#191970", "mintcream": "#f5fffa", "mistyrose": "#ffe4e1", "moccasin": "#ffe4b5",
+        //         "navajowhite": "#ffdead", "navy": "#000080",
+        //         "oldlace": "#fdf5e6", "olive": "#808000", "olivedrab": "#6b8e23", "orange": "#ffa500", "orangered": "#ff4500", "orchid": "#da70d6",
+        //         "palegoldenrod": "#eee8aa", "palegreen": "#98fb98", "paleturquoise": "#afeeee", "palevioletred": "#d87093", "papayawhip": "#ffefd5", "peachpuff": "#ffdab9", "peru": "#cd853f", "pink": "#ffc0cb", "plum": "#dda0dd", "powderblue": "#b0e0e6", "purple": "#800080",
+        //         "rebeccapurple": "#663399", "red": "#ff0000", "rosybrown": "#bc8f8f", "royalblue": "#4169e1",
+        //         "saddlebrown": "#8b4513", "salmon": "#fa8072", "sandybrown": "#f4a460", "seagreen": "#2e8b57", "seashell": "#fff5ee", "sienna": "#a0522d", "silver": "#c0c0c0", "skyblue": "#87ceeb", "slateblue": "#6a5acd", "slategray": "#708090", "snow": "#fffafa", "springgreen": "#00ff7f", "steelblue": "#4682b4",
+        //         "tan": "#d2b48c", "teal": "#008080", "thistle": "#d8bfd8", "tomato": "#ff6347", "turquoise": "#40e0d0",
+        //         "violet": "#ee82ee",
+        //         "wheat": "#f5deb3", "white": "#ffffff", "whitesmoke": "#f5f5f5",
+        //         "yellow": "#ffff00", "yellowgreen": "#9acd32"
+        //       };
+
+        //       if (typeof colours[colour.toLowerCase()] != 'undefined')
+        //         return colours[colour.toLowerCase()]
+        //       //  this.summary_color.push(color_value);
+
+        //       return false;
+        //     }
 
 
-              dataLabels: {
-                enabled: true,
-                enabledOnSeries: undefined,
-                formatter: function (val:any) {
-                  const newLocal = val * power_loss_merics;
-                  // return val.toFixed(1) + " kW";
-                  return (parseFloat(((newLocal) / 100).toFixed(1))) + " kW";
-                },
-                textAnchor: 'end',
-                distributed: false,
-                offsetX: 100,
-                offsetY: 100,
-                style: {
-                  fontSize: '12px',
-                  fontFamily: "'Montserrat', Helvetica, sans-serif",
-                  fontWeight: 'bold',
-                  colors: undefined
-                },
-                background: {
-                  enabled: true,
-                  foreColor: '#000',
-                  padding: 4,
-                  borderRadius: 2,
-                  borderWidth: 1,
-                  borderColor: '#fff',
-                  opacity: 0.9,
-                  dropShadow: {
-                    enabled: false,
-                    top: 1,
-                    left: 1,
-                    blur: 1,
-                    color: '#000',
-                    opacity: 0.45
-                  }
-                },
-                dropShadow: {
-                  enabled: false,
-                  top: 1,
-                  left: 1,
-                  blur: 1,
-                  color: '#000',
-                  opacity: 0.45
-                }
-                // offset: 0,
-                // minAngleToShowLabel: 10
-              },
-              tooltip: {
-                enabled: true,
-                enabledOnSeries: undefined,
-                shared: true,
-                followCursor: false,
-                intersect: false,
-                inverseOrder: false,
-                custom: undefined,
-                fillSeriesColor: false,
-                style: {
-                  fontSize: '12px',
-                  fontFamily: "'Montserrat', Helvetica, sans-serif",
+        //     // const graph_data = {
+        //     //       "summary": [
+        //     //         { "hotspot": 32, "shortcircuit": 43, "opencircuit": 98, "pannelfaluer": 65, "pid": 21 }
+        //     //       ],
+        //     //       "Inverter": [
+        //     //         { "INV1": 90, "INV2": 43, "INV5": 34, "INV6": 78, "inv4": 98, "inv5": 98, "inv52": 98, "INV61": 90, "INV662": 43, "INV65": 34 }
+        //     //       ]
+        //     //     }
 
-                },
-
-                theme: 'dark',
-                onDatasetHover: {
-                  highlightDataSeries: true,
-                },
-                y: {
-                  formatter: function (val) {
-                    return val.toFixed(1) + " kW";
-                  }
-                },
-              },
-              plotOptions: {
-                pie: {
-                  startAngle: 0,
-                  endAngle: 360,
-                  expandOnClick: false
-                }
-              },
-              responsive: [
-                {
-                  breakpoint: 700,
-                  options: {
-                    chart: {
-                      width: 250,
-                      height: 330
-                    },
-                    legend: {
-                      position: "bottom",
-                      horizontalAlign: 'left',
-                      itemMargin: {
-                        horizontal: 1,
-                        vertical: 3
-                      },
-
-                    }
-                  }
-                }
-              ]
-            };
+        //     this.summary_def_def = this.power_loss_keys[0]
+        //     this.summary_def_cou = (this.power_loss_values[0] / 1000).toFixed(1)
+        //     this.inverter_def_def = Object.values(graph_data['Inverter_label'][0])[0]
+        //     this.inverter_def_cou = Object.values(graph_data['Inverter'][0])[0]
 
 
-          })
+        //     // // // console.log(this.inverter_def_def + "-----" + this.inverter_def_cou)
+        //     this.resourcesLoaded = false;
+        //     // Object.keys(this.main_data[this.project_id_summary][this.datevalue]['inverter_data'])
+        //     // // // console.log(Object.values(this.Project_layer_summary))
+        //     // // // console.log("----------------------------------------------------------------------------------")
+        //     this.chartOptions1 = {
+        //       series: this.power_loss_values,
+        //       chart: {
+        //         width: "100%",
+        //         height: 330,
+        //         type: "pie",
+        //         events: {
+        //           dataPointSelection: function (event, chartContext, config) {
+        //             const lin = ['../../../../assets/images/defects/Hotspot.png', '../../../../assets/images/defects/Short_Circuit.png', '../../../../assets/images/defects/Open_circuit.png', '../../../../assets/images/defects/Panel_Failure.png', '../../../../assets/images/defects/Bypass_Diode_Failure.png', '../../../../assets/images/defects/Dirt_Vegetation.png', '../../../../assets/images/defects/Open_String_Table.png', '../../../../assets/images/defects/Multicell_Hotspot.png', '../../../../assets/images/defects/PID.png']
+
+        //             this.selector = config['dataPointIndex'];
+        //             document.getElementById('summary_def').innerHTML = `<p>` + powerloss_key[this.selector]; + `<p>`
+        //             document.getElementById('summary_cou').innerHTML = `<p>` + (powerloss_data[this.selector] / 1000).toFixed(1); + `<p>`
+        //             // // // console.log(lin[0])
+        //             document.getElementById('summary_im').innerHTML = ` <img src='` + lin[this.selector] + `' width="100%">`
+        //           }
+        //         },
+
+
+
+
+        //       },
+
+
+        //       colors: ["#339933", "#1be461", "#ef6c00", "#ffd54f", "#ffa64f", "#17a2b8", "#6f42c1", "#a78bda", "#117888", "#17a2b8", "#28a745"],
+        //       labels: this.power_loss_keys,
+        //       theme: {
+        //         monochrome: {
+        //           enabled: false
+        //         }
+        //       },
+        //       tooltip: {
+        //         enabled: true,
+        //         enabledOnSeries: undefined,
+        //         shared: true,
+        //         followCursor: false,
+        //         intersect: false,
+        //         inverseOrder: false,
+        //         custom: undefined,
+        //         fillSeriesColor: false,
+
+        //         style: {
+        //           fontSize: '12px',
+        //           fontFamily: "'Montserrat', Helvetica, sans-serif"
+        //         },
+        //         onDatasetHover: {
+        //           highlightDataSeries: false,
+        //         },
+        //         y: {
+        //           formatter: function (val) {
+        //             return (val / 1000).toFixed(1) + " kW";
+        //           }
+        //         },
+        //       },
+        //       title: {
+        //         text: ""
+        //       },
+        //       dataLabels: {
+        //         enabled: true,
+        //         enabledOnSeries: undefined,
+        //         // formatter: function (val) {
+        //         //   // return val.toFixed(1) + " kW";
+        //         //   return (parseFloat(((val * power_loss_merics) / 100).toFixed(1))) + " kW";
+        //         // },
+        //         textAnchor: 'middle',
+        //         distributed: false,
+        //         offsetX: 0,
+        //         offsetY: 0,
+        //         style: {
+        //           fontSize: '14px',
+        //           fontFamily: "'Montserrat', Helvetica, sans-serif",
+        //           fontWeight: 'bold',
+        //           colors: undefined
+        //         },
+        //         background: {
+        //           enabled: true,
+        //           foreColor: '#000',
+        //           padding: 4,
+        //           borderRadius: 2,
+        //           borderWidth: 1,
+        //           borderColor: '#fff',
+        //           opacity: 0.9,
+        //           dropShadow: {
+        //             enabled: false,
+        //             top: 1,
+        //             left: 1,
+        //             blur: 1,
+        //             color: '#000',
+        //             opacity: 0.45
+        //           }
+        //         },
+        //         dropShadow: {
+        //           enabled: false,
+        //           top: 1,
+        //           left: 1,
+        //           blur: 1,
+        //           color: '#000',
+        //           opacity: 0.45
+        //         }
+        //         // offset: 0,
+        //         // minAngleToShowLabel: 10
+        //       },
+        //       legend: {
+        //         show: true,
+        //         showForSingleSeries: false,
+        //         showForNullSeries: true,
+        //         fontFamily: "'Montserrat', Helvetica, sans-serif",
+        //         showForZeroSeries: true,
+        //         position: 'bottom'
+        //       },
+        //       responsive: [
+        //         {
+        //           breakpoint: 480,
+        //           options: {
+        //             chart: {
+        //               width: 250,
+        //               height: 200
+        //             },
+        //             plotOptions: {
+        //               pie: {
+        //                 startAngle: 0,
+        //                 endAngle: 360,
+        //                 expandOnClick: true,
+        //                 offsetX: 50,
+        //                 offsetY: 50,
+        //                 customScale: 1,
+        //                 dataLabels: {
+        //                   offset: 100,
+        //                   minAngleToShowLabel: 10
+        //                 }
+        //               },
+        //             },
+        //             legend: {
+        //               position: 'bottom'
+        //             }
+        //           }
+        //         }
+
+        //       ]
+        //     };
+        //     this.chartOptions4s = {
+        //       series: this.Total_power_loss_percenntage,
+        //       chart: {
+        //         type: "donut",
+        //         height: 350,
+        //       },
+
+        //       colors: ["#339933", "#1be461", "#ef6c00", "#ffd54f", "#ffa64f", "#17a2b8", "#6f42c1", "#a78bda", "#117888", "#17a2b8", "#28a745"],
+        //       labels: this.power_loss_keys,
+        //       legend: {
+        //         show: true,
+        //         showForSingleSeries: false,
+        //         showForNullSeries: true,
+        //         showForZeroSeries: true,
+        //         fontFamily: "'Montserrat', Helvetica, sans-serif",
+        //         position: 'bottom'
+        //       },
+
+
+        //       dataLabels: {
+        //         enabled: true,
+        //         enabledOnSeries: undefined,
+        //         formatter: function (val:any) {
+        //           const newLocal = val * power_loss_merics;
+        //           // return val.toFixed(1) + " kW";
+        //           return (parseFloat(((newLocal) / 100).toFixed(1))) + " kW";
+        //         },
+        //         textAnchor: 'end',
+        //         distributed: false,
+        //         offsetX: 100,
+        //         offsetY: 100,
+        //         style: {
+        //           fontSize: '12px',
+        //           fontFamily: "'Montserrat', Helvetica, sans-serif",
+        //           fontWeight: 'bold',
+        //           colors: undefined
+        //         },
+        //         background: {
+        //           enabled: true,
+        //           foreColor: '#000',
+        //           padding: 4,
+        //           borderRadius: 2,
+        //           borderWidth: 1,
+        //           borderColor: '#fff',
+        //           opacity: 0.9,
+        //           dropShadow: {
+        //             enabled: false,
+        //             top: 1,
+        //             left: 1,
+        //             blur: 1,
+        //             color: '#000',
+        //             opacity: 0.45
+        //           }
+        //         },
+        //         dropShadow: {
+        //           enabled: false,
+        //           top: 1,
+        //           left: 1,
+        //           blur: 1,
+        //           color: '#000',
+        //           opacity: 0.45
+        //         }
+        //         // offset: 0,
+        //         // minAngleToShowLabel: 10
+        //       },
+        //       tooltip: {
+        //         enabled: true,
+        //         enabledOnSeries: undefined,
+        //         shared: true,
+        //         followCursor: false,
+        //         intersect: false,
+        //         inverseOrder: false,
+        //         custom: undefined,
+        //         fillSeriesColor: false,
+        //         style: {
+        //           fontSize: '12px',
+        //           fontFamily: "'Montserrat', Helvetica, sans-serif",
+
+        //         },
+
+        //         theme: 'dark',
+        //         onDatasetHover: {
+        //           highlightDataSeries: true,
+        //         },
+        //         y: {
+        //           formatter: function (val) {
+        //             return val.toFixed(1) + " kW";
+        //           }
+        //         },
+        //       },
+        //       plotOptions: {
+        //         pie: {
+        //           startAngle: 0,
+        //           endAngle: 360,
+        //           expandOnClick: false
+        //         }
+        //       },
+        //       responsive: [
+        //         {
+        //           breakpoint: 700,
+        //           options: {
+        //             chart: {
+        //               width: 250,
+        //               height: 330
+        //             },
+        //             legend: {
+        //               position: "bottom",
+        //               horizontalAlign: 'left',
+        //               itemMargin: {
+        //                 horizontal: 1,
+        //                 vertical: 3
+        //               },
+
+        //             }
+        //           }
+        //         }
+        //       ]
+        //     };
+
+
+        //   })
       })
     })
 
