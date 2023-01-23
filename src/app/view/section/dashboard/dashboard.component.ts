@@ -39,31 +39,27 @@ export class DashboardComponent implements OnInit {
     const newName = localStorage.getItem("name");
     this.user_id = localStorage.getItem("user_id");
 
-    const newtoken = localStorage.getItem("token");
+    const token = localStorage.getItem("token");
     const headers = {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + newtoken,
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
     };
 
     this._http.setNewMapIcon({
       dateval: "dashboard"
     });
 
-    fetch(`${environment.api_name}api/project/get_all?filter={\"count\":\"3\"}`, {
+    const filter = { count: 3 }
+    fetch(`${environment.api_name}api/project/get_all?filter=${JSON.stringify(filter)}`,{
      headers,
      credentials: 'omit',
     })
       .then(response => response.json())
       .then(data => {
         this.main_data = data['data']
-        // // console.log("-------------------------------------------")
-        // // console.log(this.main_data.length)
-        // // console.log("-------------------------------------------")
         this.project_id_summary_count = Object.keys(data['data'])
-        // alert("project_id_summary_count---"+this.project_id_summary_count)
 
         this.project_id_summary_length = this.project_id_summary_count.length
-        //  alert(this.project_id_summary_length)
         // for (this.i = 0; this.i < this.project_id_summary.length; this.i++) {
 
         this.recent_3_projects = [];

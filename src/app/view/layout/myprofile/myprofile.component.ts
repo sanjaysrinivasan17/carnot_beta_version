@@ -93,9 +93,9 @@ export class MyprofileComponent implements OnInit {
 
     const user_id = localStorage.getItem("user_id");
 
-    const newtoken = localStorage.getItem("token");
+    const token = localStorage.getItem("token");
     const headers = {
-      'Authorization': 'Bearer ' + newtoken ,
+      'Authorization': `Bearer ${token}`,
       'Content-Type': 'application/json',
     };
     fetch(`${environment.api_name}api/accounts/user/${user_id}`, {
@@ -169,8 +169,7 @@ export class MyprofileComponent implements OnInit {
 
 
     const user_id = localStorage.getItem("user_id");
-    var put_url = (environment.api_name + "api/accounts/user/"+user_id)
-    // console.log(put_url)
+    var put_url = (`${environment.api_name}api/accounts/user/${user_id}/`)
     const newtoken = localStorage.getItem("token");
 
     var userdata = {

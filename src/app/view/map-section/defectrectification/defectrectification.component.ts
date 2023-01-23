@@ -180,10 +180,11 @@ export class DefectrectificationComponent implements OnInit {
     if (sub_defect == null) {
       sub_defect = ""
     }
-    const headers = {
-      'Authorization': 'token ' + newtoken,
+  const token = localStorage.getItem("token");
+  const headers = {
+      'Authorization': `Bearer ${token}`,
       'Content-Type': 'application/json',
-    };
+  };
 
     var url = environment.api_name + 'project/get_defects/' + project_id + '?filter={"date":"' + date + '","defect_type":"' + defect + '","sub_defect_type":"' + sub_defect + '"}'
     fetch(url, { headers })

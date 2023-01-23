@@ -443,11 +443,11 @@ this.Chart_hide_show_revenue = "hide";
         const newName = localStorage.getItem("name");
         this.Project_Name = localStorage.getItem("name");
 
-        const newtoken = localStorage.getItem("token");
-        const headers = {
+      const token = localStorage.getItem("token");
+      const headers = {
+          'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json',
-         'Authorization': 'token ' + newtoken,
-        };
+      };
 
         fetch(`${environment.api_name}api/project/get_dashboard_data/`, {
           headers,

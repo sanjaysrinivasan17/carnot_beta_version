@@ -52,10 +52,10 @@ export class ShareComponent implements OnInit {
     this.user_id = localStorage.getItem("id");
     this.project_name = localStorage.getItem("project_name");
 
-    const newtoken = localStorage.getItem("token");
+    const token = localStorage.getItem("token");
     const headers = {
-    'Content-Type': 'application/json',
-    'Authorization': 'Bearer ' + newtoken,
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json',
     };
 
     fetch(`${environment.api_name}project/get_projects_status/`, {
@@ -144,10 +144,10 @@ this.Get_shared_list()
   }
 
 Get_shared_list(){
-  const newtoken = localStorage.getItem("token");
+  const token = localStorage.getItem("token");
   const headers = {
-    'Content-Type': 'application/json',
-    'Authorization': 'Bearer ' + newtoken,
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json',
   };
 
   const user_id = localStorage.getItem("user_id");

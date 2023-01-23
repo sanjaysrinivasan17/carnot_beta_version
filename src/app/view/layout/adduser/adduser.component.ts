@@ -52,9 +52,9 @@ export class AdduserComponent implements OnInit {
 
   ngOnInit(): void {
 
-    const newtoken = localStorage.getItem("token");
+    const token = localStorage.getItem("token");
     const headers = {
-      'Authorization': 'Bearer ' + newtoken ,
+      'Authorization': `Bearer ${token}`,
       'Content-Type': 'application/json',
     };
 

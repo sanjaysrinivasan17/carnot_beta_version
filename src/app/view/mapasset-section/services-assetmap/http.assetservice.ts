@@ -55,10 +55,10 @@ export class HttpAssetService {
     // const newName = localStorage.getItem("name");
     const project_id = localStorage.getItem("project_id");
 
-    const newtoken = localStorage.getItem("token");
+    const token = localStorage.getItem("token");
     const headers = {
-     'Content-Type': 'application/json',
-     'Authorization': 'Bearer ' + newtoken,
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
     };
 
     // return this.http.get(environment.api_name + 'api/project/get_project/' + project_id, { headers })

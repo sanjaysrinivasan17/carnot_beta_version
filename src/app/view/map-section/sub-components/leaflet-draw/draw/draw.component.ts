@@ -49,10 +49,10 @@ export class DrawComponent implements OnInit {
     var project_name = localStorage.getItem("name")
     var date = localStorage.getItem("date")
 
-    const newtoken = localStorage.getItem("token");
+    const token = localStorage.getItem("token");
     const headers = {
-      'Content-Type': 'application/json',
-      'Authorization': 'token ' + newtoken,
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
     };
 
     this.http.get(environment.api_name+'draw/get_data/'+project_name+'/'+date, { headers }).subscribe(data => {
@@ -212,10 +212,10 @@ export class DrawComponent implements OnInit {
   delete_aoi(key) {
     // https://www.takvaviya.in/draw/delete/${keys[key]}/
 
-    const newtoken = localStorage.getItem("token");
+    const token = localStorage.getItem("token");
     const headers = {
-      'Content-Type': 'application/json',
-      'Authorization': 'token ' + newtoken,
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
     };
 
     fetch(`${environment.api_name}draw/delete/${key}/`, {

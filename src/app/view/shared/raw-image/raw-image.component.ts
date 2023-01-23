@@ -23,10 +23,10 @@ export class RawImageComponent {
     let project_id = localStorage.getItem("project_id");
     let date = localStorage.getItem("date");
 
-    const newtoken = localStorage.getItem("token");
+    const token = localStorage.getItem("token");
     const headers = {
-      'Content-Type': 'application/json',
-      'Authorization': 'token ' + newtoken,
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
     };
 
     this.maindata = this._http.get_mision_flight_detail()

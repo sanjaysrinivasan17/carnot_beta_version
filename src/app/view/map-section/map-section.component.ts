@@ -783,10 +783,10 @@ export class MapSectionComponent implements OnInit {
     let project_type = localStorage.getItem("project_type");
     let date = localStorage.getItem("date");
 
-    const newtoken = localStorage.getItem("token");
+    const token = localStorage.getItem("token");
     const headers = {
+      'Authorization': `Bearer ${token}`,
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + newtoken,
     };
 
     var url = environment.api_name + 'api/project/get_missions_flights/' + project_id + '/' + date + '/' + project_type
@@ -2350,10 +2350,10 @@ export class MapSectionComponent implements OnInit {
             let project_type = localStorage.getItem("project_type");
             let date = localStorage.getItem("date");
 
-            const newtoken = localStorage.getItem("token");
+            const token = localStorage.getItem("token");
             const headers = {
-              'Content-Type': 'application/json',
-              'Authorization': 'token ' + newtoken,
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json',
             };
 
             var url = environment.api_name + 'api/project/get_thermal_assets/' + project_id + '/' + date + '/' + project_type + '?filter={"mission":"' + dataval['mission'] + '","flight":"' + dataval['flight'] + '"}'
@@ -2568,10 +2568,10 @@ export class MapSectionComponent implements OnInit {
     }
     this.map.removeLayer(this.rgb_layer);
 
-    const newtoken = localStorage.getItem("token");
+    const token = localStorage.getItem("token");
     const headers = {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + newtoken,
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
     };
 
     fetch(environment.api_name + "project/retrieve_project_data/Adani-" + this.Adani_locations[location_name]['name'], { headers })

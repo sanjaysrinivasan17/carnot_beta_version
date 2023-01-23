@@ -52,10 +52,10 @@ export class AssetdrawComponent {
     var project_name = localStorage.getItem("name")
     var date = localStorage.getItem("date")
 
-    const newtoken = localStorage.getItem("token");
+    const token = localStorage.getItem("token");
     const headers = {
-      'Content-Type': 'application/json',
-      'Authorization': 'token ' + newtoken,
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
     };
 
     this.http.get(environment.api_name + 'draw/get_data/' + project_name + '/' + date, { headers }).subscribe(data => {

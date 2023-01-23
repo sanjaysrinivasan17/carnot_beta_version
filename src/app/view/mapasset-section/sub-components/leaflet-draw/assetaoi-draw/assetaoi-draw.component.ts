@@ -33,10 +33,10 @@ export class AssetaoiDrawComponent {
     data.polygon = this.map_data.co;
     // // console.log(data);
 
-    const newtoken = localStorage.getItem("token");
+    const token = localStorage.getItem("token");
     const headers = {
+        'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json',
-        'Authorization': 'token ' + newtoken,
     };
 
     fetch(`${environment.api_name}draw/save_aoi/`, {

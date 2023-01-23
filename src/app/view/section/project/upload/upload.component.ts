@@ -452,10 +452,11 @@ export class UploadComponent implements OnInit {
   //   })
   // }
   show_additional_file_data(project_id: any, date: any) {
-    const newtoken = localStorage.getItem("token");
+
+    const token = localStorage.getItem("token");
     const headers = {
-    'Content-Type': 'application/json',
-    'Authorization': 'Bearer ' + newtoken,
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
     };
 
     var url = environment.api_name + 'api/project/get_thermal_assets/' + project_id + '/' + date + '/' + this.project_type

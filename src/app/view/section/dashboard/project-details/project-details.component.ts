@@ -101,18 +101,18 @@ export class ProjectDetailsComponent implements OnInit {
     this.user_id = localStorage.getItem("user_id")
     const newName = localStorage.getItem("name");
 
-    const newtoken = localStorage.getItem("token");
+    const token = localStorage.getItem("token");
     const headers = {
-              'Content-Type': 'application/json',
-              'Authorization': 'Bearer ' + newtoken,
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
     };
 
     // fetch(environment.api_name+'api/project/get_all/1/?filter={"count":""}', { headers })
-    fetch(`${environment.api_name}api/project/get_all?filter={\"count\":\"3\"}`, {
+  const filter = { count: 3 }
+  fetch(`${environment.api_name}api/project/get_all?filter=${JSON.stringify(filter)}`, {
       headers,
       credentials: 'omit',
-    })
-      .then(response => response.json())
+    }).then(response => response.json())
       .then(data => {
         this.main_data = data['data']
         // // console.log("-------------------------------------------")

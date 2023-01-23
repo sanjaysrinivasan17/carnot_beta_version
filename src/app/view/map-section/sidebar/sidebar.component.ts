@@ -294,10 +294,11 @@ export class SidebarComponent implements OnInit {
           const date = localStorage.getItem("date");
           // toalert(localStorage.getItem("date"))
 
-          const headers = {
+        const token = localStorage.getItem("token");
+        const headers = {
+            'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json',
-            'Authorization': 'token ' + newtoken,
-          };
+        };
 
           var demo_project = newName.includes("DEMO PROJECT")
           if (demo_project) {

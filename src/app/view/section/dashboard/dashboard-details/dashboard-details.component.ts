@@ -149,15 +149,16 @@ export class DashboardDetailsComponent implements OnInit {
     // const newName = localStorage.getItem("name");
     this.user_id = localStorage.getItem("user_id");
 
-    const newtoken = localStorage.getItem("token");
+    const token = localStorage.getItem("token");
     const headers = {
+        'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json',
-        'Authorization': 'token ' + newtoken,
     };
 
     this.center = [];
     this.items = [];
-    fetch(`${environment.api_name}api/project/get_all?filter={\"count\":\"\"}`, {
+    const filter = { count: 3 }
+    fetch(`${environment.api_name}api/project/get_all?filter=${JSON.stringify(filter)}`,{
       headers,
       credentials: 'omit',
     })
@@ -481,10 +482,10 @@ add(category){
 
     const newName = localStorage.getItem("name");
 
-    const newtoken = localStorage.getItem("token");
+    const token = localStorage.getItem("token");
     const headers = {
-            'Content-Type': 'application/json',
-            'Authorization': 'token ' + newtoken,
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
     };
 
     for (let index = 0; index < all_project_data.length; index++) {
