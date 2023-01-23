@@ -28,7 +28,7 @@ COPY package*.json ./
 COPY ./src/assets/leaflet-side-by-side ./node_modules/leaflet-side-by-side
 
 # Install the dependencies
-RUN npm ci --force
+RUN npm ci --legacy-peer-deps
 
 # Copy the rest of the application's files to the container
 COPY . .
