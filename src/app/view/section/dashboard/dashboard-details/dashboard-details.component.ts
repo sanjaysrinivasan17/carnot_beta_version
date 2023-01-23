@@ -256,7 +256,7 @@ export class DashboardDetailsComponent implements OnInit {
 
 
 
-      fetch(`${environment.api_name}api/project/get_dashboard_data/1`, {
+      fetch(`${environment.api_name}api/project/get_dashboard_data`, {
         headers,
         credentials: 'omit',
       })
