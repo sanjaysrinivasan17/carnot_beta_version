@@ -134,10 +134,12 @@ export class AllProjectsComponent implements OnInit {
         // // console.log(post_url)
         const newtoken = localStorage.getItem("token");
 
-      const headers = {
-      'Content-Type':  'application/json',
-      'Authorization': 'token '+newtoken
+     const token = localStorage.getItem("token");
+     const headers = {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
       };
+
       var httpOptions = {
           headers,
           withCredentials: false,
@@ -169,10 +171,10 @@ export class AllProjectsComponent implements OnInit {
 
   onloadfunc() {
 
-    const newtoken = localStorage.getItem("token");
+    const token = localStorage.getItem("token");
     const headers = {
-    'Content-Type': 'application/json',
-    'Authorization': 'Bearer ' + newtoken,
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
     };
 
     this.all_project = [];
@@ -198,13 +200,9 @@ export class AllProjectsComponent implements OnInit {
       .then(response => response.json())
       .then(datavalue => {
         this.main_data = datavalue['data']
-        // console.log(this.main_data)
         this.project_id_summary = Object.keys(this.main_data)
-        // // console.log(this.project_id_summary)
-
 
         for (let index = 0; index < this.project_id_summary.length; index++) {
-          // // console.log(this.main_data[this.project_id_summary[index]])
           this.main_data[this.project_id_summary[index]]
           // for (let m = 0; m < this.main_data[this.project_id_summary[index]].length; m++) {
           //   this.main_data[this.project_id_summary[index]][m]["product"] = "Carnot"
@@ -217,7 +215,6 @@ export class AllProjectsComponent implements OnInit {
         }
 
       })
-      // // console.log(this.project_category)
 
     fetch(`${environment.api_name}api/asset/get_asset_project_by_category`, {
      method: 'GET',
