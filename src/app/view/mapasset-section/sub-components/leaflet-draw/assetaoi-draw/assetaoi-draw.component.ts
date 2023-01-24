@@ -23,31 +23,30 @@ export class AssetaoiDrawComponent {
   }
 
 
-  // TODO
+  // TODO 
 
   // Form validation do not save empty AOI's
-
-  public saveAoi()
+ 
+  public saveAoi() 
   {
     const data = this.myform.value;
     data.polygon = this.map_data.co;
-    // // console.log(data);
+    // console.log(data);
+   
+    const newtoken = localStorage.getItem("token");
 
-    const token = localStorage.getItem("token");
-    const headers = {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json',
-    };
-
-    fetch(`${environment.api_name}draw/save_aoi/`, {
+    const headers = { 'Authorization': 'token ' + newtoken }
+    fetch(environment.api_name+'draw/save_aoi/', {
       method: 'POST', // or 'PUT'
-      headers,
-      credentials: 'omit',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'token ' + newtoken 
+      },
       body: JSON.stringify(data),
     })
       .then(response => response.json())
       .then(data => {
-        // // console.log('Success:', data);
+        // console.log('Success:', data);
         this.dialogRef.close([]);
       })
       .catch((error) => {
@@ -57,9 +56,9 @@ export class AssetaoiDrawComponent {
 
   public removeUnusedInstance()
   {
-      // // console.log(this.map_data.elayer);
+      // console.log(this.map_data.elayer);
       this.map_data.event.removeLayer(this.map_data.elayer)
-
+      
   }
 
 }

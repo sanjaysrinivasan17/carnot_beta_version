@@ -19,6 +19,7 @@ import {
   ApexGrid,
 } from "ng-apexcharts";
 
+
 export type ChartOptions = {
   series: ApexAxisChartSeries;
   chart: ApexChart;
@@ -57,6 +58,7 @@ export class SummaryAnalyticsComponent implements OnInit {
   series: any = [];
   percentage_progress: any = [];
   feature_value_total: any = [];
+  type: string;
 
 
   constructor(private _http: HttpAssetService) { }
@@ -64,7 +66,7 @@ export class SummaryAnalyticsComponent implements OnInit {
   ngOnInit(): void {
     this._http.Asset_project().subscribe(data => {
       this.main_data = data['data']
-      // // console.log(this.main_data)
+      console.log(this.main_data)
       this.onload()
 
     })
@@ -72,22 +74,34 @@ export class SummaryAnalyticsComponent implements OnInit {
   onload() {
     this.dateleft = sessionStorage.getItem('dateleft')
     this.dateright = sessionStorage.getItem('dateright')
-    this.summaryleft_keys = Object.keys(this.main_data['projectdata'][this.dateleft]['SCPM']['summary']['summary'])
-    this.summaryright_keys = Object.keys(this.main_data['projectdata'][this.dateright]['SCPM']['summary']['summary'])
+    this.type = sessionStorage.getItem('type')
+    if(this.type == 'SCPM'){
+      this.summaryleft_keys = Object.keys(this.main_data['projectdata'][this.dateleft]['SCPM']['summary']['summary'])
+      this.summaryright_keys = Object.keys(this.main_data['projectdata'][this.dateright]['SCPM']['summary']['summary'])
+      
+      this.series = [{
+        name: this.dateleft,
+        data: [0, 0, 0, 0, 0, 0, 0]
+      },
+      {
+        name: this.dateright,
+        data: [0, 0, 0, 0, 0, 0, 0]
+      }]
+    }
+    else if(this.type == 'SCQM'){
+      console.log(this.main_data['projectdata'][this.dateleft])
+      this.summaryleft_keys = Object.keys(this.main_data['projectdata'][this.dateleft]['SCQM']['deviation']['data']['Summary'])
+      this.summaryright_keys = Object.keys(this.main_data['projectdata'][this.dateright]['SCQM']['deviation']['data']['Summary'])
+      this.selectChangefeature("feature")
+    }
+
     if (this.summaryleft_keys.length >= this.summaryright_keys.length) {
       this.summary_keys = this.summaryleft_keys
     } else {
       this.summary_keys = this.summaryright_keys
     }
 
-    this.series = [{
-      name: this.dateleft,
-      data: [0, 0, 0, 0, 0, 0, 0]
-    },
-    {
-      name: this.dateright,
-      data: [0, 0, 0, 0, 0, 0, 0]
-    }]
+   
 
     this.on_toggle_change('false', 'Chart')
   }
@@ -163,7 +177,8 @@ export class SummaryAnalyticsComponent implements OnInit {
     this.feature_value_left = [];
     this.feature_value_right = [];
     this.percentage_progress = [];
-    this.Feature_key_left = Object.keys(this.main_data['projectdata'][this.dateleft]['SCPM']['summary']['summary'][feature])
+    if (this.type == 'SCPM'){
+      this.Feature_key_left = Object.keys(this.main_data['projectdata'][this.dateleft]['SCPM']['summary']['summary'][feature])
     this.Feature_key_right = Object.keys(this.main_data['projectdata'][this.dateright]['SCPM']['summary']['summary'][feature])
     
     
@@ -174,6 +189,24 @@ export class SummaryAnalyticsComponent implements OnInit {
     this.Feature_key_right.forEach(element => {
       this.feature_value_right.push(this.main_data['projectdata'][this.dateright]['SCPM']['summary']['summary'][feature][element]['Actual'])
     });
+    }
+    else if(this.type == 'SCQM'){
+      // console.log(feature)
+      // console.log(this.main_data['projectdata'][this.dateleft]['SCQM']['deviation']['data']['Summary'])
+      // console.log(Object.keys(this.main_data['projectdata'][this.dateleft]['SCQM']['deviation']['data']['Summary']))
+      this.Feature_key_left = Object.keys(this.main_data['projectdata'][this.dateleft]['SCQM']['deviation']['data']['Summary'])
+    this.Feature_key_right = Object.keys(this.main_data['projectdata'][this.dateright]['SCQM']['deviation']['data']['Summary'])
+    
+    
+    this.Feature_key_left.forEach(element => {
+      this.feature_value_left.push(this.main_data['projectdata'][this.dateleft]['SCQM']['deviation']['data']['Summary'][element]['actual'])
+      this.feature_value_total.push(this.main_data['projectdata'][this.dateleft]['SCQM']['deviation']['data']['Summary'][element]['total'])
+    });
+    this.Feature_key_right.forEach(element => {
+      this.feature_value_right.push(this.main_data['projectdata'][this.dateright]['SCQM']['deviation']['data']['Summary'][element]['actual'])
+    });
+
+    }
 
     this.series = [{
       name: this.dateleft,

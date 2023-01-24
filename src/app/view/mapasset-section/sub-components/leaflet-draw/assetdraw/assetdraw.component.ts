@@ -12,11 +12,11 @@ import { AssetaoiDrawComponent } from '../assetaoi-draw/assetaoi-draw.component'
 declare const L: any;
 
 var editableLayers = new L.FeatureGroup(); // featureGroup for draw Plugin
-var dstate = false; // TODO check usage
+var dstate = false; // TODO check usage 
 var currentCoords;
 var layer; // layer for draw Plugin
 var polygon_draw_layer = new L.LayerGroup(); // layerGroup for drawing leaflet polygons from db
-var polygon = []; // global array of polygon layer
+var polygon = []; // global array of polygon layer 
 var hidden_polygon_list = []
 var id_container = {}
 
@@ -40,7 +40,7 @@ export class AssetdrawComponent {
   constructor(private _http: HttpAssetService, public dialog: MatDialog, private http: HttpClient) { }
 
   ngOnInit(): void {
-    // console.log(this.map);
+    console.log(this.map);
 
     this.drawPlugin(this.map);
     this.get_aoi_data();
@@ -51,23 +51,20 @@ export class AssetdrawComponent {
   public get_aoi_data() {
     var project_name = localStorage.getItem("name")
     var date = localStorage.getItem("date")
+    const newtoken = localStorage.getItem("token");
 
-    const token = localStorage.getItem("token");
-    const headers = {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json',
-    };
+    const headers = { 'Authorization': 'token ' + newtoken }
 
     this.http.get(environment.api_name + 'draw/get_data/' + project_name + '/' + date, { headers }).subscribe(data => {
       // alert(project_name)
-      // // console.log('data', data);
+      // console.log('data', data); 
       this.main_data = data;
-      //     // // console.log('data', data[project_name]);
+      //     // console.log('data', data[project_name]); 
       if (Object.keys(data[project_name]).length !== 0) {
 
         this.no_data = false;
         this.aoi_data = Object.keys((data[project_name][date])).reverse().map(item => {
-          // // // console.log(data[project_name][date][item]['label'])
+          // // console.log(data[project_name][date][item]['label'])
           data[project_name][date][item].id = item
 
 
@@ -86,18 +83,18 @@ export class AssetdrawComponent {
   public load_aoi_polygon() {
 
     this.map.removeLayer(polygon_draw_layer); // Resets polygon_draw_layer on call
-    polygon = []; // Empties global polygon array on each call to load fresh data
+    polygon = []; // Empties global polygon array on each call to load fresh data 
 
     this.aoi_data.map(value => {
 
-      // // console.log( 'blue', value.id);
-      // // console.log('values are', value);
+      // console.log( 'blue', value.id);
+      // console.log('values are', value);
       value.show = true;
 
       var instance_coordinate = [];
       value['polygon'].map(item => {
         instance_coordinate.push(Object.values(item))
-        // // console.log(instance_coordinate);
+        // console.log(instance_coordinate);
       })
 
       var latlngs = instance_coordinate;
@@ -159,7 +156,7 @@ export class AssetdrawComponent {
       //   remove: false
       // }
     };
-    // // console.log(map)
+    // console.log(map)
     var drawControl = new L.Control.Draw(options);
 
     map.addControl(drawControl);
@@ -171,11 +168,11 @@ export class AssetdrawComponent {
       layer = e.layer;
 
       if (type != 'marker' && type != 'circle') {
-        // // // console.log( layer.getLatLngs());
+        // // console.log( layer.getLatLngs());  
         currentCoords = layer.getLatLngs()
         editableLayers.addLayer(layer);
 
-        // // console.log(currentCoords);
+        // console.log(currentCoords);
       }
       if (type === 'marker' && type != 'circle') {
         layer.bindPopup('A popup!');
@@ -183,7 +180,7 @@ export class AssetdrawComponent {
     });
 
     map.on('draw:drawstop', (e) => {
-      // // console.log("end");
+      // console.log("end");
       this.openDialog(e);
     });
 
@@ -191,7 +188,7 @@ export class AssetdrawComponent {
   }
 
   openDialog(e) {
-    // // console.log('e', e);
+    // console.log('e', e);
     let dialogRef = this.dialog.open(AssetaoiDrawComponent, { width: '400px', data: { 'co': currentCoords, 'event': editableLayers, 'elayer': layer } });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -217,21 +214,19 @@ export class AssetdrawComponent {
 
   delete_aoi(key) {
     // https://www.takvaviya.in/draw/delete/${keys[key]}/
-
     const newtoken = localStorage.getItem("token");
-    const headers ={
-        'Content-Type': 'application/json',
-        'Authorization': 'token ' + newtoken,
-    };
 
-    fetch('${environment.api_name }draw/delete/${key }/', {
+    const headers = { 'Authorization': 'token ' + newtoken }
+    fetch(environment.api_name + 'draw/delete/' + key + '/', {
       method: 'POST',
-      headers,
-      credentials: 'omit',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'token ' + newtoken
+      },
     })
       .then(response => response.json())
       .then(result => {
-        // // console.log('Success:', result);
+        // console.log('Success:', result);
         this.get_aoi_data();
         this.map.removeLayer(polygon_draw_layer);
       })
@@ -242,7 +237,7 @@ export class AssetdrawComponent {
 
   hide_aoi(item) {
 
-    // // console.log(item);
+    // console.log(item);
     //this.map.removeLayer(polygon_draw_layer)
     this.map.removeLayer(id_container[item]);
     hidden_polygon_list.push(item);
@@ -252,7 +247,7 @@ export class AssetdrawComponent {
 
 
   show_aoi(item) {
-    // // console.log(item);
+    // console.log(item);
     this.map.addLayer(id_container[item]);
     this.update_aoi(item, true);
   }

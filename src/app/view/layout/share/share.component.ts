@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from '../../../../environments/environment';
@@ -35,7 +35,7 @@ export class ShareComponent implements OnInit {
   Yet_to_share_profile_list: any;
   post_id: Object;
   user_arr: any;
-  roles: any=[];
+  roles: any = [];
 
   constructor(private http: HttpClient, private router: Router, private toastr: ToastrService) {
 
@@ -60,7 +60,7 @@ export class ShareComponent implements OnInit {
 
     fetch(`${environment.api_name}project/get_projects_status/`, {
       method: 'GET',
-      headers ,
+      headers,
       credentials: 'omit'
     })
       .then(response => response.json())
@@ -114,25 +114,32 @@ export class ShareComponent implements OnInit {
 
     const user_id = localStorage.getItem("user_id");
 
-    fetch(`${environment.api_name}api/accounts/manage_users` , {
+    fetch(`${environment.api_name}api/accounts/manage_users`, {
       method: 'GET',
       headers,
       credentials: 'omit'
-     })
+    })
       .then(response => response.json())
       .then(datavalue => {
-        // // console.log(datavalue)
-        var user_name = datavalue['data']
-        var count_user = 0
-        for (let i = 0; i < user_name.length; i++) {
-          // console.log(user_name[i]['is_active'])
-          if (user_name[i]['is_active'] == true) {
-            this.user.push(user_name[i])
-          }
+        console.log(datavalue)
+        if (datavalue['status'] == 'failed') {
+          this.toastr.warning(datavalue['message']);
+        } else {
 
+
+          var user_name = datavalue['data']
+          var count_user = 0
+          for (let i = 0; i < user_name.length; i++) {
+            // console.log(user_name[i]['is_active'])
+            if (user_name[i]['is_active'] == true) {
+              this.user.push(user_name[i])
+            }
+
+          }
         }
       })
-this.Get_shared_list()
+
+    this.Get_shared_list()
 
 
     // if(proj_type == "asset"){
@@ -143,72 +150,72 @@ this.Get_shared_list()
 
   }
 
-Get_shared_list(){
-  const token = localStorage.getItem("token");
-  const headers = {
+  Get_shared_list() {
+    const token = localStorage.getItem("token");
+    const headers = {
       'Authorization': `Bearer ${token}`,
       'Content-Type': 'application/json',
-  };
+    };
 
-  const user_id = localStorage.getItem("user_id");
-  const project_id = localStorage.getItem("project_id")
-  const project_type = localStorage.getItem("project_type")
-  if (project_type == "asset") {
+    const user_id = localStorage.getItem("user_id");
+    const project_id = localStorage.getItem("project_id")
+    const project_type = localStorage.getItem("project_type")
+    if (project_type == "asset") {
 
-    fetch(`${environment.api_name}api/asset/get_asset_project/${project_id}`, {
-      method: 'GET',
-      headers,
-      credentials: 'omit'
-    })
-      .then(response => response.json())
-      .then(datavalue => {
-        // console.log(datavalue)
-        var list = datavalue['data']
-        this.user_arr = datavalue['data']['users']
-        var count_user = 0
-        for (let i = 0; i < this.user_arr.length; i++) {
-          // console.log(this.user_arr[i])
-          if (this.user_arr[i]['role'] != 'superadmin') {
-            this.roles.push(this.user_arr[i])
+      fetch(`${environment.api_name}api/asset/get_asset_project/${project_id}`, {
+        method: 'GET',
+        headers,
+        credentials: 'omit'
+      })
+        .then(response => response.json())
+        .then(datavalue => {
+          // console.log(datavalue)
+          var list = datavalue['data']
+          this.user_arr = datavalue['data']['users']
+          var count_user = 0
+          for (let i = 0; i < this.user_arr.length; i++) {
+            // console.log(this.user_arr[i])
+            if (this.user_arr[i]['role'] != 'superadmin') {
+              this.roles.push(this.user_arr[i])
+
+            }
+
+          }
+        })
+    }
+    else if (project_type == "carnot") {
+      fetch(environment.api_name + 'api/project/get_project/' + project_id, {
+        method: 'GET',
+        headers,
+        credentials: 'omit',
+      })
+        .then(response => response.json())
+        .then(datavalue => {
+          // console.log(datavalue)
+          var list = datavalue['data']
+          this.user_arr = datavalue['data']['users']
+          // console.log(this.user_arr)
+          // for (let i = 0; i < list.length; i++) {
+          //   // console.log(list[i])
+          //   if (list[i]['is_active'] == true) {
+          //     this.user.push(list[i])
+          //   }
+          for (let index = 0; index < this.user_arr.length; index++) {
+
+            if (this.user_arr[index]['role'] != 'superadmin') {
+              this.roles.push(this.user_arr[index])
+
+            }
+            // // console.log(datavalue[index])
+
 
           }
 
-        }
-      })
+          // }
+        })
+
+    }
   }
-  else if(project_type == "carnot"){
-    fetch(environment.api_name + 'api/project/get_project/' + project_id, {
-      method: 'GET',
-      headers ,
-      credentials: 'omit',
-    })
-      .then(response => response.json())
-      .then(datavalue => {
-        // console.log(datavalue)
-        var list = datavalue['data']
-        this.user_arr = datavalue['data']['users']
-       // console.log(this.user_arr)
-        // for (let i = 0; i < list.length; i++) {
-        //   // console.log(list[i])
-        //   if (list[i]['is_active'] == true) {
-        //     this.user.push(list[i])
-        //   }
-        for (let index = 0; index < this.user_arr.length; index++) {
-
-          if (this.user_arr[index]['role'] != 'superadmin') {
-            this.roles.push(this.user_arr[index])
-
-          }
-          // // console.log(datavalue[index])
-
-
-        }
-
-        // }
-      })
-
-  }
-}
 
   user_mapping(role) {
     // console.log(role)
@@ -235,12 +242,12 @@ Get_shared_list(){
     const project_type = localStorage.getItem("project_type")
 
     var httpOptions = {
-        headers: new HttpHeaders({
-            'Content-Type':  'application/json',
-            'Authorization': 'Bearer ' + newtoken,
-          }),
-        withCredentials: false,
-     };
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + newtoken,
+      }),
+      withCredentials: false,
+    };
     var posturl = environment.api_name + "api/accounts/add_project_users/" + project_type
     this.http.post(posturl, user_mapping, httpOptions).subscribe(data => {
       this.post_id = data;
@@ -275,12 +282,12 @@ Get_shared_list(){
     // // console.log(userdata)
     const newtoken = localStorage.getItem("token");
     var httpOptions = {
-        headers: new HttpHeaders({
-            'Content-Type':  'application/json',
-            'Authorization': 'Bearer ' + newtoken,
-          }),
-        withCredentials: false,
-     };
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + newtoken,
+      }),
+      withCredentials: false,
+    };
     this.http.post(post_url, userdata, httpOptions).subscribe(data => {
       this.postId = data;
       this.success = data["status"]

@@ -53,13 +53,13 @@
     font-weight: 600;
     font-family: 'Montserrat', Helvetica, sans-serif;
     letter-spacing: 1px;
-    font-size: 20px;
+    font-size: 17px;
     padding: 10px 0px;
     text-transform: capitalize;
 }
 
 .details-card .project-date {
-    font-size: 14px;
+    font-size: 12px;
     font-family: 'Montserrat', Helvetica, sans-serif;
     font-weight: 500;
     letter-spacing: 0.75px;
@@ -67,7 +67,7 @@
 }
 
 .details-card .project-capacity {
-    font-size: 14px;
+    font-size: 12px;
     font-family: 'Montserrat', Helvetica, sans-serif;
     font-weight: 500;
     letter-spacing: 0.75px;
@@ -75,7 +75,7 @@
 }
 
 .details-card .project-state {
-    font-size: 16px;
+    font-size: 14px;
     font-family: 'Montserrat', Helvetica, sans-serif;
     font-weight: 550;
     letter-spacing: 1px;
@@ -136,7 +136,7 @@ button:focus {
 }
 
 .status-indication .indication-text {
-    font-size: 15px;
+    font-size: 13px;
     font-family: 'Montserrat', Helvetica, sans-serif;
     font-weight: 500;
 }
@@ -153,7 +153,7 @@ button:focus {
 }
 
 .status-indication2 .indication-text2 {
-    font-size: 15px;
+    font-size: 13px;
     font-family: 'Montserrat', Helvetica, sans-serif;
     font-weight: 500;
 }
@@ -170,7 +170,7 @@ button:focus {
 }
 
 .status-indication1 .indication-text1 {
-    font-size: 15px;
+    font-size: 13px;
     font-family: 'Montserrat', Helvetica, sans-serif;
     font-weight: 500;
     margin-left: 10px;
@@ -230,7 +230,7 @@ button:focus {
     color: blue;
     padding: 2px 12px;
     font-family: 'Montserrat', Helvetica, sans-serif;
-    font-size: 14px;
+    font-size: 13px;
     text-align: center;
     margin: 4px 2px;
     opacity: 1;
@@ -244,7 +244,7 @@ button:focus {
     color: white;
     padding: 2px 15px;
     font-family: 'Montserrat', Helvetica, sans-serif;
-    font-size: 14px;
+    font-size: 13px;
     text-align: center;
     margin: 4px 2px;
     opacity: 0.6;
@@ -253,13 +253,13 @@ button:focus {
 
 .mat-icon {
     /* padding: 1px 1px; */
-    font-size: 24px;
+    font-size: 20px;
     overflow: hidden !important;
 }
 
 .mat-icon:hover {
     /* padding: 1px 1px; */
-    font-size: 22px;
+    font-size: 18px;
     overflow: hidden !important;
 }
 
