@@ -55,28 +55,28 @@ export class AssetdrawComponent {
 
     const headers = { 'Authorization': 'token ' + newtoken }
 
-    this.http.get(environment.api_name + 'draw/get_data/' + project_name + '/' + date, { headers }).subscribe(data => {
-      // alert(project_name)
-      // console.log('data', data); 
-      this.main_data = data;
-      //     // console.log('data', data[project_name]); 
-      if (Object.keys(data[project_name]).length !== 0) {
+    // this.http.get(environment.api_name + 'draw/get_data/' + project_name + '/' + date, { headers }).subscribe(data => {
+    //   // alert(project_name)
+    //   // console.log('data', data); 
+    //   this.main_data = data;
+    //   //     // console.log('data', data[project_name]); 
+    //   if (Object.keys(data[project_name]).length !== 0) {
 
-        this.no_data = false;
-        this.aoi_data = Object.keys((data[project_name][date])).reverse().map(item => {
-          // // console.log(data[project_name][date][item]['label'])
-          data[project_name][date][item].id = item
+    //     this.no_data = false;
+    //     this.aoi_data = Object.keys((data[project_name][date])).reverse().map(item => {
+    //       // // console.log(data[project_name][date][item]['label'])
+    //       data[project_name][date][item].id = item
 
 
-          return data[project_name][date][item]
-        });
-        this.load_aoi_polygon();
-      }
-      else {
-        this.aoi_data = '';
-        this.no_data = true;
-      }
-    });
+    //       return data[project_name][date][item]
+    //     });
+    //     this.load_aoi_polygon();
+    //   }
+    //   else {
+    //     this.aoi_data = '';
+    //     this.no_data = true;
+    //   }
+    // });
 
   }
 
