@@ -25,10 +25,10 @@ RUN npm cache clean --force \
 # Copy the package.json and package-lock.json files to the container
 COPY package*.json ./
 
-COPY ./src/assets/leaflet-side-by-side ./node_modules/leaflet-side-by-side
-
 # Install the dependencies
 RUN npm ci --legacy-peer-deps
+
+COPY ./src/assets/leaflet-side-by-side ./node_modules/leaflet-side-by-side
 
 # Copy the rest of the application's files to the container
 COPY . .

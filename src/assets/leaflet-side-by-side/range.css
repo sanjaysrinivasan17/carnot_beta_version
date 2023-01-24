@@ -1,4 +1,4 @@
-.leaflet-sbs-range {
+/*.leaflet-sbs-range {
     -webkit-appearance: none;
     display: inline-block!important;
     vertical-align: middle;
@@ -20,7 +20,7 @@
 }
 /* Browser thingies */
 
-.leaflet-sbs-range::-moz-range-track {
+/*.leaflet-sbs-range::-moz-range-track {
     opacity: 0;
 }
 .leaflet-sbs-range::-ms-track {
@@ -32,7 +32,7 @@
 /* For whatever reason, these need to be defined
  * on their own so dont group them */
 
-.leaflet-sbs-range::-webkit-slider-thumb {
+/*.leaflet-sbs-range::-webkit-slider-thumb {
     -webkit-appearance: none;
     margin: 0;
     padding: 0;
@@ -95,5 +95,4 @@
 }
 .leaflet-sbs-range::-moz-focus-outer {
     border: 0;
-}
-
+}*/
