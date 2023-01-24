@@ -311,32 +311,32 @@ export class SidebarComponent implements OnInit {
 
           }
           this.project_values = [];
-          fetch(`${environment.api_name}project/get_projects_status/`, {
-            method: 'GET',
-            headers,
-            credentials: 'omit',
-          })
-            .then(response => response.json())
-            .then(datavalue => {
-              this.main_data = datavalue
-              // // console.log(this.main_data)
+          // fetch(`${environment.api_name}project/get_projects_status/`, {
+          //   method: 'GET',
+          //   headers,
+          //   credentials: 'omit',
+          // })
+          //   .then(response => response.json())
+          //   .then(datavalue => {
+          //     this.main_data = datavalue
+          //     // // console.log(this.main_data)
 
-              this.project_id_summary = Object.keys(datavalue)
-              // alert(this.project_id_summary.length)
-              for (var i = 0; i < this.project_id_summary.length; i++) {
-                // alert("---name ---"+this.project_id_summary[1])
-                this.project_id_summary_val = this.project_id_summary[i]
-                // alert("proj keys----"+Object.values(this.main_data[this.project_id_summary_val]))
-                // this.project_values.push(Object.values(this.main_data[this.project_id_summary_val]))
-                this.Date_value = Object.keys(this.main_data[this.project_id_summary_val]['status'])
-                this.Date_value_length = this.Date_value.length
-                this.Current_date = this.Date_value[this.Date_value_length - 1]
+          //     this.project_id_summary = Object.keys(datavalue)
+          //     // alert(this.project_id_summary.length)
+          //     for (var i = 0; i < this.project_id_summary.length; i++) {
+          //       // alert("---name ---"+this.project_id_summary[1])
+          //       this.project_id_summary_val = this.project_id_summary[i]
+          //       // alert("proj keys----"+Object.values(this.main_data[this.project_id_summary_val]))
+          //       // this.project_values.push(Object.values(this.main_data[this.project_id_summary_val]))
+          //       this.Date_value = Object.keys(this.main_data[this.project_id_summary_val]['status'])
+          //       this.Date_value_length = this.Date_value.length
+          //       this.Current_date = this.Date_value[this.Date_value_length - 1]
 
-                // // // console.log(this.main_data[this.project_id_summary_val])
-                // // // console.log(this.main_data[this.project_id_summary_val]['name'] + "------" + this.main_data[this.project_id_summary_val]['plant_size'])
-                this.project_values.push({ "name": this.main_data[this.project_id_summary_val]['name'], "id": i })
-              }
-            })
+          //       // // // console.log(this.main_data[this.project_id_summary_val])
+          //       // // // console.log(this.main_data[this.project_id_summary_val]['name'] + "------" + this.main_data[this.project_id_summary_val]['plant_size'])
+          //       this.project_values.push({ "name": this.main_data[this.project_id_summary_val]['name'], "id": i })
+          //     }
+          //   })
 
           this._http.summary_data().subscribe(data => {
 

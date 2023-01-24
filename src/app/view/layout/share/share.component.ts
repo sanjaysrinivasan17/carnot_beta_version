@@ -58,59 +58,59 @@ export class ShareComponent implements OnInit {
       'Content-Type': 'application/json',
     };
 
-    fetch(`${environment.api_name}project/get_projects_status/`, {
-      method: 'GET',
-      headers,
-      credentials: 'omit'
-    })
-      .then(response => response.json())
-      .then(datavalue => {
-        this.main_data = datavalue
-        // // console.log(this.main_data)
-        this.shared_to = []
-        this.project_id_summary = Object.keys(datavalue)
-        // // console.log(this.project_id_summary.length)
-        // for (var i = 0; i < this.project_id_summary.length; i++) {
-        // alert("---name ---"+this.project_id_summary[1])
-        // // // console.log("---------------------------------------------"+this.id)
-        this.project_id_summary_val = this.project_id_summary[this.user_id]
-        this.project_id = this.main_data[this.project_id_summary_val]['id']
-        this.shared_array = this.main_data[this.project_id_summary_val]['shared']
-        // // console.log(this.shared_array)
+    // fetch(`${environment.api_name}project/get_projects_status/`, {
+    //   method: 'GET',
+    //   headers,
+    //   credentials: 'omit'
+    // })
+    //   .then(response => response.json())
+    //   .then(datavalue => {
+    //     this.main_data = datavalue
+    //     // // console.log(this.main_data)
+    //     this.shared_to = []
+    //     this.project_id_summary = Object.keys(datavalue)
+    //     // // console.log(this.project_id_summary.length)
+    //     // for (var i = 0; i < this.project_id_summary.length; i++) {
+    //     // alert("---name ---"+this.project_id_summary[1])
+    //     // // // console.log("---------------------------------------------"+this.id)
+    //     this.project_id_summary_val = this.project_id_summary[this.user_id]
+    //     this.project_id = this.main_data[this.project_id_summary_val]['id']
+    //     this.shared_array = this.main_data[this.project_id_summary_val]['shared']
+    //     // // console.log(this.shared_array)
 
-        this.created_by = this.shared_array['created_by']
-        // // console.log(this.created_by)
+    //     this.created_by = this.shared_array['created_by']
+    //     // // console.log(this.created_by)
 
-        this.shared_to_data = this.shared_array['shared_to']
-        // // console.log(this.shared_to_data)
-        if (this.shared_to_data.length == 0) {
-          this.shared_account_count = 0
-        }
-        for (var j = 0; j < this.shared_to_data.length; j++) {
-          if (this.shared_to_data[j]["email"] != 'info@datasee.ai' && this.shared_to_data[j]["email"] != 'datasee@gmail.com') {
-            if (j == 0) {
-              this.shared_account_count = 1
-            } else {
-              this.shared_account_count = j;
-            }
+    //     this.shared_to_data = this.shared_array['shared_to']
+    //     // // console.log(this.shared_to_data)
+    //     if (this.shared_to_data.length == 0) {
+    //       this.shared_account_count = 0
+    //     }
+    //     for (var j = 0; j < this.shared_to_data.length; j++) {
+    //       if (this.shared_to_data[j]["email"] != 'info@datasee.ai' && this.shared_to_data[j]["email"] != 'datasee@gmail.com') {
+    //         if (j == 0) {
+    //           this.shared_account_count = 1
+    //         } else {
+    //           this.shared_account_count = j;
+    //         }
 
-            this.shared_to.push({ "name": this.shared_to_data[j]["name"], "email": this.shared_to_data[j]["email"] })
-            // // // console.log("---------------------------------------------"+j)
-            // // console.log(this.shared_to_data[j]["email"])
-          }
-
-
-        }
-        // alert(this.shared_account_count)
-        if (this.shared_account_count == undefined) {
-          this.shared_account_count = 0
-        }
-        // alert(this.shared_account_count)
+    //         this.shared_to.push({ "name": this.shared_to_data[j]["name"], "email": this.shared_to_data[j]["email"] })
+    //         // // // console.log("---------------------------------------------"+j)
+    //         // // console.log(this.shared_to_data[j]["email"])
+    //       }
 
 
-        // }
+    //     }
+    //     // alert(this.shared_account_count)
+    //     if (this.shared_account_count == undefined) {
+    //       this.shared_account_count = 0
+    //     }
+    //     // alert(this.shared_account_count)
 
-      })
+
+    //     // }
+
+    //   })
 
     const user_id = localStorage.getItem("user_id");
 
