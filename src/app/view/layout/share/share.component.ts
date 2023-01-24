@@ -159,7 +159,7 @@ export class ShareComponent implements OnInit {
 
     const user_id = localStorage.getItem("user_id");
     const project_id = localStorage.getItem("project_id")
-    const project_type = localStorage.getItem("project_type")
+    const project_type = sessionStorage.getItem("project_type")
     if (project_type == "asset") {
 
       fetch(`${environment.api_name}api/asset/get_asset_project/${project_id}`, {
@@ -239,7 +239,7 @@ export class ShareComponent implements OnInit {
 
     // }
     const newtoken = localStorage.getItem("token");
-    const project_type = localStorage.getItem("project_type")
+    const project_type = sessionStorage.getItem("project_type")
 
     var httpOptions = {
       headers: new HttpHeaders({

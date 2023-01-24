@@ -261,6 +261,7 @@ export class ProjectDetailsComponent implements OnInit {
     // alert(this.recent_3_projects_date)
     localStorage.setItem("date", this.recent_3_projects_date);
     localStorage.setItem("center", this.center_val);
+    sessionStorage.setItem("project_type","carnot")
     this.router.navigate(['map'])
   }
   public gotoAnalytics() {

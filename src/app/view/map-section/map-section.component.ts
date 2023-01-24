@@ -780,7 +780,7 @@ export class MapSectionComponent implements OnInit {
 
   onload_get_mission_flights() {
     let project_id = localStorage.getItem("project_id");
-    let project_type = localStorage.getItem("project_type");
+    let project_type = sessionStorage.getItem("project_type");
     let date = localStorage.getItem("date");
 
     const token = localStorage.getItem("token");
@@ -2347,7 +2347,7 @@ export class MapSectionComponent implements OnInit {
 
 
             let project_id = localStorage.getItem("project_id");
-            let project_type = localStorage.getItem("project_type");
+            let project_type = sessionStorage.getItem("project_type");
             let date = localStorage.getItem("date");
 
             const token = localStorage.getItem("token");

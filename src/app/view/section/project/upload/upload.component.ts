@@ -54,7 +54,7 @@ export class UploadComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.project_type = localStorage.getItem("project_type")
+    this.project_type = sessionStorage.getItem("project_type")
     this.projname = localStorage.getItem("proj_name")
   }
 
@@ -226,7 +226,7 @@ export class UploadComponent implements OnInit {
   }
   uploadFiles() {
     var project_id = localStorage.getItem("project_id")
-    this.project_type = localStorage.getItem("project_type")
+    this.project_type = sessionStorage.getItem("project_type")
     var date = localStorage.getItem("date")
     var token = localStorage.getItem("token")
     this.ngxService.start();

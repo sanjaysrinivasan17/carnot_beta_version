@@ -97,7 +97,7 @@ export class AllProjectsComponent implements OnInit {
   openSharedialog(project_name: any, id: any, project_type) {
     localStorage.setItem("project_id", id)
     localStorage.setItem("project_name", project_name);
-    localStorage.setItem("project_type", project_type);
+    sessionStorage.setItem("project_type", project_type);
 
     let dialogRef = this.dialog.open(ShareComponent);
     dialogRef.afterClosed().subscribe(result => {
@@ -482,7 +482,7 @@ export class AllProjectsComponent implements OnInit {
     localStorage.setItem("date", date);
     sessionStorage.setItem("zoom_level", zoom_level);
     localStorage.setItem("project_id", proj_id);
-    localStorage.setItem("project_type", project_type);
+    sessionStorage.setItem("project_type", project_type);
 
     this._http.setChangedCompletedDate({
       dateval: date
@@ -504,7 +504,7 @@ export class AllProjectsComponent implements OnInit {
     localStorage.setItem("date", date);
     sessionStorage.setItem("zoom_level", zoom_level);
     localStorage.setItem("project_id", proj_id);
-    localStorage.setItem("project_type", project_type);
+    sessionStorage.setItem("project_type", project_type);
 
     // localStorage.setItem("date", date);
     this._http.setChangedCompletedDate({
@@ -663,7 +663,7 @@ export class AllProjectsComponent implements OnInit {
 
   selectedUploadPage(current_date, project_id, proj_name, project_type) {
     // alert(project_id)
-    localStorage.setItem("project_type", project_type);
+    sessionStorage.setItem("project_type", project_type);
     localStorage.setItem("project_id", project_id);
     localStorage.setItem("date", current_date);
     localStorage.setItem("proj_name", proj_name);
