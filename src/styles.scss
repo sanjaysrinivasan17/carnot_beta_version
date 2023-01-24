@@ -16,10 +16,6 @@ $my-app-theme: mat-light-theme($my-app-primary, $my-app-accent, $my-app-warn);
 
 /* You can add global styles to this file, and also import other style files */
 
-@import '~leaflet-side-by-side/layout.css';
-@import '~leaflet-side-by-side/range.css';
-
-
 body {
     margin: 0;
     background-color: #f2f2f2;
@@ -100,13 +96,4 @@ body {
 
 .leaflet-draw-toolbar-top {
     margin-top: 47px;
-}
-
-td{
-    font-size: 16px;
-    font-family: 'Montserrat', Helvetica, sans-serif;
-}
-
-.menu-icon {
-    font-size: 20px;
 }
