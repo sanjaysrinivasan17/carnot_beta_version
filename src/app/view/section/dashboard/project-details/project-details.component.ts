@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { MatStepper } from '@angular/material/stepper';
 import 'leaflet';
 import 'leaflet-kml';
@@ -93,47 +93,47 @@ export class ProjectDetailsComponent implements OnInit {
   constructor(private router: Router, private http: HttpClient, private ngxService: NgxUiLoaderService) { }
   ngOnInit(): void {
 
-
+    
     setTimeout(() => {
       this.ngxService.stop();
     }, 3000)
     // alert("proj det")
     this.user_id = localStorage.getItem("user_id")
     const newName = localStorage.getItem("name");
-
-    const newtoken = localStorage.getItem("token");
+   
+    const token = localStorage.getItem("token");
     const headers = {
-              'Content-Type': 'application/json',
-              'Authorization': 'Bearer ' + newtoken,
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
     };
 
     // fetch(environment.api_name+'api/project/get_all/1/?filter={"count":""}', { headers })
-    fetch(`${environment.api_name}api/project/get_all?filter={\"count\":\"3\"}`, {
+  const filter = { count: 3 }
+  fetch(`${environment.api_name}api/project/get_all?filter=${JSON.stringify(filter)}`, {
       headers,
       credentials: 'omit',
-    })
-      .then(response => response.json())
+    }).then(response => response.json())
       .then(data => {
         this.main_data = data['data']
-        // // console.log("-------------------------------------------")
-        // // console.log(this.main_data.length)
-        // // console.log("-------------------------------------------")
+        // console.log("-------------------------------------------")
+        // console.log(this.main_data.length)
+        // console.log("-------------------------------------------")
         this.project_id_summary_count = Object.keys(data['data'])
         this.project_id_summary_length = this.project_id_summary_count.length
         this.recent_3_projects = [];
-        // // console.log(this.project_id_summary_count);
-        // // console.log(this.project_id_summary_count.length);
+        // console.log(this.project_id_summary_count);
+        // console.log(this.project_id_summary_count.length);
 
         for (var g = 0; g < this.project_id_summary_length; g++) {
 
           let date_key = Object.keys(this.main_data[g]['date_status']).reverse()
           let status_key = Object.values(this.main_data[g]['date_status']).reverse()
-          // // console.log("---"+this.main_data[g]['processed_data'][this.main_data[g]['processed_data'].length-1]["status"])
+          // console.log("---"+this.main_data[g]['processed_data'][this.main_data[g]['processed_data'].length-1]["status"])
           // this.recent_3_projects.push({ "name": this.main_data[g]['name'], "date": this.main_data[g]['date'], "city": this.main_data[g]['city'], "status": this.main_data[g]['status'] })
           // this.recent_3_projects.push({ "name": this.main_data[g]['name'], "date": this.main_data[g]['processed_data'][0]['date'], "city": this.main_data[g]['city'], "status": this.main_data[g]['status'] })
           this.recent_3_projects.push({ "name": this.main_data[g]['name'], "project_id": this.main_data[g]['id'], "date": date_key, "city": this.main_data[g]['city'], "status": status_key})
         }
-        // // console.log(this.recent_3_projects)
+        // console.log(this.recent_3_projects)
 
         this.center = [];
         this.recent_3_projects_name = this.recent_3_projects[0].name
@@ -261,6 +261,7 @@ export class ProjectDetailsComponent implements OnInit {
     // alert(this.recent_3_projects_date)
     localStorage.setItem("date", this.recent_3_projects_date);
     localStorage.setItem("center", this.center_val);
+    sessionStorage.setItem("project_type","carnot")
     this.router.navigate(['map'])
   }
   public gotoAnalytics() {

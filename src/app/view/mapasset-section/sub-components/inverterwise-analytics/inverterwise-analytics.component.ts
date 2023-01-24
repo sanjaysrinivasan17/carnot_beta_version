@@ -55,6 +55,7 @@ export class InverterwiseAnalyticsComponent {
   mode: any;
   checked: boolean;
   percentage_progress: any = [];
+  type: string;
 
 
 
@@ -63,7 +64,7 @@ export class InverterwiseAnalyticsComponent {
   ngOnInit(): void {
     this._http.Asset_project().subscribe(data => {
       this.main_data = data['data']
-      // console.log(this.main_data)
+      console.log(this.main_data)
       this.onload()
 
     })
@@ -72,12 +73,15 @@ export class InverterwiseAnalyticsComponent {
   onload() {
     this.dateleft = sessionStorage.getItem('dateleft')
     this.dateright = sessionStorage.getItem('dateright')
-    this.inverter_keys = Object.keys(this.main_data['projectdata'][this.dateright]['SCPM']['inverter']['Inverter'])
+    this.type = sessionStorage.getItem('type')
+    if(this.type == 'SCPM'){
+      this.inverter_keys = Object.keys(this.main_data['projectdata'][this.dateright]['SCPM']['inverter']['Inverter'])
 
-
-    // // console.log(this.inverter_group_keys);
-
-
+    
+    }
+    else if(this.type == 'SCQM'){
+      this.inverter_keys = Object.keys(this.main_data['projectdata'][this.dateright]['SCQM']['inverter_deviation']['data'])
+    }
     this.series = [{
       name: this.dateleft,
       data: [0, 0, 0, 0, 0, 0, 0]
@@ -87,15 +91,47 @@ export class InverterwiseAnalyticsComponent {
       data: [0, 0, 0, 0, 0, 0, 0]
     }]
     this.on_toggle_change('false', 'Chart')
+    // console.log(this.inverter_keys);
+
+
+   
 
   }
 
 
   selectChangefeature(inverter: any) {
     this.inverter_val = inverter
-    this.inverter_group_keys = Object.keys(this.main_data['projectdata'][this.dateleft]['SCPM']['inverter']['Inverter'][inverter])
-    if(this.feature_val){
-      this.selectChangesubfeature(this.feature_val)
+    if(this.type == 'SCPM'){
+      this.inverter_group_keys = Object.keys(this.main_data['projectdata'][this.dateleft]['SCPM']['inverter']['Inverter'][inverter])
+      if(this.feature_val){
+        this.selectChangesubfeature(this.feature_val)
+      }
+    }
+    else if (this.type == 'SCQM'){
+   
+      this.date_left_feature_values = []
+      this.date_right_feature_values = []
+      this.feature_value_total = []
+      this.sub_feature_key = Object.keys(this.main_data['projectdata'][this.dateleft]['SCQM']['inverter_deviation']['data'][inverter])
+      this.sub_feature_key.forEach(element => {
+        this.date_left_feature_values.push(this.main_data['projectdata'][this.dateleft]['SCQM']['inverter_deviation']['data'][inverter][element]['actual'])
+        this.date_right_feature_values.push(this.main_data['projectdata'][this.dateright]['SCQM']['inverter_deviation']['data'][inverter][element]['actual'])
+        this.feature_value_total.push(this.main_data['projectdata'][this.dateright]['SCQM']['inverter_deviation']['data'][inverter][element]['total'])
+      });
+      this.series = [{
+        name: this.dateleft,
+        data: this.date_left_feature_values
+      },
+      {
+        name: this.dateright,
+        data: this.date_right_feature_values
+      }]
+
+      for (let index = 0; index < this.inverter_keys.length; index++) {
+        this.percentage_progress.push(((Math.abs(this.date_left_feature_values[index] - this.date_right_feature_values[index]) / this.feature_value_total[index]) * 100).toFixed(2))
+      }
+      this.checked = false
+      this.on_toggle_change('false', 'Chart')
     }
   }
 
@@ -106,25 +142,28 @@ export class InverterwiseAnalyticsComponent {
     this.date_right_feature_values = []
     this.feature_value_total = []
     this.sub_feature_key = Object.keys(this.main_data['projectdata'][this.dateleft]['SCPM']['inverter']['Inverter'][this.inverter_val][feature])
-    this.sub_feature_key.forEach(element => {
-      this.date_left_feature_values.push(this.main_data['projectdata'][this.dateleft]['SCPM']['inverter']['Inverter'][this.inverter_val][feature][element]['Actual'])
-      this.date_right_feature_values.push(this.main_data['projectdata'][this.dateright]['SCPM']['inverter']['Inverter'][this.inverter_val][feature][element]['Actual'])
-      this.feature_value_total.push(this.main_data['projectdata'][this.dateright]['SCPM']['inverter']['Inverter'][this.inverter_val][feature][element]['Total'])
-    });
+    if (this.type == 'SCPM'){
+      this.sub_feature_key.forEach(element => {
+        this.date_left_feature_values.push(this.main_data['projectdata'][this.dateleft]['SCPM']['inverter']['Inverter'][this.inverter_val][feature][element]['Actual'])
+        this.date_right_feature_values.push(this.main_data['projectdata'][this.dateright]['SCPM']['inverter']['Inverter'][this.inverter_val][feature][element]['Actual'])
+        this.feature_value_total.push(this.main_data['projectdata'][this.dateright]['SCPM']['inverter']['Inverter'][this.inverter_val][feature][element]['Total'])
+      });
+  
+      // console.log(this.date_left_sub_group_values);
+      // console.log(this.date_right_sub_group_values);
+  
+      this.series = [{
+        name: this.dateleft,
+        data: this.date_left_feature_values
+      },
+      {
+        name: this.dateright,
+        data: this.date_right_feature_values
+      }]
+    }
+    
 
-    // // console.log(this.date_left_sub_group_values);
-    // // console.log(this.date_right_sub_group_values);
-
-    this.series = [{
-      name: this.dateleft,
-      data: this.date_left_feature_values
-    },
-    {
-      name: this.dateright,
-      data: this.date_right_feature_values
-    }]
-
-    // // console.log(this.series);
+    // console.log(this.series);
 
 
     for (let index = 0; index < this.inverter_keys.length; index++) {

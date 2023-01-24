@@ -5,7 +5,7 @@ import 'leaflet-kml';
 declare const L: any;
 
 declare var require: any
-//require('leaflet-side-by-side');
+require('leaflet-side-by-side');
 var selected_point = new L.LayerGroup();
 @Component({
   selector: 'app-comparision',
@@ -90,10 +90,10 @@ export class ComparisionComponent implements OnInit {
     const newName = localStorage.getItem("name");
     const project_id = localStorage.getItem("project_id");
 
-    const newtoken = localStorage.getItem("token");
+    const token = localStorage.getItem("token");
     const headers = {
-    'Content-Type': 'application/json',
-    'Authorization': 'Bearer ' + newtoken,
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json',
     };
 
     fetch(`${environment.api_name}api/project/get_project/${project_id}`, {
@@ -108,7 +108,7 @@ export class ComparisionComponent implements OnInit {
         // this.project_id_summary = Object.keys(data)
         // this.date_summary = this.main_data['date_status']
         // this.center = this.main_data["center"]
-// alert(this.center)
+        // alert(this.center)
 
         var new_center = localStorage.getItem('center')
         if (new_center != '') {
@@ -146,29 +146,29 @@ export class ComparisionComponent implements OnInit {
           // console.log(Object.keys(this.main_data['processed_data'][this.datevalue_first]['summary_layers'])[key]);
 
           var summary_name = Object.keys(this.main_data['processed_data'][this.datevalue_first]['summary_layers'])[key]
-            if (this.defects_data_left.indexOf(summary_name) === -1) {
-              if (summary_name != 'Hotspot' && summary_name != 'Uniform Panel Heating' && summary_name != 'Panel Failure') {
-                this.defects_data_left.push({ key: summary_name, "kml": this.main_data['processed_data'][this.datevalue_first]['summary_layers'][summary_name]['kml'], "color": this.main_data['processed_data'][this.datevalue_first]['summary_layers'][summary_name]['color'] });
-                this.defects_data_right.push({ key: summary_name, "kml": this.main_data['processed_data'][this.datevalue]['summary_layers'][summary_name]['kml'], "color": this.main_data['processed_data'][this.datevalue]['summary_layers'][summary_name]['color'] });
-              }
+          if (this.defects_data_left.indexOf(summary_name) === -1) {
+            if (summary_name != 'Hotspot' && summary_name != 'Uniform Panel Heating' && summary_name != 'Panel Failure') {
+              this.defects_data_left.push({ key: summary_name, "kml": this.main_data['processed_data'][this.datevalue_first]['summary_layers'][summary_name]['kml'], "color": this.main_data['processed_data'][this.datevalue_first]['summary_layers'][summary_name]['color'] });
+              this.defects_data_right.push({ key: summary_name, "kml": this.main_data['processed_data'][this.datevalue]['summary_layers'][summary_name]['kml'], "color": this.main_data['processed_data'][this.datevalue]['summary_layers'][summary_name]['color'] });
             }
-            for (var sub_group in this.main_data['processed_data'][this.datevalue_first]['summary_layers'][summary_name]['sub_group']) {
-              // this.defects_data.push(sub_group)
-              this.defects_data_left.push({ key: sub_group, "kml": this.main_data['processed_data'][this.datevalue_first]['summary_layers'][summary_name]['sub_group'][sub_group]['kml'], "color": this.main_data['processed_data'][this.datevalue_first]['summary_layers'][summary_name]['sub_group'][sub_group]['color'] });
-              this.defects_data_right.push({ key: sub_group, "kml": this.main_data['processed_data'][this.datevalue]['summary_layers'][summary_name]['sub_group'][sub_group]['kml'], "color": this.main_data['processed_data'][this.datevalue]['summary_layers'][summary_name]['sub_group'][sub_group]['color'] });
+          }
+          for (var sub_group in this.main_data['processed_data'][this.datevalue_first]['summary_layers'][summary_name]['sub_group']) {
+            // this.defects_data.push(sub_group)
+            this.defects_data_left.push({ key: sub_group, "kml": this.main_data['processed_data'][this.datevalue_first]['summary_layers'][summary_name]['sub_group'][sub_group]['kml'], "color": this.main_data['processed_data'][this.datevalue_first]['summary_layers'][summary_name]['sub_group'][sub_group]['color'] });
+            this.defects_data_right.push({ key: sub_group, "kml": this.main_data['processed_data'][this.datevalue]['summary_layers'][summary_name]['sub_group'][sub_group]['kml'], "color": this.main_data['processed_data'][this.datevalue]['summary_layers'][summary_name]['sub_group'][sub_group]['color'] });
 
-              // // console.log(this.main_data['processed_data'][this.datevalue_first]['summary_layers'][key]['sub_group'][sub_group]['kml']);
+            // console.log(this.main_data['processed_data'][this.datevalue_first]['summary_layers'][key]['sub_group'][sub_group]['kml']);
 
-              // this.keys_kml.push(this.main_data[this.project_id_summary][this.datevalue_first]['summary_layers'][key]['sub_group']['kml'])
+            // this.keys_kml.push(this.main_data[this.project_id_summary][this.datevalue_first]['summary_layers'][key]['sub_group']['kml'])
 
-            }
+          }
 
 
 
         }
 
-        // // console.log(this.defects_data_left)
-        // // console.log(this.defects_data_right)
+        // console.log(this.defects_data_left)
+        // console.log(this.defects_data_right)
 
 
         this.map1 = L.map('compare_map', {
@@ -191,7 +191,7 @@ export class ComparisionComponent implements OnInit {
           // maxNativeZoom: 20
         }).addTo(this.map1);
 
-        // // console.log(this.ortho_file_location_onLoad_left + '  X--X  ' + this.ortho_file_location_onLoad)
+        // console.log(this.ortho_file_location_onLoad_left + '  X--X  ' + this.ortho_file_location_onLoad)
 
         this.myLayer1 = L.tileLayer(this.thermal_location_onLoad_left + '{z}/{x}/{y}.png', {
           attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
@@ -213,7 +213,7 @@ export class ComparisionComponent implements OnInit {
 
   }
   kmlnameleft(defect) {
-    // // console.log(defect+"----")
+    // console.log(defect+"----")
     this.RemoveKml('remove')
     this.polies = []
 
@@ -253,17 +253,17 @@ export class ComparisionComponent implements OnInit {
 
     var kml_name = this.defects_data_left[defect]['kml'].split(",")
     for (var i = 0; i < kml_name.length; i++) {
-      // console.log(this.kml_file_location_left + 'GLOBAL/' + kml_name[i] + '.kml')
+      console.log(this.kml_file_location_left + 'GLOBAL/' + kml_name[i] + '.kml')
 
       fetch(this.kml_file_location_left + 'GLOBAL/' + kml_name[i] + '.kml')
         .then(res => res.text())
         .then(kmltext => {
-          // // console.log(kmltext)
+          // console.log(kmltext)
 
           const parser = new DOMParser();
           const kml = parser.parseFromString(kmltext, 'text/xml');
           // // alert("wait")
-          // // console.log(kml)
+          // console.log(kml)
 
 
           this.track = new L.KML(kml);
@@ -277,13 +277,13 @@ export class ComparisionComponent implements OnInit {
 
           for (var i in place) {
             let dec = place[i].childNodes[1].textContent
-            // // // console.log(dec)
+            // // console.log(dec)
             let coor = place[i].getElementsByTagName('coordinates')
             let latlngArray = coor[0].textContent.replace(/\n/g, " ").split(/[ ,]+/).filter(Boolean)
 
             var polygonPoints = []
-            // // console.log(dec)
-            // // console.log("---------------------------")
+            // console.log(dec)
+            // console.log("---------------------------")
             let j = 1
             let k = 0
             let l = 2
@@ -295,7 +295,7 @@ export class ComparisionComponent implements OnInit {
               k = k + 2;
               l = l + 2
             }
-            // // console.log(latlngArray)
+            // console.log(latlngArray)
             this.polygonMarkerCreating(latlngArray, color, dec)
 
           }
@@ -342,17 +342,17 @@ export class ComparisionComponent implements OnInit {
 
     var kml_name = this.defects_data_right[defectright]['kml'].split(",")
     for (var i = 0; i < kml_name.length; i++) {
-      // // console.log(this.kml_file_location_right + 'GLOBAL/' + kml_name[i] + '.kml')
+      // console.log(this.kml_file_location_right + 'GLOBAL/' + kml_name[i] + '.kml')
 
       fetch(this.kml_file_location_right + 'GLOBAL/' + kml_name[i] + '.kml')
         .then(res => res.text())
         .then(kmltext => {
-          // // console.log(kmltext)
+          // console.log(kmltext)
 
           const parser = new DOMParser();
           const kml = parser.parseFromString(kmltext, 'text/xml');
           // // alert("wait")
-          // // console.log(kml)
+          // console.log(kml)
 
 
           this.track = new L.KML(kml);
@@ -366,7 +366,7 @@ export class ComparisionComponent implements OnInit {
 
           for (var i in place) {
             let dec = place[i].childNodes[1].textContent
-            // // console.log(dec)
+            // console.log(dec)
             let coor = place[i].getElementsByTagName('coordinates')
             let latlngArray = coor[0].textContent.replace(/\n/g, " ").split(/[ ,]+/).filter(Boolean)
             var pa = parser.parseFromString(dec, "text/html")
@@ -374,22 +374,22 @@ export class ComparisionComponent implements OnInit {
             for (var r in u) {
               if (n % 2 == 0) {
                 b = u[r].textContent;
-                //  // // console.log(b)
+                //  // console.log(b)
               }
               else {
                 if (b == "Defect:") {
                   d = b;
                   this.table_no = u[r].textContent;
 
-                  // // // console.log(u[r].textContent)
+                  // // console.log(u[r].textContent)
                 }
 
               }
               n++
             }
             var polygonPoints = []
-            // // console.log(dec)
-            // // console.log("---------------------------")
+            // console.log(dec)
+            // console.log("---------------------------")
             let j = 1
             let k = 0
             let l = 2
@@ -401,13 +401,13 @@ export class ComparisionComponent implements OnInit {
               k = k + 2;
               l = l + 2
             }
-            // // console.log(this.table_no)
+            // console.log(this.table_no)
             // this.myLayer4 = L.polygon(polygonPoints, { color: color }, { weight: 6 })
             this.polygonMarkerCreating(latlngArray, color, dec)
 
             // this.myLayer4.addTo(this.map1)
             // this.myLayer2.addLayer(this.myLayer4)
-            //
+            //              
           }
           // Adjust map to show the kml
           const bounds = this.track.getBounds();
@@ -415,7 +415,7 @@ export class ComparisionComponent implements OnInit {
 
 
           this.map1.on('click', (e) => {
-            // // console.log("reg" + localStorage.getItem('kml_popup_node'));
+            // console.log("reg" + localStorage.getItem('kml_popup_node'));
             // this.popupDesc = localStorage.getItem('kml_popup_node');
             // this.loadPopUpContent(this.popupKml, this.popupDesc);
           })
@@ -428,8 +428,8 @@ export class ComparisionComponent implements OnInit {
   polygonMarkerCreating(lat, col, dec) {
     var proj_name = localStorage.getItem('name')
     var polygonPoints = []
-    // // console.log(dec)
-    // // console.log("---------------------------")
+    // console.log(dec)
+    // console.log("---------------------------")
     let j = 1
     let k = 0
     let l = 2
@@ -444,7 +444,7 @@ export class ComparisionComponent implements OnInit {
     var project_feature_show = proj_name.includes("Sudair")
     if (project_feature_show) {
       var kml_name = localStorage.getItem("kml_name")
-      // // // console.log(kml_name)
+      // // console.log(kml_name)
       var kml_name_for_spotheight = kml_name.includes("Spotheight")
 
       if (kml_name == "Transmission_Tower" || kml_name == "Benchmark") {
@@ -454,7 +454,7 @@ export class ComparisionComponent implements OnInit {
 
       }
       if (kml_name_for_spotheight) {
-        // // console.log("inside")
+        // console.log("inside")
         this.poly = L.polygon(polygonPoints, { color: col }, { weight: 6 }).addTo(this.map1);
 
       }
@@ -462,15 +462,15 @@ export class ComparisionComponent implements OnInit {
     } else {
       this.poly = L.polygon(polygonPoints, { color: col }, { weight: 6 }).addTo(this.map1);
     }
-    // // // console.log(this.poly)
+    // // console.log(this.poly)
     this.polies.push(this.poly)
     this.poly.on("click", (e) => {
-      // // // console.log(e["latlng"])
+      // // console.log(e["latlng"])
       const parser = new DOMParser();
       var markup = parser.parseFromString(dec, "text/html");
       // var markup_img = parser.parseFromString(dec, "image/svg+xml");
-      // // // console.log(markup_img)
-      // // // console.log("---------------------------")
+      // // console.log(markup_img)
+      // // console.log("---------------------------")
       var y = markup.getElementsByTagName("td");
       let i = 0;
       let s = 0;
@@ -480,32 +480,32 @@ export class ComparisionComponent implements OnInit {
       this.descObj_cadestral = {};
       b = "";
 
-      // // console.log(y.length)
-      // // // console.log("---------------------------")
+      // console.log(y.length)
+      // // console.log("---------------------------")
       // // alert("------"+this.current_kml_data)
       if (y.length > 0) {
 
         for (var t = 0; t < y.length; t++) {
-          // // // console.log(y[19].lastChild)
+          // // console.log(y[19].lastChild)
           if (this.current_kml_data == "cadastral_map") {
-            // // console.log(y)
-            // // console.log(y[t].textContent)
+            // console.log(y)
+            // console.log(y[t].textContent)
             if ((y[t].textContent == "" || y[t].textContent == undefined) && (y[t].lastChild['tagName'] == "IMG")) {
-              // // // console.log(y[t].lastChild['src'])
+              // // console.log(y[t].lastChild['src'])
               let image_src = y[t].lastChild['src']
               // // alert(image_src)
-              // // console.log(y)
+              // console.log(y)
 
               this.descObj_cadestral[b] = image_src
               s++;
-              // // console.log(this.descObj_cadestral)
+              // console.log(this.descObj_cadestral)
 
             } else {
-              // // // console.log("//////////////////////////")
+              // // console.log("//////////////////////////")
 
               if (i % 2 == 0) {
                 b = y[t].textContent;
-                //  // // console.log(b)
+                //  // console.log(b)
               } else {
                 if (b == "Table No") {
                   d = b;
@@ -519,8 +519,8 @@ export class ComparisionComponent implements OnInit {
               i++;
             }
           } else if (this.current_kml_data == "Grading") {
-            // // console.log(y)
-            // // console.log(y[t].textContent)
+            // console.log(y)
+            // console.log(y[t].textContent)
             if (t == 0) {
               b = y[t].textContent;
             } else {
@@ -536,21 +536,21 @@ export class ComparisionComponent implements OnInit {
 
           } else {
             if ((y[t].textContent == "" || y[t].textContent == undefined) && (y[t].lastChild['tagName'] == "IMG")) {
-              // // // console.log(y[t].lastChild['src'])
+              // // console.log(y[t].lastChild['src'])
               let image_src = y[t].lastChild['src']
               // // alert(image_src)
-              // // console.log(y)
+              // console.log(y)
 
               this.descObj[b] = image_src
               s++;
-              // // console.log(this.descObj)
+              // console.log(this.descObj)
 
             } else {
-              // // // console.log("//////////////////////////")
+              // // console.log("//////////////////////////")
 
               if (i % 2 == 0) {
                 b = y[t].textContent;
-                //  // // console.log(b)
+                //  // console.log(b)
               } else {
                 if (b == "Table No") {
                   d = b;
@@ -567,10 +567,10 @@ export class ComparisionComponent implements OnInit {
           // alert(this.subdefects_visibility)
           // this.subdefects_visibility = "visible"
 
-          // // console.log(this.descObj)
+          // console.log(this.descObj)
         }
       } else {
-        // // console.log("else")
+        // console.log("else")
         this.descObj_cadestral["Description"] = dec
       }
       // // alert(this.current_kml_data )
@@ -587,13 +587,13 @@ export class ComparisionComponent implements OnInit {
         this.popup_opened = true
 
       } else if (this.current_kml_data == "Grading") {
-        // // console.log(userArray_value)
+        // console.log(userArray_value)
         this.loadPopUpContent_grading(this.table_no)
         // this.loadPopUpContent_grading(userArray_value, dec)
         // this.loadPopUpContent_grading(userArray_value,userArray_Distance,dec)
 
       } else {
-        // // console.log(this.descObj)
+        // console.log(this.descObj)
         this.loadPopUpContent(this.descObj)
 
       }
@@ -608,14 +608,14 @@ export class ComparisionComponent implements OnInit {
     // // alert(img_tag)
     this.popup_card_visibility = true;
     this.popup_card_visibility_cadestral = false;
-    // console.log(dec_obj)
+    console.log(dec_obj)
     if (dec_obj != "") {
 
 
       selected_point.clearLayers();
 
-      // // console.log("popupdetails");
-      // // // console.log(kml.getElementById(placemarkId).childNodes[1].textContent);
+      // console.log("popupdetails");
+      // // console.log(kml.getElementById(placemarkId).childNodes[1].textContent);
 
 
 
@@ -636,7 +636,7 @@ export class ComparisionComponent implements OnInit {
       // this.marker = L.marker([this.popup_lat, this.popup_lng])
       // selected_point.addLayer(this.marker).addTo(this.map1);
 
-      // // // console.log(dec_obj.Defect+':')
+      // // console.log(dec_obj.Defect+':')
     }
   }
   loadPopUpContent_grading(table_no) {
@@ -656,7 +656,7 @@ export class ComparisionComponent implements OnInit {
     // this.remove_Popup_card()
 
 
-    // // // console.log("cosing_component")
+    // // console.log("cosing_component")
     // if (this.summaryLayerGroup !== null) {
 
 
@@ -883,7 +883,7 @@ export class ComparisionComponent implements OnInit {
       // this.ortho_file_location_onLoad =this.main_data['processed_data'][this.datevalue_left]['ortho_file_location']
 
       for (var key in this.main_data['processed_data'][this.datevalue_left]['summary_layers']) {
-        // // console.log(this.main_data['processed_data'][this.datevalue_first]['summary_layers'][key]['kml']);
+        // console.log(this.main_data['processed_data'][this.datevalue_first]['summary_layers'][key]['kml']);
         // this.keys.push(key)
         if (this.defects_data_left.indexOf(key) === -1) {
           this.defects_data_left.push({ key: key, "kml": this.main_data['processed_data'][this.datevalue_left]['summary_layers'][key]['kml'], "color": this.main_data['processed_data'][this.datevalue_left]['summary_layers'][key]['color'] });

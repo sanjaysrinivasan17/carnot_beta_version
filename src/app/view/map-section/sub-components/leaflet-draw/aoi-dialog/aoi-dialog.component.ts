@@ -11,7 +11,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class AoiDialogComponent implements OnInit {
 
-
+ 
   myform: FormGroup;
 
   constructor(private fb: FormBuilder,   public dialogRef: MatDialogRef<AoiDialogComponent>,
@@ -24,31 +24,30 @@ export class AoiDialogComponent implements OnInit {
   }
 
 
-  // TODO
+  // TODO 
 
   // Form validation do not save empty AOI's
-
-  public saveAoi()
+ 
+  public saveAoi() 
   {
     const data = this.myform.value;
     data.polygon = this.map_data.co;
-    // // console.log(data);
-
+    // console.log(data);
+   
     const newtoken = localStorage.getItem("token");
-    const headers = {
-        'Content-Type': 'application/json',
-        'Authorization': 'token ' + newtoken,
-    };
 
+    const headers = { 'Authorization': 'token ' + newtoken }
     fetch(environment.api_name+'draw/save_aoi/', {
-      method: 'POST',
-      headers,
-      credentials: 'omit',
+      method: 'POST', // or 'PUT'
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'token ' + newtoken 
+      },
       body: JSON.stringify(data),
     })
       .then(response => response.json())
       .then(data => {
-        // // console.log('Success:', data);
+        // console.log('Success:', data);
         this.dialogRef.close([]);
       })
       .catch((error) => {
@@ -58,9 +57,9 @@ export class AoiDialogComponent implements OnInit {
 
   public removeUnusedInstance()
   {
-      // // console.log(this.map_data.elayer);
+      // console.log(this.map_data.elayer);
       this.map_data.event.removeLayer(this.map_data.elayer)
-
+      
   }
 
 }
