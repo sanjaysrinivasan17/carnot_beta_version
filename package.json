@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
     "build": "ng build",
+    "start": "ng serve",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
@@ -44,7 +44,7 @@
     "leaflet-draw": "^1.0.4",
     "leaflet-kml": "^1.0.1",
     "leaflet-measure": "^3.1.0",
-    "leaflet-side-by-side": "^2.2.0",
+    "leaflet-side-by-side2": "^2.2.0",
     "leaflet-toolbar": "^0.4.0-alpha.2",
     "leaflet.measurecontrol": "^1.1.0",
     "ng-apexcharts": "^1.7.4",
@@ -64,8 +64,8 @@
   },
   "devDependencies": {
     "@angular-builders/custom-webpack": "15.0.0",
-    "@angular-devkit/build-angular": "^15.1.0",
-    "@angular/cli": "~15.1.0",
+    "@angular-devkit/build-angular": "^15.1.2",
+    "@angular/cli": "~15.1.2",
     "@angular/compiler-cli": "^15.1.0",
     "@types/jasmine": "~4.0.0",
     "jasmine-core": "~4.3.0",
