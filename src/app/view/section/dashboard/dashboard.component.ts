@@ -4,7 +4,7 @@ import { HttpService } from "../../map-section/services-map/http.service";
 import { environment } from '../../../../environments/environment';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgxUiLoaderService } from "ngx-ui-loader";
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders  } from '@angular/common/http';
 
 @Component({
   selector: 'app-dashboard',
@@ -38,32 +38,28 @@ export class DashboardComponent implements OnInit {
     this.message = localStorage.getItem("message")
     const newName = localStorage.getItem("name");
     this.user_id = localStorage.getItem("user_id");
-
-    const newtoken = localStorage.getItem("token");
+  
+    const token = localStorage.getItem("token");
     const headers = {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + newtoken,
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
     };
 
     this._http.setNewMapIcon({
       dateval: "dashboard"
     });
 
-    fetch(`${environment.api_name}api/project/get_all?filter={\"count\":\"3\"}`, {
+    const filter = { count: 3 }
+    fetch(`${environment.api_name}api/project/get_all?filter=${JSON.stringify(filter)}`,{
      headers,
      credentials: 'omit',
     })
       .then(response => response.json())
       .then(data => {
         this.main_data = data['data']
-        // // console.log("-------------------------------------------")
-        // // console.log(this.main_data.length)
-        // // console.log("-------------------------------------------")
         this.project_id_summary_count = Object.keys(data['data'])
-        // alert("project_id_summary_count---"+this.project_id_summary_count)
 
         this.project_id_summary_length = this.project_id_summary_count.length
-        //  alert(this.project_id_summary_length)
         // for (this.i = 0; this.i < this.project_id_summary.length; this.i++) {
 
         this.recent_3_projects = [];
@@ -94,14 +90,14 @@ export class DashboardComponent implements OnInit {
     const newtoken = localStorage.getItem("token");
 
     var httpOptions = {
-        headers: new HttpHeaders({
-            'Content-Type':  'application/json',
-            'Authorization': 'Bearer ' + newtoken,
-          }),
-        withCredentials: false,
-     };
-    // return this.http.post(environment.api_name + 'api/accounts/generate_otp/', data)
-    return this.http.post(environment.api_name + 'api/accounts/generate_otp/', data, httpOptions)
+      headers: new HttpHeaders({
+          'Content-Type':  'application/json',
+          'Authorization': 'Bearer ' + newtoken,
+        }),
+      withCredentials: false,
+   };
+  // return this.http.post(environment.api_name + 'api/accounts/generate_otp/', data)
+  return this.http.post(environment.api_name + 'api/accounts/generate_otp/', data, httpOptions)
 
   }
 
@@ -110,14 +106,14 @@ export class DashboardComponent implements OnInit {
     const newtoken = localStorage.getItem("token");
 
     var httpOptions = {
-        headers: new HttpHeaders({
-            'Content-Type':  'application/json',
-            'Authorization': 'Bearer ' + newtoken,
-          }),
-        withCredentials: false,
-     };
+      headers: new HttpHeaders({
+          'Content-Type':  'application/json',
+          'Authorization': 'Bearer ' + newtoken,
+        }),
+      withCredentials: false,
+   };
 
-    return this.http.post(environment.api_name + 'api/accounts/verify_otp/', data, httpOptions)
+  return this.http.post(environment.api_name + 'api/accounts/verify_otp/', data, httpOptions)
 
   }
 

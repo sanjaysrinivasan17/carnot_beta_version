@@ -173,3 +173,7 @@
     width: 52px;
     margin-left: 22px;
 }
+
+::ng-deep mat-icon{
+    font-size: 14px;
+}

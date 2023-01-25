@@ -20,7 +20,7 @@
         </div>
         <div class="col-5">
             <div class="feature_type" id="inverter_deviation">
-                <mat-card appearance="outlined" style="width:140px;background-color: white;padding: 0px;margin: 0px;">
+                <mat-card appearance="outlined" *ngIf="type=='SCPM'" style="width:140px;background-color: white;padding: 0px;margin: 0px;">
 
                     <mat-select name="subfeature" [(ngModel)]="subfeature"
                         style="height: 30px;vertical-align: middle;padding-left: 5px;padding-top: 5px;text-align: center;font-family:  'Montserrat', Helvetica, sans-serif;font-size: 16px;"

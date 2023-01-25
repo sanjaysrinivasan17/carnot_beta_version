@@ -41,9 +41,9 @@ export class ManageuserComponent implements OnInit {
     this.firstletter = this.firstname.substring(0, 1)
     this.show_user()
 
-    const newtoken = localStorage.getItem("token");
+    const token = localStorage.getItem("token");
     const headers = {
-      'Authorization': 'Bearer ' + newtoken ,
+      'Authorization': `Bearer ${token}`,
       'Content-Type': 'application/json',
     };
 
@@ -108,9 +108,9 @@ export class ManageuserComponent implements OnInit {
 
     const user_id = localStorage.getItem("user_id");
 
-    const newtoken = localStorage.getItem("token");
+    const token = localStorage.getItem("token");
     const headers = {
-      'Authorization': 'Bearer ' + newtoken ,
+      'Authorization': `Bearer ${token}`,
       'Content-Type': 'application/json',
     };
 

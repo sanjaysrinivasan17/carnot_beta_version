@@ -5,7 +5,7 @@ import { LandingRoutingModule } from './landing-routing.module';
 import { LandingComponent } from './landing.component';
 // import { NavbarComponent } from './navbar/navbar.component';
 import { MaterialLibrary } from 'src/app/library/material.lib';
-//import { FlexLayoutModule } from '@angular/flex-layout';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { PlansComponent } from './plans/plans.component';
 import { ScrollSpyDirective } from './scrollspy';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -48,7 +48,7 @@ import { FeatherModule } from 'angular-feather';
 
 @NgModule({
   declarations: [
-    LandingComponent,
+    LandingComponent, 
     PlansComponent,
     ScrollSpyDirective
   ],
@@ -56,7 +56,7 @@ import { FeatherModule } from 'angular-feather';
     CommonModule,
     LandingRoutingModule,
     // MaterialLibrary,
-    //FlexLayoutModule,
+    FlexLayoutModule,
     MatAutocompleteModule,
     MatButtonModule,
     MatCardModule,

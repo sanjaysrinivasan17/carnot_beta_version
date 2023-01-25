@@ -115,11 +115,13 @@
                 <div class="row" id="image_type" style="display:none">
                     <div>
                         <mat-card appearance="outlined" style="width: 220px;background-color: white;padding-bottom: 6px;margin-left: 120px;border: 1px solid black;height: 50px;">
-                            <mat-select [(ngModel)]="image_type" style="height: 20px;width:200px;vertical-align: middle;padding-left: 5px;text-align: center;font-family: 'Montserrat', Helvetica, sans-serif;background-color: white;" matTooltip="Please Select Image type" placeholder="Please Select Image type"
-                                (selectionChange)="selectChange_aditional($event);">
+                            <mat-select style="height: 20px;width:200px;vertical-align: middle;padding-left: 5px;text-align: center;font-family: 'Montserrat', Helvetica, sans-serif;background-color: white;" matTooltip="Please Select Image type" placeholder="Please Select Image type"
+                                (selectionChange)="selectChange_aditional();">
 
-                                <mat-option [value]="image_type" *ngFor = "let image_type of image_type_value" style="background-color: white;font-family: 'Montserrat', Helvetica, sans-serif;">
-                                    {{image_type}}</mat-option>
+                                <mat-option value="RGB" style="background-color: white;font-family: 'Montserrat', Helvetica, sans-serif;">
+                                    RGB</mat-option>
+                                <mat-option value="Thermal" style="background-color: white;font-family: 'Montserrat', Helvetica, sans-serif;">
+                                    Thermal</mat-option>
 
                             </mat-select>
                         </mat-card>
@@ -128,9 +130,8 @@
                 </div>
 
                 <div class="row" class="card1" id="file" style="display:none">
-                    <input #fileUpload type="file" formControlName="image" multiple (change)="onChange($event);onSelect_AdditionalFile($event);" accept=".jpg,.png" id="file_upload_format">
+                    <input #fileUpload type="file" formControlName="image" multiple (change)="onSelect_AdditionalFile($event);" accept=".jpg,.png" id="file_upload_format">
                     <br>
-                    <!-- onChange($event) -->
                     <mat-label id="file_format">accepted file format .jpg,.png</mat-label>
 
                     <button mat-button class="btn pl-5 pr-5 stepper-action-btn login-btn text-uppercase" style="font-family: 'Montserrat', Helvetica, sans-serif; bottom: -62px; left: 55px;

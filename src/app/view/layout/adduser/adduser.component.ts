@@ -41,44 +41,42 @@ export class AdduserComponent implements OnInit {
       lname: new FormControl('', Validators.required),
       uname: new FormControl('', Validators.required),
       mail: new FormControl('', Validators.required),
-      password: new FormControl('', Validators.required),
-      role: new FormControl('', Validators.required),
-      mnum: new FormControl('', Validators.required),
+    password: new FormControl('', Validators.required),
+    role: new FormControl('', Validators.required),
 
-
+    
     });
 
   }
 
   ngOnInit(): void {
 
-    const newtoken = localStorage.getItem("token");
+    const token = localStorage.getItem("token");
     const headers = {
-      'Authorization': 'Bearer ' + newtoken ,
+      'Authorization': `Bearer ${token}`,
       'Content-Type': 'application/json',
     };
-
     fetch(`${environment.api_name}api/accounts/role`, {
-    method: 'GET',
-    headers,
-    credentials: 'omit'})
+      method: 'GET',
+      headers,
+      credentials: 'omit'})
       .then(response => response.json())
       .then(datavalue => {
         // this.main_data = datavalue
-        // // console.log(datavalue)
-        // // console.log(datavalue.length)
+        // console.log(datavalue)
+        // console.log(datavalue.length)
 
+        // for loop if role name != superadmin this.roles.push(datavalue[index])
         for (let index = 0; index < datavalue.length; index++) {
 
           if (datavalue[index]['name'] != 'superadmin') {
             this.roles.push(datavalue[index])
 
           }
-          // // console.log(datavalue[index])
+          // console.log(datavalue[index])
 
 
         }
-        // this.roles = ['subuser']
 
 
       })
@@ -97,16 +95,15 @@ export class AdduserComponent implements OnInit {
         this.base64image = event.target.result;
 
         this.base64image_split = this.base64image.split('base64,');
-        // // // console.log(this.base64image_split[1])
+        // // console.log(this.base64image_split[1])
 
       }
     }
 
   }
 
-  Selectrole(role) {
+  Selectrole(role){
     this.role = role
-    // alert(role)
   }
   gotomanageuser(fname, lname, uname, email, pwd) {
     // // console.log(this.role)
@@ -171,7 +168,6 @@ export class AdduserComponent implements OnInit {
     // });
 
   }
-
   gotomanageuserpage() {
     this.router.navigate(['app/manageuser'])
   }

@@ -1,5 +1,4 @@
-<mat-dialog-content style="display: block; margin: 0 -24px;padding: 0 24px;max-height: 84vh; overflow: hidden;"
-    class="mat-typography">
+<mat-dialog-content style="display: block; margin: 0 -24px;padding: 0 24px;max-height: 84vh; overflow: hidden;" class="mat-typography">
     <mat-card class="example-card">
         <form [formGroup]="profileForm">
             <!-- <div class="profile-pic-div">
@@ -60,37 +59,17 @@
                     </mat-option>
 
                 </mat-select> -->
-                    <!-- <mat-select name="role" [(ngModel)]="role" id="testing"
-                        style="font-family: 'Montserrat', Helvetica, sans-serif;" [disableOptionCentering]="true"
-                        matTooltip="Change role" (ngModelChange)="Selectrole(role)" required> -->
-                        <!-- <mat-option [value]="role.slug" *ngFor="let role of roles; let i=index"
-                            style="background-color: white;font-family: 'Montserrat', Helvetica, sans-serif;">
-                            {{role.name}}
+                <mat-select name="date" [(ngModel)]="role"
+                style="font-family: 'Montserrat', Helvetica, sans-serif;"
+                (selectionChange)="Selectrole($event.value)" [disableOptionCentering]="true">
+                <mat-option [value]="role.slug" *ngFor="let role of roles; let i=index"
+                    style="background-color: white;font-family: 'Montserrat', Helvetica, sans-serif;">
+                    {{role.name}}
 
-                        </mat-option> -->
-                        <!-- <mat-option value="subuser"
-                            style="background-color: white;font-family: 'Montserrat', Helvetica, sans-serif;">
-                            Sub User
+                </mat-option>
 
-                        </mat-option> -->
-                        <!-- <mat-option [value]="role.slug" *ngFor="let role of roles; let i=index"
-                            style="background-color: white;font-family: 'Montserrat', Helvetica, sans-serif;">
-                            {{role.name}}
-
-                        </mat-option>
-
-                    </mat-select> -->
-                    <mat-select name="date" [(ngModel)]="role"
-                        style="font-family: 'Montserrat', Helvetica, sans-serif;"
-                        (selectionChange)="Selectrole($event.value)" [disableOptionCentering]="true">
-                        <mat-option [value]="role.slug" *ngFor="let role of roles; let i=index"
-                            style="background-color: white;font-family: 'Montserrat', Helvetica, sans-serif;">
-                            {{role.name}}
-
-                        </mat-option>
-
-                    </mat-select>
-                </mat-form-field>
+            </mat-select>
+        </mat-form-field>
 
                 <mat-form-field appearance="outline" class="w-50 pr-2">
                     <mat-label style="font-family: 'Montserrat', Helvetica, sans-serif;" class="field-content">Password
@@ -125,8 +104,9 @@
 <mat-dialog-actions align="end">
     <div class="signup-btn-container">
         <button mat-button class="btn pl-5 pr-5 stepper-action-btn signup-btn text-uppercase" [mat-dialog-close]="true"
+            [disabled]="!profileForm.valid"
             (click)=gotomanageuser(fname.value,lname.value,uname.value,mail.value,password.value)>Save</button>
-        <!-- [disabled]="!profileForm.valid" <button mat-button class="btn pl-5 pr-5 stepper-action-btn signup-btn text-uppercase" (click)=gotomanageuserpage()>Cancel</button> -->
+        <!-- <button mat-button class="btn pl-5 pr-5 stepper-action-btn signup-btn text-uppercase" (click)=gotomanageuserpage()>Cancel</button> -->
         <button mat-button mat-dialog-close
             class="btn pl-5 pr-5 stepper-action-btn signup-btn text-uppercase">Cancel</button>
         <button mat-button class="btn pl-5 pr-5 stepper-action-btn signup-btn text-uppercase" [mat-dialog-close]="true"

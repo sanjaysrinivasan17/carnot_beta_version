@@ -1,5 +1,5 @@
 <div id="compare_map" style="height: 100%; width: 100%;padding-right:0px;right:0px;cursor: move;">
-    <button mat-button mat-dialog-close style=" background-color: var(--primary); left: 10px;z-index: 9999 !important;" matTooltip="close">X</button>
+    <button mat-button mat-dialog-close style=" background-color: var(--primary); left: 70px;z-index: 9999 !important;" matTooltip="close">X</button>
     <div class="datebuttonleft" style="text-align: right;">
 
         <mat-card appearance="outlined" style="width:140px;background-color: white;padding: 0px;margin: 0px;">
@@ -51,7 +51,7 @@
         </mat-card>
     </div>
     <div class="statusbuttonright" style="text-align: right;">
-        <mat-card appearance="outlined" class="right_status_card" id="status_2" style="display: none;flex-direction: row;justify-content: center;flex-wrap: wrap;align-items: center;width: 200px;">
+        <mat-card appearance="outlined" class="right_status_card" id="status_2" style="display: none;flex-direction: row;justify-content: center;flex-wrap: wrap;align-items: center;width: 200px; ">
             <div class="status-indication">
                 <div class="indication-bar" id="bgcolor2" style="background-color: red;"></div>
                 <span class=" indication-text ml-2">{{defect}}</span>
@@ -63,7 +63,7 @@
 
         <mat-card appearance="outlined" style="width:140px;background-color: white;padding: 0px;margin: 0px;">
 
-            <mat-select name="date" [(ngModel)]="dateright" style="height: 30px;vertical-align: middle;padding-left: 5px;padding-top: 5px;text-align: center;font-family:  'Montserrat', Helvetica, sans-serif;" (ngModelChange)="selectChangeright(dateright);" [disableOptionCentering]="true">
+            <mat-select name="date" [(ngModel)]="dateright" style="height: 30px;vertical-align: middle;padding-left: 5px;padding-top: 5px;text-align: center;font-family:  'Montserrat', Helvetica, sans-serif; font-size: 15px;" (ngModelChange)="selectChangeright(dateright);" [disableOptionCentering]="true">
                 <mat-option *ngFor="let dateright of Completed_date_array" [value]="dateright" style="background-color: white;font-family:  'Montserrat', Helvetica, sans-serif;">
                     {{dateright}}
 
