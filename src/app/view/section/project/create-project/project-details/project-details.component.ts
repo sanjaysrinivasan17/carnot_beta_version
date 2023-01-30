@@ -1,77 +1,84 @@
-import { Component, EventEmitter, OnInit, Input, ViewChild, ElementRef, Output } from '@angular/core';
-import { FormControl, FormControlName, FormGroup } from '@angular/forms';
-import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
-import { HttpClient } from '@angular/common/http';
-import { Country, State, City } from 'country-state-city';
-import { Router } from '@angular/router';
+import {
+  Component,
+  EventEmitter,
+  OnInit,
+  Input,
+  ViewChild,
+  ElementRef,
+  Output,
+} from "@angular/core";
+import { FormControl, FormControlName, FormGroup } from "@angular/forms";
+import { DomSanitizer, SafeUrl } from "@angular/platform-browser";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { Country, State, City } from "country-state-city";
+import { Router } from "@angular/router";
 import { HttpService } from "../../../../map-section/services-map/http.service";
-import { environment } from '../../../../../../environments/environment';
+import { environment } from "../../../../../../environments/environment";
 
 @Component({
-  selector: 'project-step-details',
-  templateUrl: './project-details.component.html',
-  styleUrls: ['./project-details.component.css']
+  selector: "project-step-details",
+  templateUrl: "./project-details.component.html",
+  styleUrls: ["./project-details.component.css"],
 })
 export class ProjectDetailsComponent implements OnInit {
   @Input()
-  mode: any
+  mode: any;
   @Input()
-  names: any
+  names: any;
   @Input()
-  url: any
+  url: any;
   @Input()
-  method: any
+  method: any;
   @Input()
-  multiple: any
+  multiple: any;
   @Input()
-  disabled: any
+  disabled: any;
   @Input()
-  accept: any
+  accept: any;
   @Input()
-  maxFileSize: any
+  maxFileSize: any;
   @Input()
-  auto = true
+  auto = true;
   @Input()
-  withCredentials: any
+  withCredentials: any;
   @Input()
-  invalidFileSizeMessageSummary: any
+  invalidFileSizeMessageSummary: any;
   @Input()
-  invalidFileSizeMessageDetail: any
+  invalidFileSizeMessageDetail: any;
   @Input()
-  invalidFileTypeMessageSummary: any
+  invalidFileTypeMessageSummary: any;
   @Input()
-  invalidFileTypeMessageDetail: any
+  invalidFileTypeMessageDetail: any;
   @Input()
-  previewWidth: any
+  previewWidth: any;
   @Input()
-  chooseLabel = 'Choose'
+  chooseLabel = "Choose";
   @Input()
-  uploadLabel = 'Upload'
+  uploadLabel = "Upload";
   @Input()
-  cancelLabel = 'Cancel'
+  cancelLabel = "Cancel";
   @Input()
-  customUpload: any
+  customUpload: any;
   @Input()
-  showUploadButton: any
+  showUploadButton: any;
   @Input()
-  showCancelButton: any
-
-
-  @Input()
-  dataUriPrefix: any
-  @Input()
-  deleteButtonLabel: any
-  @Input()
-  deleteButtonIcon = 'close'
-  @Input()
-  showUploadInfo: any
-
-  fileUpload!: ElementRef 
-
-  inputFileName: string = ''
+  showCancelButton: any;
 
   @Input()
-  files: File[] = []
+  dataUriPrefix: any;
+  @Input()
+  deleteButtonLabel: any;
+  @Input()
+  deleteButtonIcon = "close";
+  @Input()
+  showUploadInfo: any;
+
+  fileUpload!: ElementRef;
+
+  inputFileName: string = "";
+
+  @Input()
+  files: File[] = [];
 
   @Output() stepperEvent: EventEmitter<number> = new EventEmitter();
 
@@ -92,17 +99,20 @@ export class ProjectDetailsComponent implements OnInit {
   ngxService: any;
   public success: any;
 
-  constructor(private _http: HttpService,private sanitizer: DomSanitizer, private router: Router, private http: HttpClient) {
-
-  }
+  constructor(
+    private _http: HttpService,
+    private sanitizer: DomSanitizer,
+    private router: Router,
+    private http: HttpClient
+  ) {}
 
   ngOnInit(): void {
-    this.countries = Country.getAllCountries()
-    this.states = State.getAllStates()
-    this.cities = City.getAllCities()
-    this.country_data = this.countries
+    this.countries = Country.getAllCountries();
+    this.states = State.getAllStates();
+    this.cities = City.getAllCities();
+    this.country_data = this.countries;
     this._http.setNewMapIcon({
-      dateval: "create"
+      dateval: "create",
     });
     // // console.log(this.states[0])
     // // console.log(this.countries[0])
@@ -115,21 +125,19 @@ export class ProjectDetailsComponent implements OnInit {
     // alert(this.states.length)
     for (var i = 0; i < this.countries.length; i++) {
       if (this.countries[i]["isoCode"] == countryval) {
-        var country_name = this.countries[i]["name"]
-        this.country(country_name)
-
+        var country_name = this.countries[i]["name"];
+        this.country(country_name);
       }
     }
     this.states_data = [];
     for (var i = 0; i < this.states.length; i++) {
       if (this.states[i]["countryCode"] == countryval) {
-        var cou = this.states[i].length
-        this.states_data.push(this.states[i])
-        // // console.log(this.states_data)
-
+        var cou = this.states[i].length;
+        this.states_data.push(this.states[i]);
+        // // // console.log(this.states_data)
       }
     }
-    this.countryval_data = countryval
+    this.countryval_data = countryval;
     // alert("inside" + cou)
     // this.country_data = this.countries
   }
@@ -141,50 +149,49 @@ export class ProjectDetailsComponent implements OnInit {
       if (this.states_data[i]["isoCode"] == stateval) {
         // // console.log(this.states_data[i]["name"])
 
-        var state_name_val = this.states_data[i]["name"]
-        this.state(state_name_val)
+        var state_name_val = this.states_data[i]["name"];
+        this.state(state_name_val);
       }
     }
     this.cities_data = [];
     for (var i = 0; i < this.cities.length; i++) {
-      if (this.cities[i]["stateCode"] == stateval && this.cities[i]["countryCode"] == this.countryval_data) {
-        this.cities_data.push(this.cities[i])
-        // // console.log(this.cities_data)
-
+      if (
+        this.cities[i]["stateCode"] == stateval &&
+        this.cities[i]["countryCode"] == this.countryval_data
+      ) {
+        this.cities_data.push(this.cities[i]);
+        // // // console.log(this.cities_data)
       }
     }
-
   }
 
   selectCity(cityval: any) {
     // alert(cityval)
   }
   onClick(event: any) {
-    if (this.fileUpload)
-      this.fileUpload.nativeElement.click()
+    if (this.fileUpload) this.fileUpload.nativeElement.click();
   }
 
-  onInput(event: any) {
-
-  }
+  onInput(event: any) {}
 
   onFileSelected(event: any) {
-
-
-    let files = event.dataTransfer ? event.dataTransfer.files : event.target.files;
-    // console.log('event::::::', event)
+    let files = event.dataTransfer
+      ? event.dataTransfer.files
+      : event.target.files;
+    // // console.log('event::::::', event)
     for (let i = 0; i < files.length; i++) {
       let file = files[i];
-
 
       //if(!this.isFileSelected(file)){
       if (this.validate(file)) {
         //      if(this.isImage(file)) {
-        file.objectURL = this.sanitizer.bypassSecurityTrustUrl((window.URL.createObjectURL(files[i])));
-        // console.log(file.objectURL.changingThisBreaksApplicationSecurity)
+        file.objectURL = this.sanitizer.bypassSecurityTrustUrl(
+          window.URL.createObjectURL(files[i])
+        );
+        // // console.log(file.objectURL.changingThisBreaksApplicationSecurity)
         //      }
         if (!this.isMultiple()) {
-          this.files = []
+          this.files = [];
         }
         this.files.push(files[i]);
         // console.log(this.files)
@@ -194,94 +201,114 @@ export class ProjectDetailsComponent implements OnInit {
     }
   }
   removeFile(file: any) {
-    let ix
+    let ix;
     if (this.files && -1 !== (ix = this.files.indexOf(file))) {
-      this.files.splice(ix, 1)
-      this.clearInputElement()
+      this.files.splice(ix, 1);
+      this.clearInputElement();
     }
   }
 
   validate(file: File) {
     for (const f of this.files) {
-      if (f.name === file.name
-        && f.lastModified === file.lastModified
-        && f.size === f.size
-        && f.type === f.type
+      if (
+        f.name === file.name &&
+        f.lastModified === file.lastModified &&
+        f.size === f.size &&
+        f.type === f.type
       ) {
-        return false
+        return false;
       }
     }
-    return true
+    return true;
   }
 
   clearInputElement() {
-    this.fileUpload.nativeElement.value = ''
+    this.fileUpload.nativeElement.value = "";
   }
-
 
   isMultiple(): boolean {
-    return this.multiple
+    return this.multiple;
   }
 
+  module(value: any) {
+    this.moduletype = value;
+  }
+  table(value: any) {
+    this.tabletype = value;
+  }
+  inverter(value: any) {
+    this.invertertype = value;
+  }
+  country(value: any) {
+    this.country_name = value;
+  }
+  state(value: any) {
+    this.state_name = value;
+  }
+  city(value: any) {
+    this.city_name = value;
+  }
 
-  module(value: any) { this.moduletype = value }
-  table(value: any) { this.tabletype = value }
-  inverter(value: any) { this.invertertype = value }
-  country(value: any) { this.country_name = value }
-  state(value: any) { this.state_name = value }
-  city(value: any) { this.city_name = value }
-
-  next(prject_name: any, plant_size: any, plant_capacity: any, date: any, decription: any) {
+  next(
+    prject_name: any,
+    plant_size: any,
+    plant_capacity: any,
+    date: any,
+    decription: any
+  ) {
     this.stepperEvent.emit(1);
     var create_project_data = {
       "Project Name": prject_name,
       "plant size": plant_size,
       "plant capacity": plant_capacity,
-      "date": date,
-      "decription": decription,
-      "Module": this.moduletype,
-      "table": this.tabletype,
-      "inverter": this.invertertype,
-      "country": this.country_name,
-      "state": this.state_name,
-      "city": this.city_name
-    }
-    // console.log(create_project_data)
-
+      date: date,
+      decription: decription,
+      Module: this.moduletype,
+      table: this.tabletype,
+      inverter: this.invertertype,
+      country: this.country_name,
+      state: this.state_name,
+      city: this.city_name,
+    };
+    // // console.log(create_project_data)
   }
 
-  create_new_Project(prject_name: any, plant_size: any, plant_capacity: any, date: any, decription: any) {
-
+  create_new_Project(
+    prject_name: any,
+    plant_size: any,
+    plant_capacity: any,
+    date: any,
+    decription: any
+  ) {
     var d = new Date(date),
-      month = '' + (d.getMonth() + 1),
-      day = '' + d.getDate(),
+      month = "" + (d.getMonth() + 1),
+      day = "" + d.getDate(),
       year = d.getFullYear();
 
-    if ((d.getMonth() + 1) < 10) {
-      month = "0" + month
-    } else if ((d.getMonth() + 1) >= 9) {
-      month = month
+    if (d.getMonth() + 1 < 10) {
+      month = "0" + month;
+    } else if (d.getMonth() + 1 >= 9) {
+      month = month;
     }
-    if ((d.getDate()) < 10) {
-      day = "0" + day
-    } else if ((d.getDate()) >= 9) {
-      day = day
+    if (d.getDate() < 10) {
+      day = "0" + day;
+    } else if (d.getDate() >= 9) {
+      day = day;
     }
     date = year + "-" + month + "-" + day;
     var create_new_Project_data = {
-      "name": prject_name,
-      "plant_size": plant_size,
-      "plant_capacity": plant_capacity,
-      "date": date,
-      "description": decription,
-      "Module": this.moduletype,
-      "table": this.tabletype,
-      "inverter": this.invertertype,
-      "country": this.country_name,
-      "state": this.state_name,
-      "city": this.city_name
-    }
-
+      name: prject_name,
+      plant_size: plant_size,
+      plant_capacity: plant_capacity,
+      date: date,
+      description: decription,
+      Module: this.moduletype,
+      table: this.tabletype,
+      inverter: this.invertertype,
+      country: this.country_name,
+      state: this.state_name,
+      city: this.city_name,
+    };
 
     // return // console.log(create_new_Project_data)
     const body = JSON.stringify(create_new_Project_data);
@@ -290,27 +317,30 @@ export class ProjectDetailsComponent implements OnInit {
     const newtoken = localStorage.getItem("token");
 
     var httpOptions = {
-      headers: { 'Authorization': 'token ' + newtoken, 'content-type': 'application/json' }
+      headers: new HttpHeaders({
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + newtoken,
+      }),
+      withCredentials: false,
     };
-    this.http.post(environment.api_name+"project/create_project/", body, httpOptions).subscribe(data => {
-      this.postId = data;
-      // console.log(data)
-      this.success = data["status"]
 
-    // alert(this.success)
+    this.http
+      .post(environment.api_name + "project/create_project/", body, httpOptions)
+      .subscribe((data) => {
+        this.postId = data;
+        // // console.log(data)
+        this.success = data["status"];
 
-    if(this.success == 'success'){
+        // alert(this.success)
 
-      setTimeout(() => {
-        this.ngxService.stop();
-      }, 2100)
-    this.router.navigate(['app/home'])
-
-    }
-  })
-
+        if (this.success == "success") {
+          setTimeout(() => {
+            this.ngxService.stop();
+          }, 2100);
+          this.router.navigate(["app/home"]);
+        }
+      });
   }
-
 
   // {
   //   "name": "PD_Testing_AT",
@@ -321,12 +351,4 @@ export class ProjectDetailsComponent implements OnInit {
   //   "country": "IN",
   //   "date":"2021-04-29"
   // }
-
-
-
-
-
-
-
 }
-

@@ -23,7 +23,13 @@ export class RawImageComponent {
     const newtoken = localStorage.getItem("token");
     let project_id = localStorage.getItem("project_id");
     let date = localStorage.getItem("date");
-    const headers = { 'Authorization': 'token ' + newtoken }
+
+    const token = localStorage.getItem("token");
+    const headers = {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+    };
+
     this.maindata = this._http.get_mision_flight_detail()
     this.mission_data = Object.keys(this.maindata).sort()
     // var url = environment.api_name + 'project/get_missions_flights/' + project_id + '/' + date
@@ -76,4 +82,3 @@ export class RawImageComponent {
 
   }
 }
-

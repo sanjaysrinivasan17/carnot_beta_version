@@ -14,6 +14,10 @@ $my-app-theme: mat-light-theme($my-app-primary, $my-app-accent, $my-app-warn);
 // @import 'bootstrap/scss/bootstrap-reboot';
 // @import 'bootstrap/scss/bootstrap-grid';
 
+
+@import 'leaflet-side-by-side/layout.css';
+@import 'leaflet-side-by-side/range.css';
+
 /* You can add global styles to this file, and also import other style files */
 
 body {

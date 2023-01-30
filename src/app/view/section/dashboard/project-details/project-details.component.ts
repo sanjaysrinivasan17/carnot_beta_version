@@ -93,14 +93,14 @@ export class ProjectDetailsComponent implements OnInit {
   constructor(private router: Router, private http: HttpClient, private ngxService: NgxUiLoaderService) { }
   ngOnInit(): void {
 
-    
+
     setTimeout(() => {
       this.ngxService.stop();
     }, 3000)
     // alert("proj det")
     this.user_id = localStorage.getItem("user_id")
     const newName = localStorage.getItem("name");
-   
+
     const token = localStorage.getItem("token");
     const headers = {
         'Authorization': `Bearer ${token}`,

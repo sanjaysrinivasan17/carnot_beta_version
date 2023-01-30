@@ -63,7 +63,7 @@ export class SubdefectsComponent implements OnInit {
       this.inventor_keys = []
       this.defect_values = []
       this.dateonload = localStorage.getItem("date")
-
+      // alert(this.dateonload )
       this._http.summary_data().subscribe(data => {
         this.summ = data['data']
         this.project_id_summary = Object.keys(data['data'])
@@ -80,8 +80,8 @@ export class SubdefectsComponent implements OnInit {
         // return
         // alert(this.mode+"----summary")
         var summary_keys = Object.keys(this.summ['processed_data'][this.dateonload]['summary_layers'])
+        // alert(summary_keys)
         this.inventor_keys = Object.keys(this.summ['processed_data'][this.dateonload]['inverter_layers'])
-
         if (this.mode == 'summary') {
           // alert(this.mode + "----summary")
 
@@ -905,8 +905,7 @@ export class SubdefectsComponent implements OnInit {
   dialogRef.afterClosed().subscribe(result => {
     // console.log(`Dialog result: ${result}`);
   });
-   
+
 
   }
 }
-

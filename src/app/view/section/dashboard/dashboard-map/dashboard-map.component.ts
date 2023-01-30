@@ -1,8 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { environment } from 'src/environments/environment';
-import 'leaflet';
-import 'leaflet-kml';
-import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { Component, OnInit, ViewChild } from "@angular/core";
+import { environment } from "src/environments/environment";
+import "leaflet";
+import "leaflet-kml";
+import { NgxUiLoaderService } from "ngx-ui-loader";
 import {
   ApexAxisChartSeries,
   ApexChart,
@@ -21,10 +21,10 @@ import {
   ApexResponsive,
   ApexTooltip,
 } from "ng-apexcharts";
-declare var require: any
-// require('leaflet-side-by-side');
+declare var require: any;
 declare const L: any;
 
+//require('leaflet-side-by-side');
 var selected_point = new L.LayerGroup();
 
 export type ChartOptions = {
@@ -65,9 +65,9 @@ export type ChartOptions3 = {
 };
 
 @Component({
-  selector: 'dashboard-map',
-  templateUrl: './dashboard-map.component.html',
-  styleUrls: ['./dashboard-map.component.css']
+  selector: "dashboard-map",
+  templateUrl: "./dashboard-map.component.html",
+  styleUrls: ["./dashboard-map.component.css"],
 })
 export class DashboardMapComponent implements OnInit {
   @ViewChild("chart") chart: ChartComponent;
@@ -82,7 +82,7 @@ export class DashboardMapComponent implements OnInit {
   public center: any = [];
   items: any = [];
   main_data_get_all: any;
-  categorywise_project: any = ['all'];
+  categorywise_project: any = ["all"];
   project_id_summary_alldata: any;
   str: any;
   lat: any;
@@ -100,7 +100,7 @@ export class DashboardMapComponent implements OnInit {
   total_power_loss: any;
   project_list: any;
   allproject: any;
-  marker: any
+  marker: any;
   markerlist: any = [];
   tabIndex = 0;
   activeTab = 0;
@@ -112,34 +112,34 @@ export class DashboardMapComponent implements OnInit {
   user_id: any;
   tabGroup;
 
-  constructor(private ngxService: NgxUiLoaderService) { }
+  constructor(private ngxService: NgxUiLoaderService) {}
 
   ngOnChanges(): void {
-    this.map = L.map('mapdashboard', {
-      attributionControl: false
+    this.map = L.map("mapdashboard", {
+      attributionControl: false,
     }).setView(["20.5937", "78.9629"], 5);
   }
 
   ngOnInit(): void {
- // const newName = localStorage.getItem("name");
- this.user_id = localStorage.getItem("user_id");
+    // const newName = localStorage.getItem("name");
+    this.user_id = localStorage.getItem("user_id");
 
- const token = localStorage.getItem("token");
- const headers = {
-     'Authorization': `Bearer ${token}`,
-     'Content-Type': 'application/json',
- };
+    const token = localStorage.getItem("token");
+    const headers = {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+    };
 
- const filter = { count: 10 }
- fetch(`${environment.api_name}api/project/get_all?filter=${JSON.stringify(filter)}`, {
-   method: "GET",
-   headers,
-   credentials: "omit",
- })
-   .then((response) => response.json())
-      .then(data => {
-        this.main_data_get_all = data['data']
-        this.project_id_summary_alldata = Object.keys(this.main_data_get_all)
+    const filter = { count: 10 }
+    fetch(`${environment.api_name}api/project/get_all?filter=${JSON.stringify(filter)}`, {
+      method: "GET",
+      headers,
+      credentials: "omit",
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        this.main_data_get_all = data["data"];
+        this.project_id_summary_alldata = Object.keys(this.main_data_get_all);
         // get category wise based on the user account.
         for (var x = 0; x < this.main_data_get_all.length; x++) {
           if (
@@ -156,9 +156,9 @@ export class DashboardMapComponent implements OnInit {
 
         // get all coordinates of the project.
         for (var i = 0; i < this.project_id_summary_alldata.length; i++) {
-          var processed_data = []
-          this.str = this.main_data_get_all[i]['center']
-          if (this.str != '') {
+          var processed_data = [];
+          this.str = this.main_data_get_all[i]["center"];
+          if (this.str != "") {
             this.str = this.str.split(",");
             this.lat = this.str[0];
             this.long = this.str[1];
@@ -169,7 +169,7 @@ export class DashboardMapComponent implements OnInit {
               name: this.main_data_get_all[i]["name"],
               category: this.main_data_get_all[i]["category"],
             });
-            this.allproject = this.center
+            this.allproject = this.center;
           }
 
           var processed_data_keys = Object.keys(
@@ -186,24 +186,25 @@ export class DashboardMapComponent implements OnInit {
             Data: this.main_data_get_all[i],
             center: this.main_data_get_all[i]["center"],
           });
-          // for (var j = 0; j < processed_data_keys.length; j++) {
 
+          // for (var j = 0; j < processed_data_keys.length; j++) {
 
           //   processed_data.push({ "processed_data_key": processed_data_keys[j], "processed_data_values": processed_data_values[j], "category": this.main_data_get_all[i]['category'] })
           // }
-          this.processed_data_project_categorywise.push(processed_data)
+          this.processed_data_project_categorywise.push(processed_data);
         }
 
-        this.processed_data_project_categorywise_backup = this.processed_data_project_categorywise
+        this.processed_data_project_categorywise_backup =
+          this.processed_data_project_categorywise;
 
         setTimeout(() => {
           this.ngxService.stop();
-        }, 4000)
+        }, 4000);
 
         // Initialize the map component
 
-        this.map = L.map('mapdashboard', {
-          attributionControl: false
+        this.map = L.map("mapdashboard", {
+          attributionControl: false,
         }).setView(["20.5937", "78.9629"], 5);
 
         // default MAP layer
@@ -236,7 +237,7 @@ export class DashboardMapComponent implements OnInit {
       .catch((error) => console.error(error));
   }
 
-   Dashboard_data(get_dashboard_data, category) {
+  Dashboard_data(get_dashboard_data, category) {
     this.dashboard_total_key = Object.keys(
       get_dashboard_data["dashboard_total"]
     );
@@ -771,5 +772,4 @@ export class DashboardMapComponent implements OnInit {
       back.click();
     }
   }
-
 }

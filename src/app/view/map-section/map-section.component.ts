@@ -248,7 +248,7 @@ export class MapSectionComponent implements OnInit {
   get_missions_flights_status: string;
   accepted3: boolean
   accepted4: boolean
-  
+
 
   constructor(private _http: HttpService, private http: HttpClient, private router: Router, private toastr: ToastrService, public dialog: MatDialog) { }
 
@@ -1183,7 +1183,7 @@ export class MapSectionComponent implements OnInit {
   }
 
   LoadKml(value: any) {
-    // console.log(value) 
+    // console.log(value)
     // alert("in Map")
     // alert(value.menu)
     // console.log(value)
@@ -1271,7 +1271,7 @@ export class MapSectionComponent implements OnInit {
                 else {
                   this.polygonMarkerCreating(latlngArray, value.color, dec)
                 }
-                //              
+                //
               }
               // Adjust map to show the kml
               const bounds = this.track.getBounds();
@@ -1338,7 +1338,7 @@ export class MapSectionComponent implements OnInit {
               else {
                 this.polygonMarkerCreating(latlngArray, value.color, dec)
               }
-              //              
+              //
             }
             // Adjust map to show the kml
             const bounds = this.track.getBounds();
@@ -1449,7 +1449,7 @@ export class MapSectionComponent implements OnInit {
 
                 this.polygonMarkerCreating(latlngArray, value.color, dec)
               }
-              //              
+              //
             }
             // Adjust map to show the kml
             const bounds = this.track.getBounds();
@@ -1969,7 +1969,7 @@ export class MapSectionComponent implements OnInit {
                 }
                 n++
               }
-              // this.subdefects_visibility = 
+              // this.subdefects_visibility =
 
 
 
@@ -2570,55 +2570,58 @@ export class MapSectionComponent implements OnInit {
     }
     this.map.removeLayer(this.rgb_layer);
 
-    const headers = { 'Authorization': 'Bearer ' + newtoken }
-    // console.log(environment.api_name+"project/retrieve_project_data/Adani-" + this.Adani_locations[location_name]['name'])
+    const token = localStorage.getItem("token");
+    const headers = {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+    };
 
-    fetch(environment.api_name + "project/retrieve_project_data/Adani-" + this.Adani_locations[location_name]['name'], { headers })
-      .then(response => response.json())
-      .then(datavalue => {
-        var main_data = datavalue
-        // console.log(datavalue)
+    // fetch(environment.api_name + "project/retrieve_project_data/Adani-" + this.Adani_locations[location_name]['name'], { headers })
+    //   .then(response => response.json())
+    //   .then(datavalue => {
+    //     var main_data = datavalue
+    //     // // console.log(datavalue)
 
-        this.project_id_summary = Object.keys(datavalue)
-        this.date_inv = Object.values(datavalue[this.project_id_summary])[2]
-        // console.log(datavalue)
+    //     this.project_id_summary = Object.keys(datavalue)
+    //     this.date_inv = Object.values(datavalue[this.project_id_summary])[2]
+    //     // // console.log(datavalue)
 
-        this.date_inv_status_key = Object.keys(datavalue[this.project_id_summary]["date_status"])
-        // // alert(datavalue[this.project_id_summary][this.date_inv_status_key[0]]['report_path'])
+    //     this.date_inv_status_key = Object.keys(datavalue[this.project_id_summary]["date_status"])
+    //     // // alert(datavalue[this.project_id_summary][this.date_inv_status_key[0]]['report_path'])
 
-        sessionStorage.setItem("reportPath", datavalue[this.project_id_summary][this.date_inv_status_key[0]]['report_path'])
-        localStorage.setItem("date", this.date_inv_status_key[0])
-        this.map.remove()
-        // main_data[this.project_id_summary]['name']
-        //  // alert(main_data[this.project_id_summary]['dates'][0])
-        // localStorage.setItem("date", main_data[this.project_id_summary]['dates'][0])
-        this._http.setclosesidebar({
-          close_side_bar: "summarySidebar/True"
-        });
-        this._http.setproject_name({
-          proj_name_val: newName
-        });
-        this.accepted = 'false';
-        this.accepted1 = 'false';
+    //     sessionStorage.setItem("reportPath", datavalue[this.project_id_summary][this.date_inv_status_key[0]]['report_path'])
+    //     localStorage.setItem("date", this.date_inv_status_key[0])
+    //     this.map.remove()
+    //     // main_data[this.project_id_summary]['name']
+    //     //  // alert(main_data[this.project_id_summary]['dates'][0])
+    //     // localStorage.setItem("date", main_data[this.project_id_summary]['dates'][0])
+    //     this._http.setclosesidebar({
+    //       close_side_bar: "summarySidebar/True"
+    //     });
+    //     this._http.setproject_name({
+    //       proj_name_val: newName
+    //     });
+    //     this.accepted = 'false';
+    //     this.accepted1 = 'false';
 
-        //   const input = document.getElementById("checkbox")
-        //   input.inngetElementsById('#checkbox-input').checked = false
-        //   // alert()
-        //   var x = input.getElementsByClassName("mat-checkbox-ripple")
-        // //  alert(x)
+    //     //   const input = document.getElementById("checkbox")
+    //     //   input.inngetElementsById('#checkbox-input').checked = false
+    //     //   // alert()
+    //     //   var x = input.getElementsByClassName("mat-checkbox-ripple")
+    //     // //  alert(x)
 
 
-        //   // input.ariaChecked = "false"
+    //     //   // input.ariaChecked = "false"
 
-        //   // // // alert(input)
-        //   // // var x = document.getElementById('checkbox-input');
-        //   // var x = $(".checkbox-input").prop("mat-checkbox-input", false)
-        //   // // x.checked = false
-        //   // alert(document.getElementsByClassName('mat-checkbox-input cdk-visually-hidden'))
-        //   // // $('#checkbox').is(':checked');
-        //   // // alert('Checkbox checked!');
-        this.ngOnInit();
-      })
+    //     //   // // // alert(input)
+    //     //   // // var x = document.getElementById('checkbox-input');
+    //     //   // var x = $(".checkbox-input").prop("mat-checkbox-input", false)
+    //     //   // // x.checked = false
+    //     //   // alert(document.getElementsByClassName('mat-checkbox-input cdk-visually-hidden'))
+    //     //   // // $('#checkbox').is(':checked');
+    //     //   // // alert('Checkbox checked!');
+    //     this.ngOnInit();
+    //   })
 
 
   }

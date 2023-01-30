@@ -365,7 +365,7 @@ export class AssetsidebarComponent implements OnInit {
       e.style.width = '0px';
     } else {
       this.isOpenCompare = true;
-      this.dialogRef = this.dialog.open(ComparisionAssetComponent, { panelClass: 'my-full-screen-dialog' });
+      this.dialogRef = this.dialog.open(ComparisionAssetComponent);
       e.style.width = '5px';
       this.closeSidebar('summarySidebar')
     }

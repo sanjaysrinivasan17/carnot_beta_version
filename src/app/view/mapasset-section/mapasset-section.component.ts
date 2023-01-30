@@ -163,7 +163,8 @@ export class MapassetSectionComponent implements OnInit {
       // console.log(this.map)
       // default MAP layer
 
-      L.tileLayer('https://tile.osm.ch/switzerland/{z}/{x}/{y}{r}.png', {
+      //L.tileLayer('https://tile.osm.ch/switzerland/{z}/{x}/{y}{r}.png', {
+      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
         // L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager_nolabels/{z}/{x}/{y}{r}.png', {
         maxZoom: 22,
         maxNativeZoom: 19,
@@ -573,11 +574,12 @@ export class MapassetSectionComponent implements OnInit {
             let project_type = sessionStorage.getItem("project_type");
             let date = localStorage.getItem("date");
 
-            const token = localStorage.getItem("token");
-            const headers = {
+          const token = localStorage.getItem("token");
+          const headers = {
               'Authorization': `Bearer ${token}`,
               'Content-Type': 'application/json',
-            };
+          };
+
             var url = environment.api_name + 'api/project/get_thermal_assets/' + project_id + '/' + date + '/' + project_type + '?filter={"mission":"' + dataval['mission'] + '","flight":"' + dataval['flight'] + '"}'
 
             fetch(url, { headers })
@@ -586,12 +588,12 @@ export class MapassetSectionComponent implements OnInit {
                 console.log(datavalue['data'])
                 this.uploaded_raw_image = datavalue['data']
                 let popupContent = `
-                  <form class="popup-form">  
+                  <form class="popup-form">
                     <div class="form-group">
                       <label class="mb-0" for="comment">Comment:</label>
                       <textarea class="form-control" rows="4" class="comment"></textarea>
                     </div>
-                    <div class="d-flex">  
+                    <div class="d-flex">
                       <button class="btn btn-outline-info btn-sm">Save</button>
                       <button class="delete-button btn btn-outline-danger btn-sm ml-auto">
                          Delete
@@ -649,11 +651,11 @@ export class MapassetSectionComponent implements OnInit {
     let project_type = sessionStorage.getItem("project_type");
     let date = localStorage.getItem("date");
 
-    const token = localStorage.getItem("token");
-    const headers = {
-      'Authorization': `Bearer ${token}`,
-      'Content-Type': 'application/json',
-    };
+      const token = localStorage.getItem("token");
+      const headers = {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+      };
 
     var url = environment.api_name + 'api/project/get_missions_flights/' + project_id + '/' + date + '/' + project_type
     fetch(url, { headers })

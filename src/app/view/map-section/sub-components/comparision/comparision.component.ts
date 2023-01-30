@@ -92,8 +92,8 @@ export class ComparisionComponent implements OnInit {
 
     const token = localStorage.getItem("token");
     const headers = {
-      'Authorization': `Bearer ${token}`,
-      'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
     };
 
     fetch(`${environment.api_name}api/project/get_project/${project_id}`, {
@@ -407,7 +407,7 @@ export class ComparisionComponent implements OnInit {
 
             // this.myLayer4.addTo(this.map1)
             // this.myLayer2.addLayer(this.myLayer4)
-            //              
+            //
           }
           // Adjust map to show the kml
           const bounds = this.track.getBounds();

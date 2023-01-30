@@ -11,11 +11,11 @@ import { DialogPreviewComponent } from '../dialog-preview/dialog-preview.compone
 declare const L: any;
 
 var editableLayers = new L.FeatureGroup(); // featureGroup for draw Plugin
-var dstate = false; // TODO check usage 
+var dstate = false; // TODO check usage
 var currentCoords;
 var layer; // layer for draw Plugin
 var polygon_draw_layer = new L.LayerGroup(); // layerGroup for drawing leaflet polygons from db
-var polygon = []; // global array of polygon layer 
+var polygon = []; // global array of polygon layer
 var hidden_polygon_list = []
 var id_container = {}
 
@@ -48,39 +48,42 @@ export class DrawComponent implements OnInit {
   public get_aoi_data() {
     var project_name = localStorage.getItem("name")
     var date = localStorage.getItem("date")
-    const newtoken = localStorage.getItem("token");
 
-    const headers = { 'Authorization': 'token ' + newtoken }
+    const token = localStorage.getItem("token");
+    const headers = {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+    };
 
-    this.http.get(environment.api_name+'draw/get_data/'+project_name+'/'+date, { headers }).subscribe(data => {
-// alert(project_name)
-    // console.log('data', data); 
-    this.main_data = data;
-//     // console.log('data', data[project_name]); 
-      if (Object.keys(data[project_name]).length !== 0) {
+//     this.http.get(environment.api_name+'draw/get_data/'+project_name+'/'+date, { headers }).subscribe(data => {
+// // alert(project_name)
+//     // // console.log('data', data);
+//     this.main_data = data;
+// //     // // console.log('data', data[project_name]);
+//       if (Object.keys(data[project_name]).length !== 0) {
 
-        this.no_data = false;
-        this.aoi_data = Object.keys((data[project_name][date])).reverse().map(item => {
-          // // console.log(data[project_name][date][item]['label'])
-          data[project_name][date][item].id = item
+//         this.no_data = false;
+//         this.aoi_data = Object.keys((data[project_name][date])).reverse().map(item => {
+//           // // // console.log(data[project_name][date][item]['label'])
+//           data[project_name][date][item].id = item
 
-  
-    return data[project_name][date][item]
-        });
-        this.load_aoi_polygon();
-      }
-      else {
-        this.aoi_data = '';
-        this.no_data = true;
-      }
-    });
-    
+
+//     return data[project_name][date][item]
+//         });
+//         this.load_aoi_polygon();
+//       }
+//       else {
+//         this.aoi_data = '';
+//         this.no_data = true;
+//       }
+//     });
+
   }
 
   public load_aoi_polygon() {
 
     this.map.removeLayer(polygon_draw_layer); // Resets polygon_draw_layer on call
-    polygon = []; // Empties global polygon array on each call to load fresh data 
+    polygon = []; // Empties global polygon array on each call to load fresh data
 
     this.aoi_data.map(value => {
 
@@ -162,7 +165,7 @@ console.log(map)
       layer = e.layer;
 
       if (type != 'marker' && type != 'circle') {
-        // // console.log( layer.getLatLngs());  
+        // // console.log( layer.getLatLngs());
         currentCoords = layer.getLatLngs()
         editableLayers.addLayer(layer);
 
@@ -208,15 +211,16 @@ console.log(map)
 
   delete_aoi(key) {
     // https://www.takvaviya.in/draw/delete/${keys[key]}/
-    const newtoken = localStorage.getItem("token");
 
-    const headers = { 'Authorization': 'token ' + newtoken }
+    const token = localStorage.getItem("token");
+    const headers = {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+    };
+
     fetch(environment.api_name+'draw/delete/' + key + '/', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'token ' + newtoken 
-      },
+      headers
     })
       .then(response => response.json())
       .then(result => {
@@ -256,5 +260,3 @@ console.log(map)
   }
 
 }
-
-

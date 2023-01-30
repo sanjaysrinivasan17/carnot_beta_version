@@ -38,7 +38,7 @@ export class DashboardComponent implements OnInit {
     this.message = localStorage.getItem("message")
     const newName = localStorage.getItem("name");
     this.user_id = localStorage.getItem("user_id");
-  
+
     const token = localStorage.getItem("token");
     const headers = {
         'Authorization': `Bearer ${token}`,

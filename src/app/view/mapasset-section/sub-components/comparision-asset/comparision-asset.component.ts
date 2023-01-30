@@ -7,9 +7,10 @@ import { SummaryAnalyticsComponent } from '../summary-analytics/summary-analytic
 import { InverterAnalyticsComponent } from '../inverter-analytics/inverter-analytics.component';
 import { InverterwiseAnalyticsComponent } from '../inverterwise-analytics/inverterwise-analytics.component';
 declare const L: any;
+//import * as leafletSideBySide from 'leaflet-side-by-side';
 
 declare var require: any
-require('leaflet-side-by-side');
+var sideBySide = require('leaflet-side-by-side');
 var selected_point = new L.LayerGroup();
 
 @Component({
