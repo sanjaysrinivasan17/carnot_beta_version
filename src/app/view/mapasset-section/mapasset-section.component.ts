@@ -163,7 +163,8 @@ export class MapassetSectionComponent implements OnInit {
       // // console.log(this.map)
       // default MAP layer
 
-      L.tileLayer('https://tile.osm.ch/switzerland/{z}/{x}/{y}{r}.png', {
+      //L.tileLayer('https://tile.osm.ch/switzerland/{z}/{x}/{y}{r}.png', {
+      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
         // L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager_nolabels/{z}/{x}/{y}{r}.png', {
         maxZoom: 22,
         maxNativeZoom: 19,
