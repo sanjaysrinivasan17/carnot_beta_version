@@ -218,13 +218,9 @@ console.log(map)
         'Content-Type': 'application/json',
     };
 
-    const headers = { 'Authorization': 'token ' + newtoken }
     fetch(environment.api_name+'draw/delete/' + key + '/', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'token ' + newtoken
-      },
+      headers
     })
       .then(response => response.json())
       .then(result => {

@@ -40,13 +40,9 @@ export class AoiDialogComponent implements OnInit {
         'Content-Type': 'application/json',
     };
 
-    const headers = { 'Authorization': 'token ' + newtoken }
     fetch(environment.api_name+'draw/save_aoi/', {
       method: 'POST', // or 'PUT'
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'token ' + newtoken
-      },
+      headers,
       body: JSON.stringify(data),
     })
       .then(response => response.json())

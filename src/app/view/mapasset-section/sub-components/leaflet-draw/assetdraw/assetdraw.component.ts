@@ -12,11 +12,11 @@ import { AssetaoiDrawComponent } from '../assetaoi-draw/assetaoi-draw.component'
 declare const L: any;
 
 var editableLayers = new L.FeatureGroup(); // featureGroup for draw Plugin
-var dstate = false; // TODO check usage
+var dstate = false; // TODO check usage 
 var currentCoords;
 var layer; // layer for draw Plugin
 var polygon_draw_layer = new L.LayerGroup(); // layerGroup for drawing leaflet polygons from db
-var polygon = []; // global array of polygon layer
+var polygon = []; // global array of polygon layer 
 var hidden_polygon_list = []
 var id_container = {}
 
@@ -55,17 +55,12 @@ export class AssetdrawComponent {
 
     const headers = { 'Authorization': 'token ' + newtoken }
 
-    this.http.get(environment.api_name + 'draw/get_data/' + project_name + '/' + date, { headers }).subscribe(data => {
-      // alert(project_name)
-      // console.log('data', data);
-      this.main_data = data;
-      //     // console.log('data', data[project_name]);
-      if (Object.keys(data[project_name]).length !== 0) {
-
-        this.no_data = false;
-        this.aoi_data = Object.keys((data[project_name][date])).reverse().map(item => {
-          // // console.log(data[project_name][date][item]['label'])
-          data[project_name][date][item].id = item
+    // this.http.get(environment.api_name + 'draw/get_data/' + project_name + '/' + date, { headers }).subscribe(data => {
+    //   // alert(project_name)
+    //   // console.log('data', data); 
+    //   this.main_data = data;
+    //   //     // console.log('data', data[project_name]); 
+    //   if (Object.keys(data[project_name]).length !== 0) {
 
     //     this.no_data = false;
     //     this.aoi_data = Object.keys((data[project_name][date])).reverse().map(item => {
@@ -88,7 +83,7 @@ export class AssetdrawComponent {
   public load_aoi_polygon() {
 
     this.map.removeLayer(polygon_draw_layer); // Resets polygon_draw_layer on call
-    polygon = []; // Empties global polygon array on each call to load fresh data
+    polygon = []; // Empties global polygon array on each call to load fresh data 
 
     this.aoi_data.map(value => {
 
@@ -173,7 +168,7 @@ export class AssetdrawComponent {
       layer = e.layer;
 
       if (type != 'marker' && type != 'circle') {
-        // // console.log( layer.getLatLngs());
+        // // console.log( layer.getLatLngs());  
         currentCoords = layer.getLatLngs()
         editableLayers.addLayer(layer);
 
