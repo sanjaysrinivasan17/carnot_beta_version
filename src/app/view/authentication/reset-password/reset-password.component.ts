@@ -35,7 +35,7 @@ export class ResetPasswordComponent implements OnInit {
       // "username":username
     }
     this.http.post(environment.api_name+'api/accounts/generate_link/', data).subscribe(data => {
-      // // console.log(data)
+      // console.log(data)
       if(data['success'] == true){
         this.toastr.success('Please check mail for recovery password link');
         this.router.navigate(['auth/login/'])

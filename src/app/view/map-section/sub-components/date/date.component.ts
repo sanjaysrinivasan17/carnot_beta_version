@@ -49,12 +49,13 @@ export class DateComponent implements OnInit {
   ngOnInit(): void {
 
 
+    // const headers = { 'Authorization': 'token 9881e95800afe06c804e6ea3417591cfcaa50164'}
     // this.http.get<any>(environment.api_name+'project/retrieve_project_data/hero', { headers }).subscribe(data => {
     //   this.inv_main_data = data;
-    //   // console.log(this.inv_main_data)
+    //   console.log(this.inv_main_data)
     //   this.project_id_inv = Object.keys(this.inv_main_data)
     //   this.date_inv = Object.values(this.inv_main_data[this.project_id_inv])[2]
-
+      
     // })
 
 
@@ -64,25 +65,26 @@ export class DateComponent implements OnInit {
   //   // alert("inside"+date)
 
 
+  //   const headers = { 'Authorization': 'token 9881e95800afe06c804e6ea3417591cfcaa50164'}
   //   this.http.get<any>(environment.api_name+'project/retrieve_project_data/hero', { headers }).subscribe(data => {
   //     this.inv_main_data = data
-  //     // // console.log(this.inv_main_data[1])
+  //     // console.log(this.inv_main_data[1])
 
   //     this.project_id_inv = Object.keys(data)
-  //     // // console.log("second---"+this.project_id_inv)
+  //     // console.log("second---"+this.project_id_inv)
   //     this.Project_data = data[1][date]['summary_data']
 
   //     this.Project_layer_inv = Object.keys(data[this.project_id_inv][date]['summary_data']
   //     )
-  //     // // console.log("third---"+this.Project_layer_inv)
-
-  //     // // console.log("sanjay values fourth-----"+Object.values(data[this.project_id_inv][date]['summary_data']['Hotspot']))
-  //     // console.log(this.Project_layer_inv.length,"sanjay values fifth-----",data[1][date]['summary_data'])
+  //     // console.log("third---"+this.Project_layer_inv)
+      
+  //     // console.log("sanjay values fourth-----"+Object.values(data[this.project_id_inv][date]['summary_data']['Hotspot']))
+  //     console.log(this.Project_layer_inv.length,"sanjay values fifth-----",data[1][date]['summary_data'])
 
 
   //     for (var i = 0; i < this.Project_layer_inv.length; i++) {
-
-  //       // console.log("sanjay values---"+this.Project_data['Hotspot']['Count'])
+        
+  //       console.log("sanjay values---"+this.Project_data['Hotspot']['Count'])
   //       this.Hotspot_inv.push(Object.values(this.inv_main_data[this.project_id_inv][date]['summary_data']['Hotspot']['Count']))
   //       this.ShortCircit_inv.push(Object.values(this.inv_main_data[this.project_id_inv][date]['summary_data']['Short Circuit']['Count']))
   //       this.Open_Circuit_inv.push(Object.values(this.inv_main_data[this.project_id_inv][date]['summary_data']['Open Circuit']['Count']))
@@ -107,7 +109,7 @@ export class DateComponent implements OnInit {
 
   //       this.total_Count.push(+this.Hotspot_inv[n]+ +this.ShortCircit_inv[n]+ +this.Open_Circuit_inv[n]+ +this.pannel_inv[n]+ +this.Pid[n])
   //     }
-
+  
   //   })
 
 

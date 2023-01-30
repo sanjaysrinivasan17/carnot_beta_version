@@ -40,15 +40,18 @@ export class AoiDialogComponent implements OnInit {
         'Content-Type': 'application/json',
     };
 
+    const headers = { 'Authorization': 'token ' + newtoken }
     fetch(environment.api_name+'draw/save_aoi/', {
-      method: 'POST',
-      headers,
-      credentials: 'omit',
+      method: 'POST', // or 'PUT'
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'token ' + newtoken
+      },
       body: JSON.stringify(data),
     })
       .then(response => response.json())
       .then(data => {
-        // // console.log('Success:', data);
+        // console.log('Success:', data);
         this.dialogRef.close([]);
       })
       .catch((error) => {
@@ -58,7 +61,7 @@ export class AoiDialogComponent implements OnInit {
 
   public removeUnusedInstance()
   {
-      // // console.log(this.map_data.elayer);
+      // console.log(this.map_data.elayer);
       this.map_data.event.removeLayer(this.map_data.elayer)
 
   }

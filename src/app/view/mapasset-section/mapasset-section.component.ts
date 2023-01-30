@@ -26,7 +26,7 @@ import {
 import { environment } from 'src/environments/environment';
 import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material/dialog';
-import { RawImageComponent } from '../map-section/raw-image/raw-image.component';
+import { RawImageComponent } from '../shared/raw-image/raw-image.component';
 import { HttpService } from '../map-section/services-map/http.service';
 
 export type ChartOptions = {
@@ -116,10 +116,10 @@ export class MapassetSectionComponent implements OnInit {
 
 
 
-  constructor(private _http: HttpAssetService,private _http_: HttpService, private toastr: ToastrService, public dialog: MatDialog) { }
+  constructor(private _http: HttpAssetService, private toastr: ToastrService, public dialog: MatDialog) { }
 
   ngOnInit(): void {
-    sessionStorage.setItem('rawImage', 'rawImage');
+
     var new_center = localStorage.getItem('center')
     if (new_center != '') {
       this.center = new_center
@@ -143,7 +143,7 @@ export class MapassetSectionComponent implements OnInit {
 
 
 
-    // console.log(this.map)
+    console.log(this.map)
 
     this.checked = false
     localStorage.setItem('product', 'asset')
@@ -152,7 +152,7 @@ export class MapassetSectionComponent implements OnInit {
 
     this._http.Asset_project().subscribe(data => {
       this.main_data = data['data']
-      // console.log(this.main_data)
+      console.log(this.main_data)
       this.projectdata = this.main_data['projectdata']
       this.project_name = this.main_data['name']
       this.Date_list = Object.keys(this.main_data['projectdata'])
@@ -160,7 +160,7 @@ export class MapassetSectionComponent implements OnInit {
       this._http.setAsset_data(this.Typewise_data)
 
 
-      // // console.log(this.map)
+      // console.log(this.map)
       // default MAP layer
 
       //L.tileLayer('https://tile.osm.ch/switzerland/{z}/{x}/{y}{r}.png', {
@@ -269,7 +269,7 @@ export class MapassetSectionComponent implements OnInit {
     this.onload('SCPM')
   }
   Loadkml(value: any) {
-    // // console.log(value.menu)
+    // console.log(value.menu)
 
     if (value.menu == 'summary') {
       var x = value.menu
@@ -293,14 +293,14 @@ export class MapassetSectionComponent implements OnInit {
       }
 
 
-      // // console.log(value)
-      // // console.log(value.kml_list)
-      // // console.log(value.kml_list.length)
+      // console.log(value)
+      // console.log(value.kml_list)
+      // console.log(value.kml_list.length)
       var match_color = ''
       value.color.forEach(element => {
         match_color = match_color.concat(element, ",")
       });
-      // // console.log(match_color)
+      // console.log(match_color)
       var matches = ''
       value.kml_list.forEach(element => {
         var getTheValueWithIndex = element.valueOf();
@@ -308,7 +308,7 @@ export class MapassetSectionComponent implements OnInit {
       });
       // var matches = value.kml_list.match(/\[(.*?)\]/);
       this.summaryState = matches;
-      // // console.log(this.summaryState)
+      // console.log(this.summaryState)
 
 
       localStorage.setItem("kml_name", this.summaryState)
@@ -319,7 +319,7 @@ export class MapassetSectionComponent implements OnInit {
       sessionStorage.setItem("kmlfilename", this.summaryState)
       var count = -1
       for (var i = 0; i < kml_name_load.length; i++) {
-        // // console.log(this.KML_location + 'summary/' + kml_name_load[i])
+        // console.log(this.KML_location + 'summary/' + kml_name_load[i])
         fetch(this.KML_location + 'summary/' + kml_name_load[i] + "")
           .then(res => res.text())
           .then(kmltext => {
@@ -332,24 +332,24 @@ export class MapassetSectionComponent implements OnInit {
             const kml = parser.parseFromString(kmltext, 'text/xml');
 
             this.track = new L.KML(kml);
-            // // console.log(kml)
+            // console.log(kml)
             // Add track to map
             //this.summaryLayerGroup = L.layerGroup([this.track]).addTo(this.map);
             //this.map.addLayer(this.track)
             this.popupKml = kml
             var el = kml.getElementsByTagName('coordinates');
             var place = kml.getElementsByTagName('Placemark')
-            // // console.log(place)
+            // console.log(place)
             this.pop_up_header = value.name
             for (var each in place) {
               let desc = place[each].childNodes[1].textContent
               let coor = place[each].getElementsByTagName('coordinates')
-              // // console.log(coor)
+              // console.log(coor)
               //let latlngArray = each.childNodes[5].childNodes[1].childNodes[1].childNodes[1].textContent.replace( /\n/g, " " ).split(/[ ,]+/).filter(Boolean)
               let latlngArray = coor[0].textContent.replace(/\n/g, " ").split(/[ ,]+/).filter(Boolean)
-              // // console.log(latlngArray)
-              // // console.log(i)
-              // // console.log(match_color)
+              // console.log(latlngArray)
+              // console.log(i)
+              // console.log(match_color)
               function decToHex(value) {
                 if (value > 255) {
                   return 'ff';
@@ -366,9 +366,9 @@ export class MapassetSectionComponent implements OnInit {
               var matchColors = /\(([^)]+)\)/;
               var match = matchColors.exec(value.color[count]);
               var color = match[1].split(", ")
-              // // console.log(count+"count--------------------------"+typeof parseInt(color[0]), parseInt(color[1]), parseInt(color[2]))
+              // console.log(count+"count--------------------------"+typeof parseInt(color[0]), parseInt(color[1]), parseInt(color[2]))
               var hex = rgbToHex(parseInt(color[0]), parseInt(color[1]), parseInt(color[2]));
-              // // console.log(hex)
+              // console.log(hex)
               this.polygonMarkerCreating(place[each], latlngArray, hex, desc, value.name);
             }
             // Adjust map to show the kml
@@ -376,8 +376,8 @@ export class MapassetSectionComponent implements OnInit {
             // this.map.fitBounds(bounds);
           });
         this.map.on('click', (e) => {
-          // console.log("reg");
-          // console.log(e);
+          console.log("reg");
+          console.log(e);
         })
       }
     } else if (value.menu == 'summary_subgroup') {
@@ -402,9 +402,9 @@ export class MapassetSectionComponent implements OnInit {
       }
 
 
-      // // console.log(value)
-      // // console.log(value.kml_list)
-      // // console.log(value.kml_list.length)
+      // console.log(value)
+      // console.log(value.kml_list)
+      // console.log(value.kml_list.length)
 
       this.popup_card_visibility = true
 
@@ -414,7 +414,7 @@ export class MapassetSectionComponent implements OnInit {
       value.color.forEach(element => {
         match_color = match_color.concat(element, ",")
       });
-      // // console.log(match_color)
+      // console.log(match_color)
       var matches = ''
       value.kml_list.forEach(element => {
         var getTheValueWithIndex = element.valueOf();
@@ -422,7 +422,7 @@ export class MapassetSectionComponent implements OnInit {
       });
       // var matches = value.kml_list.match(/\[(.*?)\]/);
       this.summaryState = matches;
-      // // console.log(this.summaryState)
+      // console.log(this.summaryState)
 
 
       localStorage.setItem("kml_name", this.summaryState)
@@ -433,7 +433,7 @@ export class MapassetSectionComponent implements OnInit {
       sessionStorage.setItem("kmlfilename", this.summaryState)
       var count = -1
       for (var i = 0; i < kml_name_load.length; i++) {
-        // // console.log(this.KML_location + 'summary/' + kml_name_load[i])
+        // console.log(this.KML_location + 'summary/' + kml_name_load[i])
         fetch(this.KML_location + 'summary/' + kml_name_load[i] + "")
           .then(res => res.text())
           .then(kmltext => {
@@ -446,23 +446,23 @@ export class MapassetSectionComponent implements OnInit {
             const kml = parser.parseFromString(kmltext, 'text/xml');
 
             this.track = new L.KML(kml);
-            // // console.log(kml)
+            // console.log(kml)
             // Add track to map
             //this.summaryLayerGroup = L.layerGroup([this.track]).addTo(this.map);
             //this.map.addLayer(this.track)
             this.popupKml = kml
             var el = kml.getElementsByTagName('coordinates');
             var place = kml.getElementsByTagName('Placemark')
-            // // console.log(place)
+            // console.log(place)
             for (var each in place) {
               let desc = place[each].childNodes[1].textContent
               let coor = place[each].getElementsByTagName('coordinates')
-              // // console.log(coor)
+              // console.log(coor)
               //let latlngArray = each.childNodes[5].childNodes[1].childNodes[1].childNodes[1].textContent.replace( /\n/g, " " ).split(/[ ,]+/).filter(Boolean)
               let latlngArray = coor[0].textContent.replace(/\n/g, " ").split(/[ ,]+/).filter(Boolean)
-              // // console.log(latlngArray)
-              // // console.log(i)
-              // // console.log(match_color)
+              // console.log(latlngArray)
+              // console.log(i)
+              // console.log(match_color)
               function decToHex(value) {
                 if (value > 255) {
                   return 'ff';
@@ -479,9 +479,9 @@ export class MapassetSectionComponent implements OnInit {
               var matchColors = /\(([^)]+)\)/;
               var match = matchColors.exec(value.color[count]);
               var color = match[1].split(", ")
-              // // console.log(count+"count--------------------------"+typeof parseInt(color[0]), parseInt(color[1]), parseInt(color[2]))
+              // console.log(count+"count--------------------------"+typeof parseInt(color[0]), parseInt(color[1]), parseInt(color[2]))
               var hex = rgbToHex(parseInt(color[0]), parseInt(color[1]), parseInt(color[2]));
-              // // console.log(hex)
+              // console.log(hex)
               this.polygonMarkerCreating(place[each], latlngArray, hex, desc, value.name);
             }
             // Adjust map to show the kml
@@ -489,8 +489,8 @@ export class MapassetSectionComponent implements OnInit {
             // this.map.fitBounds(bounds);
           });
         this.map.on('click', (e) => {
-          // console.log("reg");
-          // console.log(e);
+          console.log("reg");
+          console.log(e);
         })
       }
     }
@@ -544,7 +544,7 @@ export class MapassetSectionComponent implements OnInit {
       var rawImg = sessionStorage.getItem('rawImage');
 
       if (rawImg == 'rawImage') {
-        // // console.log(this.get_missions_flights_data)
+        // console.log(this.get_missions_flights_data)
         // alert(this.get_missions_flights_status)
         if (this.get_missions_flights_data == undefined) {
           this.toastr.warning('Please wait.... getting mission and Flight data.');
@@ -565,8 +565,8 @@ export class MapassetSectionComponent implements OnInit {
           });
 
           dialogRef.afterClosed().subscribe(result => {
-            let dataval = this._http_.getmissiondata();
-            // console.log(dataval['mission'])
+            let dataval = this._http.getmissiondata();
+            console.log(dataval['mission'])
             // this.accepted3 = false;
 
 
@@ -581,10 +581,11 @@ export class MapassetSectionComponent implements OnInit {
           };
 
             var url = environment.api_name + 'api/project/get_thermal_assets/' + project_id + '/' + date + '/' + project_type + '?filter={"mission":"' + dataval['mission'] + '","flight":"' + dataval['flight'] + '"}'
+
             fetch(url, { headers })
               .then(response => response.json())
               .then(datavalue => {
-                // console.log(datavalue['data'])
+                console.log(datavalue['data'])
                 this.uploaded_raw_image = datavalue['data']
                 let popupContent = `
                   <form class="popup-form">
@@ -627,8 +628,8 @@ export class MapassetSectionComponent implements OnInit {
         // })
 
 
-        // // console.log("---")
-        // // console.log(this.mission_data)
+        // console.log("---")
+        // console.log(this.mission_data)
       } else {
         sessionStorage.setItem('rawImage', 'rawImage');
         // this.map.removeLayer()
@@ -665,8 +666,8 @@ export class MapassetSectionComponent implements OnInit {
         }
         this.get_missions_flights_data = datavalue['data']
         this.get_missions_flights_status = datavalue['status']
-        // console.log(datavalue['data'])
-        this._http_.set_mision_flight_detail(datavalue['data'])
+        console.log(datavalue['data'])
+        this._http.set_mision_flight_detail(datavalue['data'])
       })
   }
 
@@ -677,10 +678,10 @@ export class MapassetSectionComponent implements OnInit {
     this.pop_up_header = value.key[0]
     this.pop_up_planned = value.sub_group['Total']
     this.pop_up_Actual = value.sub_group['Actual']
-    // // console.log(this.pop_up_Actual)
+    // console.log(this.pop_up_Actual)
     this.Actual_by_planned = Math.round((parseInt(this.pop_up_Actual) / parseInt(this.pop_up_planned)) * 100)
     // console.log((this.Actual_by_planned))
-    // // console.log(typeof this.Actual_by_planned)
+    // console.log(typeof this.Actual_by_planned)
     this.chartOptions = {
       series: [this.Actual_by_planned],
       chart: {
@@ -743,24 +744,24 @@ export class MapassetSectionComponent implements OnInit {
     let iterate = latlngArray.length / 3
     for (let i = 0; i < iterate; i++) {
       polygonPoints.push([latlngArray[i + j], latlngArray[i + k], latlngArray[i + l]])
-      // // console.log(polygonPoints)
+      // console.log(polygonPoints)
       j = j + 2;
       k = k + 2;
       l = l + 2
     }
 
-    // // console.log(kml_name)
+    // console.log(kml_name)
     if (kml_name == "Cables" || kml_name == 'Fencing') {
 
       this.poly = L.polyline(polygonPoints, { color: hex }).addTo(this.map);
       this.polies.push(this.poly)
-      // // console.log(this.polies);
+      // console.log(this.polies);
     }
     else {
       this.poly = L.polygon(polygonPoints, { color: hex }, { weight: 6 }).addTo(this.map);
       this.polies.push(this.poly)
     }
-    // // console.log(this.polies)
+    // console.log(this.polies)
     this.poly.on("click", (e) => {
       const parser = new DOMParser();
       // desc = desc.replaceAll("<B>","")
@@ -768,11 +769,11 @@ export class MapassetSectionComponent implements OnInit {
       // desc = desc.replaceAll("<BR>",",")
       // this.text_content = null
       // this.text_content = desc.split(",")
-      // // console.log(this.text_content)
+      // console.log(this.text_content)
       var markup = parser.parseFromString(desc, 'text/html')
 
       var y = markup.getElementsByTagName("td")
-      // // console.log(y)
+      // console.log(y)
       let i = 0
       let b = null
       let d = null
@@ -780,11 +781,11 @@ export class MapassetSectionComponent implements OnInit {
       b = ""
       this.table_no = ""
       for (var each in y) {
-        // // console.log(each)
+        // console.log(each)
 
         if (i % 2 == 0) {
           b = y[each].textContent
-          // // console.log(b)
+          // console.log(b)
         }
         else {
 
@@ -796,15 +797,15 @@ export class MapassetSectionComponent implements OnInit {
           else {
             let c = y[each].textContent + " " + y[each].style.color
             this.descObj[b] = c
-            // // console.log(this.descObj)
-            // // console.log(b + y[each].textContent)
+            // console.log(this.descObj)
+            // console.log(b + y[each].textContent)
           }
 
         }
         i++
       }
       // this.popup_card_visibility = true
-      // // console.log(markup)
+      // console.log(markup)
     })
   }
   toggleChangeType(checked) {
