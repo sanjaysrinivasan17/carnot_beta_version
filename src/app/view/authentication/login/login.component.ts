@@ -50,20 +50,20 @@ export class LoginComponent implements OnInit {
     // this.captcha = captchaResponse;
   }
   handleSuccess(data) {
-    // console.log(data);
+    console.log(data);
     this.captcha = data
   }
 
   login(UserName, Password) {
-    // // console.log(username,password)
-    // // console.log('resolved captcha with response: ' + this.captcha);
+    // console.log(username,password)
+    // console.log('resolved captcha with response: ' + this.captcha);
     if (this.captcha) {
       document.getElementById("login").setAttribute("disabled","disabled");
     setTimeout(function () {
       document.getElementById("login").removeAttribute("disabled");
     }, 30000);
       this.autservice.userauth(UserName, Password,this.captcha).subscribe((data: any) => {
-        // // console.log(data)
+        // console.log(data)
         // alert("wait"+data['privilege'])
 
         if (UserName == 'vendor') {
@@ -80,8 +80,8 @@ export class LoginComponent implements OnInit {
         // }
         else {
           // alert(data['token'] ) firstname: "PD", lastname:
-          // console.log(data)
-          // console.log(data['token'])
+          console.log(data)
+          console.log(data['token'])
           localStorage.setItem("login", data['login']);
           localStorage.setItem("redirect", data['redirect']);
           localStorage.setItem("token", data['token']);
@@ -98,6 +98,7 @@ export class LoginComponent implements OnInit {
 
 
       },
+      
       (err: HttpErrorResponse) => {
         // console.log(err.status);
         if (err.status == 500) {

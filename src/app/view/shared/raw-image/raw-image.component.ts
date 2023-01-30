@@ -20,6 +20,7 @@ export class RawImageComponent {
   constructor(private _http: HttpAssetService, private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
+    const newtoken = localStorage.getItem("token");
     let project_id = localStorage.getItem("project_id");
     let date = localStorage.getItem("date");
 
@@ -36,20 +37,20 @@ export class RawImageComponent {
     //   .then(response => response.json())
     //   .then(datavalue => {
     //     this.maindata = datavalue['data']
-    //     // console.log(datavalue['data'])
+    //     console.log(datavalue['data'])
     //     // if(datavalue['data'] == null){
     //     //   alert("there is no Raw image for this project.")
     //     //   this.onNoClick()
     //     // }else{
     //       this.mission_data = Object.keys(datavalue['data'])
     //     // }
-    //     // // console.log(this.mission_data)
+    //     // console.log(this.mission_data)
 
     //   })
   }
   find_flight(mission) {
     // alert(mission)
-    // // console.log(this.maindata[mission].sort())
+    // console.log(this.maindata[mission].sort())
     if (mission == "All") {
       // this.flight_data = this.maindata['M1']
       this.flight = "All"
@@ -61,7 +62,7 @@ export class RawImageComponent {
     }
   }
   submit_details() {
-    // // console.log(this.mission, this.flight);
+    // console.log(this.mission, this.flight);
     // alert(this.mission)
     if (this.mission == "All" || this.mission == "") {
       this.mission = ""
@@ -81,4 +82,3 @@ export class RawImageComponent {
 
   }
 }
-

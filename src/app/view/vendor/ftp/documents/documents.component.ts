@@ -50,8 +50,8 @@ export class DocumentsComponent implements AfterViewInit, OnDestroy, OnInit {
     this.autoUploadSubscription = this.flow.events$.subscribe(event => {
       // to get rid of incorrect `event.type` type you need Typescript 2.8+
       this.get_num = this.flow.flowJs.files.length;
-      // // console.log(this.get_num);
-      // // console.log(event.type);
+      // console.log(this.get_num);
+      // console.log(event.type);
       this.upstate = event.type;
       if (this.autoupload && event.type === 'filesSubmitted') {
         this.flow.upload();
@@ -59,7 +59,7 @@ export class DocumentsComponent implements AfterViewInit, OnDestroy, OnInit {
       if (event.type === "fileSuccess") {
         try {
           var temp1 = event;
-          // // console.log(temp1["event"][0]["file"]["name"]);
+          // console.log(temp1["event"][0]["file"]["name"]);
           this.total_no_files.push(temp1["event"][0]["file"]["name"]);
           this.show_num = this.total_no_files.length;
           this.flag = 1;
@@ -67,14 +67,14 @@ export class DocumentsComponent implements AfterViewInit, OnDestroy, OnInit {
         catch (err) { }
       }
       if (this.show_num === this.get_num && event.type === "complete" && this.flag === 1) {
-        // // console.log(this.show_num, this.get_num)
+        // console.log(this.show_num, this.get_num)
         this.postData = {
           'project': "ADMIN",
           'total': this.show_num,
           'allfiles': this.total_no_files
         };
         this.http.post('http://takvaviya.in:8001/project_workflow/ftp/store/Testing%20Image', this.postData).toPromise().then(data => {
-          // // console.log("have to check success", data);
+          // console.log("have to check success", data);
           // alert("ftp success");
           this.openDialogWithoutRef();
           this.flow.cancel();
@@ -88,7 +88,7 @@ export class DocumentsComponent implements AfterViewInit, OnDestroy, OnInit {
         this.show_num = this.total_no_files.length;
         this.flag = 0;
       }
-    // // console.log("hihi", );
+    // console.log("hihi", );
     
     });
   }
@@ -116,13 +116,13 @@ export class DocumentsComponent implements AfterViewInit, OnDestroy, OnInit {
   onclickUp()
   {
     this.Upstatus= false;
-    // // console.log(this.Upstatus);
+    // console.log(this.Upstatus);
   }
 
   onclickPause()
   {
     this.Upstatus= true;
-    // // console.log(this.Upstatus);
+    // console.log(this.Upstatus);
   }
   
   

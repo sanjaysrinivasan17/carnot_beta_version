@@ -87,14 +87,14 @@ export class DrawComponent implements OnInit {
 
     this.aoi_data.map(value => {
 
-      // // console.log( 'blue', value.id);
-      // // console.log('values are', value);
+      // console.log( 'blue', value.id);
+      // console.log('values are', value);
       value.show = true;
 
       var instance_coordinate = [];
       value['polygon'].map(item => {
         instance_coordinate.push(Object.values(item))
-        // // console.log(instance_coordinate);
+        // console.log(instance_coordinate);
       })
 
       var latlngs = instance_coordinate;
@@ -154,7 +154,7 @@ export class DrawComponent implements OnInit {
       //   remove: false
       // }
     };
-// console.log(map)
+console.log(map)
     var drawControl = new L.Control.Draw(options);
     map.addControl(drawControl);
 
@@ -165,11 +165,11 @@ export class DrawComponent implements OnInit {
       layer = e.layer;
 
       if (type != 'marker' && type != 'circle') {
-        // // // console.log( layer.getLatLngs());
+        // // console.log( layer.getLatLngs());
         currentCoords = layer.getLatLngs()
         editableLayers.addLayer(layer);
 
-        // // console.log(currentCoords);
+        // console.log(currentCoords);
       }
       if (type === 'marker' && type != 'circle') {
         layer.bindPopup('A popup!');
@@ -177,7 +177,7 @@ export class DrawComponent implements OnInit {
     });
 
     map.on('draw:drawstop', (e) => {
-      // // console.log("end");
+      // console.log("end");
       this.openDialog(e);
     });
 
@@ -185,7 +185,7 @@ export class DrawComponent implements OnInit {
   }
 
   openDialog(e) {
-    // // console.log('e', e);
+    // console.log('e', e);
     let dialogRef = this.dialog.open(AoiDialogComponent, { width: '400px', data: { 'co': currentCoords, 'event': editableLayers, 'elayer': layer } });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -218,14 +218,13 @@ export class DrawComponent implements OnInit {
         'Content-Type': 'application/json',
     };
 
-    fetch(`${environment.api_name}draw/delete/${key}/`, {
+    fetch(environment.api_name+'draw/delete/' + key + '/', {
       method: 'POST',
-      headers,
-      credentials: 'omit',
+      headers
     })
       .then(response => response.json())
       .then(result => {
-        // // console.log('Success:', result);
+        // console.log('Success:', result);
         this.get_aoi_data();
         this.map.removeLayer(polygon_draw_layer);
       })
@@ -236,7 +235,7 @@ export class DrawComponent implements OnInit {
 
   hide_aoi(item) {
 
-    // // console.log(item);
+    // console.log(item);
     //this.map.removeLayer(polygon_draw_layer)
     this.map.removeLayer(id_container[item]);
     hidden_polygon_list.push(item);
@@ -246,7 +245,7 @@ export class DrawComponent implements OnInit {
 
 
   show_aoi(item) {
-    // // console.log(item);
+    // console.log(item);
     this.map.addLayer(id_container[item]);
     this.update_aoi(item, true);
   }
@@ -261,5 +260,3 @@ export class DrawComponent implements OnInit {
   }
 
 }
-
-

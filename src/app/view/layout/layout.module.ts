@@ -4,7 +4,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { MaterialLibrary } from 'src/app/library/material.lib';
 import { RouterModule } from '@angular/router';
-// import { FlexLayoutModule } from '@angular/flex-layout';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { LayoutRoutingModule} from './layout-routing.module';
 import { MyprofileComponent } from './myprofile/myprofile.component';
 import { ManageuserComponent } from './manageuser/manageuser.component'
@@ -23,7 +23,7 @@ import {MatIconModule} from '@angular/material/icon';
     CommonModule,
     MaterialLibrary,
     RouterModule,
-    // FlexLayoutModule,
+    FlexLayoutModule,
     LayoutRoutingModule,
     MatButtonModule,
     MatDialogModule,

@@ -1,15 +1,15 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit, EventEmitter, Input } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import * as EXIF from 'exif-js';
-import * as ExifReader from 'exifreader';
+//import * as EXIF from 'exif-js';
+//import * as ExifReader from 'exifreader';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgxUiLoaderService } from "ngx-ui-loader";
 // import RNFS from 'react-native-fs';
 import { decode } from 'base64-arraybuffer';
 import { environment } from 'src/environments/environment';
 import { ParseLocation } from '@angular/compiler';
-import exifr from 'exifr'
+//import exifr from 'exifr'
 
 @Component({
   selector: 'app-upload',
@@ -107,14 +107,14 @@ export class UploadComponent implements OnInit {
 
       // reader.onload = (events: any) => {
       // // console.log(event.target.files)
-      let { latitude, longitude } = await exifr.gps(event.target.files[i])
+      //let { latitude, longitude } = await exifr.gps(event.target.files[i])
       // let latitude =  exifr.gps(event.target.files[i])
       // let longitude =  exifr.gps(event.target.files[i])
       // // console.log(latitude)
-      this.lat_long.push({
-        "latitude": latitude,
-        "longitude": longitude
-      })
+     // this.lat_long.push({
+      //  "latitude": latitude,
+      //  "longitude": longitude
+      //})
 
 
       // }

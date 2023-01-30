@@ -14,13 +14,13 @@ export class HttpAssetService {
   mission_val: any[] = [];
   set_mision_flight_data : any[] = []
 
-
+  
   private newAoI = new BehaviorSubject<any>({
     AOI: 'Capture'
   });
 
   constructor(private http: HttpClient) { }
-
+  
   setAsset_data(Asset_data) {
     this.Asset_typewise_data = Asset_data
   }
@@ -42,7 +42,7 @@ export class HttpAssetService {
     return this.Asset_typewise_data
   }
   getAreaofinterest() {
-    // // console.log("----sanjayaasadasdasdasd-------"+this.newDate)
+    // console.log("----sanjayaasadasdasdasd-------"+this.newDate)
     return this.newAoI.asObservable();
   }
   getmissiondata(){
@@ -60,7 +60,7 @@ export class HttpAssetService {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json',
     };
-
+    
     // return this.http.get(environment.api_name + 'api/project/get_project/' + project_id, { headers })
     return this.http.get(environment.api_name + 'api/asset/get_asset_project/' + project_id, { headers })
     // return this.http.get(environment.api_name+'project/retrieve_project_data/hero')

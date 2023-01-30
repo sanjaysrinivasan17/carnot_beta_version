@@ -311,7 +311,7 @@ inv_table(ele, elm) {
 
 
 public onTabChange(event: any) {
-  // console.log('eve', event);
+  console.log('eve', event);
   switch(event.index) {
     case 0:
       break;

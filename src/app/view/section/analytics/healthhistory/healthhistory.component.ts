@@ -140,7 +140,7 @@ export class HealthhistoryComponent implements OnInit {
 //     .then(response => response.json())
 //     .then(data => {this.bardata.push(data["6"]["2019-10-06"]["layers"]["Hotspot"].Count);
 //    })
-// // console.log(this.bardata);
+// console.log(this.bardata);
 
 
 //     this.chartOptions7 = {

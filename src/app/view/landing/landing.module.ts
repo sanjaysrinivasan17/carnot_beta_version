@@ -48,7 +48,7 @@ import { FeatherModule } from 'angular-feather';
 
 @NgModule({
   declarations: [
-    LandingComponent,
+    LandingComponent, 
     PlansComponent,
     ScrollSpyDirective
   ],

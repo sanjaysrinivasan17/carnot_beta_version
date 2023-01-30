@@ -41,14 +41,13 @@ export class AoiDialogComponent implements OnInit {
     };
 
     fetch(environment.api_name+'draw/save_aoi/', {
-      method: 'POST',
+      method: 'POST', // or 'PUT'
       headers,
-      credentials: 'omit',
       body: JSON.stringify(data),
     })
       .then(response => response.json())
       .then(data => {
-        // // console.log('Success:', data);
+        // console.log('Success:', data);
         this.dialogRef.close([]);
       })
       .catch((error) => {
@@ -58,7 +57,7 @@ export class AoiDialogComponent implements OnInit {
 
   public removeUnusedInstance()
   {
-      // // console.log(this.map_data.elayer);
+      // console.log(this.map_data.elayer);
       this.map_data.event.removeLayer(this.map_data.elayer)
 
   }

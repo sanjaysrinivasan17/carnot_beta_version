@@ -26,7 +26,9 @@ export class AssetsidebarComponent implements OnInit {
   Summary_tab: boolean;
   currentMenu: string;
   summary_title: any;
+  inverter_title: any;
   summary_keys: any;
+  inverter_keys: any;
   main_data: any;
   Date: string;
   Asset_typewise_data: any;
@@ -36,6 +38,7 @@ export class AssetsidebarComponent implements OnInit {
   kml_name_value: any;
   kml_name_file: any;
   kml_data: any = [];
+  inverter: any;
 
   // Change to appropriate names
   close_popup_card: any = '';
@@ -54,6 +57,7 @@ export class AssetsidebarComponent implements OnInit {
   isOpenCompare: boolean;
   isShareComponent: boolean;
   dialogRef: any;
+  invData: any;
 
   constructor(private router: Router, private _http: HttpAssetService, public dialog: MatDialog) { }
 
@@ -94,11 +98,16 @@ export class AssetsidebarComponent implements OnInit {
       this.Asset_typewise_data = this.main_data['projectdata'][this.Date][this.Asset_type]
       if (this.Asset_type == 'SCPM') {
         this.summary_data = this.Asset_typewise_data['summary']
+        console.log(this.Asset_typewise_data);
+        console.log(this.Asset_typewise_data['inverter']);
+
         this.inverter_data = this.Asset_typewise_data['inverter']
         this.summary_title = Object.keys(this.Asset_typewise_data['summary'])
-        // // console.log(this.summary_title)
+        this.inverter_title = 'Sub Camp'
+        // console.log(this.summary_title)
         this.summary_keys = Object.keys(this.Asset_typewise_data['summary'][this.summary_title])
-        // // console.log(this.summary_keys)
+        this.inverter_keys = Object.keys(this.Asset_typewise_data['inverter']['Inverter'])
+        // console.log(this.summary_keys)
         this.summary_keys.forEach(element => {
           var kml_file_name = []
           var kml_file_color = []
@@ -115,7 +124,7 @@ export class AssetsidebarComponent implements OnInit {
 
           });
 
-          // // console.log(kml_file_name);
+          // console.log(kml_file_name);
 
           this.kml_data.push({ 'type': this.Asset_type, 'menu': 'summary', 'key': this.kml_name_key, 'data': this.kml_name_value, 'sub_group': kml_sub_group, 'name': element, 'kml_list': kml_file_name, 'color': kml_file_color })
 
@@ -129,6 +138,39 @@ export class AssetsidebarComponent implements OnInit {
 
 
 
+  }
+
+  Select_inverter(inverter) {
+    // alert()
+    inverter = 'ICR_01'
+    this.kml_name_key = Object.keys(this.Asset_typewise_data['inverter']['Inverter'][inverter])
+    this.kml_name_value = Object.values(this.Asset_typewise_data['inverter']['Inverter'][inverter])
+    // console.log(this.kml_name_value);
+    this.kml_data = []
+    this.kml_name_key.forEach(element => {
+      // console.log(element)
+      var kml_file_name = []
+      var kml_file_color = []
+      var kml_sub_group = []
+      this.kml_name_value.forEach(key => {
+        var temp_key = key
+        console.log(key);
+        console.log(Object.keys(key));
+        console.log(Object.values(key));
+
+        Object.values(key).forEach(data => {
+
+          console.log(data);
+
+          kml_file_name.push(data['kml'])
+          kml_file_color.push(data['color'])
+          kml_sub_group.push('summary_sub_group')
+
+        });
+      });
+      this.kml_data.push({ 'type': this.Asset_type, 'menu': 'inverter', 'key': this.kml_name_key, 'data': this.kml_name_value, 'sub_group': kml_sub_group, 'name': element, 'kml_list': kml_file_name, 'color': kml_file_color })
+    })
+    console.log(this.kml_data)
   }
 
   project_info() {
@@ -151,6 +193,7 @@ export class AssetsidebarComponent implements OnInit {
   activateMenu(id: string) {
     this.idd = id
     // alert(id)
+    // alert(this.Summary_tab)
     if (this.previousID != undefined && (this.Summary_tab == true || this.Summary_tab == undefined)) {
 
       let prevId = document.getElementById(this.previousID);
@@ -169,7 +212,7 @@ export class AssetsidebarComponent implements OnInit {
   public sliderToggle() {
     this.slider_state = !this.slider_state;
     this.compare_slider_event.emit(this.slider_state)
-    //  // // console.log("slider", this.slider_state);
+    //  // console.log("slider", this.slider_state);
   }
 
   Send_kml_data(data, hide) {
@@ -184,8 +227,8 @@ export class AssetsidebarComponent implements OnInit {
 
 
   send_subgroup_kml_data(i, row_id, data) {
-    // // console.log(i)
-    // // console.log(data)
+    // console.log(i)
+    // console.log(data)
     var key_array = []
     key_array.push(data['key'][row_id])
     var color_array = []
@@ -193,7 +236,7 @@ export class AssetsidebarComponent implements OnInit {
     var new_data = []
     new_data.push({ 'type': this.Asset_type, 'menu': 'summary_subgroup', 'key': key_array, 'data': this.kml_name_value, 'sub_group': data['data'][row_id], 'name': data['name'], 'kml_list': data['kml_list'][row_id], 'color': color_array })
 
-    // // console.log(new_data)
+    // console.log(new_data)
     this.current_summary_state_event.emit(new_data[0])
 
 
@@ -219,11 +262,12 @@ export class AssetsidebarComponent implements OnInit {
         this.currentMenu = 'summary';
         this.summary_data_render();
         break;
-      // case 'inverter':
-      //   this.invData = [];
-      //   this.currentMenu = 'inverter';
-      //   this.inverter_data_render();
-      //   break;
+      case 'inverter':
+        this.invData = [];
+        this.currentMenu = 'inverter';
+        this.inverter_data_render();
+        this.Select_inverter("ICR_01");
+        break;
       // case 'Topography':
       //   this.topograpyData = [];
       //   this.currentMenu = 'Topography';
@@ -262,7 +306,7 @@ export class AssetsidebarComponent implements OnInit {
 
 
     if (this.Summary_tab == true) {
-      if (this.previousID == "inventor") {
+      if (this.previousID == "inverter") {
         this.Summary_tab = false
         this.activateMenu("summary")
         return this.summary_data_render()
@@ -278,6 +322,34 @@ export class AssetsidebarComponent implements OnInit {
     }
     this.Summary_tab = true
 
+  }
+  inverter_data_render() {
+    sessionStorage.setItem('current_tab', "0")
+    var shareComponent_visibility = sessionStorage.getItem("shareComponent")
+    if (shareComponent_visibility == "open") {
+      this.Summary_tab = false;
+      this.dialog.closeAll();
+      this.activateMenu("inverter")
+    }
+
+
+    if (this.Summary_tab == true) {
+      if (this.previousID == "inverter") {
+        this.Summary_tab = false
+        this.activateMenu("inverter")
+        return this.inverter_data_render()
+      } else if (this.previousID == "Topography") {
+        this.Summary_tab = false
+        this.activateMenu("inverter")
+        return this.inverter_data_render()
+      }
+
+      this.previousID = "inverter"
+      this.Summary_tab = false
+      this.closeSidebar('summarySidebar')
+      return
+    }
+    this.Summary_tab = true
   }
 
   Compare_map(id: string) {
