@@ -194,8 +194,7 @@ export class DashboardMapComponent implements OnInit {
           this.processed_data_project_categorywise.push(processed_data);
         }
 
-        this.processed_data_project_categorywise_backup =
-          this.processed_data_project_categorywise;
+        this.processed_data_project_categorywise_backup = this.processed_data_project_categorywise;
 
         setTimeout(() => {
           this.ngxService.stop();

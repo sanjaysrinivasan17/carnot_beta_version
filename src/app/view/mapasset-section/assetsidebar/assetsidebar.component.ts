@@ -365,7 +365,12 @@ export class AssetsidebarComponent implements OnInit {
       e.style.width = '0px';
     } else {
       this.isOpenCompare = true;
-      this.dialogRef = this.dialog.open(ComparisionAssetComponent);
+      this.dialogRef = this.dialog.open(ComparisionAssetComponent, {
+      height: "calc(100%)",
+      width: "calc(100%)",
+      maxWidth: "100%",
+      maxHeight: "100%"
+    });
       e.style.width = '5px';
       this.closeSidebar('summarySidebar')
     }
