@@ -3,7 +3,9 @@ import { environment } from '../../../../../../environments/environment';
 import { Component, OnInit } from '@angular/core';
 import {  FormGroup, FormBuilder } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-
+import { HttpErrorResponse } from '@angular/common/http';
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-aoi-dialog',
   templateUrl: './aoi-dialog.component.html',
@@ -14,7 +16,7 @@ export class AoiDialogComponent implements OnInit {
 
   myform: FormGroup;
 
-  constructor(private fb: FormBuilder,   public dialogRef: MatDialogRef<AoiDialogComponent>,
+  constructor(private toastr: ToastrService, private router: Router, private fb: FormBuilder,   public dialogRef: MatDialogRef<AoiDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public map_data: any) { }
 
   ngOnInit(): void {
@@ -41,14 +43,22 @@ export class AoiDialogComponent implements OnInit {
     };
 
     fetch(environment.api_name+'draw/save_aoi/', {
-      method: 'POST', // or 'PUT'
+      method: 'POST',
       headers,
+      credentials: 'omit',
       body: JSON.stringify(data),
     })
       .then(response => response.json())
       .then(data => {
-        // console.log('Success:', data);
+        // // console.log('Success:', data);
         this.dialogRef.close([]);
+      },
+      (err: HttpErrorResponse) => {
+        // console.log(err.status);
+        if (err.status == 401) {
+          this.toastr.error("Login time expired. Please login again.")
+          this.gotologin()
+        }
       })
       .catch((error) => {
         console.error('Error:', error);
@@ -57,9 +67,11 @@ export class AoiDialogComponent implements OnInit {
 
   public removeUnusedInstance()
   {
-      // console.log(this.map_data.elayer);
+      // // console.log(this.map_data.elayer);
       this.map_data.event.removeLayer(this.map_data.elayer)
 
   }
-
+  gotologin(){
+    this.router.navigate(['auth/login'])
+   }
 }
