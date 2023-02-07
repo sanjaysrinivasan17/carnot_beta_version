@@ -23,16 +23,16 @@
                             <p> {{project.city}}</p>
                         </div>
                         <div *ngIf="project.status[0] == 'created'">
-                            <mat-progress-bar class="custom-progress" mode="determinate" style="width: 100%;" color="#289cf5" value="25"></mat-progress-bar>
+                            <mat-progress-bar class="custom-progress" mode="determinate" style="width: 100%;" color="accent" value="25"></mat-progress-bar>
                         </div>
                         <div *ngIf="project.status[0] == 'ftp'">
-                            <mat-progress-bar class="custom-progress" mode="determinate" style="width: 100%;" color="#289cf5" value="50"></mat-progress-bar>
+                            <mat-progress-bar class="custom-progress" mode="determinate" style="width: 100%;" color="accent" value="50"></mat-progress-bar>
                         </div>
                         <div *ngIf="project.status[0] == 'processing'">
-                            <mat-progress-bar class="custom-progress" mode="determinate" style="width: 100%;" color="#289cf5" value="75"></mat-progress-bar>
+                            <mat-progress-bar class="custom-progress" mode="determinate" style="width: 100%;" color="accent" value="75"></mat-progress-bar>
                         </div>
                         <div *ngIf="project.status[0] == 'completed'">
-                            <mat-progress-bar class="custom-progress" mode="determinate" style="width: 100%;" color="#289cf5" value="100"></mat-progress-bar>
+                            <mat-progress-bar class="custom-progress" mode="determinate" style="width: 100%;" color="accent" value="100"></mat-progress-bar>
                         </div>
                     </div>
                 </div>
