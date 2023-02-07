@@ -56,9 +56,12 @@ COPY nginx.conf  /etc/nginx/conf.d/default.conf
 # Copy the built application from the build stage
 COPY --from=build-stage /usr/src/app/dist/out/ /usr/share/nginx/html
 
+COPY certs /etc/nginx/ssl
+
 # Exposing a port, here it means that inside the container
 # the app will be using Port 80 while running
 EXPOSE 80
+EXPOSE 443
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
