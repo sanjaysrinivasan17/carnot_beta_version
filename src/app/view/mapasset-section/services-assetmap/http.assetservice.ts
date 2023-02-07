@@ -51,7 +51,7 @@ export class HttpAssetService {
     return this.set_mision_flight_data
   }
   Asset_project() {
-    // const newName = localStorage.getItem("name");
+    // const newName = localStorage.getItem('proj_name');
     const project_id = localStorage.getItem("project_id");
 
     const token = localStorage.getItem("token");

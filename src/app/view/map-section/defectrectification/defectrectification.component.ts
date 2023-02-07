@@ -114,7 +114,7 @@ export class DefectrectificationComponent implements OnInit {
 
     const newtoken = localStorage.getItem("token");
 
-    const project = localStorage.getItem("name");
+    const project = localStorage.getItem('proj_name');
     let project_date = localStorage.getItem("date");
     if (this.defects_arr[k].sub_defect_type == 'Dirt' || this.defects_arr[k].sub_defect_type == 'Multicell_Hotspot' || this.defects_arr[k].sub_defect_type == 'Hotspot' || this.defects_arr[k].sub_defect_type == 'Bypass_Diode Issues' || this.defects_arr[k].sub_defect_type == 'Others') {
       var defect_type = "Hotspot"
@@ -437,7 +437,7 @@ export class DefectrectificationComponent implements OnInit {
     var put_url = environment.api_name + "project/get_defects/" + this.defect_data[index]['id'];
     // // console.log(post_url)
     const newtoken = localStorage.getItem("token");
-    const project = localStorage.getItem("name");
+    const project = localStorage.getItem('proj_name');
     let project_date = localStorage.getItem("date");
 
     if (this.defects_arr[index].sub_defect_type == 'Dirt' || this.defects_arr[index].sub_defect_type == 'Multicell_Hotspot' || this.defects_arr[index].sub_defect_type == 'Hotspot' || this.defects_arr[index].sub_defect_type == 'Bypass_Diode Issues') {

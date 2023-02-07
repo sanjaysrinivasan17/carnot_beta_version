@@ -1,6 +1,6 @@
 .compact-sidebar {
     height: 100%;
-    width: 310px;
+    width: 330px;
     position: fixed;
     z-index: 100;
     background-color: var(--white);

@@ -72,14 +72,17 @@ export class InverterAnalyticsComponent implements OnInit {
     this.dateleft = sessionStorage.getItem('dateleft')
     this.dateright = sessionStorage.getItem('dateright')
     this.type = sessionStorage.getItem('type')
+    // alert(this.type)
     if (this.type == 'SCPM') {
       this.inverter_keys = Object.keys(this.main_data['projectdata'][this.dateright]['SCPM']['inverter']['Inverter'])
       this.inverter_keys.forEach(element => {
         this.inverter_group_keys = Object.keys(this.main_data['projectdata'][this.dateleft]['SCPM']['inverter']['Inverter'][element])
       });
 
-      // console.log(this.inverter_group_keys);
-
+      console.log(this.inverter_group_keys);
+alert()
+      this.feature = this.inverter_group_keys[0]
+      this.subfeature = Object.keys(this.main_data['projectdata'][this.dateleft]['SCPM']['inverter']['Inverter'][this.inverter_keys[0]][this.inverter_group_keys[0]])
 
       this.series = [{
         name: this.dateleft,

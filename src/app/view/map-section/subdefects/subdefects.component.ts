@@ -602,7 +602,7 @@ export class SubdefectsComponent implements OnInit {
     // this.count = this.count + 1
     this.project_values = [];
     // alert("inside 3")
-    var proj_name = localStorage.getItem('name')
+    var proj_name = localStorage.getItem('proj_name')
     var polygonPoints = []
     let j = 1
     let k = 0

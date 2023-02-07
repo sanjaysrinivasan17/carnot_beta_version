@@ -75,6 +75,7 @@ body {
     align-items: center;
     white-space: nowrap;
     position: relative;
+    text-transform:capitalize;
 }
 
 .my-full-screen-dialog {
@@ -100,4 +101,22 @@ body {
 
 .leaflet-draw-toolbar-top {
     margin-top: 47px;
+}
+
+// ::ng-deep .mat-mdc-select-arrow svg {
+//     fill: currentColor;
+//     position: absolute;
+//     top: 50%;
+//     left: 0%;
+//     transform: translate(-50%, -50%);
+// }
+
+.mat-mdc-select-arrow-wrapper {
+    padding: 10px;
+}
+
+
+::ng-deep .mat-select-panel-wrap {
+    word-wrap: none;
+    word-break: keep-all;
 }

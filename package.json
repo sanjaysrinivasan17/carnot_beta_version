@@ -45,6 +45,7 @@
     "leaflet-draw": "^1.0.4",
     "leaflet-kml": "^1.0.1",
     "leaflet-measure": "^3.1.0",
+    "leaflet-side-by-side": "^2.2.0",
     "leaflet-side-by-side2": "^2.2.0",
     "leaflet-toolbar": "^0.4.0-alpha.2",
     "leaflet.measurecontrol": "^1.1.0",

@@ -34,6 +34,7 @@ export class ComparisionAssetComponent implements OnInit {
   dateright: any;
   ortho_onleft: any;
   ortho_onright: any;
+  inverter_data: any;
 
   constructor(private _http: HttpAssetService, public dialog: MatDialog) { }
 
@@ -57,7 +58,8 @@ export class ComparisionAssetComponent implements OnInit {
     console.log(this.Asset_Datelist)
     this.ortho_onleft = this.main_data['projectdata'][this.Date]['SCPM']['project_properties']['ortho']['RGB']
     this.ortho_onright = this.main_data['projectdata'][this.Date]['SCPM']['project_properties']['ortho']['RGB']
-
+    this.inverter_data = this.main_data['projectdata'][this.Date]['SCPM']['inverter']['Inverter']
+    
     var new_center = localStorage.getItem('center')
     if (new_center != '') {
       this.center = new_center
@@ -69,17 +71,17 @@ export class ComparisionAssetComponent implements OnInit {
     this.lat = str_center[0];
     this.long = str_center[1];
 
-    // Initialize the map
-    this.map = L.map('compare_map', {
-      attributionControl: false,
-      zoomControl: false
-    }).setView([this.lat, this.long], 17);
+    // // Initialize the map
+    // this.map = L.map('compare_map', {
+    //   attributionControl: false,
+    //   zoomControl: false
+    // }).setView([this.lat, this.long], 17);
 
-    // default MAP layer
+    // // default MAP layer
 
-    this.tilelayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-    }).addTo(this.map);
+    // this.tilelayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    //   attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    // }).addTo(this.map);
     this.Load_comparemaps(this.ortho_onleft, this.ortho_onright)
   }
 
@@ -90,6 +92,18 @@ export class ComparisionAssetComponent implements OnInit {
   }
 
   Load_comparemaps(left_ortho, right_ortho) {
+
+    // Initialize the map
+    this.map = L.map('compare_map', {
+      attributionControl: false,
+      zoomControl: false
+    }).setView([this.lat, this.long], 17);
+
+    // default MAP layer
+    
+    this.tilelayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(this.map);
 
     this.LeftLayer1 = L.tileLayer(left_ortho + '{z}/{x}/{y}.png', {
       attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
@@ -114,7 +128,7 @@ export class ComparisionAssetComponent implements OnInit {
     // alert(dateleft + "-----------")
     sessionStorage.setItem("dateleft",dateleft)
 
-    this.RemoveKml(this.LeftLayer1)
+    this.map.remove(this.base_ortho_layer)
     this.ortho_onleft = this.main_data['projectdata'][dateleft]['SCPM']['project_properties']['ortho']['RGB']
 
     this.Load_comparemaps(this.ortho_onleft, this.ortho_onright)
@@ -125,7 +139,8 @@ export class ComparisionAssetComponent implements OnInit {
     // alert(dateright + "-----------")
     sessionStorage.setItem("dateright",dateright)
 
-    this.RemoveKml(this.LeftLayer1)
+    this.map.remove(this.base_ortho_layer)
+
     this.ortho_onright = this.main_data['projectdata'][dateright]['SCPM']['project_properties']['ortho']['RGB']
 
     this.Load_comparemaps(this.ortho_onleft, this.ortho_onright)
@@ -144,6 +159,11 @@ export class ComparisionAssetComponent implements OnInit {
   }
 
   Inverter_analytics(){
+    // alert(this.inverter_data)
+    if(this.inverter_data == undefined){
+      alert("There is no data for this inverter date")
+      return
+    }
     sessionStorage.setItem("dateleft",this.dateleft)
     sessionStorage.setItem("dateright",this.dateright)
     let dialogRef = this.dialog.open(InverterAnalyticsComponent);
@@ -154,6 +174,10 @@ export class ComparisionAssetComponent implements OnInit {
   }
 
   Inverter_analytics_featurewise(){
+    if(this.inverter_data == undefined){
+      alert("There is no data for this inverter date")
+      return
+    }
     sessionStorage.setItem("dateleft",this.dateleft)
     sessionStorage.setItem("dateright",this.dateright)
     let dialogRef = this.dialog.open(InverterwiseAnalyticsComponent);

@@ -17,7 +17,7 @@ export class AssetaoiDrawComponent {
     @Inject(MAT_DIALOG_DATA) public map_data: any) { }
 
   ngOnInit(): void {
-    var project_name = localStorage.getItem("name")
+    var project_name = localStorage.getItem('proj_name')
     var date = localStorage.getItem("date")
     this.myform = this.fb.group({ label: '', desc: '', project_name: project_name, date: date });
   }

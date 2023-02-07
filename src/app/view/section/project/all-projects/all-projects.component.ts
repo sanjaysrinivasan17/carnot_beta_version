@@ -477,7 +477,8 @@ export class AllProjectsComponent implements OnInit {
   selectedMapdate(date: string, name: string, i: { zoom_level: any; center: string; }, proj_id: string, project_type: string) {
 
     var zoom_level = i.zoom_level
-    localStorage.setItem("name", name);
+    localStorage.setItem('proj_name', name);
+    // alert("all"+i.center)
     localStorage.setItem("center", i.center);
     localStorage.setItem("date", date);
     sessionStorage.setItem("zoom_level", zoom_level);
@@ -499,7 +500,7 @@ export class AllProjectsComponent implements OnInit {
   selectedanalyticsdate(date: string, name: string, i: { zoom_level: any; center: string; }, proj_id: string, project_type: string) {
     // alert(date)
     var zoom_level = i.zoom_level
-    localStorage.setItem("name", name);
+    localStorage.setItem('proj_name', name);
     localStorage.setItem("center", i.center);
     localStorage.setItem("date", date);
     sessionStorage.setItem("zoom_level", zoom_level);

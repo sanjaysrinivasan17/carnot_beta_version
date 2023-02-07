@@ -66,7 +66,7 @@ export class HttpService {
   constructor(private http: HttpClient) { }
 
   summary_data() {
-    // const newName = localStorage.getItem("name");
+    // const newName = localStorage.getItem('proj_name');
     const project_id = localStorage.getItem("project_id");
 
     const token = localStorage.getItem("token");
@@ -80,7 +80,7 @@ export class HttpService {
     // return this.http.get(environment.api_name+'project/retrieve_project_data/hero')
   }
   inverter_data() {
-    const newName = localStorage.getItem("name");
+    const newName = localStorage.getItem('proj_name');
     const project_id = localStorage.getItem("project_id");
 
     const token = localStorage.getItem("token");

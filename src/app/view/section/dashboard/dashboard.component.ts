@@ -36,7 +36,7 @@ export class DashboardComponent implements OnInit {
     this.login = localStorage.getItem("login");
     this.redirect = localStorage.getItem("redirect");
     this.message = localStorage.getItem("message")
-    const newName = localStorage.getItem("name");
+    const newName = localStorage.getItem('proj_name');
     this.user_id = localStorage.getItem("user_id");
 
     const token = localStorage.getItem("token");
