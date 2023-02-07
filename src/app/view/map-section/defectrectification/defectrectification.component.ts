@@ -7,7 +7,9 @@ import { ToastrService } from 'ngx-toastr';
 import { Defects, DefectsC } from './defects';
 import { MatDialog } from '@angular/material/dialog';
 import { ImageviewerComponent } from '../imageviewer/imageviewer.component';
+import { HttpErrorResponse } from '@angular/common/http';
 import { mapsection, mapsectionC } from '../map-section';
+import { Router } from '@angular/router';
 @Component({
   selector: 'defectrectification',
   templateUrl: './defectrectification.component.html',
@@ -33,7 +35,7 @@ export class DefectrectificationComponent implements OnInit {
   sort_val: any;
   defectType: any[] = [];
 
-  constructor(private _http: HttpService, public dialog: MatDialog, private http: HttpClient, private toastr: ToastrService, private _formBuilder: FormBuilder) {
+  constructor(private _http: HttpService, public dialog: MatDialog, private router: Router, private http: HttpClient, private toastr: ToastrService, private _formBuilder: FormBuilder) {
 
     this.Form = new FormGroup({
       // mail: new FormControl('', [Validators.required, Validators.email,Validators.pattern('^[a-z0-9._%+-]+@gmail+\\.[a-z]{2,4}$')]),
@@ -164,6 +166,13 @@ export class DefectrectificationComponent implements OnInit {
         this.toastr.success('Data Added Successfully');
         this.updated_rectified_defect(project_date, defect_type, this.defects_arr[k].sub_defect_type)
         // location.reload();
+      }
+    },
+    (err: HttpErrorResponse) => {
+      // console.log(err.status);
+      if (err.status == 401) {
+        this.toastr.error("Login time expired. Please login again.")
+        this.gotologin()
       }
     })
     // // this.updated_rectified_defect(project_date, defect_type, this.defects_arr[k].defect_type)
@@ -302,6 +311,13 @@ export class DefectrectificationComponent implements OnInit {
         // console.log(this.defectType)
         // // console.log(this.defect_data)
 
+      },
+      (err: HttpErrorResponse) => {
+        // console.log(err.status);
+        if (err.status == 401) {
+          this.toastr.error("Login time expired. Please login again.")
+          this.gotologin()
+        }
       })
     this.defect_data_copy = this.defect_data
 
@@ -398,6 +414,10 @@ export class DefectrectificationComponent implements OnInit {
     }
 
   }
+  gotologin(){
+    this.router.navigate(['auth/login'])
+   }
+
   Defect_rectified_update(index) {
     // alert("status_" + index+"======"+(<HTMLInputElement>document.getElementById("status_" + index)))
     // // console.log((<HTMLInputElement>document.getElementById("status_" + index)));
@@ -475,6 +495,13 @@ export class DefectrectificationComponent implements OnInit {
 
         // this.updated_rectified_defect(project_date,defect_type, Defect.innerHTML)
         // location.reload();
+      }
+    },
+    (err: HttpErrorResponse) => {
+      // console.log(err.status);
+      if (err.status == 401) {
+        this.toastr.error("Login time expired. Please login again.")
+        this.gotologin()
       }
     })
   }

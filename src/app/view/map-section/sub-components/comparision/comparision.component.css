@@ -22,7 +22,6 @@ button:focus {
     top: 5%;
     left: 10%;
     z-index: 1000;
-    font-size: 15px;
 }
 
 .visibility_left {

@@ -7,7 +7,7 @@ import { environment } from '../../../environments/environment';
   providedIn: 'root'
 })
 export class AuthserviceService {
-  
+
   profile_pic: any;
   username: any;
   filename: any;
@@ -65,7 +65,7 @@ export class AuthserviceService {
       "password": values.password,
       "email": this.emailid,
       "contact": values.mnum,
-      "company": values.organization,
+      "organization": values.organization,
       "country": country,
       "state": state,
       "city": values.city,
@@ -77,9 +77,9 @@ export class AuthserviceService {
       "size": "",
       "filename": ""
   }
-    console.log(signup_data)
     return this.http.post(environment.api_name + 'api/accounts/user/', signup_data)
     // return this.http.post(environment.api_name+'users/create/', signup_data)
   }
+
 
 }

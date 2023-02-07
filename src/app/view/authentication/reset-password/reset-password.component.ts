@@ -15,7 +15,7 @@ import { ToastrService } from 'ngx-toastr';
 export class ResetPasswordComponent implements OnInit {
   public loginForm: FormGroup;
 
-  constructor(private router: Router,private http: HttpClient, private toastr: ToastrService) { 
+  constructor(private router: Router,private http: HttpClient, private toastr: ToastrService) {
     this.loginForm = new FormGroup({
       username: new FormControl('', [Validators.required]),
       mail: new FormControl('', [Validators.required, Validators.email,Validators.pattern('[a-z0-9.]+@[a-z]+\.[a-z]{2,3}')])
@@ -35,12 +35,20 @@ export class ResetPasswordComponent implements OnInit {
       // "username":username
     }
     this.http.post(environment.api_name+'api/accounts/generate_link/', data).subscribe(data => {
-      // console.log(data)
       if(data['success'] == true){
         this.toastr.success('Please check mail for recovery password link');
         this.router.navigate(['auth/login/'])
       }
-    })
+    },
+      (err: HttpErrorResponse) => {
+        if (err.status == 401) {
+          this.toastr.error("Login time expired. Please login again.")
+          this.gotologin()
+        }
+
+        // this.toastr.error("Password Expired. Please set new password.");
+        // this.gotoresetpassword()
+      })
 // alert(mail)
   }
 }

@@ -17,6 +17,8 @@ import { allowedNodeEnvironmentFlags } from 'process';
 import { FormGroup, FormControl, Form, Validators } from "@angular/forms";
 import { ShareComponent } from 'src/app/view/layout/share/share.component';
 import { environment } from '../../../../environments/environment';
+import { HttpErrorResponse } from '@angular/common/http';
+import { ToastrService } from 'ngx-toastr';
 //import { HttpService } from 'src/app/Root/Functional/Components/Map/map/http.service';
 
 export type ChartOptions = {
@@ -220,7 +222,7 @@ export class SidebarComponent implements OnInit {
   grading_data: any;
 
 
-  constructor(private _http: HttpService, public dialog: MatDialog, private router: Router) { }
+  constructor(private _http: HttpService, public dialog: MatDialog, private router: Router,  private toastr: ToastrService) { }
 
   // on Initializing this component
   ngOnInit(): void {
@@ -241,6 +243,13 @@ export class SidebarComponent implements OnInit {
       if (this.splitted_sidebar_value[1] == "True") {
         this.closeSidebar(this.splitted_sidebar_value[0])
 
+      }
+    },
+    (err: HttpErrorResponse) => {
+      // console.log(err.status);
+      if (err.status == 401) {
+        this.toastr.error("Login time expired. Please login again.")
+        this.gotologin()
       }
     })
     this._http.getproject_name().subscribe(info => {
@@ -384,7 +393,7 @@ export class SidebarComponent implements OnInit {
             // this.Project_layer_summary_values = this.main_data[this.project_id_summary][this.datevalue]['summary_data']
             // this.Project_layer_inverter_data = Object.keys(this.main_data[this.project_id_summary][this.datevalue]['inverter_data'])
             // this.Project_layer_inverter_data_values = Object.values(this.main_data[this.project_id_summary][this.datevalue]['inverter_data'])
-            // // // console.log("----------Project_layer_summary_values--------"+this.Project_layer_summary_values['Hotspot']['Count'])
+            // // // // console.log("----------Project_layer_summary_values--------"+this.Project_layer_summary_values['Hotspot']['Count'])
             this.Project_layer_summary = Object.keys(data['data']['processed_data'][this.datevalue]['summary_layers'])
 
             this.Project_layer_inverter_data = Object.keys(data['data']['processed_data'][this.datevalue]['inverter_layers'])
@@ -392,16 +401,23 @@ export class SidebarComponent implements OnInit {
             this.grading_data = Object.keys(data['data']['processed_data'][this.datevalue]['grading_layers'])
             // alert(this.topography_data)
             for (var j = 0; j < this.Project_layer_inverter_data.length; j++) {
-              // // console.log(this.Project_layer_inverter_data[j])
+              // // // console.log(this.Project_layer_inverter_data[j])
               let x = (j + 1)
               this.inverter_names.push({ "name": this.Project_layer_inverter_data[j], "pvalue": (x) })
 
             }
-            // console.log(this.inverter_names)
+            // // console.log(this.inverter_names)
           })
         })
 
       })
+    },
+    (err: HttpErrorResponse) => {
+      // console.log(err.status);
+      if (err.status == 401) {
+        this.toastr.error("Login time expired. Please login again.")
+        this.gotologin()
+      }
     })
 
 
@@ -443,7 +459,7 @@ export class SidebarComponent implements OnInit {
   public sliderToggle() {
     this.slider_state = !this.slider_state;
     this.compare_slider_event.emit(this.slider_state)
-    //  // console.log("slider", this.slider_state);
+    //  // // console.log("slider", this.slider_state);
 
   }
 
@@ -491,7 +507,7 @@ export class SidebarComponent implements OnInit {
   // Function for closing sidebar
   closeSidebar(id: string) {
     // alert(document.getElementById(id))
-    // console.log("closing_sidebar")
+    // // console.log("closing_sidebar")
     let sideBar = document.getElementById(id);
     sideBar.style.display = 'none';
     sideBar.style.width = '0px';
@@ -526,8 +542,8 @@ export class SidebarComponent implements OnInit {
     if (currentMenu == 'summary') {
 
       // if (name == 'Hotspot' || name === 'Panel Failure' || name === 'Uniform Panel Heating') {
-      //   console.log(defect_name)
-      //   console.log(kml)
+      //   // console.log(defect_name)
+      //   // console.log(kml)
       this.loadSumm_data(defect_name, kml)
       // }
       try {
@@ -544,7 +560,7 @@ export class SidebarComponent implements OnInit {
       }
       else {
         sub_group_lables = this.summ['processed_data'][this.datevalue]['summary_layers'][name]['sub_group']
-        // console.log(sub_group_lables)
+        // // console.log(sub_group_lables)
         for (var n in sub_group_lables) {
 
           kml_color.push(sub_group_lables[n]['color'])
@@ -553,7 +569,7 @@ export class SidebarComponent implements OnInit {
 
 
 
-      // console.log(kml_color)
+      // // console.log(kml_color)
 
       this.current_summary_state = { tab: kml_name, menu: currentMenu, color: kml_color, pageno: this.p };
 
@@ -561,7 +577,7 @@ export class SidebarComponent implements OnInit {
       this.current_summary_state_event.emit(this.current_summary_state)
     }
     if (currentMenu == 'inventor') {
-      // // console.log(this.l)
+      // // // console.log(this.l)
       // if (name == 'Hotspot' || name === 'Panel Failure' || name === 'Uniform Panel Heating') {
       this.inv_table(defect_name, kml)
       // }
@@ -576,7 +592,7 @@ export class SidebarComponent implements OnInit {
 
 
       sub_group_detail_inv = this.inv_all['processed_data'][this.datevalue]['inverter_layers'][this.l][name]['sub_group']
-      // console.log(Object.keys(sub_group_detail_inv).length)
+      // // console.log(Object.keys(sub_group_detail_inv).length)
       if (Object.keys(sub_group_detail_inv).length == 0) {
         sub_group_lables_inv = this.inv_all['processed_data'][this.datevalue]['inverter_layers'][this.l][name]
         kml_color.push(this.inv_all['processed_data'][this.datevalue]['inverter_layers'][this.l][name]['color'])
@@ -590,7 +606,7 @@ export class SidebarComponent implements OnInit {
 
 
       this.current_summary_state = { tab: inverter_kml, menu: currentMenu, color: kml_color, pageno: this.p };
-      // console.log(this.current_summary_state)
+      // // console.log(this.current_summary_state)
 
       this.current_summary_state_event.emit(this.current_summary_state)
 
@@ -649,7 +665,7 @@ export class SidebarComponent implements OnInit {
     if (type == 'Grading') {
       var sub_group_kml = this.summ['processed_data'][this.datevalue]['grading_layers'][this.grading_title]['sub_feature'][n]["kml"]
       this.colour = this.summ['processed_data'][this.datevalue]['grading_layers'][this.grading_title]['sub_feature'][n]['color']
-      console.log(this.colour)
+      // console.log(this.colour)
       this.cadastrial_map_page = { tab: sub_group_kml, menu: 'Grading', color: this.colour, pageno: this.p };
 
 
@@ -664,7 +680,7 @@ export class SidebarComponent implements OnInit {
 
   // Function for loading summary data
   sub_defects_count(current_summary_state) {
-    console.log(current_summary_state.tab)
+    // console.log(current_summary_state.tab)
   }
   summary_data_render() {
     // toalert("Summary_tab----"+this.Summary_tab)
@@ -714,10 +730,17 @@ export class SidebarComponent implements OnInit {
         });
 
       }
-      // // console.log('Hotspot--------------', data[this.project_id_summary][this.datevalue]['summary_data']['Hotspot']['kml'])
+      // // // console.log('Hotspot--------------', data[this.project_id_summary][this.datevalue]['summary_data']['Hotspot']['kml'])
       // this.loadSumm_data(this.Project_layer_summary[0], this.summ['processed_data'][this.datevalue]['summary_layers'][this.Project_layer_summary[0]]['kml']);
 
 
+    },
+    (err: HttpErrorResponse) => {
+      // console.log(err.status);
+      if (err.status == 401) {
+        this.toastr.error("Login time expired. Please login again.")
+        this.gotologin()
+      }
     })
 
   }
@@ -954,7 +977,7 @@ export class SidebarComponent implements OnInit {
       this.closeSidebar('summarySidebar')
       return
     }
-    // console.log("inverterRndef")
+    // // console.log("inverterRndef")
     this._http.inverter_data().subscribe(data => {
       this.inv_all = data['data']
       this.project_id = Object.keys(data['data'])
@@ -964,16 +987,23 @@ export class SidebarComponent implements OnInit {
       this.datevalue = date_local
       // this.date = Object.values(data[this.project_id])[2]
       this.Project_layer = Object.values(this.inv_all['processed_data'][this.datevalue]['inverter_layers'])
-      // // console.log(this.Project_layer)
+      // // // console.log(this.Project_layer)
       this.check = []
       // // toalert(this.getting_date )
 
 
       for (var key in this.inv_all['processed_data'][this.datevalue]['inverter_layers']) {
         this.check.push({ "title": key })
-        // // console.log(this.check)
+        // // // console.log(this.check)
       }
       this.load_invDiv(1);
+    },
+    (err: HttpErrorResponse) => {
+      // console.log(err.status);
+      if (err.status == 401) {
+        this.toastr.error("Login time expired. Please login again.")
+        this.gotologin()
+      }
     });
 
   }
@@ -982,11 +1012,11 @@ export class SidebarComponent implements OnInit {
   // Function for loading inverter data in inverter side bar
 
   load_invDiv(elm) {
-    // // console.log(this.inverter_names)
+    // // // console.log(this.inverter_names)
     // alert(elm+"---sanajy"+typeof elm)
 
     for (var j = 0; j < this.inverter_names.length; j++) {
-      // console.log(this.inverter_names[j]["name"])
+      // // console.log(this.inverter_names[j]["name"])
       if (elm == this.inverter_names[j]["name"]) {
         elm = parseInt(this.inverter_names[j]["pvalue"])
         this.p = parseInt(this.inverter_names[j]["pvalue"])
@@ -994,7 +1024,7 @@ export class SidebarComponent implements OnInit {
     }
     // toalert(elm+"elm=="+ this.namedata+"elm=="+ this.check[elm - 1]['title'])
     this.removing_kml_event.emit(this.removing_kml);
-    // console.log(this.p)
+    // // console.log(this.p)
 
     this.inverter_page_event.emit(this.p)
 
@@ -1003,7 +1033,7 @@ export class SidebarComponent implements OnInit {
 
     for (var k in this.inv_all['processed_data'][this.datevalue]['inverter_layers'][this.l]) {
       // toalert(l+"---k= "+k)
-      // // console.log(this.inv_all['processed_data'][this.datevalue]['inverter_layers'][l][k]["count"])
+      // // // console.log(this.inv_all['processed_data'][this.datevalue]['inverter_layers'][l][k]["count"])
       this.inverter_name = this.l
 
       this.invData.push({
@@ -1088,13 +1118,13 @@ export class SidebarComponent implements OnInit {
       this.datevalue = date_local
 
       this.Project_layer = this.summ['processed_data'][this.datevalue]['topography_layers']
-      console.log(this.summ['processed_data'][this.datevalue]['topography_layers'])
+      // console.log(this.summ['processed_data'][this.datevalue]['topography_layers'])
       // // toalert(this.getting_date )
       this.topography_title = Object.keys(this.summ['processed_data'][this.datevalue]['topography_layers'])
-      // // console.log(Object.keys(this.summ['processed_data'][this.datevalue]['topography_layers'][this.topography_title]['sub_feature']))
+      // // // console.log(Object.keys(this.summ['processed_data'][this.datevalue]['topography_layers'][this.topography_title]['sub_feature']))
       sub_feature = this.summ['processed_data'][this.datevalue]['topography_layers'][this.topography_title]['sub_feature']
       for (var i = 0; i < sub_feature.length; i++) {
-        // // console.log("-------" + sub_feature[i])
+        // // // console.log("-------" + sub_feature[i])
         this.topography_values.push({
           "name": sub_feature[i],
           // "count": this.summ['processed_data'][this.project_id_summary][this.datevalue]['summary_layers'][elm]['sub_group'][key]["Count"],
@@ -1102,14 +1132,14 @@ export class SidebarComponent implements OnInit {
           "color": this.summ['processed_data'][this.datevalue]['topography_layers'][this.topography_title]['sub_feature'][sub_feature[i]]["color"]
         });
         // this.topography_title.push({ "title": Object.keys(data[this.project_id][this.datevalue]['topography_data']) })
-        // // console.log(this.check)
+        // // // console.log(this.check)
       }
       this.current_summary_state = { tab: sub_feature[0], menu: 'cadastral_map', color: this.summ['processed_data'][this.datevalue]['topography_layers'][this.topography_title]['sub_feature'][sub_feature[0]]["color"], pageno: 1 };
 
 
       this.current_summary_state_event.emit(this.current_summary_state)
 
-      // // console.log(this.topography_values)
+      // // // console.log(this.topography_values)
 
       if (this.isOpenCompare) {
         this.openComparision('compare')
@@ -1117,6 +1147,13 @@ export class SidebarComponent implements OnInit {
 
       this.Summary_tab = true
 
+    },
+    (err: HttpErrorResponse) => {
+      // console.log(err.status);
+      if (err.status == 401) {
+        this.toastr.error("Login time expired. Please login again.")
+        this.gotologin()
+      }
     })
 
   }
@@ -1156,14 +1193,14 @@ export class SidebarComponent implements OnInit {
 
       this.datevalue = date_local
       this.Project_layer = (this.summ['processed_data'][this.datevalue]['grading_layers'])
-      // console.log(this.Project_layer)
-      console.log((this.summ['processed_data'][this.datevalue]['grading_layers']))
+      // // console.log(this.Project_layer)
+      // console.log((this.summ['processed_data'][this.datevalue]['grading_layers']))
       // // toalert(this.getting_date )
       this.grading_title = Object.keys(this.summ['processed_data'][this.datevalue]['grading_layers'])
-      // // console.log(Object.keys(this.summ['processed_data'][this.datevalue]['topography_data'][this.topography_title]['sub_feature']))
+      // // // console.log(Object.keys(this.summ['processed_data'][this.datevalue]['topography_data'][this.topography_title]['sub_feature']))
       sub_feature = (this.summ['processed_data'][this.datevalue]['grading_layers'][this.grading_title]['sub_feature'])
       for (var i = 0; i < sub_feature.length; i++) {
-        // // console.log("-------" + sub_feature[i])
+        // // // console.log("-------" + sub_feature[i])
         this.grading_values.push({
           "name": sub_feature[i],
           // "count": this.summ['processed_data'][this.project_id_summary][this.datevalue]['summary_data'][elm]['sub_group'][key]["Count"],
@@ -1171,14 +1208,14 @@ export class SidebarComponent implements OnInit {
           "color": this.summ['processed_data'][this.datevalue]['grading_layers'][this.grading_title]['sub_feature'][sub_feature[i]]["color"]
         });
         // this.topography_title.push({ "title": Object.keys(this.summ['processed_data'][this.datevalue]['topography_data']) })
-        // // console.log(this.check)
+        // // // console.log(this.check)
       }
       this.current_summary_state = { tab: sub_feature[0], menu: 'Grading', color: this.summ['processed_data'][this.datevalue]['grading_layers'][this.grading_title]['sub_feature'][sub_feature[0]]["color"], pageno: 1 };
 
 
       this.current_summary_state_event.emit(this.current_summary_state)
 
-      // // console.log(this.topography_values)
+      // // // console.log(this.topography_values)
 
       if (this.isOpenCompare) {
         this.openComparision('compare')
@@ -1186,6 +1223,13 @@ export class SidebarComponent implements OnInit {
 
       this.Summary_tab = true
 
+    },
+    (err: HttpErrorResponse) => {
+      // console.log(err.status);
+      if (err.status == 401) {
+        this.toastr.error("Login time expired. Please login again.")
+        this.gotologin()
+      }
     })
   }
   // end cadastrial map
@@ -1219,7 +1263,7 @@ export class SidebarComponent implements OnInit {
   // Function for tab change event
 
   public onTabChange(event: any) {
-    // console.log('eve', event);
+    // // console.log('eve', event);
     switch (event.index) {
       case 0:
         break;
@@ -1252,15 +1296,15 @@ export class SidebarComponent implements OnInit {
       this.closeSidebar('summarySidebar')
 
     }
-    // console.log(this.project_values)
+    // // console.log(this.project_values)
     var proj_name = localStorage.getItem("name");
-    // console.log(proj_name)
+    // // console.log(proj_name)
     // alert(this.project_values)
 
     for (var j = 0; j < this.project_values.length; j++) {
-      // // console.log(this.project_values[j]["name"])
+      // // // console.log(this.project_values[j]["name"])
       if (this.project_values[j]["name"] == proj_name) {
-        // console.log(this.project_values[j]["name"] + "----" + proj_name)
+        // // console.log(this.project_values[j]["name"] + "----" + proj_name)
 
         this.share_project = this.project_values[j]["id"]
       }
@@ -1346,7 +1390,9 @@ export class SidebarComponent implements OnInit {
     // });
   }
 
-
+  gotologin(){
+    this.router.navigate(['auth/login'])
+   }
   // Function for Report download
   downloadMyFile(report_path) {
     // alert(report_path)

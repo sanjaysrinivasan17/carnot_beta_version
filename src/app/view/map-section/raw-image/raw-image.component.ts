@@ -34,26 +34,21 @@ export class RawImageComponent implements OnInit {
 
     this.maindata = this._http.get_mision_flight_detail()
     this.mission_data = Object.keys(this.maindata).sort()
-// console.log(this.maindata)
     // var url = environment.api_name + 'project/get_missions_flights/' + project_id + '/' + date
     // fetch(url, { headers })
     //   .then(response => response.json())
     //   .then(datavalue => {
     //     this.maindata = datavalue['data']
-    //     // console.log(datavalue['data'])
     //     // if(datavalue['data'] == null){
     //     //   alert("there is no Raw image for this project.")
     //     //   this.onNoClick()
     //     // }else{
     //       this.mission_data = Object.keys(datavalue['data'])
     //     // }
-    //     // // console.log(this.mission_data)
 
     //   })
   }
   find_flight(mission) {
-    // alert(mission)
-    // // console.log(this.maindata[mission].sort())
     if (mission == "All") {
       // this.flight_data = this.maindata['M1']
       this.flight = "All"
@@ -65,8 +60,6 @@ export class RawImageComponent implements OnInit {
     }
   }
   submit_details() {
-    // // console.log(this.mission, this.flight);
-    // alert(this.mission)
     if (this.mission == "All" || this.mission == "") {
       this.mission = ""
       this.flight = ""

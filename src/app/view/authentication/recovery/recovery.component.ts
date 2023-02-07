@@ -5,6 +5,7 @@ import { ActivatedRoute } from "@angular/router";
 import { environment } from '../../../../environments/environment';
 import { ToastrService } from 'ngx-toastr';
 import { HttpClient, HttpClientModule, HttpHandler, HttpHeaders } from '@angular/common/http';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-recovery',
@@ -48,11 +49,24 @@ export class RecoveryComponent implements OnInit {
       "password": password1
     }
     this.http.post(environment.api_name + 'api/accounts/reset_password/', data).subscribe(data => {
-      // console.log(data)
+      // // console.log(data)
       if (data['success'] == true) {
         this.toastr.success('Password updated successfully');
         this.router.navigate(['auth/login/'])
       }
-    })
+    },
+      (err: HttpErrorResponse) => {
+        // console.log(err.status);
+        if (err.status == 401) {
+          this.toastr.error("Login time expired. Please login again.")
+          this.gotologin()
+        }
+
+        // this.toastr.error("Password Expired. Please set new password.");
+        // this.gotoresetpassword()
+      })
   }
+  gotologin(){
+    this.router.navigate(['auth/login'])
+   }
 }
