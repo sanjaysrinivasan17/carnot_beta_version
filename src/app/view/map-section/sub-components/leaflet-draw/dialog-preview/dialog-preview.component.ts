@@ -1,7 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { HttpService } from '../../../services-map/http.service';
-
+import { Router } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-dialog-preview',
   templateUrl: './dialog-preview.component.html',
@@ -16,7 +18,7 @@ export class DialogPreviewComponent implements OnInit {
   ChangedfromAOI: any;
   ChangedfromAOI_itemval: any;
 
-  constructor(private _http: HttpService,public dialogRef: MatDialogRef<DialogPreviewComponent>,  @Inject(MAT_DIALOG_DATA) public map_data: any) { }
+  constructor(private toastr: ToastrService, private router: Router, private _http: HttpService,public dialogRef: MatDialogRef<DialogPreviewComponent>,  @Inject(MAT_DIALOG_DATA) public map_data: any) { }
 
   ngOnInit(): void {
     this._http.getAreaofinterest().subscribe(info => {
@@ -25,7 +27,17 @@ export class DialogPreviewComponent implements OnInit {
       // this.ChangedfromAOI_itemval = this.ChangedAOI.datadescriptionval.itemval
 
       // alert(this.ChangedfromAOI)
+  },
+  (err: HttpErrorResponse) => {
+    // console.log(err.status);
+    if (err.status == 401) {
+      this.toastr.error("Login time expired. Please login again.")
+      this.gotologin()
+    }
   })
 }
 
+gotologin(){
+  this.router.navigate(['auth/login'])
+ }
 }
