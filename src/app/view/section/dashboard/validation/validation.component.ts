@@ -2,7 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse , HttpHeaders} from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 import { Country, State, City } from 'country-state-city';
 import { DashboardComponent } from '../dashboard.component';
@@ -59,26 +59,17 @@ export class ValidationComponent implements OnInit {
   ngOnInit(): void {
     // localStorage.clear();
     this.user_id = localStorage.getItem("user_id")
-
     this.mail = sessionStorage.getItem("email")
-    // console.log(this.mail);
-
     this.countries = Country.getAllCountries()
     this.states = State.getAllStates()
     this.cities = City.getAllCities()
     this.country_data = this.countries
 
-    // console.log(document.getElementById('email'))
-    // console.log(this.states[0])
-    // console.log(this.countries[0])
-    // alert(this.countries)
-    // console.log(this.cities[0])
   }
 
 
   validate() {
     // this.mnum = (<HTMLInputElement>document.getElementById("mnum")).value
-    // console.log(document.getElementById("validate"))
     // return
     var doc = document.getElementById("validate")
     doc!.setAttribute("disabled","disabled");
@@ -91,8 +82,6 @@ export class ValidationComponent implements OnInit {
       "type": "email"
     }
     this.dashboard.Generate_otp(data).subscribe((data: any) => {
-      // console.log(data)
-
       this.message = data['message']
       this.otp_success = data['success']
       if (this.message == "OTP Generated" && this.otp_success == true) {
@@ -104,7 +93,6 @@ export class ValidationComponent implements OnInit {
       }
     })
 
-    // console.log(this.mnum)
   }
   // throw a error whether form field is valid or invalid
   public hasError = (controlName: string, errorName: string) => {
@@ -135,17 +123,22 @@ export class ValidationComponent implements OnInit {
       "otp": parseInt(this.mailOTP)
     }
     this.dashboard.OTPemailVerify(data).subscribe((data: any) => {
-      // console.log(data)
 
       this.message = data['message']
       this.otp_verify_success = data['success']
       if (this.otp_verify_success == true && this.message == "OTP verified") {
         this.toastr.success("Email verified successfully please login again.")
-        const newtoken = localStorage.getItem("token");
 
-        var httpOptions = {
-          headers: { 'Authorization': 'token ' + newtoken }
+        const token = localStorage.getItem("token");
+        const headers = {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
         };
+        var httpOptions = {
+            headers,
+            withCredentials: false,
+         };
+
         this.http.get(environment.api_name + "accounts/logout/" + httpOptions)
         this.router.navigate(['auth/login']);
       }
