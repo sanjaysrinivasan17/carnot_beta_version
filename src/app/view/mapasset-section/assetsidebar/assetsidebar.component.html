@@ -16,8 +16,8 @@
                     </div>
                     <hr>
                     <!-- (click)="activateMenu('inverter'); openSidbar('summarySidebar', 'summary')" -->
-                    <div class="menu" (click)="activateMenu('inverter'); openSidbar('summarySidebar', 'inverter')">
-                        <div class="menu-active" id="inverter"></div>
+                    <div class="menu">
+                        <div class="menu-active" id="Inverter"></div>
                         <mat-icon class="menu-icon" data-toggle="tooltip" title="Sub Camp">tonality</mat-icon>
                     </div>
                     <hr>
@@ -33,39 +33,39 @@
 
                     <div class="menu">
                         <div class="menu-active" id="Inverter"></div>
-                        <mat-icon class="menu-icon" data-toggle="tooltip" title="Sub Camp Deviation">track_changes
-                        </mat-icon>
+                        <mat-icon class="menu-icon" data-toggle="tooltip"
+                            title="Sub Camp Deviation">track_changes</mat-icon>
                     </div>
                     <hr>
 
                 </div>
                 <div class="menu" (click)="activateMenu('compare'); Compare_map('compare')">
                     <div class="menu-active" id="compare"></div>
-                    <mat-icon name="columns" class="menu-icon" data-toggle="tooltip" title="Compare">compare_arrows
-                    </mat-icon>
+                    <mat-icon name="columns" class="menu-icon" data-toggle="tooltip"
+                        title="Compare">compare_arrows</mat-icon>
                 </div>
                 <hr>
 
 
             </div>
-            <div class="fix-bottom" style="margin-top: 8px;margin-left: 10px;">
+            <div class="fix-bottom"  style="margin-top: 8px;margin-left: 10px;">
                 <hr>
-                <div class="menu" style="margin-top: 6px;margin-left: -5px;margin-bottom: 0px;"  (click)="share_project('share')">
+                <div class="menu"  style="margin-top: -2px;margin-left: -5px;margin-bottom: -2px;" (click)="share_project('share')">
                     <div class="menu-active" id="summary"></div>
                     <i-feather style="font-size:18px;"  class="menu-icon" name="share-2" title="Share"></i-feather>
                 </div>
                 <hr>
-                <div class="menu" style="margin-top: 6px;margin-left: -5px;margin-bottom: 0px;" (click)="Download()">
+                <div class="menu"  style="margin-top: -2px;margin-left: -5px;margin-bottom: -2px;" (click)="Download()">
                     <div class="menu-active" id="summary"></div>
                     <i-feather style="font-size:18px;"  class="menu-icon" name="download-cloud" title="Download"></i-feather>
                 </div>
                 <hr>
-                <div class="menu" style="margin-top: 6px;margin-left: -5px;margin-bottom: 0px;"(click)="project_info()">
+                <div class="menu"  style="margin-top: -2px;margin-left: -5px;margin-bottom: -2px;" (click)="project_info()">
                     <div class="menu-active" id="summary"></div>
                     <i-feather style="font-size:18px;"  class="menu-icon" name="help-circle" title="Info"></i-feather>
                 </div>
                 <hr>
-                <div class="menu" style="margin-top: 6px;margin-left: -5px;margin-bottom: -30px;" (click)="logout()">
+                <div class="menu"  style="margin-top: 4px;margin-left: -3px;margin-bottom: -30px;" (click)="logout()">
                     <div class="menu-active"></div>
                     <i-feather style="font-size:18px;"  class="menu-icon" name="log-out" title="Logout"></i-feather>
                 </div>
@@ -84,9 +84,9 @@
 
         <div class="title">
             <span *ngIf="currentMenu==='summary'">{{summary_title}}</span>
-            <span *ngIf="currentMenu==='inverter'">{{inverter_title}}</span>
-            <!-- <span *ngIf="currentMenu==='Topography'">{{topography_title}}</span>
-            <span *ngIf="currentMenu==='Grading'">{{grading_title}}</span>  -->
+            <!-- <span *ngIf="currentMenu==='inventor'">Inverter</span>
+            <span *ngIf="currentMenu==='Topography'">{{topography_title}}</span>
+            <span *ngIf="currentMenu==='Grading'">{{grading_title}}</span> -->
         </div>
 
 
@@ -134,22 +134,5 @@
                 </table>
             </div>
         </mat-expansion-panel>
-    </div>
-
-    <div *ngIf="currentMenu==='inverter'">
-
-        <mat-card appearance="outlined"
-            style="width:140px;background-color: white;padding: 0px;margin: 0px;font-family: 'Montserrat', Helvetica, sans-serif;">
-            <mat-select name="inverter" [(ngModel)]="inverter" (ngModelChange)="Select_inverter(inverter)"
-                style="height: 30px;vertical-align: middle;padding-left: 5px;padding-top: 5px;text-align: center;z-index: 99999;"
-                [disableOptionCentering]="true">
-                <mat-option *ngFor="let inverter of inverter_keys" [value]="inverter"
-                    style="background-color: white;font-family: 'Montserrat', Helvetica, sans-serif; z-index: 99999;">
-                    {{inverter}}
-
-                </mat-option>
-
-            </mat-select>
-        </mat-card>
     </div>
 </div>

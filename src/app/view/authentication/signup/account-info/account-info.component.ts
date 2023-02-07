@@ -49,7 +49,7 @@ export class AccountInfoComponent implements OnInit {
       password: new FormControl('', Validators.required),
       cpassword: new FormControl('', Validators.required),
       role: new FormControl('', Validators.required),
-      
+
     });
     this.username_verify = new FormGroup({
       username: new FormControl('', Validators.required),
@@ -63,17 +63,12 @@ export class AccountInfoComponent implements OnInit {
     this.states = State.getAllStates()
     this.cities = City.getAllCities()
     this.country_data = this.countries
-    // console.log(this.states[0])
-    // console.log(this.countries[0])
-    // alert(this.countries)
-    // console.log(this.cities[0])
   }
 
   onselectFile(e) {
 
     if (e.target.files) {
       var reader = new FileReader();
-      console.log(e.target.files[0].name)
       reader.readAsDataURL(e.target.files[0]);
       reader.onload = (event: any) => {
         // "filename": event.target.files[i].name,
@@ -88,10 +83,8 @@ export class AccountInfoComponent implements OnInit {
         let extension = e.target.files[0].name.split(".")[1]
         this.url = event.target.result;
         this.base64image = event.target.result;
-        // console.log(this.base64image)
         this.base64image_split = this.base64image.split('base64,');
         this.autservice.profile_picture(this.base64image_split[1], filename, size, type, extension)
-        // console.log(this.base64image_split)
 
       }
     }
@@ -120,11 +113,7 @@ export class AccountInfoComponent implements OnInit {
     }, 30000);
     this.uname = (<HTMLInputElement>document.getElementById("username")).value
     this.emailid = (<HTMLInputElement>document.getElementById("emailid")).value
-    // alert(this.emailid)
     this.autservice.Username_exist(this.uname).subscribe((data: any) => {
-      // alert((<HTMLInputElement>document.getElementById("username")).value)
-      console.log(data)
-      // alert(data['success'])
       if (data['success'] == false) {
 
         this.toastr.error('Username is already taken. Please Choose different username');
@@ -140,11 +129,17 @@ export class AccountInfoComponent implements OnInit {
         (<HTMLInputElement>document.getElementById("uname")).value = this.uname
         this.autservice.set_username(this.uname)
       }
+    },
+    (err: HttpErrorResponse) => {
+      if (err.status == 401) {
+        this.toastr.error("Login time expired. Please login again.")
+        this.gotologin()
+      }
+
+      // this.toastr.error("Password Expired. Please set new password.");
+      // this.gotoresetpassword()
     })
     this.autservice.Email_exist(this.emailid).subscribe((data: any) => {
-      // alert((<HTMLInputElement>document.getElementById("username")).value)
-      console.log(data)
-      // alert(data['success'])
       if (data['status'] == false) {
 
         this.toastr.error('Email ID is already taken. Please Choose different Email ID');
@@ -157,19 +152,27 @@ export class AccountInfoComponent implements OnInit {
         (<HTMLInputElement>document.getElementById("mail")).value = this.emailid
         this.autservice.set_emailid(this.emailid)
       }
+    },
+    (err: HttpErrorResponse) => {
+      if (err.status == 401) {
+        this.toastr.error("Login time expired. Please login again.")
+        this.gotologin()
+      }
+
+      // this.toastr.error("Password Expired. Please set new password.");
+      // this.gotoresetpassword()
     })
     // if (this.uname_verified == true && this.email_verified == true) {
-    //   console.log("true")
     //   this.changeUI()
     // }
   }
   // changeUI() {
 
   // }
+  gotologin(){
+    this.router.navigate(['auth/login'])
+   }
   selectChange(countryval) {
-    // alert("inside"+countryval)
-    // // console.log(this.states)
-    // alert(this.states.length)
     for (var i = 0; i < this.countries.length; i++) {
       if (this.countries[i]["isoCode"] == countryval) {
         var country_name = this.countries[i]["name"]
@@ -182,21 +185,16 @@ export class AccountInfoComponent implements OnInit {
       if (this.states[i]["countryCode"] == countryval) {
         var cou = this.states[i].length
         this.states_data.push(this.states[i])
-        // // console.log(this.states_data)
 
       }
     }
     this.countryval_data = countryval
-    // alert("inside" + cou)
     // this.country_data = this.countries
   }
 
   selectState(stateval) {
-    // alert(stateval+"-----"+this.countryval_data)
-    // // console.log(this.cities)
     for (var i = 0; i < this.states_data.length; i++) {
       if (this.states_data[i]["isoCode"] == stateval) {
-        // // console.log(this.states_data[i]["name"])
 
         var state_name_val = this.states_data[i]["name"]
         sessionStorage.setItem("state", state_name_val)
@@ -208,7 +206,6 @@ export class AccountInfoComponent implements OnInit {
     for (var i = 0; i < this.cities.length; i++) {
       if (this.cities[i]["stateCode"] == stateval && this.cities[i]["countryCode"] == this.countryval_data) {
         this.cities_data.push(this.cities[i])
-        // // console.log(this.cities_data)
 
       }
     }
@@ -216,11 +213,10 @@ export class AccountInfoComponent implements OnInit {
   }
 
   selectCity(cityval) {
-    // alert(cityval)
   }
   signup() {
 
-    
+
     if (this.signupForm.valid && this.isValidPassword) {
 
       document.getElementById("signup").setAttribute("disabled","disabled");
@@ -228,8 +224,6 @@ export class AccountInfoComponent implements OnInit {
       document.getElementById("signup").removeAttribute("disabled");
     }, 30000);
       this.autservice.userauth_signup(this.signupForm.value).subscribe((data: any) => {
-        // console.log("-----------------------------------------")
-        // console.log(data)
         this.goto();
 
       }, (err: HttpErrorResponse) => {
@@ -244,15 +238,12 @@ export class AccountInfoComponent implements OnInit {
 
   public checkpassword(event: any) {
 
-    // console.log(event.target.value, this.signupForm.value.password)
 
     if (this.signupForm.value.password === event.target.value) {
       this.isValidPassword = true;
-      // console.log(" form is valid")
     }
     else {
       this.isValidPassword = false;
-      // console.log(" form is notvalid")
     }
 
   }

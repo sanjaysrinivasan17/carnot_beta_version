@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MatStepper } from '@angular/material/stepper';
 import 'leaflet';
 import 'leaflet-kml';
@@ -97,7 +97,6 @@ export class ProjectDetailsComponent implements OnInit {
     setTimeout(() => {
       this.ngxService.stop();
     }, 3000)
-    // alert("proj det")
     this.user_id = localStorage.getItem("user_id")
     const newName = localStorage.getItem('proj_name');
 
@@ -115,25 +114,18 @@ export class ProjectDetailsComponent implements OnInit {
     }).then(response => response.json())
       .then(data => {
         this.main_data = data['data']
-        // console.log("-------------------------------------------")
-        // console.log(this.main_data)
-        // console.log("-------------------------------------------")
         this.project_id_summary_count = Object.keys(data['data'])
         this.project_id_summary_length = this.project_id_summary_count.length
         this.recent_3_projects = [];
-        // console.log(this.project_id_summary_count);
-        // console.log(this.project_id_summary_count.length);
 
         for (var g = 0; g < this.project_id_summary_length; g++) {
 
           let date_key = Object.keys(this.main_data[g]['date_status']).reverse()
           let status_key = Object.values(this.main_data[g]['date_status']).reverse()
-          // console.log("---"+this.main_data[g]['processed_data'][this.main_data[g]['processed_data'].length-1]["status"])
           // this.recent_3_projects.push({ "name": this.main_data[g]['name'], "date": this.main_data[g]['date'], "city": this.main_data[g]['city'], "status": this.main_data[g]['status'] })
           // this.recent_3_projects.push({ "name": this.main_data[g]['name'], "date": this.main_data[g]['processed_data'][0]['date'], "city": this.main_data[g]['city'], "status": this.main_data[g]['status'] })
           this.recent_3_projects.push({ "name": this.main_data[g]['name'], "project_id": this.main_data[g]['id'], "date": date_key, "city": this.main_data[g]['city'], "status": status_key})
         }
-        // console.log(this.recent_3_projects)
 
         this.center = [];
         this.recent_3_projects_name = this.recent_3_projects[0].name
@@ -196,7 +188,6 @@ export class ProjectDetailsComponent implements OnInit {
 
     this.stepper.reset()
     this.slides = document.getElementsByClassName("project-card");
-    // alert(this.slides.length)
 
     if (n > this.project_id_summary_length) { this.slideIndex = 1 }
     if (n < 1) { this.slideIndex = this.project_id_summary_length }
@@ -204,10 +195,8 @@ export class ProjectDetailsComponent implements OnInit {
 
 
     var project_name_new = this.main_data[this.slideIndex - 1]['name']
-    // alert(this.main_data[this.slideIndex - 1]['center'])
     this.center_val = this.main_data[this.slideIndex - 1]['center']
     this.project_name = this.main_data[this.slideIndex - 1]['name']
-    // alert(this.slideIndex - 1)
     this.project_id = this.recent_3_projects[this.slideIndex - 1]['project_id']
     localStorage.setItem("project_id", this.project_id);
     this.recent_3_projects_name = this.recent_3_projects[this.slideIndex - 1].name
@@ -220,7 +209,6 @@ export class ProjectDetailsComponent implements OnInit {
     if (this.workflow_status == "created") {
       this.new_stepper_index = 1
       for (var s = 0; s < this.new_stepper_index; s++) {
-        // alert(s)
         this.stepper.selectedIndex = s;
 
       }
@@ -228,7 +216,6 @@ export class ProjectDetailsComponent implements OnInit {
     if (this.workflow_status == "ftp") {
       this.new_stepper_index = 2
       for (var s = 0; s < this.new_stepper_index; s++) {
-        // alert(s)
         this.stepper.selectedIndex = s;
 
       }
@@ -236,7 +223,6 @@ export class ProjectDetailsComponent implements OnInit {
     if (this.workflow_status == "processing") {
       this.new_stepper_index = 3
       for (var s = 0; s < this.new_stepper_index; s++) {
-        // alert(s)
         this.stepper.selectedIndex = s;
 
       }
@@ -244,9 +230,7 @@ export class ProjectDetailsComponent implements OnInit {
     if (this.workflow_status == "completed") {
       this.new_stepper_index = 4
       for (var s = 0; s < this.new_stepper_index; s++) {
-        // alert(s)
         this.stepper.selectedIndex = s;
-
       }
     }
 
@@ -258,7 +242,6 @@ export class ProjectDetailsComponent implements OnInit {
 
 
   public gotomap() {
-    // alert(this.recent_3_projects_date)
     localStorage.setItem("date", this.recent_3_projects_date);
     localStorage.setItem("center", this.center_val);
     sessionStorage.setItem("project_type","carnot")

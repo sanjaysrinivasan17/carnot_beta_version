@@ -4,7 +4,7 @@ import { HttpService } from "../../map-section/services-map/http.service";
 import { environment } from '../../../../environments/environment';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgxUiLoaderService } from "ngx-ui-loader";
-import { HttpClient, HttpHeaders  } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-dashboard',
@@ -87,33 +87,33 @@ export class DashboardComponent implements OnInit {
 
   Generate_otp(data: any) {
     // var data = { "name": organization }
-    const newtoken = localStorage.getItem("token");
-
+    const token = localStorage.getItem("token");
+    const headers = {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+    };
     var httpOptions = {
-      headers: new HttpHeaders({
-          'Content-Type':  'application/json',
-          'Authorization': 'Bearer ' + newtoken,
-        }),
-      withCredentials: false,
-   };
-  // return this.http.post(environment.api_name + 'api/accounts/generate_otp/', data)
-  return this.http.post(environment.api_name + 'api/accounts/generate_otp/', data, httpOptions)
+        headers,
+        withCredentials: false,
+     };
+    // return this.http.post(environment.api_name + 'api/accounts/generate_otp/', data)
+    return this.http.post(environment.api_name + 'api/accounts/generate_otp/', data, httpOptions)
 
   }
 
   OTPemailVerify(data: any) {
     // var data = { "name": organization }
-    const newtoken = localStorage.getItem("token");
-
+    const token = localStorage.getItem("token");
+    const headers = {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+    };
     var httpOptions = {
-      headers: new HttpHeaders({
-          'Content-Type':  'application/json',
-          'Authorization': 'Bearer ' + newtoken,
-        }),
-      withCredentials: false,
-   };
+        headers,
+        withCredentials: false,
+     };
 
-  return this.http.post(environment.api_name + 'api/accounts/verify_otp/', data, httpOptions)
+    return this.http.post(environment.api_name + 'api/accounts/verify_otp/', data, httpOptions)
 
   }
 

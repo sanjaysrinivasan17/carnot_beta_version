@@ -2,6 +2,9 @@ import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/cor
 import { HttpClient } from '@angular/common/http';
 import { HttpService } from '../services-map/http.service';
 import { SidebarComponent } from '../sidebar/sidebar.component'
+import { HttpErrorResponse } from '@angular/common/http';
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 import {
   ChartComponent,
   ApexNonAxisChartSeries,
@@ -63,7 +66,7 @@ export class GradinggraphComponent implements OnInit {
   maximum_value: number;
   slope: any;
 
-  constructor(private _http: HttpService, private http: HttpClient) { }
+  constructor(private _http: HttpService, private http: HttpClient, private toastr: ToastrService, private router: Router) { }
 
   ngOnInit(): void {
     this._http.getgradingtable().subscribe(info => {
@@ -80,6 +83,13 @@ export class GradinggraphComponent implements OnInit {
         // alert(this.csv_path)
         this.load_popup_content(gradingval_tableno, this.csv_path)
       })
+    },
+    (err: HttpErrorResponse) => {
+      // console.log(err.status);
+      if (err.status == 401) {
+        this.toastr.error("Login time expired. Please login again.")
+        this.gotologin()
+      }
     })
 
   }
@@ -87,7 +97,7 @@ export class GradinggraphComponent implements OnInit {
     this.userArray_value = []
     this.userArray_Distance = []
     this.table_number = table_no
-    // console.log(this.table_number);
+    // // console.log(this.table_number);
     this.grading_visibility = "visible"
     // alert(csv_path + table_no + ".csv")
 
@@ -106,8 +116,8 @@ export class GradinggraphComponent implements OnInit {
             this.userArray_Distance.push(parseFloat(parseFloat(row[0]).toFixed(3)))
 
           }
-          // console.log(this.userArray_Distance);
-          // console.log(this.userArray_value);
+          // // console.log(this.userArray_Distance);
+          // // console.log(this.userArray_value);
           this.minimum_value = Math.min(...this.userArray_value);
           this.maximum_value = Math.max(...this.userArray_value);
           var maximum_value = Math.max(...this.userArray_Distance);
@@ -115,10 +125,18 @@ export class GradinggraphComponent implements OnInit {
           this.load_grading_chart(this.userArray_Distance, this.userArray_value)
 
         },
-        error => {
-          console.log(error);
+        
+        (err: HttpErrorResponse) => {
+          // console.log(err.status);
+          if (err.status == 401) {
+            this.toastr.error("Login time expired. Please login again.")
+            this.gotologin()
+          }
         }
-      );
+        // error => {
+        //   // console.log(error);
+        // }
+        );
   }
   load_grading_chart(userArray_Distance, userArray_value) {
     this.chartOptions = {
@@ -189,10 +207,13 @@ export class GradinggraphComponent implements OnInit {
       }
     };
   }
+  gotologin(){
+    this.router.navigate(['auth/login'])
+   }
 
 closeSidebar(id: string) {
     // alert(document.getElementById(id))
-    // console.log("closing_sidebar")
+    // // console.log("closing_sidebar")
     let sideBar = document.getElementById(id);
     sideBar.style.display = 'none';
     sideBar.style.width = '0px';

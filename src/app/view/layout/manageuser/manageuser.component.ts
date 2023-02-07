@@ -7,6 +7,8 @@ import { HttpService } from "../../map-section/services-map/http.service";
 import { AdduserComponent } from '../adduser/adduser.component';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { HttpErrorResponse } from '@angular/common/http';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -30,7 +32,7 @@ export class ManageuserComponent implements OnInit {
   success: any;
   putId: any;
   isactive: any;
-  constructor(private _http: HttpService, private http: HttpClient, public dialog: MatDialog, private router: Router) { }
+  constructor(private _http: HttpService, private http: HttpClient, private toastr: ToastrService, public dialog: MatDialog, private router: Router) { }
 
   ngOnInit(): void {
     this.total_sub_user_account = [];
@@ -53,7 +55,6 @@ export class ManageuserComponent implements OnInit {
     //   .then(response => response.json())
     //   .then(datavalue => {
     //     this.user = datavalue['data']
-    //     // // console.log(this.user)
     //     // this.user = [];
     //     for (var i = 0; i < this.user.length; i++) {
     //       // alert(this.user.length)
@@ -78,13 +79,11 @@ export class ManageuserComponent implements OnInit {
         //   var Created_date = year + "-" + month + "-" + day;
         //   this.user.push({ "id": i, "username": this.main_data[i]["Username"], "fullname": this.main_data[i]["Full name"], "email": this.main_data[i]["E mail"], "date": Created_date })
         //
-        // // console.log(this.user)
       // })
 
 
     // this._http.getNewadduser().subscribe(info => {
     //   this.Adduser = info;
-    //   // // console.log(this.Adduser.userdetailsfname+"----"+this.Adduser.userdetailslname)
 
     //   this.user = [];
     //   this.firstname = localStorage.getItem("firstname");
@@ -103,6 +102,9 @@ export class ManageuserComponent implements OnInit {
 
     })
   }
+  gotologin(){
+    this.router.navigate(['auth/login'])
+   }
 
   show_user() {
 
@@ -123,14 +125,20 @@ export class ManageuserComponent implements OnInit {
         var user_data = datavalue['data']
         var count_user = 0
         for (let i = 0; i < user_data.length; i++) {
-          // console.log(user_data[i]['is_active'])
           if(user_data[i]['is_active'] == true){
             this.user.push(user_data[i])
             count_user = count_user + 1
           }
         }
         this.total_sub_user_account = count_user
-      });
+      },
+      (err: HttpErrorResponse) => {
+        if (err.status == 401) {
+          this.toastr.error("Login time expired. Please login again.")
+          this.gotologin()
+        }
+      }
+      );
   }
 
   logout() {
@@ -158,7 +166,6 @@ export class ManageuserComponent implements OnInit {
         withCredentials: false,
      };
     this.http.put(put_url, data, httpOptions).subscribe(data => {
-      // console.log(data)
 
       this.putId = data;
 
@@ -173,6 +180,12 @@ export class ManageuserComponent implements OnInit {
         }, 2100)
         // this.router.navigate(['app/manageuser'])
         this.show_user();
+      }
+    },
+    (err: HttpErrorResponse) => {
+      if (err.status == 401) {
+        this.toastr.error("Login time expired. Please login again.")
+        this.gotologin()
       }
     })
 

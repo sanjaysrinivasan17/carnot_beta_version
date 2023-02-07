@@ -90,9 +90,11 @@
 .signupbtn {
     float: right;
     color: var(--lite) !important;
-    position: relative;
-    top: 15px;
-    left: -125px;
+    position: fixed;
+    /* top: 575px; */
+    /* left: 925px; */
+    margin-left: 10px;
+    overflow: auto;
 }
 
 .login-text {

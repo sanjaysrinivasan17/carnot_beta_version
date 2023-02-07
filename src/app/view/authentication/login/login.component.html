@@ -31,7 +31,7 @@
                 </mat-form-field>
                 <ngx-recaptcha2 #captchaElem siteKey="6LcNOVIiAAAAANY1uvbZM9eBDoV_TuT1O2Dc8viL" (success)="handleSuccess($event)" [size]="size"
                 [hl]="lang" [theme]="theme" [type]="type" formControlName="recaptcha">
-               </ngx-recaptcha2>
+               </ngx-recaptcha2> 
 
                 <div class="action-container">
                     <mat-checkbox class="float-left" style=" font-family: 'Montserrat', Helvetica, sans-serif;" color="accent">Remember me</mat-checkbox>
@@ -47,8 +47,19 @@
         </mat-card-content>
 
         <div class="login-btn-container">
-            <button mat-button class="btn pl-5 pr-5 stepper-action-btn login-btn text-uppercase" style="font-family: 'Montserrat', Helvetica, sans-serif;" [disabled]="!loginForm.valid" id="login" (click)="login(UserName.value,Password.value)">Login</button>
-            <span class="signupbtn "><a (click)="gotoSignup()" style="color: var(--primary); font-family: 'Montserrat', Helvetica, sans-serif; cursor: pointer;">Not a User?</a></span>
+            <table>
+                <tr>
+                    <td>
+                        <button mat-button class="btn pl-5 pr-5 stepper-action-btn login-btn text-uppercase" style="font-family: 'Montserrat', Helvetica, sans-serif; " [disabled]="!loginForm.valid" id="login" (click)="login(UserName.value,Password.value)">Login</button>
+                    <!-- </td>
+                    <td style="text-align: left;"> -->
+                        <span class="signupbtn "><a (click)="gotoSignup()" style="color: var(--primary); font-family: 'Montserrat', Helvetica, sans-serif; cursor: pointer;">Not a User?</a></span>
+                    </td>
+                </tr>
+               
+            </table>
+           
+            
         </div>
 
     </mat-card>

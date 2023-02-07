@@ -71,7 +71,6 @@ export class SubdefectsComponent implements OnInit {
         var x = sessionStorage.getItem('current_tab')
         this.mode = sessionStorage.getItem('mode')
         var p = parseInt(sessionStorage.getItem('page'), 10);
-        // console.log(this.kml_file_location)
         // return
         // if(x == "Panel Failure"){
         //   x = "Uniform PanelHeating"
@@ -114,9 +113,6 @@ export class SubdefectsComponent implements OnInit {
         } else if (this.mode == 'summary_sub_details') {
           // alert(this.mode)
           var n = sessionStorage.getItem('sub_defects')
-          // console.log(n);
-          // console.log(summary_keys[x]);
-          // console.log(this.summ[this.project_id_summary][this.dateonload]['summary_data'][summary_keys[x]])
           this.get_summary_subdefect_defect_count = this.summ['processed_data'][this.dateonload]['summary_layers'][summary_keys[x]]['sub_group'][n]['Count']
           // alert(this.get_summary_subdefect_defect_count)
 
@@ -176,9 +172,6 @@ export class SubdefectsComponent implements OnInit {
     this.count_dec = 0;
     this.count_dec_val = 0;
     for (var i = 0; i < kml_name_load.length; i++) {
-      // console.log(kml_name_load[i])
-      // // return
-      // console.log(this.kml_file_location + 'GLOBAL/' + kml_name_load[i] + '.kml')
 
       fetch(this.kml_file_location + 'GLOBAL/' + kml_name_load[i] + '.kml')
         .then(res => res.text())
@@ -188,20 +181,17 @@ export class SubdefectsComponent implements OnInit {
           // Create new kml overlay
           const parser = new DOMParser();
           const kml = parser.parseFromString(kmltext, 'text/xml');
-          // console.log(kml)
 
           // this.track = new L.KML(kml);
 
           var el = kml.getElementsByTagName('coordinates');
           var place = kml.getElementsByTagName('Placemark')
-          // console.log(place)
 
           let n = 0;
           let b
           let d
           for (var i in place) {
             let dec = place[i].childNodes[1].textContent
-            // console.log(dec)
             this.count_dec_val = this.count_dec_val + 1
             let coor = place[i].getElementsByTagName('coordinates')
             let latlngArray = coor[0].textContent.replace(/\n/g, " ").split(/[ ,]+/).filter(Boolean)
@@ -210,23 +200,17 @@ export class SubdefectsComponent implements OnInit {
             for (var r in u) {
               if (n % 2 == 0) {
                 b = u[r].textContent;
-                //  console.log(b)
               }
               else {
                 if (b == "Defect:") {
                   d = b;
                   this.table_no = u[r].textContent;
 
-                  // // console.log(u[r].textContent)
                 }
 
               }
               n++
             }
-            // return
-            // alert( this.table_no)
-            // console.log(this.table_no)
-            // return
             var value = { "color": ['yellow', 'blue', 'red', 'green'] }
             if (this.table_no == 'Hotspot') {
 
@@ -264,7 +248,6 @@ export class SubdefectsComponent implements OnInit {
               this.polygonMarkerCreating(latlngArray, value.color[1], dec)
             }
             if (this.table_no == 'Open Circuit' || this.table_no == 'Open_Circuit') {
-              // console.log("op")
               this.polygonMarkerCreating(latlngArray, value.color[0], dec)
             }
             if (this.table_no == 'Short Circuit' || this.table_no == 'Short_Circuit') {
@@ -294,9 +277,6 @@ export class SubdefectsComponent implements OnInit {
     this.count_dec = 0;
     this.count_dec_val = 0;
     for (var i = 0; i < kml_name_load.length; i++) {
-      // console.log(kml_name_load[i])
-      // return
-      // console.log(this.kml_file_location + 'GLOBAL/' + kml_name_load[i] + '.kml')
 
       fetch(this.kml_file_location + 'GLOBAL/' + kml_name_load[i] + '.kml')
         .then(res => res.text())
@@ -306,20 +286,17 @@ export class SubdefectsComponent implements OnInit {
           // Create new kml overlay
           const parser = new DOMParser();
           const kml = parser.parseFromString(kmltext, 'text/xml');
-          // console.log(kml)
 
           // this.track = new L.KML(kml);
 
           var el = kml.getElementsByTagName('coordinates');
           var place = kml.getElementsByTagName('Placemark')
-          // console.log(place)
 
           let n = 0;
           let b
           let d
           for (var i in place) {
             let dec = place[i].childNodes[1].textContent
-            // console.log(dec)
             this.count_dec_val = this.count_dec_val + 1
             let coor = place[i].getElementsByTagName('coordinates')
             let latlngArray = coor[0].textContent.replace(/\n/g, " ").split(/[ ,]+/).filter(Boolean)
@@ -328,23 +305,17 @@ export class SubdefectsComponent implements OnInit {
             for (var r in u) {
               if (n % 2 == 0) {
                 b = u[r].textContent;
-                //  console.log(b)
               }
               else {
                 if (b == "Defect:") {
                   d = b;
                   this.table_no = u[r].textContent;
 
-                  // // console.log(u[r].textContent)
                 }
 
               }
               n++
             }
-            // return
-            // alert( this.table_no)
-            // console.log(this.table_no)
-            // return
             var value = { "color": ['yellow', 'blue', 'red', 'green'] }
             if (this.table_no == 'Hotspot') {
 
@@ -382,7 +353,6 @@ export class SubdefectsComponent implements OnInit {
               this.polygonMarkerCreating(latlngArray, value.color[1], dec)
             }
             if (this.table_no == 'Open Circuit' || this.table_no == 'Open_Circuit') {
-              // console.log("op")
               this.polygonMarkerCreating(latlngArray, value.color[0], dec)
             }
             if (this.table_no == 'Short Circuit' || this.table_no == 'Short_Circuit') {
@@ -412,22 +382,13 @@ export class SubdefectsComponent implements OnInit {
       url = this.kml_file_location + 'INVERTER0' + p + '/'
     }
     else {
-      // console.log("esle")
       url = this.kml_file_location + 'INVERTER' + p + '/'
     }
     var kml_files = sessionStorage.getItem("kmlfilename")
     var kml_name_load_inv = kml_files.split(",")
-    console.log(kml_name_load_inv)
-    // return
-
 
 
     for (var m = 0; m < kml_name_load_inv.length; m++) {
-      // console.log(url + kml_name_load_inv[m] + '.kml')
-
-      console.log(url + kml_name_load_inv[m] + '.kml')
-      // console.log(m)
-      // return
       fetch(url + kml_name_load_inv[m] + '.kml')
         .then(res => res.text())
         .then(kmltext => {
@@ -444,7 +405,6 @@ export class SubdefectsComponent implements OnInit {
           let d
           for (var i in place) {
             let dec = place[i].childNodes[1].textContent
-            // console.log(dec)
             let coor = place[i].getElementsByTagName('coordinates')
             let latlngArray = coor[0].textContent.replace(/\n/g, " ").split(/[ ,]+/).filter(Boolean)
             var pa = parser.parseFromString(dec, "text/html")
@@ -452,14 +412,12 @@ export class SubdefectsComponent implements OnInit {
             for (var r in u) {
               if (n % 2 == 0) {
                 b = u[r].textContent;
-                // console.log(b)
               }
               else {
                 if (b == "Defect:") {
                   d = b;
                   this.table_no = u[r].textContent;
 
-                  // // console.log(u[r].textContent)
                 }
 
               }
@@ -467,9 +425,6 @@ export class SubdefectsComponent implements OnInit {
             }
 
             var value = { "color": ['yellow', 'blue', 'red', 'green'] }
-
-            // console.log(this.table_no)
-            // console.log(value.color)
             if (this.table_no == 'Hotspot') {
               //  green
 
@@ -508,7 +463,6 @@ export class SubdefectsComponent implements OnInit {
               this.polygonMarkerCreating(latlngArray, value.color[1], dec)
             }
             if (this.table_no == 'Open Circuit' || this.table_no == 'Open_Circuit') {
-              // console.log("op")
               this.polygonMarkerCreating(latlngArray, value.color[0], dec)
             }
             if (this.table_no == 'Short Circuit' || this.table_no == 'Short_Circuit') {
@@ -541,22 +495,12 @@ export class SubdefectsComponent implements OnInit {
       url = this.kml_file_location + 'INVERTER0' + p + '/'
     }
     else {
-      // console.log("esle")
       url = this.kml_file_location + 'INVERTER' + p + '/'
     }
     var kml_files = sessionStorage.getItem("kmlfilename")
     var kml_name_load_inv = kml_files.split(",")
-    console.log(kml_name_load_inv)
-    // return
-
-
 
     for (var m = 0; m < kml_name_load_inv.length; m++) {
-      // console.log(url + kml_name_load_inv[m] + '.kml')
-
-      console.log(url + kml_name_load_inv[m] + '.kml')
-      // console.log(m)
-      // return
       fetch(url + kml_name_load_inv[m] + '.kml')
         .then(res => res.text())
         .then(kmltext => {
@@ -573,7 +517,6 @@ export class SubdefectsComponent implements OnInit {
           let d
           for (var i in place) {
             let dec = place[i].childNodes[1].textContent
-            // console.log(dec)
             let coor = place[i].getElementsByTagName('coordinates')
             let latlngArray = coor[0].textContent.replace(/\n/g, " ").split(/[ ,]+/).filter(Boolean)
             var pa = parser.parseFromString(dec, "text/html")
@@ -581,14 +524,11 @@ export class SubdefectsComponent implements OnInit {
             for (var r in u) {
               if (n % 2 == 0) {
                 b = u[r].textContent;
-                // console.log(b)
               }
               else {
                 if (b == "Defect:") {
                   d = b;
                   this.table_no = u[r].textContent;
-
-                  // // console.log(u[r].textContent)
                 }
 
               }
@@ -596,9 +536,6 @@ export class SubdefectsComponent implements OnInit {
             }
 
             var value = { "color": ['yellow', 'blue', 'red', 'green'] }
-
-            // console.log(this.table_no)
-            // console.log(value.color)
             if (this.table_no == 'Hotspot') {
               //  green
 
@@ -637,7 +574,6 @@ export class SubdefectsComponent implements OnInit {
               this.polygonMarkerCreating(latlngArray, value.color[1], dec)
             }
             if (this.table_no == 'Open Circuit' || this.table_no == 'Open_Circuit') {
-              // console.log("op")
               this.polygonMarkerCreating(latlngArray, value.color[0], dec)
             }
             if (this.table_no == 'Short Circuit' || this.table_no == 'Short_Circuit') {
@@ -668,8 +604,6 @@ export class SubdefectsComponent implements OnInit {
     // alert("inside 3")
     var proj_name = localStorage.getItem('proj_name')
     var polygonPoints = []
-    // console.log(dec)
-    // console.log("---------------------------")
     let j = 1
     let k = 0
     let l = 2
@@ -682,15 +616,12 @@ export class SubdefectsComponent implements OnInit {
       l = l + 2
     }
 
-    // console.log(this.poly)
     this.polies.push(this.poly)
 
     const parser = new DOMParser();
     var markup = parser.parseFromString(dec, "text/html");
     // // var markup_img = parser.parseFromString(dec, "image/svg+xml");
-    // console.log(dec)
     // return
-    // // console.log("---------------------------")
     var y = markup.getElementsByTagName("td");
     let i = 0;
     let s = 0;
@@ -702,12 +633,8 @@ export class SubdefectsComponent implements OnInit {
     // this.defect_values = [];
     // this.descObj_cadestral = {};
     b = "";
-    // console.log(y)
-    // console.log(y.length)
-    // console.log("---------------------------")
     if (y.length > 0) {
       for (var t = 0; t < y.length; t++) {
-        // console.log(y[t].innerText)
         // this.descObj.push(y[t].innerText)
         if (t % 2 == 0) {
           b = y[t].innerText
@@ -727,8 +654,6 @@ export class SubdefectsComponent implements OnInit {
         //   this.defect_values.push(y[t].innerText)
         // }
       }
-      // console.log(this.count)
-      // console.log(this.descObj)
       // return
       this.defects_array_making(this.descObj)
 
@@ -748,35 +673,28 @@ export class SubdefectsComponent implements OnInit {
       this.defect_values = this.defect_values.concat(this.project_values)
 
     }
-    // alert(this.get_inventor_defect_count)
-    // console.log(this.get_summary_defect_count)
     // return
-    // console.log(this.defect_values)
     // this.project_values = []
 
     // return
     this.project_values = []
     this.count_dec = 1
-    // console.log("------------------------------------------------------------------------------")
 
 
     if (this.mode == 'summary') {
       if (this.get_summary_defect_count == this.defect_values.length) {
         var z = 0
         for (var m = 0; m < this.get_summary_defect_count; m++) {
-          // console.log(this.defect_values[m].length)
           var key_name = []
           var value_name = []
           for (var k = 0; k < this.defect_values[m].length; k++) {
             if (k % 2 == 0) {
               key_name.push(this.defect_values[m][k]);
-              // console.log(key_name)
             }
           }
           for (var k = 0; k < this.defect_values[m].length; k++) {
             if (k % 2 != 0) {
               value_name.push(this.defect_values[m][k])
-              // console.log(value_name)
             }
           }
           let temp = {}
@@ -786,26 +704,21 @@ export class SubdefectsComponent implements OnInit {
           this.defects.push(temp)
           z++
         }
-        console.log(this.defects)
-        // console.log(this.count)
       }
     } else if (this.mode == 'summary_sub_details') {
       if (this.get_summary_subdefect_defect_count == this.defect_values.length) {
         var z = 0
         for (var m = 0; m < this.get_summary_subdefect_defect_count; m++) {
-          // console.log(this.defect_values[m].length)
           var key_name = []
           var value_name = []
           for (var k = 0; k < this.defect_values[m].length; k++) {
             if (k % 2 == 0) {
               key_name.push(this.defect_values[m][k]);
-              // console.log(key_name)
             }
           }
           for (var k = 0; k < this.defect_values[m].length; k++) {
             if (k % 2 != 0) {
               value_name.push(this.defect_values[m][k])
-              // console.log(value_name)
             }
           }
           let temp = {}
@@ -815,15 +728,11 @@ export class SubdefectsComponent implements OnInit {
           this.defects.push(temp)
           z++
         }
-        console.log(this.defects)
-        // console.log(this.count)
       }
     }
     else if (this.mode == 'inventor') {
-      // console.log(this.get_inventor_defect_count)
       if (this.get_inventor_defect_count == this.defect_values.length) {
         var z = 0
-        // console.log("------------------------------------------------------------------------------")
 
         for (var m = 0; m < this.get_inventor_defect_count; m++) {
 
@@ -832,13 +741,11 @@ export class SubdefectsComponent implements OnInit {
           for (var k = 0; k < this.defect_values[m].length; k++) {
             if (k % 2 == 0) {
               key_name.push(this.defect_values[m][k]);
-              // console.log(key_name)
             }
           }
           for (var k = 0; k < this.defect_values[m].length; k++) {
             if (k % 2 != 0) {
               value_name.push(this.defect_values[m][k])
-              // console.log(value_name)
 
             }
           }
@@ -849,14 +756,11 @@ export class SubdefectsComponent implements OnInit {
           this.defects.push(temp)
           z++
         }
-        // console.log(this.defects)
       }
     }
     else if (this.mode == 'inverter_sub_details') {
-      // console.log(this.get_inventor_defect_count)
       if (this.get_inventor_subdefect_defect_count == this.defect_values.length) {
         var z = 0
-        // console.log("------------------------------------------------------------------------------")
 
         for (var m = 0; m < this.get_inventor_subdefect_defect_count; m++) {
 
@@ -865,13 +769,11 @@ export class SubdefectsComponent implements OnInit {
           for (var k = 0; k < this.defect_values[m].length; k++) {
             if (k % 2 == 0) {
               key_name.push(this.defect_values[m][k]);
-              // console.log(key_name)
             }
           }
           for (var k = 0; k < this.defect_values[m].length; k++) {
             if (k % 2 != 0) {
               value_name.push(this.defect_values[m][k])
-              // console.log(value_name)
 
             }
           }
@@ -882,7 +784,6 @@ export class SubdefectsComponent implements OnInit {
           this.defects.push(temp)
           z++
         }
-        // console.log(this.defects)
       }
     }
 
@@ -894,18 +795,16 @@ export class SubdefectsComponent implements OnInit {
   }
 
   selectDefectrectification(total_defects, defects, Table_No) {
-    console.log(Table_No)
    this.rectify_defects = { 'Total_Defects': total_defects, 'table_no': Table_No };
   //  var defects_data = Table_No
-    // console.log(defects_data)
     this._http.setrectify_data(this.rectify_defects)
   //  this.rectify_defect_event.emit(this.rectify_defects)
   const dialogRef = this.dialog.open(DefectrectificationComponent);
 
   dialogRef.afterClosed().subscribe(result => {
-    // console.log(`Dialog result: ${result}`);
   });
 
 
   }
 }
+

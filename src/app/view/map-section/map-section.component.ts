@@ -44,7 +44,7 @@ import html2canvas from 'html2canvas';
 // Leaflet declarations and imports
 import 'leaflet';
 import 'leaflet-kml';
-import { Observable } from 'rxjs';
+import { empty, Observable } from 'rxjs';
 import { HttpService } from './services-map/http.service';
 import * as $ from 'jquery';
 import { FormControl } from '@angular/forms';
@@ -254,7 +254,6 @@ export class MapSectionComponent implements OnInit {
   accepted3: boolean
   accepted4: boolean
 
-
   constructor(private _http: HttpService, private http: HttpClient, private router: Router, private toastr: ToastrService, public dialog: MatDialog) { }
 
   public ngOnInit(): void {
@@ -303,10 +302,8 @@ export class MapSectionComponent implements OnInit {
           this.summ = data['data']
           this.Completed_date_array = [];
           data['data']['dates'] = Object.keys(data['data']['date_status'])
-          // console.log(data['data'])
           this.project_id_summary = Object.keys(data['data']['date_status'])
           // this.date_inv = Object.values(data[this.project_id_summary])[2]
-          // console.log(data[this.project_id_summary]['zoom_level'])
           // this.zoom_level = Number((data[this.project_id_summary])[7])
           // alert(Number((data[this.project_id_summary])[7]))
           this.date_inv_status_key = Object.keys(data['data']["date_status"])
@@ -317,7 +314,6 @@ export class MapSectionComponent implements OnInit {
               // // alert(this.Completed_date_array)
             }
           }
-          // console.log(this.Completed_date_array)
           // this.project_name = Object.values(data[this.project_id_summary])[1]
           // alert(this.project_name)
           // this.center = Object.values(data[this.project_id_summary])[5]
@@ -339,9 +335,7 @@ export class MapSectionComponent implements OnInit {
             this.splitted_project_name = this.project_name.split('-', 2)
             this.zoom_level = 18
 
-            // // alert(localStorage.getItem('thermal'))
 
-            // console.log(this.splitted_project_name)
             this.project_name = this.splitted_project_name[1];
           } else {
             this.project_feature1 = "visible_off"
@@ -373,7 +367,6 @@ export class MapSectionComponent implements OnInit {
 
 
           this.Project_data = Object.keys(data['data']['processed_data'][this.dateonload]['summary_layers'])
-          // console.log(this.Project_data);
           this.ortho_file_location_onLoad = data['data']['processed_data'][this.dateonload]['ortho_file_location']
           this.ortho_file_location = data['data']['processed_data'][this.dateonload]['ortho_file_location']
           this.kml_file_location = data['data']['processed_data'][this.dateonload]['kml_file_location']
@@ -381,8 +374,6 @@ export class MapSectionComponent implements OnInit {
           this.cad_file_location = data['data']['processed_data'][this.dateonload]['cad_file_location']
           this.csv_path = data['data']['processed_data'][this.dateonload]['csv_path']
           // this.zoom_level = Number(Object.values(data['data']['processed_data'])[7])
-          // alert(Object.values(data['data']['processed_data'])[7])
-          // // alert("----project_id_summary---"+this.ortho_ file_location_onLoad)
           // this.map.removeLayer(this.base_ortho_layer);
           // console.log(this.ortho_file_location_onLoad);
           // console.log("1",this.lat, this.long)
@@ -711,16 +702,13 @@ export class MapSectionComponent implements OnInit {
     };
     this.project_name = localStorage.getItem('proj_name')
     this.splitted_project_name = this.project_name.split('-', 2)
-    // console.log(this.splitted_project_name)
     this.selected = this.splitted_project_name[1];
     this.location_value = Object.values(this.Adani_locations)
     // for (var k = 0; k < Object.values(this.location_value).length; k++) {
-    //   console.log(this.location_value)
     // }
     // const headers = { 'Authorization': 'token 9881e95800afe06c804e6ea3417591cfcaa50164'}
     // this.http.get<any>(environment.api_name+'project/retrieve_project_data/hero', { headers }).subscribe(data => {
     //   this.inv_main_data = data;
-    //   // console.log(this.inv_main_data)
     //   this.project_id_inv = Object.keys(this.inv_main_data)
     //   this.date_inv = Object.values(this.inv_main_data[this.project_id_inv])[2]
     //   // alert("----oninit---"+this.date_inv)
@@ -747,7 +735,7 @@ export class MapSectionComponent implements OnInit {
     }
     // alert(typeof this.zoom_level)
 
-    
+
 
 
     // default MAP layer
@@ -775,18 +763,15 @@ export class MapSectionComponent implements OnInit {
     };
 
     var url = environment.api_name + 'api/project/get_missions_flights/' + project_id + '/' + date + '/' + project_type
-    // console.log(url);
     fetch(url, { headers })
       .then(response => response.json())
       .then(datavalue => {
-        // console.log(datavalue);
 
         if (datavalue['data'] != "Data Not Available" && datavalue['data'].length > 0) {
           this.toastr.success('Mission and Flight data are ready');
         }
         this.get_missions_flights_data = datavalue['data']
         this.get_missions_flights_data = datavalue['status']
-        // console.log(datavalue['data'])
         this._http.set_mision_flight_detail(datavalue['data'])
       })
   }
@@ -872,10 +857,8 @@ export class MapSectionComponent implements OnInit {
   // loadPopUpContent_cadestralmap(dec_obj_cadestral) {
   //   this.popup_card_visibility_cadestral = true;
   //   this.popup_card_visibility = false;
-  //   // console.log(dec_obj_cadestral)
   //   if (dec_obj_cadestral != "") {
   //     selected_point.clearLayers();
-  //     // console.log("popupdetails cadestral");
   //     this.Survey_No = dec_obj_cadestral["Survey No "]
   //     this.Description_cadestral = dec_obj_cadestral['Description']
   //     this.Document =dec_obj_cadestral['Document']
@@ -895,11 +878,6 @@ export class MapSectionComponent implements OnInit {
 
       selected_point.clearLayers();
 
-      // console.log("popupdetails");
-      // // console.log(kml.getElementById(placemarkId).childNodes[1].textContent);
-
-
-
       this.ITC_No = dec_obj['Inverter No:']
       this.Table_No = dec_obj['Table No:']
       this.Defect = dec_obj['Defect:']
@@ -917,7 +895,6 @@ export class MapSectionComponent implements OnInit {
       // this.marker = L.marker([this.popup_lat, this.popup_lng])
       // selected_point.addLayer(this.marker).addTo(this.map);
 
-      // // console.log(dec_obj.Defect+':')
     }
   }
   loadPopUpContent_grading(table_no) {
@@ -940,7 +917,6 @@ export class MapSectionComponent implements OnInit {
     this.grading_visibility = "visiblity_off"
     this.defect_rectify_visibility = "visibility_off"
 
-    // console.log("cosing_component")
     if (this.summaryLayerGroup !== null) {
 
 
@@ -962,8 +938,6 @@ export class MapSectionComponent implements OnInit {
   polygonMarkerCreating(lat, col, dec) {
     var proj_name = localStorage.getItem('proj_name')
     var polygonPoints = []
-    // console.log(dec)
-    // console.log("---------------------------")
     let j = 1
     let k = 0
     let l = 2
@@ -981,7 +955,6 @@ export class MapSectionComponent implements OnInit {
     var project_feature_show = proj_name.includes("Sudair")
     if (project_feature_show) {
       var kml_name = localStorage.getItem("kml_name")
-      // // console.log(kml_name)
       var kml_name_for_spotheight = kml_name.includes("Spotheight")
 
       if (kml_name == "Transmission_Tower" || kml_name == "Benchmark") {
@@ -991,7 +964,6 @@ export class MapSectionComponent implements OnInit {
 
       }
       if (kml_name_for_spotheight) {
-        // console.log("inside")
         this.poly = L.polygon(polygonPoints, { color: col }, { weight: 6 }).addTo(this.map);
 
       }
@@ -999,15 +971,11 @@ export class MapSectionComponent implements OnInit {
     } else {
       this.poly = L.polygon(polygonPoints, { color: col }, { weight: 6 }).addTo(this.map);
     }
-    // // console.log(this.poly)
     this.polies.push(this.poly)
     this.poly.on("click", (e) => {
-      // // console.log(e["latlng"])
       const parser = new DOMParser();
       var markup = parser.parseFromString(dec, "text/html");
       // var markup_img = parser.parseFromString(dec, "image/svg+xml");
-      // // console.log(markup_img)
-      // // console.log("---------------------------")
       var y = markup.getElementsByTagName("td");
       let i = 0;
       let s = 0;
@@ -1017,32 +985,19 @@ export class MapSectionComponent implements OnInit {
       this.descObj_cadestral = {};
       b = "";
 
-      // console.log(y.length)
-      // // console.log("---------------------------")
-      // // alert("------"+this.current_kml_data)
       if (y.length > 0) {
 
         for (var t = 0; t < y.length; t++) {
-          // // console.log(y[19].lastChild)
           if (this.current_kml_data == "cadastral_map") {
-            // console.log(y)
-            // console.log(y[t].textContent)
             if ((y[t].textContent == "" || y[t].textContent == undefined) && (y[t].lastChild['tagName'] == "IMG")) {
-              // // console.log(y[t].lastChild['src'])
               let image_src = y[t].lastChild['src']
-              // // alert(image_src)
-              // console.log(y)
-
               this.descObj_cadestral[b] = image_src
               s++;
-              // console.log(this.descObj_cadestral)
 
             } else {
-              // // console.log("//////////////////////////")
 
               if (i % 2 == 0) {
                 b = y[t].textContent;
-                //  // console.log(b)
               } else {
                 if (b == "Table No") {
                   d = b;
@@ -1056,8 +1011,6 @@ export class MapSectionComponent implements OnInit {
               i++;
             }
           } else if (this.current_kml_data == "Grading") {
-            // console.log(y)
-            console.log(y[t].textContent)
             if (t == 0) {
               b = y[t].textContent;
             } else {
@@ -1066,7 +1019,6 @@ export class MapSectionComponent implements OnInit {
                 var userArray_Distance = []
                 var userArray_value = []
                 this.table_no = y[t].textContent;
-                console.log(y[t].textContent)
                 // this.http.get(this.csv_path + y[t].textContent + ".csv", { responseType: 'text' })
                 //   .subscribe(
                 //     data => {
@@ -1080,36 +1032,26 @@ export class MapSectionComponent implements OnInit {
                 //         userArray_value.push([row[3].split("\r")[0], row[0]])
 
                 //       }
-                //       // console.log(userArray_Distance);
-                //       // console.log(userArray_value);
                 //     },
                 //     error => {
-                //       console.log(error);
                 //     }
                 //   );
 
-                // console.log(b+"---------------"+this.table_no)new User( parseInt( row[0], 10), row[1], row[2].trim())
               }
             }
 
 
           } else {
             if ((y[t].textContent == "" || y[t].textContent == undefined) && (y[t].lastChild['tagName'] == "IMG")) {
-              // // console.log(y[t].lastChild['src'])
               let image_src = y[t].lastChild['src']
-              // // alert(image_src)
-              // console.log(y)
 
               this.descObj[b] = image_src
               s++;
-              // console.log(this.descObj)
 
             } else {
-              // // console.log("//////////////////////////")
 
               if (i % 2 == 0) {
                 b = y[t].textContent;
-                //  // console.log(b)
               } else {
                 if (b == "Table No") {
                   d = b;
@@ -1123,13 +1065,10 @@ export class MapSectionComponent implements OnInit {
               i++;
             }
           }
-          // alert(this.subdefects_visibility)
           // this.subdefects_visibility = "visible"
 
-          // console.log(this.descObj)
         }
       } else {
-        // console.log("else")
         this.descObj_cadestral["Description"] = dec
       }
       // // alert(this.current_kml_data )
@@ -1146,8 +1085,6 @@ export class MapSectionComponent implements OnInit {
         this.popup_opened = true
 
       } else if (this.current_kml_data == "Grading") {
-        // console.log(userArray_value)
-        // alert(this.table_no)
         this.loadPopUpContent_grading(this.table_no)
         // this.loadPopUpContent_grading(userArray_value, dec)
         // this.loadPopUpContent_grading(userArray_value,userArray_Distance,dec)
@@ -1170,10 +1107,6 @@ export class MapSectionComponent implements OnInit {
   }
 
   LoadKml(value: any) {
-    // console.log(value)
-    // alert("in Map")
-    // alert(value.menu)
-    // console.log(value)
     // return
     this.remove_Popup_card()
     if (value.menu == 'cadastral_map') {
@@ -1196,26 +1129,19 @@ export class MapSectionComponent implements OnInit {
         this.map.removeLayer(this.polies[l])
       }
       this.summaryState = value.tab;
-      // console.log(this.summaryState)
       localStorage.setItem("kml_name", this.summaryState)
       var kml_name_load_sub = this.summaryState.split(",")
       this.subdefects_page_load('visibilty_off')
 
-      // console.log(this.kml_file_location + 'GLOBAL/' + kml_name_load_sub[i] + '.kml')
       if (kml_name_load_sub.length >= 1) {
         for (var i = 0; i < kml_name_load_sub.length; i++) {
-          console.log(this.kml_file_location + 'GLOBAL/' + kml_name_load_sub[i] + '.kml')
 
           fetch(this.kml_file_location + 'GLOBAL/' + kml_name_load_sub[i] + '.kml')
             .then(res => res.text())
             .then(kmltext => {
-              // console.log(kmltext)
 
               const parser = new DOMParser();
               const kml = parser.parseFromString(kmltext, 'text/xml');
-              // // alert("wait")
-              // console.log(kml)
-
 
               this.track = new L.KML(kml);
 
@@ -1228,7 +1154,6 @@ export class MapSectionComponent implements OnInit {
 
               for (var i in place) {
                 let dec = place[i].childNodes[1].textContent
-                // // console.log(dec)
                 let coor = place[i].getElementsByTagName('coordinates')
                 let latlngArray = coor[0].textContent.replace(/\n/g, " ").split(/[ ,]+/).filter(Boolean)
                 var pa = parser.parseFromString(dec, "text/html")
@@ -1236,20 +1161,17 @@ export class MapSectionComponent implements OnInit {
                 for (var r in u) {
                   if (n % 2 == 0) {
                     b = u[r].textContent;
-                    //  // console.log(b)
                   }
                   else {
                     if (b == "Defect:") {
                       d = b;
                       this.table_no = u[r].textContent;
 
-                      // // console.log(u[r].textContent)
                     }
 
                   }
                   n++
                 }
-                // console.log(this.table_no)
 
                 if (this.table_no == 'Hotspot') {
                   //  green
@@ -1266,7 +1188,6 @@ export class MapSectionComponent implements OnInit {
 
 
               this.map.on('click', (e) => {
-                // console.log("reg" + localStorage.getItem('kml_popup_node'));
                 // this.popupDesc = localStorage.getItem('kml_popup_node');
                 // this.loadPopUpContent(this.popupKml, this.popupDesc);
               })
@@ -1276,13 +1197,9 @@ export class MapSectionComponent implements OnInit {
         fetch(this.kml_file_location + 'GLOBAL/' + kml_name_load_sub + '.kml')
           .then(res => res.text())
           .then(kmltext => {
-            // console.log(kmltext)
 
             const parser = new DOMParser();
             const kml = parser.parseFromString(kmltext, 'text/xml');
-            // // alert("wait")
-            // console.log(kml)
-
 
             this.track = new L.KML(kml);
 
@@ -1295,7 +1212,6 @@ export class MapSectionComponent implements OnInit {
 
             for (var i in place) {
               let dec = place[i].childNodes[1].textContent
-              // // console.log(dec)
               let coor = place[i].getElementsByTagName('coordinates')
               let latlngArray = coor[0].textContent.replace(/\n/g, " ").split(/[ ,]+/).filter(Boolean)
               var pa = parser.parseFromString(dec, "text/html")
@@ -1303,20 +1219,17 @@ export class MapSectionComponent implements OnInit {
               for (var r in u) {
                 if (n % 2 == 0) {
                   b = u[r].textContent;
-                  //  // console.log(b)
                 }
                 else {
                   if (b == "Defect:") {
                     d = b;
                     this.table_no = u[r].textContent;
 
-                    // // console.log(u[r].textContent)
                   }
 
                 }
                 n++
               }
-              // console.log(this.table_no)
 
               if (this.table_no == 'Hotspot') {
                 //  green
@@ -1333,7 +1246,6 @@ export class MapSectionComponent implements OnInit {
 
 
             this.map.on('click', (e) => {
-              // console.log("reg" + localStorage.getItem('kml_popup_node'));
               // this.popupDesc = localStorage.getItem('kml_popup_node');
               // this.loadPopUpContent(this.popupKml, this.popupDesc);
             })
@@ -1360,16 +1272,12 @@ export class MapSectionComponent implements OnInit {
         this.map.removeLayer(this.polies[l])
       }
       this.summaryState = value.tab;
-      // console.log(this.summaryState)
       localStorage.setItem("kml_name", this.summaryState)
       var kml_name_load_sub = this.summaryState.split(",")
       this.subdefects_page_load('visibilty_off')
-      // alert(kml_name_load_sub.length)
-      // console.log(this.kml_file_location + 'GLOBAL/' + kml_name_load_sub[i] + '.kml')
       // if (kml_name_load_sub.length >= 1) {
 
       for (var q = 0; q < kml_name_load_sub.length; q++) {
-        console.log(this.kml_file_location + 'GLOBAL/' + kml_name_load_sub[q] + '.kml' + "---------" + q)
         var elevation = kml_name_load_sub[q].includes("Elevation")
         // alert(elevation)
         if (elevation) {
@@ -1384,12 +1292,9 @@ export class MapSectionComponent implements OnInit {
         fetch(this.kml_file_location + 'GLOBAL/' + kml_name_load_sub[q] + '.kml')
           .then(res => res.text())
           .then(kmltext => {
-            // console.log(kmltext)
 
             const parser = new DOMParser();
             const kml = parser.parseFromString(kmltext, 'text/xml');
-            // // alert("wait")
-            // console.log(kml)
 
 
             this.track = new L.KML(kml);
@@ -1402,15 +1307,12 @@ export class MapSectionComponent implements OnInit {
             let d
 
             for (var i in place) {
-              // console.log(place[i])
               let dec = place[i].childNodes[1].textContent
               let coor = place[i].getElementsByTagName('coordinates')
               let latlngArray = coor[0].textContent.replace(/\n/g, " ").split(/[ ,]+/).filter(Boolean)
               var pa = parser.parseFromString(dec, "text/html")
               let u = pa.getElementsByTagName("td")
               for (var r in u) {
-                // console.log(r+"---------r")
-                // console.log(u[r].textContent);
                 if (r != "1") {
                   b = u[r].textContent;
                 } else {
@@ -1418,12 +1320,10 @@ export class MapSectionComponent implements OnInit {
                     d = b;
                     this.table_no = u[r].textContent;
 
-                    // console.log(b+"---------------"+u[r].textContent)
                   }
                 }
 
                 n++
-                // console.log(u[r].textContent)
               }
 
 
@@ -1444,7 +1344,6 @@ export class MapSectionComponent implements OnInit {
 
 
             this.map.on('click', (e) => {
-              // console.log("reg" + localStorage.getItem('kml_popup_node'));
               // this.popupDesc = localStorage.getItem('kml_popup_node');
               // this.loadPopUpContent(this.popupKml, this.popupDesc);
             })
@@ -1503,7 +1402,6 @@ export class MapSectionComponent implements OnInit {
             let d
             for (var i in place) {
               let dec = place[i].childNodes[1].textContent
-              // // console.log(dec)
               let coor = place[i].getElementsByTagName('coordinates')
               let latlngArray = coor[0].textContent.replace(/\n/g, " ").split(/[ ,]+/).filter(Boolean)
               var pa = parser.parseFromString(dec, "text/html")
@@ -1511,21 +1409,18 @@ export class MapSectionComponent implements OnInit {
               for (var r in u) {
                 if (n % 2 == 0) {
                   b = u[r].textContent;
-                  //  // console.log(b)
                 }
                 else {
                   if (b == "Defect:") {
                     d = b;
                     this.table_no = u[r].textContent;
 
-                    // // console.log(u[r].textContent)
                   }
 
                 }
                 n++
               }
 
-              // console.log(this.table_no)
 
               if (this.table_no == 'Hotspot') {
                 //  green
@@ -1541,13 +1436,11 @@ export class MapSectionComponent implements OnInit {
 
             // this.track = new L.KML(kml);
 
-            // // console.log(this.track)
             // this.summaryLayerGroup = L.layerGroup([this.track]).addTo(this.map);
             // this.removekml_list_inv.push(this.summaryLayerGroup)
 
 
 
-            // // console.log(this.track)
             // this.popupKml = kml
             // var el = kml.getElementsByTagName('coordinates')[0].parentNode.parentNode;
 
@@ -1561,7 +1454,6 @@ export class MapSectionComponent implements OnInit {
           })
       }
       this.map.on('click', (e) => {
-        // console.log("reg" + localStorage.getItem('kml_popup_node'));
         // this.popupDesc = localStorage.getItem('kml_popup_node');
         // this.loadPopUpContent(this.popupKml, this.popupDesc);
       })
@@ -1591,13 +1483,9 @@ export class MapSectionComponent implements OnInit {
         url = this.kml_file_location + 'INVERTER0' + value.pageno + '/'
       }
       else {
-        // console.log("esle")
         url = this.kml_file_location + 'INVERTER' + value.pageno + '/'
       }
       for (var m = 0; m < kml_name_load_inv_sub.length; m++) {
-        // console.log(url + kml_name_load_inv_sub[m] + '.kml')
-
-
         fetch(url + kml_name_load_inv_sub[m] + '.kml')
           .then(res => res.text())
           .then(kmltext => {
@@ -1615,7 +1503,6 @@ export class MapSectionComponent implements OnInit {
             let d
             for (var i in place) {
               let dec = place[i].childNodes[1].textContent
-              // // console.log(dec)
               let coor = place[i].getElementsByTagName('coordinates')
               let latlngArray = coor[0].textContent.replace(/\n/g, " ").split(/[ ,]+/).filter(Boolean)
               var pa = parser.parseFromString(dec, "text/html")
@@ -1623,21 +1510,17 @@ export class MapSectionComponent implements OnInit {
               for (var r in u) {
                 if (n % 2 == 0) {
                   b = u[r].textContent;
-                  //  // console.log(b)
                 }
                 else {
                   if (b == "Defect:") {
                     d = b;
                     this.table_no = u[r].textContent;
 
-                    // // console.log(u[r].textContent)
                   }
 
                 }
                 n++
               }
-              // console.log(this.table_no)
-              // console.log(value.color)
               if (this.table_no == 'Hotspot') {
                 //  green
                 this.polygonMarkerCreating(latlngArray, 'green', dec)
@@ -1691,8 +1574,6 @@ export class MapSectionComponent implements OnInit {
             // // Create new kml overlay
             // const parser = new DOMParser();
             // const kml = parser.parseFromString(kmltext, 'text/xml');
-            // // // console.log(kml);
-            // // console.log(kmltext)
             // this.track = new L.KML(kml);
 
             // // Add track to map
@@ -1702,10 +1583,6 @@ export class MapSectionComponent implements OnInit {
 
             // this.popupKml = kml
             // var el = kml.getElementsByTagName('coordinates')[0].parentNode.parentNode;
-            // // console.log(el)
-
-
-
             // Adjust map to show the kml
             const bounds = this.track.getBounds();
             this.map.fitBounds(bounds);
@@ -1734,18 +1611,12 @@ export class MapSectionComponent implements OnInit {
         this.map.removeLayer(this.polies[l])
       }
       this.subdefects_page_load('visible')
-
-
-      // console.log(value)
       this.summaryState = value.tab;
       localStorage.setItem("kml_name", this.summaryState)
 
       var kml_name_load = this.summaryState.split(",")
-      // console.log(kml_name_load)
       sessionStorage.setItem("kmlfilename", this.summaryState)
       for (var i = 0; i < kml_name_load.length; i++) {
-        // console.log(kml_name_load[i])
-
         fetch(this.kml_file_location + 'GLOBAL/' + kml_name_load[i] + '.kml')
           .then(res => res.text())
           .then(kmltext => {
@@ -1766,7 +1637,6 @@ export class MapSectionComponent implements OnInit {
             let d
             for (var i in place) {
               let dec = place[i].childNodes[1].textContent
-              // console.log(dec)
 
               let coor = place[i].getElementsByTagName('coordinates')
               let latlngArray = coor[0].textContent.replace(/\n/g, " ").split(/[ ,]+/).filter(Boolean)
@@ -1775,28 +1645,19 @@ export class MapSectionComponent implements OnInit {
               for (var r in u) {
                 if (n % 2 == 0) {
                   b = u[r].textContent;
-                  //  // console.log(b)
                 }
                 else {
                   if (b == "Defect:") {
                     d = b;
                     this.table_no = u[r].textContent;
-
-                    // // console.log(u[r].textContent)
                   }
 
                 }
                 n++
               }
 
-
-              // alert(this.subdefects_visibility )
-
-              // // console.log(this.table_no)
-              // // console.log(value.color)
               if (this.table_no == 'Hotspot') {
                 //  green
-
                 this.polygonMarkerCreating(latlngArray, 'green', dec)
 
 
@@ -1831,7 +1692,6 @@ export class MapSectionComponent implements OnInit {
                 this.polygonMarkerCreating(latlngArray, value.color[1], dec)
               }
               if (this.table_no == 'Open Circuit' || this.table_no == 'Open_Circuit') {
-                // console.log("op")
                 this.polygonMarkerCreating(latlngArray, value.color[0], dec)
               }
               if (this.table_no == 'Short Circuit' || this.table_no == 'Short_Circuit') {
@@ -1853,9 +1713,6 @@ export class MapSectionComponent implements OnInit {
             // this.summaryLayerGroup = L.layerGroup([this.track]).addTo(this.map);
             // this.removekml_list.push(this.summaryLayerGroup)
 
-
-
-            // // console.log(this.track)
             this.popupKml = kml
             // var el = kml.getElementsByTagName('coordinates')[0].parentNode.parentNode;
 
@@ -1870,7 +1727,6 @@ export class MapSectionComponent implements OnInit {
       }
 
       this.map.on('click', (e) => {
-        // console.log("reg" + localStorage.getItem('kml_popup_node'));
         // this.popupDesc = localStorage.getItem('kml_popup_node');
         // this.loadPopUpContent(this.popupKml, this.popupDesc);
       })
@@ -1903,18 +1759,14 @@ export class MapSectionComponent implements OnInit {
         url = this.kml_file_location + 'INVERTER0' + value.pageno + '/'
       }
       else {
-        // console.log("esle")
         url = this.kml_file_location + 'INVERTER' + value.pageno + '/'
       }
       this.summaryState = value.tab;
       sessionStorage.setItem("kmlfilename", this.summaryState)
       var kml_name_load_inv = this.summaryState.split(",")
-      // console.log(value)
       this.subdefects_page_load('visible')
 
       for (var m = 0; m < kml_name_load_inv.length; m++) {
-        // console.log(url + kml_name_load_inv[m] + '.kml')
-
 
         fetch(url + kml_name_load_inv[m] + '.kml')
           .then(res => res.text())
@@ -1935,7 +1787,6 @@ export class MapSectionComponent implements OnInit {
             let d
             for (var i in place) {
               let dec = place[i].childNodes[1].textContent
-              // // console.log(dec)
               let coor = place[i].getElementsByTagName('coordinates')
               let latlngArray = coor[0].textContent.replace(/\n/g, " ").split(/[ ,]+/).filter(Boolean)
               var pa = parser.parseFromString(dec, "text/html")
@@ -1943,25 +1794,18 @@ export class MapSectionComponent implements OnInit {
               for (var r in u) {
                 if (n % 2 == 0) {
                   b = u[r].textContent;
-                  // console.log(b)
                 }
                 else {
                   if (b == "Defect:") {
                     d = b;
                     this.table_no = u[r].textContent;
 
-                    // // console.log(u[r].textContent)
                   }
 
                 }
                 n++
               }
               // this.subdefects_visibility =
-
-
-
-              // console.log(this.table_no)
-              // console.log(value.color)
               if (this.table_no == 'Hotspot') {
                 //  green
 
@@ -1993,7 +1837,6 @@ export class MapSectionComponent implements OnInit {
                 this.polygonMarkerCreating(latlngArray, value.color[1], dec)
               }
               if (this.table_no == 'Open Circuit' || this.table_no == 'Open_Circuit') {
-                // console.log("op")
                 this.polygonMarkerCreating(latlngArray, value.color[0], dec)
               }
               if (this.table_no == 'Short Circuit' || this.table_no == 'Short_Circuit') {
@@ -2014,20 +1857,14 @@ export class MapSectionComponent implements OnInit {
             // // Create new kml overlay
             // const parser = new DOMParser();
             // const kml = parser.parseFromString(kmltext, 'text/xml');
-            // // // console.log(kml);
-            // // console.log(kmltext)
             // this.track = new L.KML(kml);
 
             // // Add track to map
             // this.summaryLayerGroup = L.layerGroup([this.track]).addTo(this.map);
             // this.removekml_list_inv.push(this.summaryLayerGroup)
 
-
             // this.popupKml = kml
             // var el = kml.getElementsByTagName('coordinates')[0].parentNode.parentNode;
-            // // console.log(el)
-
-
 
             // Adjust map to show the kml
             const bounds = this.track.getBounds();
@@ -2038,7 +1875,6 @@ export class MapSectionComponent implements OnInit {
 
 
       this.map.on('click', (e) => {
-        // console.log("reg");
         // this.popupDesc = localStorage.getItem('kml_popup_node');
 
 
@@ -2065,14 +1901,10 @@ export class MapSectionComponent implements OnInit {
 
 
   LoadGBKml(value: any) {
-    // // alert(value)
     // this.RemoveKml("Remove")
     this.remove_Popup_card()
 
     var url;
-    // // alert(value + 'sdsd');
-    // console.log(value, 'sdsd');
-
     if (this.gb_layer !== null) {
       // this.summaryLayerGroup.removeLayer(this.track)
       this.map.removeLayer(this.gb_layer);
@@ -2081,10 +1913,8 @@ export class MapSectionComponent implements OnInit {
 
     if (value <= 9 && value >= 1) {
       url = this.kml_file_location + 'INVERTER0' + value + '/gb.kml'
-      // console.log("if")
     }
     else {
-      // console.log("else")
       url = this.kml_file_location + 'INVERTER' + value + '/gb.kml'
     }
     // // alert(url)
@@ -2097,8 +1927,6 @@ export class MapSectionComponent implements OnInit {
         // Create new kml overlay
         const parser = new DOMParser();
         const kml = parser.parseFromString(kmltext, 'text/xml');
-        // // console.log(kml);
-        // // alert("kml")
 
         this.gb_layer = new L.KML(kml);
 
@@ -2108,10 +1936,6 @@ export class MapSectionComponent implements OnInit {
 
         this.popupKml = kml
         var el = kml.getElementsByTagName('coordinates')[0].parentNode.parentNode;
-        // console.log(el)
-        // // alert("el"+this.track)
-
-        // // console.log(this.track)
         // Adjust map to show the kml
         const bounds = this.gb_layer.getBounds();
         this.map.fitBounds(bounds);
@@ -2170,7 +1994,7 @@ export class MapSectionComponent implements OnInit {
           maxZoom: 22,
           // maxNativeZoom: 20
         }).addTo(this.map);
-        this.accepted = 'true'
+        this.accepted = true
 
       } else if (thermal_val == "none") {
         // Removing Thermal layer
@@ -2308,8 +2132,6 @@ export class MapSectionComponent implements OnInit {
       var rawImg = sessionStorage.getItem('rawImage');
 
       if (rawImg == 'rawImage') {
-        // // console.log(this.get_missions_flights_data)
-        // alert(this.get_missions_flights_status)
         if (this.get_missions_flights_status == undefined) {
           this.toastr.warning('Please wait.... getting mission and Flight data.');
           this.accepted3 = false;
@@ -2330,7 +2152,6 @@ export class MapSectionComponent implements OnInit {
 
           dialogRef.afterClosed().subscribe(result => {
             let dataval = this._http.getmissiondata();
-            // console.log(dataval['mission'])
             // this.accepted3 = false;
 
 
@@ -2348,7 +2169,6 @@ export class MapSectionComponent implements OnInit {
             fetch(url, { headers })
               .then(response => response.json())
               .then(datavalue => {
-                // console.log(datavalue['data'])
                 this.uploaded_raw_image = datavalue['data']
                 let popupContent = `
                   <form class="popup-form">
@@ -2390,9 +2210,6 @@ export class MapSectionComponent implements OnInit {
         }
         // })
 
-
-        // // console.log("---")
-        // // console.log(this.mission_data)
       } else {
         sessionStorage.setItem('rawImage', 'rawImage');
         // this.map.removeLayer()
@@ -2481,19 +2298,16 @@ export class MapSectionComponent implements OnInit {
 
 
     // if ($event === true) {
-    //   // console.log("slider on");
     //   this.thermal_layer = L.tileLayer('http://106.51.3.224:6660/HERO_Ichawar/Thermal_Ortho/{z}/{x}/{y}.png', {
     //     attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     //   }).addTo(this.map);
     //   this.sliderControl = L.control.sideBySide(this.base_ortho_layer, this.thermal_layer);
     //   this.sliderControl.addTo(this.map);
 
-    //   // console.log(this.sliderControl);
 
 
     // }
     // else {
-    //   // console.log("off");
 
     //   this.sliderControl.remove()
 
@@ -2505,19 +2319,16 @@ export class MapSectionComponent implements OnInit {
   // summaryStateEventReciever(value: any) {
   //   this.summaryState = value;
 
-  //   // console.log(value);
 
   // }
   // public gotoAnalytics(){
   //   this.router.navigate(['app/analytics'])
   // }
   screenshotcapture(getscreenshotfromsidebar) {
-    // // alert("---------"+this.getscreenshotfromsidebar)
     // html2canvas(document.body).then(function(canvas) {
     //   document.body.appendChild(canvas);
     // });
     let element = document.querySelector(".capture");
-    // console.log(document.querySelector("#map"))
     html2canvas(document.querySelector("#map,.capture"), {
       // backgroundColor: null,
       useCORS: true,
@@ -2529,10 +2340,8 @@ export class MapSectionComponent implements OnInit {
         // To download directly on browser default 'downloads' location
         let link = document.createElement("a");
         link.download = "image.png";
-        // console.log(blob);
 
         link.href = URL.createObjectURL(blob);
-        // console.log(link.href);
         link.click();
 
         // To save manually somewhere in file explorer
@@ -2550,7 +2359,6 @@ export class MapSectionComponent implements OnInit {
     // alert()
     localStorage.setItem("center", this.Adani_locations[location_name]['center'])
     this.map.removeLayer(this.rgb_layer);
-    const newtoken = localStorage.getItem("token");
     const newName = localStorage.getItem('proj_name');
 
     if (newName == "Adani-Limbaganesh") {
@@ -2568,11 +2376,9 @@ export class MapSectionComponent implements OnInit {
     //   .then(response => response.json())
     //   .then(datavalue => {
     //     var main_data = datavalue
-    //     // // console.log(datavalue)
 
     //     this.project_id_summary = Object.keys(datavalue)
     //     this.date_inv = Object.values(datavalue[this.project_id_summary])[2]
-    //     // // console.log(datavalue)
 
     //     this.date_inv_status_key = Object.keys(datavalue[this.project_id_summary]["date_status"])
     //     // // alert(datavalue[this.project_id_summary][this.date_inv_status_key[0]]['report_path'])
@@ -2624,12 +2430,10 @@ export class MapSectionComponent implements OnInit {
     // const dialogRef = this.dialog.open(DefectrectificationComponent);
 
     // dialogRef.afterClosed().subscribe(result => {
-    //   // console.log(`Dialog result: ${result}`);
+
     // });
-    // console.log(this.item);
 
     // alert("inside")
-    // console.log(defect)
 
   }
 

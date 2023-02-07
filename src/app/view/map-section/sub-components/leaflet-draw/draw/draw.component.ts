@@ -5,9 +5,11 @@ import { HttpService } from '../../../services-map/http.service';
 import { environment } from '../../../../../../environments/environment';
 import 'leaflet';
 import 'leaflet-draw/dist/leaflet.draw-src.js';
-
+import { Router } from '@angular/router';
 import { AoiDialogComponent } from '../aoi-dialog/aoi-dialog.component';
 import { DialogPreviewComponent } from '../dialog-preview/dialog-preview.component';
+import { HttpErrorResponse } from '@angular/common/http';
+import { ToastrService } from 'ngx-toastr';
 declare const L: any;
 
 var editableLayers = new L.FeatureGroup(); // featureGroup for draw Plugin
@@ -35,7 +37,7 @@ export class DrawComponent implements OnInit {
   datadescription: any;
   public main_data: any;
 
-  constructor(private _http: HttpService,public dialog: MatDialog, private http: HttpClient) { }
+  constructor(private toastr: ToastrService, private router: Router, private _http: HttpService,public dialog: MatDialog, private http: HttpClient) { }
 
   ngOnInit(): void {
 
@@ -56,15 +58,11 @@ export class DrawComponent implements OnInit {
     };
 
 //     this.http.get(environment.api_name+'draw/get_data/'+project_name+'/'+date, { headers }).subscribe(data => {
-// // alert(project_name)
-//     // // console.log('data', data);
 //     this.main_data = data;
-// //     // // console.log('data', data[project_name]);
 //       if (Object.keys(data[project_name]).length !== 0) {
 
 //         this.no_data = false;
 //         this.aoi_data = Object.keys((data[project_name][date])).reverse().map(item => {
-//           // // // console.log(data[project_name][date][item]['label'])
 //           data[project_name][date][item].id = item
 
 
@@ -86,15 +84,11 @@ export class DrawComponent implements OnInit {
     polygon = []; // Empties global polygon array on each call to load fresh data
 
     this.aoi_data.map(value => {
-
-      // console.log( 'blue', value.id);
-      // console.log('values are', value);
       value.show = true;
 
       var instance_coordinate = [];
       value['polygon'].map(item => {
         instance_coordinate.push(Object.values(item))
-        // console.log(instance_coordinate);
       })
 
       var latlngs = instance_coordinate;
@@ -154,7 +148,6 @@ export class DrawComponent implements OnInit {
       //   remove: false
       // }
     };
-console.log(map)
     var drawControl = new L.Control.Draw(options);
     map.addControl(drawControl);
 
@@ -165,11 +158,8 @@ console.log(map)
       layer = e.layer;
 
       if (type != 'marker' && type != 'circle') {
-        // // console.log( layer.getLatLngs());
         currentCoords = layer.getLatLngs()
         editableLayers.addLayer(layer);
-
-        // console.log(currentCoords);
       }
       if (type === 'marker' && type != 'circle') {
         layer.bindPopup('A popup!');
@@ -177,7 +167,6 @@ console.log(map)
     });
 
     map.on('draw:drawstop', (e) => {
-      // console.log("end");
       this.openDialog(e);
     });
 
@@ -185,7 +174,6 @@ console.log(map)
   }
 
   openDialog(e) {
-    // console.log('e', e);
     let dialogRef = this.dialog.open(AoiDialogComponent, { width: '400px', data: { 'co': currentCoords, 'event': editableLayers, 'elayer': layer } });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -218,15 +206,21 @@ console.log(map)
         'Content-Type': 'application/json',
     };
 
-    fetch(environment.api_name+'draw/delete/' + key + '/', {
+    fetch(`${environment.api_name}draw/delete/${key}/`, {
       method: 'POST',
-      headers
+      headers,
+      credentials: 'omit',
     })
       .then(response => response.json())
       .then(result => {
-        // console.log('Success:', result);
         this.get_aoi_data();
         this.map.removeLayer(polygon_draw_layer);
+      },
+      (err: HttpErrorResponse) => {
+        if (err.status == 401) {
+          this.toastr.error("Login time expired. Please login again.")
+          this.gotologin()
+        }
       })
       .catch(error => {
         console.error('Error:', error);
@@ -235,17 +229,17 @@ console.log(map)
 
   hide_aoi(item) {
 
-    // console.log(item);
     //this.map.removeLayer(polygon_draw_layer)
     this.map.removeLayer(id_container[item]);
     hidden_polygon_list.push(item);
     this.update_aoi(item, false);
 
   }
-
+  gotologin(){
+    this.router.navigate(['auth/login'])
+   }
 
   show_aoi(item) {
-    // console.log(item);
     this.map.addLayer(id_container[item]);
     this.update_aoi(item, true);
   }
@@ -260,3 +254,5 @@ console.log(map)
   }
 
 }
+
+

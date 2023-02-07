@@ -137,6 +137,13 @@ export class ShareComponent implements OnInit {
 
           }
         }
+      },
+      (err: HttpErrorResponse) => {
+        // console.log(err.status);
+        if (err.status == 401) {
+          this.toastr.error("Login time expired. Please login again.")
+          this.gotologin()
+        }
       })
 
     this.Get_shared_list()
@@ -149,7 +156,10 @@ export class ShareComponent implements OnInit {
     // }
 
   }
-
+  gotologin(){
+    this.router.navigate(['auth/login'])
+   }
+   
   Get_shared_list() {
     const token = localStorage.getItem("token");
     const headers = {
@@ -180,6 +190,13 @@ export class ShareComponent implements OnInit {
 
             }
 
+          }
+        },
+        (err: HttpErrorResponse) => {
+          // console.log(err.status);
+          if (err.status == 401) {
+            this.toastr.error("Login time expired. Please login again.")
+            this.gotologin()
           }
         })
     }
@@ -212,6 +229,13 @@ export class ShareComponent implements OnInit {
           }
 
           // }
+        },
+        (err: HttpErrorResponse) => {
+          // console.log(err.status);
+          if (err.status == 401) {
+            this.toastr.error("Login time expired. Please login again.")
+            this.gotologin()
+          }
         })
 
     }
@@ -268,6 +292,13 @@ export class ShareComponent implements OnInit {
       } else {
         alert(notification)
       }
+    },
+    (err: HttpErrorResponse) => {
+      // console.log(err.status);
+      if (err.status == 401) {
+        this.toastr.error("Login time expired. Please login again.")
+        this.gotologin()
+      }
     })
 
 
@@ -303,6 +334,13 @@ export class ShareComponent implements OnInit {
         location.reload();
       } else {
         alert(notification)
+      }
+    },
+    (err: HttpErrorResponse) => {
+      // console.log(err.status);
+      if (err.status == 401) {
+        this.toastr.error("Login time expired. Please login again.")
+        this.gotologin()
       }
     })
   }
