@@ -147,7 +147,7 @@ export class DashboardDetailsComponent implements OnInit {
 
 
     const newtoken = localStorage.getItem("token");
-    // const newName = localStorage.getItem("name");
+    // const newName = localStorage.getItem('proj_name');
     this.user_id = localStorage.getItem("user_id");
 
     const token = localStorage.getItem("token");
@@ -482,7 +482,7 @@ add(category){
     // console.log(all_project_data)
     // var keys =[]
 
-    const newName = localStorage.getItem("name");
+    const newName = localStorage.getItem('proj_name');
 
     const token = localStorage.getItem("token");
     const headers = {

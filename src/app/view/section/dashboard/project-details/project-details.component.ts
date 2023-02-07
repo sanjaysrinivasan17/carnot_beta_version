@@ -99,7 +99,7 @@ export class ProjectDetailsComponent implements OnInit {
     }, 3000)
     // alert("proj det")
     this.user_id = localStorage.getItem("user_id")
-    const newName = localStorage.getItem("name");
+    const newName = localStorage.getItem('proj_name');
 
     const token = localStorage.getItem("token");
     const headers = {
@@ -116,7 +116,7 @@ export class ProjectDetailsComponent implements OnInit {
       .then(data => {
         this.main_data = data['data']
         // console.log("-------------------------------------------")
-        // console.log(this.main_data.length)
+        // console.log(this.main_data)
         // console.log("-------------------------------------------")
         this.project_id_summary_count = Object.keys(data['data'])
         this.project_id_summary_length = this.project_id_summary_count.length
@@ -262,10 +262,16 @@ export class ProjectDetailsComponent implements OnInit {
     localStorage.setItem("date", this.recent_3_projects_date);
     localStorage.setItem("center", this.center_val);
     sessionStorage.setItem("project_type","carnot")
+    localStorage.setItem("project_id", this.project_id);
+    localStorage.setItem("proj_name",this.project_name);
     this.router.navigate(['map'])
   }
   public gotoAnalytics() {
     localStorage.setItem("date", this.recent_3_projects_date);
+    localStorage.setItem("center", this.center_val);
+    sessionStorage.setItem("project_type","carnot")
+    localStorage.setItem("project_id", this.project_id);
+    localStorage.setItem("proj_name",this.project_name);
     this.router.navigate(['app/analytics'])
   }
 

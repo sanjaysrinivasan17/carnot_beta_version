@@ -87,7 +87,7 @@ export class ComparisionComponent implements OnInit {
     this.defects_data_right = []
     this.keys_kml = []
 
-    const newName = localStorage.getItem("name");
+    const newName = localStorage.getItem('proj_name');
     const project_id = localStorage.getItem("project_id");
 
     const token = localStorage.getItem("token");
@@ -426,7 +426,7 @@ export class ComparisionComponent implements OnInit {
 
 
   polygonMarkerCreating(lat, col, dec) {
-    var proj_name = localStorage.getItem('name')
+    var proj_name = localStorage.getItem('proj_name')
     var polygonPoints = []
     // console.log(dec)
     // console.log("---------------------------")

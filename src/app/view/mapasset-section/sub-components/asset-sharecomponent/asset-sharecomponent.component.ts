@@ -11,7 +11,7 @@ export class AssetSharecomponentComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    this.project_name = localStorage.getItem('name')
+    this.project_name = localStorage.getItem('proj_name')
   }
 
 }

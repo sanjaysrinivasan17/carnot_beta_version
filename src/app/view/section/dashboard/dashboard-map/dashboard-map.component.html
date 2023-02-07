@@ -130,10 +130,12 @@
     <div class="card">
 
 
-        <mat-tab-group  (wheel)="scrollTabs($event)" animationDuration="0ms" (selectedTabChange)="switchHeaders($event)">
-            <mat-tab label={{category}} *ngFor="let category of categorywise_project; let i=index" style="text-transform:capitalize;">
+        <mat-tab-group (wheel)="scrollTabs($event)" animationDuration="0ms" (selectedTabChange)="switchHeaders($event)">
+            <mat-tab label={{category}} *ngFor="let category of categorywise_project; let i=index"
+                style="text-transform:capitalize;">
 
-                <div *ngIf="category=='all'">
+
+                <div *ngIf="category=='topography'">
 
                     <div class="row" id="body-row" *ngIf="dashboard_total_key != ''">
                         <!-- Layout Starts -->
@@ -165,7 +167,47 @@
                                             [labels]="chartOptions1.labels" [responsive]="chartOptions1.responsive"
                                             [tooltip]="chartOptions1.tooltip" [dataLabels]="chartOptions1.dataLabels"
                                             [colors]="chartOptions1.colors"></apx-chart>
-                                        <!-- <canvas id="radar" width="400" height="400"></canvas> -->
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <!-- Layout End -->
+                    </div>
+                </div>
+                <div *ngIf="category=='grading'">
+
+                    <div class="row" id="body-row" *ngIf="dashboard_total_key != ''">
+                        <!-- Layout Starts -->
+                        <div class="dashboard-container container-fluid">
+
+
+                            <span class="sparkline_bar"><canvas width="112" height="50"
+                                    style="display: inline-block; width: 112px; height: 50px; vertical-align: top;"></canvas></span>
+
+                            <div class="row">
+                                <div class="col-md-7"
+                                    style="font-size: 25px; font-weight: 700; letter-spacing: 2px;font-family: 'Montserrat', Helvetica, sans-serif;">
+                                    Total Thermal Anomaly Detected
+                                    <hr>
+                                    <div class="graph-card" *ngIf="chartOptions">
+                                        <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart"
+                                            [dataLabels]="chartOptions.dataLabels"
+                                            [plotOptions]="chartOptions.plotOptions" [xaxis]="chartOptions.xaxis"
+                                            [stroke]="chartOptions.stroke" [grid]="chartOptions.grid">
+                                        </apx-chart>
+                                    </div>
+                                </div>
+                                <div class="col-md-5"
+                                    style="font-size: 25px; font-weight: 700; letter-spacing: 2px;font-family: 'Montserrat', Helvetica, sans-serif;">
+                                    Defect Composition
+                                    <hr>
+                                    <div class="graph-card" style="height:407px" *ngIf="chartOptions1">
+                                        <apx-chart [series]="chartOptions1.series" [chart]="chartOptions1.chart"
+                                            [labels]="chartOptions1.labels" [responsive]="chartOptions1.responsive"
+                                            [tooltip]="chartOptions1.tooltip" [dataLabels]="chartOptions1.dataLabels"
+                                            [colors]="chartOptions1.colors"></apx-chart>
                                     </div>
                                 </div>
                             </div>
@@ -207,46 +249,8 @@
                         <!-- Layout End -->
                     </div>
                 </div>
-                <div *ngIf="category=='vegetation'">
-
-                    <div class="row" id="body-row" *ngIf="dashboard_total_key != ''">
-                        <!-- Layout Starts -->
-                        <div class="dashboard-container container-fluid">
-
-
-                            <span class="sparkline_bar"><canvas width="112" height="50"
-                                    style="display: inline-block; width: 112px; height: 50px; vertical-align: top;"></canvas></span>
-
-                            <div class="row">
-                                <div class="col-md-7"
-                                    style="font-size: 25px; font-weight: 700; letter-spacing: 2px;font-family: 'Montserrat', Helvetica, sans-serif;">
-                                    Total Thermal Anomaly Detected
-                                    <hr>
-                                    <div class="graph-card" *ngIf="chartOptions">
-                                        <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart"
-                                            [dataLabels]="chartOptions.dataLabels"
-                                            [plotOptions]="chartOptions.plotOptions" [xaxis]="chartOptions.xaxis"
-                                            [stroke]="chartOptions.stroke" [grid]="chartOptions.grid">
-                                        </apx-chart>
-                                    </div>
-                                </div>
-                                <div class="col-md-5"
-                                    style="font-size: 25px; font-weight: 700; letter-spacing: 2px;font-family: 'Montserrat', Helvetica, sans-serif;">
-                                    Defect Composition
-                                    <hr>
-                                    <div class="graph-card" style="height:407px" *ngIf="chartOptions1">
-                                        <apx-chart [series]="chartOptions1.series" [chart]="chartOptions1.chart"
-                                            [labels]="chartOptions1.labels" [responsive]="chartOptions1.responsive"
-                                            [tooltip]="chartOptions1.tooltip" [dataLabels]="chartOptions1.dataLabels"
-                                            [colors]="chartOptions1.colors"></apx-chart>
-                                    </div>
-                                </div>
-                            </div>
-
-
-                        </div>
-                        <!-- Layout End -->
-                    </div>
+                <div *ngIf="category=='construction monitoring'">
+                    
                 </div>
                 <div *ngIf="category=='thermography'">
 
@@ -321,7 +325,7 @@
                         <!-- Layout End -->
                     </div>
                 </div>
-                <div *ngIf="category=='topography'">
+                <div *ngIf="category=='vegetation'">
 
                     <div class="row" id="body-row" *ngIf="dashboard_total_key != ''">
                         <!-- Layout Starts -->

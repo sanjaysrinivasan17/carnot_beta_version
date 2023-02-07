@@ -46,7 +46,7 @@ export class DrawComponent implements OnInit {
   }
 
   public get_aoi_data() {
-    var project_name = localStorage.getItem("name")
+    var project_name = localStorage.getItem('proj_name')
     var date = localStorage.getItem("date")
 
     const token = localStorage.getItem("token");
@@ -196,7 +196,7 @@ console.log(map)
   }
 
   openPreview(itemid) {
-    var project_name = localStorage.getItem("name")
+    var project_name = localStorage.getItem('proj_name')
     var date = localStorage.getItem("date")
     this.datadescription = this.main_data[project_name][date][itemid].desc
     this._http.setAreaofinterest({

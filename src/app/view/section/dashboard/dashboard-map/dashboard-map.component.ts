@@ -82,7 +82,7 @@ export class DashboardMapComponent implements OnInit {
   public center: any = [];
   items: any = [];
   main_data_get_all: any;
-  categorywise_project: any = ["all"];
+  categorywise_project: any = ["topography","grading","construction monitoring","thermography","vegetation","due deligence"];
   project_id_summary_alldata: any;
   str: any;
   lat: any;
@@ -111,6 +111,7 @@ export class DashboardMapComponent implements OnInit {
   Total_key: any = [];
   user_id: any;
   tabGroup;
+  
 
   constructor(private ngxService: NgxUiLoaderService) {}
 
@@ -121,7 +122,7 @@ export class DashboardMapComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // const newName = localStorage.getItem("name");
+    // const newName = localStorage.getItem('proj_name');
     this.user_id = localStorage.getItem("user_id");
 
     const token = localStorage.getItem("token");
@@ -152,7 +153,7 @@ export class DashboardMapComponent implements OnInit {
             );
           }
         }
-        this.categorywise_project.push("SCPM", "SCQM");
+        
 
         // get all coordinates of the project.
         for (var i = 0; i < this.project_id_summary_alldata.length; i++) {

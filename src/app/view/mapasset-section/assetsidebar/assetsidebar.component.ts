@@ -54,6 +54,7 @@ export class AssetsidebarComponent implements OnInit {
 
   slider_state: boolean = false;
   @Output() compare_slider_event = new EventEmitter<boolean>();
+
   isOpenCompare: boolean;
   isShareComponent: boolean;
   dialogRef: any;
@@ -211,8 +212,8 @@ export class AssetsidebarComponent implements OnInit {
 
   public sliderToggle() {
     this.slider_state = !this.slider_state;
+    console.log("slider", this.slider_state);
     this.compare_slider_event.emit(this.slider_state)
-    //  // console.log("slider", this.slider_state);
   }
 
   Send_kml_data(data, hide) {
@@ -241,6 +242,7 @@ export class AssetsidebarComponent implements OnInit {
 
 
   }
+
   openSidbar(id: string, menuId: string) {
 
     let sideBar = document.getElementById(id);
@@ -366,11 +368,11 @@ export class AssetsidebarComponent implements OnInit {
     } else {
       this.isOpenCompare = true;
       this.dialogRef = this.dialog.open(ComparisionAssetComponent, {
-      height: "calc(100%)",
-      width: "calc(100%)",
-      maxWidth: "100%",
-      maxHeight: "100%"
-    });
+        height: "calc(100%)",
+        width: "calc(100%)",
+        maxWidth: "100%",
+        maxHeight: "100%"
+      });
       e.style.width = '5px';
       this.closeSidebar('summarySidebar')
     }

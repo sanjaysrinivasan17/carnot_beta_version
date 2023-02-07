@@ -289,8 +289,8 @@ export class SidebarComponent implements OnInit {
           } else {
             this.token_based_logo = "new";
           }
-          const newName = localStorage.getItem("name");
-          //  this.proj_name = localStorage.getItem("name");
+          const newName = localStorage.getItem('proj_name');
+          //  this.proj_name = localStorage.getItem('proj_name');
           const date = localStorage.getItem("date");
           // toalert(localStorage.getItem("date"))
 
@@ -649,7 +649,7 @@ export class SidebarComponent implements OnInit {
     if (type == 'Grading') {
       var sub_group_kml = this.summ['processed_data'][this.datevalue]['grading_layers'][this.grading_title]['sub_feature'][n]["kml"]
       this.colour = this.summ['processed_data'][this.datevalue]['grading_layers'][this.grading_title]['sub_feature'][n]['color']
-      console.log(this.colour)
+      // console.log(this.colour)
       this.cadastrial_map_page = { tab: sub_group_kml, menu: 'Grading', color: this.colour, pageno: this.p };
 
 
@@ -664,7 +664,7 @@ export class SidebarComponent implements OnInit {
 
   // Function for loading summary data
   sub_defects_count(current_summary_state) {
-    console.log(current_summary_state.tab)
+    // console.log(current_summary_state.tab)
   }
   summary_data_render() {
     // toalert("Summary_tab----"+this.Summary_tab)
@@ -1157,7 +1157,7 @@ export class SidebarComponent implements OnInit {
       this.datevalue = date_local
       this.Project_layer = (this.summ['processed_data'][this.datevalue]['grading_layers'])
       // console.log(this.Project_layer)
-      console.log((this.summ['processed_data'][this.datevalue]['grading_layers']))
+      // console.log((this.summ['processed_data'][this.datevalue]['grading_layers']))
       // // toalert(this.getting_date )
       this.grading_title = Object.keys(this.summ['processed_data'][this.datevalue]['grading_layers'])
       // // console.log(Object.keys(this.summ['processed_data'][this.datevalue]['topography_data'][this.topography_title]['sub_feature']))
@@ -1206,13 +1206,20 @@ export class SidebarComponent implements OnInit {
       e.style.width = '0px';
     } else {
       this.isOpenCompare = true;
-      this.dialogRef = this.dialog.open(ComparisionComponent, { panelClass: 'my-full-screen-dialog' });
+      this.dialogRef = this.dialog.open(ComparisionComponent, {
+        height: "calc(100%)",
+        width: "calc(100%)",
+        maxWidth: "100%",
+        maxHeight: "100%"
+      });
       e.style.width = '5px';
       this.closeSidebar('summarySidebar')
 
     }
 
     this.dialogRef.afterClosed().subscribe(result => {
+      this.dialog.closeAll();
+      e.style.width = '0px';
     });
 
   }
@@ -1253,7 +1260,7 @@ export class SidebarComponent implements OnInit {
 
     }
     // console.log(this.project_values)
-    var proj_name = localStorage.getItem("name");
+    var proj_name = localStorage.getItem('proj_name');
     // console.log(proj_name)
     // alert(this.project_values)
 

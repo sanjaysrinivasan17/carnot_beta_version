@@ -2,8 +2,10 @@ import { Component, OnInit, ViewChild, Output, EventEmitter, Input } from '@angu
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DefectrectificationComponent } from '../map-section/defectrectification/defectrectification.component'
+import { mapsection, mapsectionC } from './map-section'
+import { NgxUiLoaderService } from "ngx-ui-loader";
 
 // TODO
 // Handle zoom and pan ortho errors
@@ -69,7 +71,10 @@ export type ChartOptions = {
   colors: string[];
   tooltip: ApexTooltip;
 };
-
+export interface DialogData {
+  mission: string;
+  flight: string;
+}
 
 declare var require: any
 // require('leaflet-side-by-side');
@@ -258,9 +263,9 @@ export class MapSectionComponent implements OnInit {
     localStorage.setItem('DTM', 'DTM');
     localStorage.setItem('slope', 'slope');
     localStorage.setItem('satellite', 'satellite');
-    localStorage.getItem('product');
     sessionStorage.setItem('rawImage', 'rawImage');
-    this.adani_proj_name = localStorage.getItem('name')
+
+    this.adani_proj_name = localStorage.getItem('proj_name')
     // this.zoom_level = Number(sessionStorage.getItem("zoom_level"))
     // alert(this.adani_proj_name+"=")
     this.subdefects_visibility = "visibility_off"
@@ -321,10 +326,13 @@ export class MapSectionComponent implements OnInit {
           this.datevalue = this.Completed_date_array[this.date_new_length]
           this.date = this.Completed_date_array[this.date_new_length]
           // alert(this.date)
-          var project_name = localStorage.getItem('name')
+          var project_name = localStorage.getItem('proj_name')
 
           var project_feature_show = project_name.includes("Sudair")
+          var project_feature_show2 = project_name.includes("Neom")
           var project_feature_show1 = project_name.includes("Adani")
+          var project_feature_show3 = project_name.includes("Enel")
+
           // // alert(project_feature_show)
           if (project_feature_show1) {
             this.project_feature1 = "visible"
@@ -342,57 +350,30 @@ export class MapSectionComponent implements OnInit {
             // // alert(this.zoom_level)
 
           }
-          if (project_feature_show) {
+          if (project_feature_show || project_feature_show2 || project_feature_show3) {
             this.project_feature = "visible"
           } else {
             this.project_feature = "visible_off"
           }
           var date_local = localStorage.getItem('date')
-          // console.log('date')
-          // if (date_local == "undefined" || date_local == "" || date_local == null) {
-          //   if (this.newDatefromAllProjects == "undefined" || this.newDatefromAllProjects == "" || this.newDatefromAllProjects == null) {
-          //     if (this.SelectedDatefromanalytics == "undefined" || this.SelectedDatefromanalytics == "" || this.SelectedDatefromanalytics == null) {
-          //       this.dateonload = this.datevalue
-          //       // // alert("---map section date ===="+this.datevalue)
 
-          //     } else if (this.SelectedDatefromanalytics != "undefined" && this.SelectedDatefromanalytics != "" && this.SelectedDatefromanalytics != null) {
-          //       this.dateonload = this.SelectedDatefromanalytics
-          //       this.date = this.ChangedDate.dateval
-
-          //       // // alert("---defaukt date ===="+this.datevalue)
-          //     }
-          //   } else if (this.newDatefromAllProjects != "undefined" || this.newDatefromAllProjects != "" || this.newDatefromAllProjects != null) {
-          //     this.dateonload = this.newDatefromAllProjects
-          //     this.date = this.newDatefromAllProjects
-
-          //   }
-          // }
-          // else {
           this.dateonload = date_local
           this.date = date_local
-          // }
-          // // alert("------this.dateonload -----"+this.dateonload )
-          // // alert("center----"+localStorage.getItem('center'))
+
           var new_center = localStorage.getItem('center')
           if (new_center != '') {
             this.center = new_center
           } else {
             this.center = this.center
           }
-          // // alert("--afet center----"+this.dateonload)
-          // localStorage.setItem("date", this.dateonload);
+
           this.str_center = this.center.split(",");
           this.lat = this.str_center[0];
           this.long = this.str_center[1];
-          // console.log((data['data']));
-          // console.log(Object.keys(data['data']['processed_data']));
-          // console.log(Object.keys(data['data']['processed_data'][this.dateonload]));
-          // console.log(Object.keys(data['data']['processed_data'][this.dateonload]['summary_layers']));
-          // console.log(Object.keys(data['data']['processed_data'][this.dateonload]['summary_layers']));
+
 
           this.Project_data = Object.keys(data['data']['processed_data'][this.dateonload]['summary_layers'])
-          console.log(this.Project_data);
-
+          // console.log(this.Project_data);
           this.ortho_file_location_onLoad = data['data']['processed_data'][this.dateonload]['ortho_file_location']
           this.ortho_file_location = data['data']['processed_data'][this.dateonload]['ortho_file_location']
           this.kml_file_location = data['data']['processed_data'][this.dateonload]['kml_file_location']
@@ -403,17 +384,27 @@ export class MapSectionComponent implements OnInit {
           // alert(Object.values(data['data']['processed_data'])[7])
           // // alert("----project_id_summary---"+this.ortho_ file_location_onLoad)
           // this.map.removeLayer(this.base_ortho_layer);
-          this.rgb_layer = L.tileLayer(this.ortho_file_location_onLoad + '{z}/{x}/{y}.png', {
-            attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-            center: [this.lat, this.long],
+          // console.log(this.ortho_file_location_onLoad);
+          // console.log("1",this.lat, this.long)
+          this.map = L.map('map', {
+            attributionControl: false,
+            zoomControl: false,
             minZoom: 1,
             maxZoom: 22,
-            // maxNativeZoom: 18
-          }).addTo(this.map);
+            //... other options
+          }).setView([this.lat, this.long], this.zoom_level);
+          this.Carnot_map_page()
 
+          // this.rgb_layer = L.tileLayer(this.ortho_file_location_onLoad + '{z}/{x}/{y}.png', {
+          //   attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+          //   center: [this.lat, this.long],
+          //   minZoom: 1,
+          //   maxZoom: 22,
+          //   // maxNativeZoom: 18
+          // }).addTo(this.map);
+          // console.log(this.rgb_layer)
           // this.map.maxZoom(22);
           this.base_ortho_layer = this.rgb_layer;
-
         })
       })
     })
@@ -718,7 +709,7 @@ export class MapSectionComponent implements OnInit {
         "domain": "https://datasee-ai-public-assets.s3.ap-south-1.amazonaws.com/2k22/AT/Adani/Walluj_Garware/"
       }
     };
-    this.project_name = localStorage.getItem('name')
+    this.project_name = localStorage.getItem('proj_name')
     this.splitted_project_name = this.project_name.split('-', 2)
     // console.log(this.splitted_project_name)
     this.selected = this.splitted_project_name[1];
@@ -745,7 +736,7 @@ export class MapSectionComponent implements OnInit {
     this.lat = this.str_center[0];
     this.long = this.str_center[1];
     // // alert("2"+this.center)
-    var project_name = localStorage.getItem('name')
+    var project_name = localStorage.getItem('proj_name')
 
     var project_feature_show1 = project_name.includes("Adani")
     // // alert(project_feature_show)
@@ -756,16 +747,9 @@ export class MapSectionComponent implements OnInit {
     }
     // alert(typeof this.zoom_level)
 
-    this.map = L.map('map', {
-      attributionControl: false,
-      zoomControl: false,
-      minZoom: 1,
-      maxZoom: 22,
-      //... other options
-    }).setView([this.lat, this.long], this.zoom_level);
+    
 
 
-    this.Carnot_map_page()
     // default MAP layer
     // 18.189025,77.467555
 
@@ -976,7 +960,7 @@ export class MapSectionComponent implements OnInit {
     this.map.removeLayer(this.gb_layer);
   }
   polygonMarkerCreating(lat, col, dec) {
-    var proj_name = localStorage.getItem('name')
+    var proj_name = localStorage.getItem('proj_name')
     var polygonPoints = []
     // console.log(dec)
     // console.log("---------------------------")
@@ -991,6 +975,9 @@ export class MapSectionComponent implements OnInit {
       k = k + 2;
       l = l + 2
     }
+    // alert(localStorage.getItem('proj_name'))
+    // console.log(localStorage.getItem('proj_name'))
+
     var project_feature_show = proj_name.includes("Sudair")
     if (project_feature_show) {
       var kml_name = localStorage.getItem("kml_name")
@@ -1754,7 +1741,7 @@ export class MapSectionComponent implements OnInit {
       localStorage.setItem("kml_name", this.summaryState)
 
       var kml_name_load = this.summaryState.split(",")
-      console.log(kml_name_load)
+      // console.log(kml_name_load)
       sessionStorage.setItem("kmlfilename", this.summaryState)
       for (var i = 0; i < kml_name_load.length; i++) {
         // console.log(kml_name_load[i])
@@ -2194,9 +2181,9 @@ export class MapSectionComponent implements OnInit {
       }
 
 
-    }else if (option === 'cad') {
+    } else if (option === 'cad') {
       // Adding CAD layer
-      var proj_name = localStorage.getItem('name')
+      var proj_name = localStorage.getItem('proj_name')
       // alert(proj_name)
 
       var cad_val = localStorage.getItem('cad');
@@ -2234,7 +2221,7 @@ export class MapSectionComponent implements OnInit {
       }
     } else if (option === 'DTM') {
       // Adding DTM layer
-      var proj_name = localStorage.getItem('name')
+      var proj_name = localStorage.getItem('proj_name')
       this.proj_name_contains = proj_name.includes("Sudair")
       // if (this.proj_name_contains) {
       //   this.default_dtm = 'https://datasee-ai-public-assets.s3.ap-south-1.amazonaws.com/2k22/Infrastructure/' + proj_name + '/DTM/DTM.PNG'
@@ -2279,7 +2266,7 @@ export class MapSectionComponent implements OnInit {
 
     } else if (option === 'slope') {
       // Adding SLOPE layer
-      var proj_name = localStorage.getItem('name')
+      var proj_name = localStorage.getItem('proj_name')
       // this.proj_name_contains = proj_name.includes("Sudair")
       // if (this.proj_name_contains) {
       //   this.default_slope = 'https://datasee-ai-public-assets.s3.ap-south-1.amazonaws.com/2k22/Infrastructure/' + proj_name + '/SLOPE/Slope.PNG'
@@ -2353,8 +2340,8 @@ export class MapSectionComponent implements OnInit {
 
             const token = localStorage.getItem("token");
             const headers = {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token}`,
+              'Content-Type': 'application/json',
             };
 
             var url = environment.api_name + 'api/project/get_thermal_assets/' + project_id + '/' + date + '/' + project_type + '?filter={"mission":"' + dataval['mission'] + '","flight":"' + dataval['flight'] + '"}'
@@ -2559,11 +2546,12 @@ export class MapSectionComponent implements OnInit {
 
   Change_location(location_name) {
     this.Adani_locations[location_name]
-    localStorage.setItem("name", "Adani-" + this.Adani_locations[location_name]['name'])
+    localStorage.setItem('proj_name', "Adani-" + this.Adani_locations[location_name]['name'])
+    // alert()
     localStorage.setItem("center", this.Adani_locations[location_name]['center'])
     this.map.removeLayer(this.rgb_layer);
     const newtoken = localStorage.getItem("token");
-    const newName = localStorage.getItem("name");
+    const newName = localStorage.getItem('proj_name');
 
     if (newName == "Adani-Limbaganesh") {
       sessionStorage.setItem("prev_proj", "Adani-" + this.Adani_locations[location_name]['name'])
@@ -2572,8 +2560,8 @@ export class MapSectionComponent implements OnInit {
 
     const token = localStorage.getItem("token");
     const headers = {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json',
     };
 
     // fetch(environment.api_name + "project/retrieve_project_data/Adani-" + this.Adani_locations[location_name]['name'], { headers })

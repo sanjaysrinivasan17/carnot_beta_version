@@ -114,3 +114,19 @@ td{
     font-family: 'Montserrat', Helvetica, sans-serif;
 }
 
+/* ::ng-deep .mat-select-arrow {
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid;
+    margin: 0 4px;
+}
+
+::ng-deep .mat-mdc-select-arrow svg {
+    fill: currentColor;
+    position: absolute;
+    top: 50%;
+    left: 0%;
+    transform: translate(-50%, -50%);
+} */
