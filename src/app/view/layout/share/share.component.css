@@ -11,7 +11,8 @@
     transition: 0.3s;
     left: 405px;
 }
-.sharedata{
+
+.sharedata {
     height: 155px;
     width: 620px;
 }
@@ -26,7 +27,7 @@
     text-align: center;
 }
 
-.info_text1{
+.info_text1 {
     position: relative;
     top: -25px;
     margin: auto;
@@ -35,6 +36,7 @@
     font-family: 'Montserrat', Helvetica, sans-serif;
     text-align: center;
 }
+
 .btn-container2 {
     position: absolute;
     right: 20px;
@@ -90,7 +92,7 @@ table {
     /* margin-left: 80px; */
     width: 100%;
     font-family: 'Montserrat', Helvetica, sans-serif;
-    
+
 }
 
 tr {
@@ -104,5 +106,11 @@ th {
     background-color: #e9ecef;
     text-align: left;
     font-size: 20px;
-    
+
+}
+
+.sharecomponent {
+    margin: 10px;
+    padding: 10px;
+
 }

@@ -1,51 +1,53 @@
-<div class="sharedata">
-    <div class="row">
-        <div class="info_text">
-            <b>Share -</b>
-            {{project_name}}
+<div class="sharecomponent">
+    <div class="sharedata">
+        <div class="row">
+            <div class="info_text">
+                <b>Share -</b>
+                {{project_name}}
+            </div>
+        </div>
+        <div class="row" style="margin-top: 28px;margin-left: 28px;">
+            <form [formGroup]="Role_mapping">
+                <mat-form-field appearance="fill"
+                    style="top: 35px; left: 185px; width: 250px; font-family: 'Montserrat', Helvetica, sans-serif; font-size: 16px!important;">
+                    <mat-label>Select User</mat-label>
+                    <mat-select [formControl]="user_data" (ngModelChange)="user_mapping($event)" id="role" name="role">
+                        <mat-option *ngFor="let i of user" [value]="i">{{i.name}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </form>
         </div>
     </div>
-    <div class="row" style="margin-top: 28px;margin-left: 28px;">
-        <form [formGroup]="Role_mapping">
-            <mat-form-field appearance="fill"
-                style="top: 35px; left: 185px; width: 250px; font-family: 'Montserrat', Helvetica, sans-serif; font-size: 16px!important;">
-                <mat-label>Select User</mat-label>
-                <mat-select [formControl]="user_data" (ngModelChange)="user_mapping($event)" id="role" name="role">
-                    <mat-option *ngFor="let i of user" [value]="i">{{i.name}}</mat-option>
-                </mat-select>
-            </mat-form-field>
-        </form>
+    <div class="info_text1">
+        <b>People with access </b>
     </div>
+    <table>
+        <colgroup>
+            <col span="2">
+            <col>
+        </colgroup>
+        <tr>
+            <!-- <th>User Name</th> -->
+            <th>Full name</th>
+            <th>Email</th>
+            <!-- <th>Date Created</th> -->
+            <th>Role</th>
+    
+        </tr>
+        <tr *ngFor="let i of roles">
+            <!-- <td>{{i.username}}</td> -->
+            <!-- <td>{{i.username}}</td> -->
+            <td>{{i.name}}</td>
+            <td>{{i.email}}</td>
+            <td>{{i.role}}</td>
+            <!-- <td>{{i.number}}</td> -->
+            <!-- <td></td> -->
+    
+        </tr>
+    </table>
+    
+    <mat-dialog-actions>
+        <button mat-button  mat-dialog-close class="mr-3" style="background-color: var(--primary); color: #fff;">Cancel</button>
+        <button mat-button class="mr-3" style="background-color: var(--primary); color: #fff;" (click)="send_user()" id="ddlViewBy">Share</button>
+    </mat-dialog-actions>
 </div>
-<div class="info_text1">
-    <b>People with access </b>
-</div>
-<table>
-    <colgroup>
-        <col span="2">
-        <col>
-    </colgroup>
-    <tr>
-        <!-- <th>User Name</th> -->
-        <th>Full name</th>
-        <th>Email</th>
-        <!-- <th>Date Created</th> -->
-        <th>Role</th>
-
-    </tr>
-    <tr *ngFor="let i of roles">
-        <!-- <td>{{i.username}}</td> -->
-        <!-- <td>{{i.username}}</td> -->
-        <td>{{i.name}}</td>
-        <td>{{i.email}}</td>
-        <td>{{i.role}}</td>
-        <!-- <td>{{i.number}}</td> -->
-        <!-- <td></td> -->
-
-    </tr>
-</table>
-
-<mat-dialog-actions>
-    <button mat-button  mat-dialog-close class="mr-3" style="background-color: var(--primary); color: #fff;">Cancel</button>
-    <button mat-button class="mr-3" style="background-color: var(--primary); color: #fff;" (click)="send_user()" id="ddlViewBy">Share</button>
-</mat-dialog-actions>

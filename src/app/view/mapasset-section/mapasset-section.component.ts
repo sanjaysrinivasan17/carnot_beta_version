@@ -559,7 +559,7 @@ export class MapassetSectionComponent implements OnInit {
           //   this.ngxService.stop();
           // }, 10000)
           const dialogRef = this.dialog.open(RawImageComponent, {
-            width: '250px',
+            width: '300px',
             // data: {mission: this.mission, flight: this.flight}
           });
 

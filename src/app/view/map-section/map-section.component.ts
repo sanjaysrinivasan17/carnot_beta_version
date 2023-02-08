@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, Output, EventEmitter, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DefectrectificationComponent } from '../map-section/defectrectification/defectrectification.component'
@@ -396,6 +396,17 @@ export class MapSectionComponent implements OnInit {
           // console.log(this.rgb_layer)
           // this.map.maxZoom(22);
           this.base_ortho_layer = this.rgb_layer;
+<<<<<<< Updated upstream
+=======
+
+        },
+        (err: HttpErrorResponse) => {
+          // console.log(err.status);
+          if (err.status == 401) {
+            this.toastr.error("Login time expired. Please login again.")
+            this.gotologin()
+          }
+>>>>>>> Stashed changes
         })
       })
     })
@@ -750,6 +761,9 @@ export class MapSectionComponent implements OnInit {
     // this.popup_card_visibility_grading = false;
 
   }
+  gotologin(){
+    this.router.navigate(['auth/login'])
+   }
 
   onload_get_mission_flights() {
     let project_id = localStorage.getItem("project_id");
@@ -2146,7 +2160,7 @@ export class MapSectionComponent implements OnInit {
           //   this.ngxService.stop();
           // }, 10000)
           const dialogRef = this.dialog.open(RawImageComponent, {
-            width: '250px',
+            width: '300px',
             // data: {mission: this.mission, flight: this.flight}
           });
 
