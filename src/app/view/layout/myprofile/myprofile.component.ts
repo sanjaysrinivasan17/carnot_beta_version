@@ -73,14 +73,6 @@ export class MyprofileComponent implements OnInit {
     this.states = State.getAllStates()
     this.cities = City.getAllCities()
     this.country_data = this.countries
-<<<<<<< Updated upstream
-=======
-    // console.log(this.states)
-    // console.log(this.countries)
-    // alert(this.countries)
-    // // console.log(this.cities)
->>>>>>> Stashed changes
-
 
     document.getElementById("uploadBtn").onmouseover = function () { mouseOver() };
     document.getElementById("uploadBtn").onmouseout = function () { mouseOut() };
@@ -222,10 +214,6 @@ export class MyprofileComponent implements OnInit {
       if (this.states[i]["countryCode"] == countryval) {
         var cou = this.states[i].length
         this.states_data.push(this.states[i])
-<<<<<<< Updated upstream
-=======
-        // console.log(this.states_data)
->>>>>>> Stashed changes
 
       }
     }

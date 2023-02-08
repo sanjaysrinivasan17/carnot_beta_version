@@ -1,9 +1,7 @@
 .compact-sidebar {
-<<<<<<< Updated upstream
-    height: 100%;
-=======
+
     /* height: 100%; */
->>>>>>> Stashed changes
+
     width: 330px;
     position: fixed;
     z-index: 100;

@@ -396,8 +396,6 @@ export class MapSectionComponent implements OnInit {
           // console.log(this.rgb_layer)
           // this.map.maxZoom(22);
           this.base_ortho_layer = this.rgb_layer;
-<<<<<<< Updated upstream
-=======
 
         },
         (err: HttpErrorResponse) => {
@@ -406,7 +404,7 @@ export class MapSectionComponent implements OnInit {
             this.toastr.error("Login time expired. Please login again.")
             this.gotologin()
           }
->>>>>>> Stashed changes
+
         })
       })
     })
