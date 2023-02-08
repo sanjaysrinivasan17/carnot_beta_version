@@ -799,7 +799,12 @@ export class SubdefectsComponent implements OnInit {
   //  var defects_data = Table_No
     this._http.setrectify_data(this.rectify_defects)
   //  this.rectify_defect_event.emit(this.rectify_defects)
-  const dialogRef = this.dialog.open(DefectrectificationComponent);
+  const dialogRef = this.dialog.open(DefectrectificationComponent, {
+    height: "calc(100%)",
+    width: "calc(100%)",
+    maxWidth: "100%",
+    maxHeight: "100%"
+  });
 
   dialogRef.afterClosed().subscribe(result => {
   });

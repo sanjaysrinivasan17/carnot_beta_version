@@ -50,7 +50,7 @@
 
 
 
-<div class="bottom-container" style="right:30px;bottom: -12px;">
+<div class="bottom-container" style="right:30px;bottom: 22px;">
     <div class="drawer" *ngIf="map">
         <assetdraw [map]="map"></assetdraw>
     </div>
@@ -100,12 +100,12 @@
 
 </div>
 
-<mat-card [style.visibility]="(popup_card_info) ? 'visible ' : 'hidden '"
+<mat-card [style.visibility]="(popup_card_info) ? 'visible' : 'hidden '"
     style="margin-left: 0rem; margin-top: 75px;width: auto; height:auto; position: fixed;bottom:0;left:60px; z-index: 1000;border-radius: 10px;">
     <mat-card-header>
         <div style="margin-left: auto;margin-top: -10px;">
-            <button mat-icon-button>
-                <mat-icon (click)="close_popup_card()" style="cursor: pointer;">close</mat-icon>
+            <button mat-icon-button (click)="close_popup_card()">
+                <mat-icon  style="cursor: pointer;">close</mat-icon>
             </button>
 
         </div>
@@ -136,8 +136,8 @@
         <!-- <mat-card-subtitle> {{Defect}}</mat-card-subtitle> -->
 
         <div style="margin-left: auto;margin-top: -10px;">
-            <button mat-icon-button>
-                <mat-icon (click)="close_popup_card()" style="cursor: pointer;">close</mat-icon>
+            <button mat-icon-button (click)="close_popup_card()">
+                <mat-icon style="cursor: pointer;">close</mat-icon>
             </button>
 
         </div>

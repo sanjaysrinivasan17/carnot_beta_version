@@ -22,7 +22,7 @@ export class RawImageComponent implements OnInit {
   constructor(private _http: HttpService, private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
-    alert()
+    // alert()
     let project_id = localStorage.getItem("project_id");
     let date = localStorage.getItem("date");
 

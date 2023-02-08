@@ -511,3 +511,7 @@ b {
 option {
     font-family: 'Montserrat', Helvetica, sans-serif;
 }
+::ng-deep th,td{
+font-size: 15px;
+font-family: 'Montserrat', Helvetica, sans-serif;
+}
