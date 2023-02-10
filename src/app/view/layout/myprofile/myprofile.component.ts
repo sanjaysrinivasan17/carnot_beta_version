@@ -75,8 +75,7 @@ export class MyprofileComponent implements OnInit {
     this.states = State.getAllStates()
     this.cities = City.getAllCities()
     this.country_data = this.countries
-    this.firstname = localStorage.getItem("firstname");
-    this.firstletter = this.firstname.substring(0, 1)
+
 
     document.getElementById("uploadBtn").onmouseover = function () { mouseOver() };
     document.getElementById("uploadBtn").onmouseout = function () { mouseOut() };
