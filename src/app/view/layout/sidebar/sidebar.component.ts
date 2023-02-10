@@ -23,9 +23,9 @@ export class SidebarComponent implements OnInit {
   public ngOnInit(): void { }
 
   logout() {
-    // alert(localStorage['token'])
+    // alert(localStorage.token)
     localStorage.clear();
-    // alert(localStorage['token'])
+    // alert(localStorage.token)
     if (localStorage['token'] == undefined) {
       this.router.navigate(["/auth/login"])
     }

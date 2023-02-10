@@ -111,6 +111,7 @@ export class DashboardMapComponent implements OnInit {
   Total_key: any = [];
   user_id: any;
   tabGroup;
+  tab_name: any;
   
 
   constructor(private ngxService: NgxUiLoaderService) {}
@@ -205,7 +206,8 @@ export class DashboardMapComponent implements OnInit {
 
         this.map = L.map("mapdashboard", {
           attributionControl: false,
-        }).setView(["20.5937", "78.9629"], 5);
+          minZoom: 5,
+        }).setView(["20.5937", "78.9629"], 1);
 
         // default MAP layer
 
@@ -365,7 +367,7 @@ export class DashboardMapComponent implements OnInit {
       },
       plotOptions: {
         bar: {
-          columnWidth: "50%",
+          columnWidth: "30%",
         },
       },
       dataLabels: {
@@ -759,6 +761,7 @@ export class DashboardMapComponent implements OnInit {
     this.removeMap_marker();
     var d = tab["tab"]["textLabel"];
     var tab_name = tab["tab"]["textLabel"];
+    this.tab_name = tab["tab"]["textLabel"]
     this.map_location_marker(tab_name);
   }
   scrollTabs(event) {

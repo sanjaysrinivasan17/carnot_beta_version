@@ -4,7 +4,7 @@
 
     <h3 class="title"><b>Recent Projects</b></h3>
 </div>
-<div style="padding-top:20px;">
+<div style="padding-top:20px;margin: 0px 15px 0px 15px">
     <div class="row">
         <div class="col-4" *ngFor="let project of recent_3_projects;let i = index">
             <div class="active-project" title="ongoing projects" (click)="Clickable_recent3(i,project.name,project.date,project.city,project.status)">
@@ -31,7 +31,7 @@
                         <div *ngIf="project.status[0] == 'processing'">
                             <mat-progress-bar class="custom-progress" mode="determinate" style="width: 100%;" color="accent" value="75"></mat-progress-bar>
                         </div>
-                        <div *ngIf="project.status[0] == 'completed'">
+                        <div *ngIf="project.status[0] == 'completed' || project.status[0] == 'Complete'">
                             <mat-progress-bar class="custom-progress" mode="determinate" style="width: 100%;" color="accent" value="100"></mat-progress-bar>
                         </div>
                     </div>
@@ -43,11 +43,11 @@
 </div>
 
 <div class="project-container">
-    <button mat-mini-fab class="prev mat-elevation-z8" color="accent" (click)="plusSlides(-1)">
-        <mat-icon class="icon">keyboard_arrow_left</mat-icon>
+    <button mat-mini-fab class="prev mat-elevation-z8" color="accent" *ngIF="recent_3_projects_length > 1" (click)="plusSlides(-1)">
+        <mat-icon class="icon" style="margin-top: 10px;">keyboard_arrow_left</mat-icon>
     </button>
-    <button mat-mini-fab class="next mat-elevation-z8" color="accent" (click)="plusSlides(1)">
-        <mat-icon class="icon">keyboard_arrow_right</mat-icon>
+    <button mat-mini-fab class="next mat-elevation-z8" color="accent" *ngIF="recent_3_projects_length > 1" (click)="plusSlides(1)">
+        <mat-icon class="icon" style="margin-top: 10px;">keyboard_arrow_right</mat-icon>
     </button>
     <div class="project-card">
         <div class="horizontal-card">
@@ -78,7 +78,7 @@
                     <mat-progress-bar class="custom-progress" mode="determinate" color="accent" value="75">
                     </mat-progress-bar>
                 </div>
-                <div *ngIf="workflow_status == 'completed'">
+                <div *ngIf="workflow_status == 'completed' || workflow_status == 'Complete'">
                     <p class="float-right progress-percentage">100%</p>
                     <mat-progress-bar class="custom-progress" mode="determinate" color="accent" value="100">
                     </mat-progress-bar>
@@ -91,7 +91,7 @@
     <div class="project-list">
         <div class="stepper">
             <div class="title">
-                <mat-icon class="icon">stars</mat-icon> Workflow Status
+                <mat-icon class="icon" style="margin:0px">stars</mat-icon> Workflow Status
             </div>
             <div class="steps">
                 <mat-vertical-stepper #stepper>
@@ -104,9 +104,9 @@
                     <mat-step label="Analytics & Visualization">
                     </mat-step>
                 </mat-vertical-stepper>
-                <div class="custom-btn" *ngIf="workflow_status == 'completed'">
+                <div class="custom-btn" *ngIf="workflow_status == 'completed' || workflow_status == 'Complete'">
                     <button mat-button class="mr-4" style="background-color: var(--primary); color: #fff;" (click)="gotomap()">Map</button>
-                    <button mat-button style="background-color: var(--primary); color: #fff;" (click)="gotoAnalytics()">Analytics</button>
+                    <button mat-button style="background-color: var(--primary); color: #fff;" *ngIf="project_type == 'carnot'" (click)="gotoAnalytics()">Analytics</button>
                 </div>
             </div>
         </div>

@@ -19,7 +19,7 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit(): void {
     this.token_logo = localStorage.getItem("token");
-    if(this.token_logo == '01df11c9ed93294a50c84389ba52f2eb05ffddd4' || this.token_logo == 'e29841efad583127cdaca516319e51a3bdbf9138'){
+    if(this.token_logo == '01df11c9ed93294a50c84389ba52f2eb05ffddd4' || this.token_logo == 'e29841efad583127cdaca516319e51a3bdbf9138' || this.token_logo == 'db91ec88d216137757f3888422781b2abbdafa73' || this.token_logo == '95b5d07787e98a3b2076087d82214747a9e98b13' || this.token_logo == 'b3dd5bde5006a1a7859a7138a9ecf515bb2321f4' || this.token_logo == '22027067c5ed2c229926d7d2d222299feae3405f'  || this.token_logo == 'a920004c82f26dec85fca5bb950bf2b5a9301458'){
       this.token_based_logo = "other";
     }else{
       this.token_based_logo = "new";
@@ -31,9 +31,9 @@ export class NavbarComponent implements OnInit {
   }
 
   logout() {
-    // alert(localStorage['token'])
+    // alert(localStorage.token)
     localStorage.clear();
-    // alert(localStorage['token'])
+    // alert(localStorage.token)
     if (localStorage['token'] == undefined) {
       this.router.navigate(["/auth/login"])
     }

@@ -22,6 +22,9 @@ export class DashboardComponent implements OnInit {
   public loginForm: FormGroup;
   message: any;
   user_id: any;
+  main_data1: any;
+  project_id_summary_count_asset:any;
+  project_id_summary_length_asset: any;
 
 
   constructor(private _http: HttpService, private router: Router, private ngxService: NgxUiLoaderService, private http: HttpClient) {
@@ -41,18 +44,31 @@ export class DashboardComponent implements OnInit {
 
     const token = localStorage.getItem("token");
     const headers = {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json',
     };
 
     this._http.setNewMapIcon({
       dateval: "dashboard"
     });
 
+    const filter1 = { count: 1 }
+    fetch(`${environment.api_name}api/asset/get_all_asset_project?filter=${JSON.stringify(filter1)}`, {
+      headers,
+      credentials: 'omit',
+    }).then(response => response.json())
+      .then(data => {
+        this.main_data1 = data['data']
+        // console.log(this.main_data1);
+        this.project_id_summary_count_asset = Object.keys(data['data'])
+        this.project_id_summary_length_asset = this.project_id_summary_count_asset.length
+
+      })
+
     const filter = { count: 3 }
-    fetch(`${environment.api_name}api/project/get_all?filter=${JSON.stringify(filter)}`,{
-     headers,
-     credentials: 'omit',
+    fetch(`${environment.api_name}api/project/get_all?filter=${JSON.stringify(filter)}`, {
+      headers,
+      credentials: 'omit',
     })
       .then(response => response.json())
       .then(data => {
@@ -69,7 +85,7 @@ export class DashboardComponent implements OnInit {
         }
       })
     setTimeout(() => {
-    this.ngxService.stop();
+      this.ngxService.stop();
     }, 3000)
 
   }
@@ -89,13 +105,13 @@ export class DashboardComponent implements OnInit {
     // var data = { "name": organization }
     const token = localStorage.getItem("token");
     const headers = {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json',
     };
     var httpOptions = {
-        headers,
-        withCredentials: false,
-     };
+      headers,
+      withCredentials: false,
+    };
     // return this.http.post(environment.api_name + 'api/accounts/generate_otp/', data)
     return this.http.post(environment.api_name + 'api/accounts/generate_otp/', data, httpOptions)
 
@@ -105,13 +121,13 @@ export class DashboardComponent implements OnInit {
     // var data = { "name": organization }
     const token = localStorage.getItem("token");
     const headers = {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json',
     };
     var httpOptions = {
-        headers,
-        withCredentials: false,
-     };
+      headers,
+      withCredentials: false,
+    };
 
     return this.http.post(environment.api_name + 'api/accounts/verify_otp/', data, httpOptions)
 

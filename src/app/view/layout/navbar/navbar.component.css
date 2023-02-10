@@ -6,7 +6,7 @@
     background-color: white;
     box-shadow: 0 5px 1px 1px #9999990d;
     z-index: 200 !important;
-    width: 100%;
+    width: 99%;
     position: fixed;
     padding-left: 10px;
 }
@@ -84,6 +84,7 @@
     border: none;
     position: relative;
     display: inline-block;
+    right: -35px;
 }
 
 .user-avatar .username-f-letter {

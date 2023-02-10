@@ -2,7 +2,33 @@
     <mat-list>
         <mat-nav-list>
 
-            
+            <!-- <div class="fix-top" style="padding-bottom: 10px;">
+                <img src="https://datasee-ai-public-assets.s3.ap-south-1.amazonaws.com/asset_statics/airmap_vue/img/DataSee-removebg-preview.d85b0a77.png" alt="home" width="52" height="40" style="background-color:white;" routerLink="/app/home" class="compact-menu-item"
+                    matTooltip="Dashboard">
+            </div> -->
+            <!-- <div class="fix-top">
+                <a mat-list-item routerLink="/app/home" routerLinkActive="menu-active" class="compact-menu-item" matTooltip="Dashboard">
+                    <i-feather name="home" class="compact-menu-icon"></i-feather>
+                </a>
+                <a mat-list-item routerLink="/map" routerLinkActive="menu-active" class="compact-menu-item" matTooltip="Map">
+                    <i-feather name="map" class="compact-menu-icon"></i-feather>
+                    !--
+                    <li class="material-icons" style="color: var(--lite);">
+                        map
+                    </li> --
+            </a>
+
+            <a mat-list-item routerLink="/app/project/create" routerLinkActive="menu-active" class="compact-menu-item" class="compact-menu-item" matTooltip="Create Project">
+                <i-feather name="plus-square" class="compact-menu-icon"></i-feather>
+                !-- <img src="./assets/images/add.svg " data-toggle="tooltip " title="Create Project " class="compact-menu-icon"> --
+            </a>
+
+            <a mat-list-item routerLink="/app/project/all" routerLinkActive="menu-active" class="compact-menu-item" class="compact-menu-item" matTooltip="All Projects">
+                <i-feather name="play" class="compact-menu-icon"></i-feather>
+                !-- <img src="./assets/images/analytics.svg" data-toggle="tooltip " title="All Projects" class="compact-menu-icon"> --
+            </a>
+
+</div> -->
             <div class="stats-container" *ngIf="Mapiconvisibility == 'Analytics' else templateName">
                 <div class="fix-top">
                     <a mat-list-item routerLink="/app/home" routerLinkActive="menu-active" class="compact-menu-item" matTooltip="Dashboard">
@@ -10,15 +36,20 @@
                     </a>
                     <a mat-list-item routerLink="/map" routerLinkActive="menu-active" class="compact-menu-item" matTooltip="Map">
                         <i-feather name="map" class="compact-menu-icon"></i-feather>
- 
+                        <!--
+                        <li class="material-icons" style="color: var(--lite);">
+                            map
+                        </li> -->
                     </a>
 
                     <a mat-list-item routerLink="/app/project/create" routerLinkActive="menu-active" class="compact-menu-item" class="compact-menu-item" matTooltip="Create Project">
                         <i-feather name="plus-square" class="compact-menu-icon"></i-feather>
+                        <!-- <img src="./assets/images/add.svg " data-toggle="tooltip " title="Create Project " class="compact-menu-icon"> -->
                     </a>
 
                     <a mat-list-item routerLink="/app/project/all" routerLinkActive="menu-active" class="compact-menu-item" class="compact-menu-item" matTooltip="All Projects">
                         <i-feather name="play" class="compact-menu-icon"></i-feather>
+                        <!-- <img src="./assets/images/analytics.svg" data-toggle="tooltip " title="All Projects" class="compact-menu-icon"> -->
                     </a>
 
                 </div>
@@ -31,10 +62,12 @@
 
                     <a mat-list-item routerLink="/app/project/create" routerLinkActive="menu-active" class="compact-menu-item" class="compact-menu-item" matTooltip="Create Project">
                         <i-feather name="plus-square" class="compact-menu-icon"></i-feather>
+                        <!-- <img src="./assets/images/add.svg " data-toggle="tooltip " title="Create Project " class="compact-menu-icon"> -->
                     </a>
 
                     <a mat-list-item routerLink="/app/project/all" routerLinkActive="menu-active" class="compact-menu-item" class="compact-menu-item" matTooltip="All Projects">
                         <i-feather name="play" class="compact-menu-icon"></i-feather>
+                        <!-- <img src="./assets/images/analytics.svg" data-toggle="tooltip " title="All Projects" class="compact-menu-icon"> -->
                     </a>
 
                 </div>
@@ -43,9 +76,11 @@
             <div class="fix-bottom">
                 <a mat-list-item routerLink="/app/faq" routerLinkActive="menu-active" class="compact-menu-item" class="compact-menu-item" matTooltip="FAQ">
                     <i-feather name="help-circle" class="compact-menu-icon"></i-feather>
+                    <!-- <img src="./assets/images/faq nav.svg" data-toggle="tooltip " title="FAQ " class="compact-menu-icon"> -->
                 </a>
                 <a mat-list-item class="compact-menu-item" matTooltip="Logout" (click)="logout()">
                     <i-feather name="log-out" class="compact-menu-icon"></i-feather>
+                    <!-- <img src="./assets/images/logout.svg" data-toggle="tooltip " title="Logout" class="compact-menu-icon"> -->
                 </a>
             </div>
 
@@ -54,55 +89,55 @@
 </div>
 
 
-<!-- <div class="extended-sidebar" fxShow="true" fxHide.gt-sm="true">
+<div class="extended-sidebar" fxShow="true" fxHide.gt-sm="true">
     <mat-list>
         <mat-nav-list>
             <div class="fixed-top">
 
                 <a mat-list-item routerLink="/app/home" routerLinkActive="menu-active">
-                    <mat-icon class="menu-icon">home</mat-icon>
+                    <mat-icon class="menu-icon" style="margin-top:5px;">home</mat-icon>
                     <span class="menu-text" style="font-family: 'Montserrat', Helvetica, sans-serif;">Home</span>
                 </a>
 
                 <mat-divider></mat-divider>
-                <div mat-subheader style="font-family: 'Montserrat', Helvetica, sans-serif;">Quick Menu</div>
+                <div mat-subheader style="font-family: 'Montserrat', Helvetica, sans-serif;color: white;"><b>Quick Menu</b></div>
                 <mat-divider></mat-divider>
 
                 <a mat-list-item routerLink="/app/project/create" routerLinkActive="menu-active">
-                    <mat-icon class="menu-icon">payment</mat-icon>
+                    <mat-icon class="menu-icon" style="margin-top:5px;">payment</mat-icon>
                     <span class="menu-text" style="font-family: 'Montserrat', Helvetica, sans-serif;">Create
                         Project</span>
                 </a>
 
                 <a mat-list-item routerLink="/app/project/all" routerLinkActive="menu-active">
-                    <mat-icon class="menu-icon">multiline_chart</mat-icon>
+                    <mat-icon class="menu-icon" style="margin-top:5px;">multiline_chart</mat-icon>
                     <span class="menu-text" style="font-family: 'Montserrat', Helvetica, sans-serif;">All Project</span>
                 </a>
 
                 <mat-divider></mat-divider>
-                <div mat-subheader style="font-family: 'Montserrat', Helvetica, sans-serif;">More</div>
+                <div mat-subheader style="font-family: 'Montserrat', Helvetica, sans-serif;color: white"><b>More</b></div>
                 <mat-divider></mat-divider>
 
                 <a href="#" mat-list-item>
-                    <mat-icon class="menu-icon">account_circle</mat-icon>
+                    <mat-icon class="menu-icon" style="margin-top:5px;">account_circle</mat-icon>
                     <span class="menu-text" style="font-family: 'Montserrat', Helvetica, sans-serif;">Profile</span>
                 </a>
 
                 <a mat-list-item routerLink="/app/faq" routerLinkActive="menu-active">
-                    <mat-icon class="menu-icon">live_help</mat-icon>
+                    <mat-icon class="menu-icon" style="margin-top:5px;">live_help</mat-icon>
                     <span class="menu-text" style="font-family: 'Montserrat', Helvetica, sans-serif;">FAQ</span>
                 </a>
 
                 <a mat-list-item>
-                    <mat-icon class="menu-icon">notifications</mat-icon>
+                    <mat-icon class="menu-icon" style="margin-top:5px;">notifications</mat-icon>
                     <span class="menu-text" style="font-family: 'Montserrat', Helvetica, sans-serif;">Notifications</span>
                 </a>
 
                 <a mat-list-item (click)="logout()">
-                    <mat-icon class="menu-icon">arrow_forward_ios</mat-icon>
+                    <mat-icon class="menu-icon" style="margin-top:5px;">arrow_forward_ios</mat-icon>
                     <span class="menu-text" style="font-family: 'Montserrat', Helvetica, sans-serif;">Log Out</span>
                 </a>
             </div>
         </mat-nav-list>
     </mat-list>
-</div> -->
+</div>

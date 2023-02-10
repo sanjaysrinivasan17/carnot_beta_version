@@ -32,7 +32,9 @@ export class ProjectDetailsComponent implements OnInit {
   public ortho_file_location;
 
 
+  public project_id_summary_length_asset: any;
   public project_id_summary_length: any;
+  public project_id_summary_count_asset: any;
   public project_id_summary_count: any;
 
   public project_name0: any;
@@ -68,6 +70,7 @@ export class ProjectDetailsComponent implements OnInit {
   public date_summary_val: any;
   public project_id_summary: any;
   main_data: any;
+  main_data1: any;
   main_data_get_all: any;
   progressval: string;
   project_id_summary_alldata: any;
@@ -88,7 +91,8 @@ export class ProjectDetailsComponent implements OnInit {
   slide_new_Index: void;
   user_id: any;
   project_id: any;
-
+  project_type: any;
+  recent_3_projects_length: any;
 
   constructor(private router: Router, private http: HttpClient, private ngxService: NgxUiLoaderService) { }
   ngOnInit(): void {
@@ -97,115 +101,106 @@ export class ProjectDetailsComponent implements OnInit {
     setTimeout(() => {
       this.ngxService.stop();
     }, 3000)
+    // alert("proj det")
     this.user_id = localStorage.getItem("user_id")
     const newName = localStorage.getItem('proj_name');
 
     const token = localStorage.getItem("token");
     const headers = {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json',
     };
-
+    this.recent_3_projects = [];
     // fetch(environment.api_name+'api/project/get_all/1/?filter={"count":""}', { headers })
-  const filter = { count: 3 }
-  fetch(`${environment.api_name}api/project/get_all?filter=${JSON.stringify(filter)}`, {
+
+    const filter1 = { count: 1 }
+    fetch(`${environment.api_name}api/asset/get_all_asset_project?filter=${JSON.stringify(filter1)}`, {
+      headers,
+      credentials: 'omit',
+    }).then(response => response.json())
+      .then(data => {
+        this.main_data1 = data['data']
+        // console.log(this.main_data1);
+        this.project_id_summary_count_asset = Object.keys(data['data'])
+        this.project_id_summary_length_asset = this.project_id_summary_count_asset.length
+
+
+        // console.log(this.project_id_summary_count_asset);
+        // console.log(this.project_id_summary_count_asset.length);
+
+
+        for (var g = 0; g < this.project_id_summary_length_asset; g++) {
+          var status_key = []
+          let date_key = Object.keys(this.main_data1[g]['projectdata']).reverse()
+          var lat =  this.main_data1[g]['projectdata'][date_key[0]]['SCPM']['project_properties']['center']['lat']
+          var lng =  this.main_data1[g]['projectdata'][date_key[0]]['SCPM']['project_properties']['center']['lng']
+          var center = lat +","+ lng
+          date_key.forEach(element => {
+
+            status_key.push(this.main_data1[g]['projectdata'][element]['SCPM']['status'])
+
+          });
+
+          this.recent_3_projects.push({ "name": this.main_data1[g]['name'], "project_id": this.main_data1[g]['id'], "date": date_key, "city": this.main_data1[g]['city'], "status": status_key, "center": center, "project_type": "asset" })
+
+        }
+        // console.log(this.recent_3_projects)
+        this.sort3projects()
+
+      })
+
+
+    const filter = { count: 3 }
+    fetch(`${environment.api_name}api/project/get_all?filter=${JSON.stringify(filter)}`, {
       headers,
       credentials: 'omit',
     }).then(response => response.json())
       .then(data => {
         this.main_data = data['data']
+        // console.log("-------------------------------------------")
+        // console.log(this.main_data)
+        // console.log("-------------------------------------------")
         this.project_id_summary_count = Object.keys(data['data'])
         this.project_id_summary_length = this.project_id_summary_count.length
-        this.recent_3_projects = [];
+
+        // console.log(this.project_id_summary_count);
+        // console.log(this.project_id_summary_count.length);
 
         for (var g = 0; g < this.project_id_summary_length; g++) {
 
           let date_key = Object.keys(this.main_data[g]['date_status']).reverse()
           let status_key = Object.values(this.main_data[g]['date_status']).reverse()
+          // console.log("---"+this.main_data[g]['processed_data'][this.main_data[g]['processed_data'].length-1]["status"])
           // this.recent_3_projects.push({ "name": this.main_data[g]['name'], "date": this.main_data[g]['date'], "city": this.main_data[g]['city'], "status": this.main_data[g]['status'] })
           // this.recent_3_projects.push({ "name": this.main_data[g]['name'], "date": this.main_data[g]['processed_data'][0]['date'], "city": this.main_data[g]['city'], "status": this.main_data[g]['status'] })
-          this.recent_3_projects.push({ "name": this.main_data[g]['name'], "project_id": this.main_data[g]['id'], "date": date_key, "city": this.main_data[g]['city'], "status": status_key})
+          this.recent_3_projects.push({ "name": this.main_data[g]['name'], "project_id": this.main_data[g]['id'], "date": date_key, "city": this.main_data[g]['city'], "status": status_key, "center": this.main_data[g]['center'], "project_type": "carnot" })
         }
+        // console.log(this.recent_3_projects)
 
-        this.center = [];
-        this.recent_3_projects_name = this.recent_3_projects[0].name
-        this.recent_3_projects_date = this.recent_3_projects[0].date[0]
-        this.project_number = "01"
-        localStorage.setItem("slide_index", "1");
-
-        this.project_name = this.main_data[0]['name']
-        var project_name_new = this.main_data[0]['name']
-        this.center_val = this.main_data[0]['center']
-        this.project_id = this.recent_3_projects[0]['project_id']
-        localStorage.setItem("proj_name", project_name_new);
-        localStorage.setItem("project_id", this.project_id);
-
-        this.workflow_status = this.recent_3_projects[0].status[0]
-
-        if (this.workflow_status == "created") {
-          this.new_stepper_index = 1
-          for (var s = 0; s < this.new_stepper_index; s++) {
-            this.stepper.selectedIndex = s;
-
-          }
-        }
-        if (this.workflow_status == "ftp") {
-          this.new_stepper_index = 2
-          for (var s = 0; s < this.new_stepper_index; s++) {
-            this.stepper.selectedIndex = s;
-
-          }
-        }
-        if (this.workflow_status == "processing") {
-          this.new_stepper_index = 3
-          for (var s = 0; s < this.new_stepper_index; s++) {
-            this.stepper.selectedIndex = s;
-
-          }
-        }
-        if (this.workflow_status == "completed") {
-          this.new_stepper_index = 4
-          for (var s = 0; s < this.new_stepper_index; s++) {
-            this.stepper.selectedIndex = s;
-
-          }
-        }
+        this.sort3projects()
       })
 
 
   }
 
-  Clickable_recent3(i, project_name, project_date, project_city, project_status) {
-    this.slideIndex = i + 1
-    this.showSlides(this.slideIndex);
-  }
-  plusSlides(n) {
-    this.slideIndex = parseInt(localStorage.getItem("slide_index")) + n
-    this.showSlides(this.slideIndex);
+  sort3projects() {
+    this.center = [];
+    this.recent_3_projects_length = this.recent_3_projects.length
+    this.recent_3_projects_name = this.recent_3_projects[0].name
+    this.recent_3_projects_date = this.recent_3_projects[0].date[0]
+    this.project_number = "01"
+    localStorage.setItem("slide_index", "1");
 
-  }
-  showSlides(n) {
-
-    this.stepper.reset()
-    this.slides = document.getElementsByClassName("project-card");
-
-    if (n > this.project_id_summary_length) { this.slideIndex = 1 }
-    if (n < 1) { this.slideIndex = this.project_id_summary_length }
-    this.slide_new_Index = localStorage.setItem("slide_index", this.slideIndex);
-
-
-    var project_name_new = this.main_data[this.slideIndex - 1]['name']
-    this.center_val = this.main_data[this.slideIndex - 1]['center']
-    this.project_name = this.main_data[this.slideIndex - 1]['name']
-    this.project_id = this.recent_3_projects[this.slideIndex - 1]['project_id']
+    this.project_name = this.recent_3_projects[0]['name']
+    var project_name_new = this.recent_3_projects[0]['name']
+    this.center_val = this.recent_3_projects[0]['center']
+    this.project_id = this.recent_3_projects[0]['project_id']
+    this.project_type = this.recent_3_projects[0]['project_type']
+    localStorage.setItem("proj_name", project_name_new);
     localStorage.setItem("project_id", this.project_id);
-    this.recent_3_projects_name = this.recent_3_projects[this.slideIndex - 1].name
-    this.recent_3_projects_date = this.recent_3_projects[this.slideIndex - 1].date[0]
-    this.project_number = "0" + this.slideIndex
 
+    this.workflow_status = this.recent_3_projects[0].status[0]
 
-
-    this.workflow_status = this.recent_3_projects[this.slideIndex - 1]['status'][0]
     if (this.workflow_status == "created") {
       this.new_stepper_index = 1
       for (var s = 0; s < this.new_stepper_index; s++) {
@@ -227,10 +222,79 @@ export class ProjectDetailsComponent implements OnInit {
 
       }
     }
-    if (this.workflow_status == "completed") {
+    if (this.workflow_status == "completed" || this.workflow_status == "Complete") {
       this.new_stepper_index = 4
       for (var s = 0; s < this.new_stepper_index; s++) {
         this.stepper.selectedIndex = s;
+
+      }
+    }
+  }
+  Clickable_recent3(i, project_name, project_date, project_city, project_status) {
+    this.slideIndex = i + 1
+    this.showSlides(this.slideIndex);
+  }
+  plusSlides(n) {
+    this.slideIndex = parseInt(localStorage.getItem("slide_index")) + n
+    this.showSlides(this.slideIndex);
+
+  }
+  showSlides(n) {
+
+    this.stepper.reset()
+    this.slides = document.getElementsByClassName("project-card");
+    // alert(this.slides.length)
+
+    if (n > this.recent_3_projects.length) { this.slideIndex = 1 }
+    if (n < 1) { this.slideIndex = this.recent_3_projects.length }
+    this.slide_new_Index = localStorage.setItem("slide_index", this.slideIndex);
+
+
+    var project_name_new = this.recent_3_projects[this.slideIndex - 1]['name']
+    // alert(this.main_data[this.slideIndex - 1]['center'])
+    this.center_val = this.recent_3_projects[this.slideIndex - 1]['center']
+    this.project_name = this.recent_3_projects[this.slideIndex - 1]['name']
+    // alert(this.slideIndex - 1)
+    this.project_id = this.recent_3_projects[this.slideIndex - 1]['project_id']
+    this.project_type = this.recent_3_projects[this.slideIndex - 1]['project_type']
+    localStorage.setItem("project_id", this.project_id);
+    this.recent_3_projects_name = this.recent_3_projects[this.slideIndex - 1].name
+    this.recent_3_projects_date = this.recent_3_projects[this.slideIndex - 1].date[0]
+    this.project_number = "0" + this.slideIndex
+
+
+
+    this.workflow_status = this.recent_3_projects[this.slideIndex - 1]['status'][0]
+    if (this.workflow_status == "created") {
+      this.new_stepper_index = 1
+      for (var s = 0; s < this.new_stepper_index; s++) {
+        // alert(s)
+        this.stepper.selectedIndex = s;
+
+      }
+    }
+    if (this.workflow_status == "ftp") {
+      this.new_stepper_index = 2
+      for (var s = 0; s < this.new_stepper_index; s++) {
+        // alert(s)
+        this.stepper.selectedIndex = s;
+
+      }
+    }
+    if (this.workflow_status == "processing") {
+      this.new_stepper_index = 3
+      for (var s = 0; s < this.new_stepper_index; s++) {
+        // alert(s)
+        this.stepper.selectedIndex = s;
+
+      }
+    }
+    if (this.workflow_status == "completed" || this.workflow_status == "Complete") {
+      this.new_stepper_index = 4
+      for (var s = 0; s < this.new_stepper_index; s++) {
+        // alert(s)
+        this.stepper.selectedIndex = s;
+
       }
     }
 
@@ -242,20 +306,31 @@ export class ProjectDetailsComponent implements OnInit {
 
 
   public gotomap() {
+    // alert(this.recent_3_projects_date)
     localStorage.setItem("date", this.recent_3_projects_date);
     localStorage.setItem("center", this.center_val);
-    sessionStorage.setItem("project_type","carnot")
+    sessionStorage.setItem("project_type", "carnot")
     localStorage.setItem("project_id", this.project_id);
-    localStorage.setItem("proj_name",this.project_name);
-    this.router.navigate(['map'])
+    localStorage.setItem("proj_name", this.project_name);
+    if (this.project_type == 'carnot') {
+      this.router.navigate(['/map'])
+
+    } else if (this.project_type == 'asset') {
+      this.router.navigate(['/Assetmap'])
+
+    }
   }
   public gotoAnalytics() {
     localStorage.setItem("date", this.recent_3_projects_date);
     localStorage.setItem("center", this.center_val);
-    sessionStorage.setItem("project_type","carnot")
+    sessionStorage.setItem("project_type", "carnot")
     localStorage.setItem("project_id", this.project_id);
-    localStorage.setItem("proj_name",this.project_name);
-    this.router.navigate(['app/analytics'])
+    localStorage.setItem("proj_name", this.project_name);
+    // this.router.navigate(['app/analytics'])
+    if (this.project_type == 'carnot') {
+      this.router.navigate(['app/analytics'])
+
+    } 
   }
 
 }

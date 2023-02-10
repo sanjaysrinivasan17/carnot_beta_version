@@ -8,7 +8,7 @@
         <link rel="stylesheet" href="https://www.w3schools.com/lib/w3.css">
         <link rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
-        <div *ngIf=" project_id_summary_count=='' || project_id_summary_count=='status,Exception' else templateName"
+        <div *ngIf=" (project_id_summary_count=='' || project_id_summary_count=='status,Exception') && (project_id_summary_length_asset == '') else templateName"
             class="newproject" (click)="gotocreateproject() ">
             <div class=" header" style="font-family: 'Montserrat', ' Helvetica Neue ', sans-serif;">
                 <span class="material-icons w15-jumbo" style="font-size: 400px;">

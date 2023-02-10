@@ -410,6 +410,10 @@ export class AnalyticsComponent implements OnInit {
 
   public Chart_hide_show: any;
   public Chart_hide_show_revenue: any;
+  anamolies_style: any;
+  inverter_style: any;
+  health_style: any;
+  powerloss_style: any;
 
 
 
@@ -478,8 +482,8 @@ export class AnalyticsComponent implements OnInit {
           .then(response => response.json())
           .then(data => {
             this.main_data = data['data']
-            console.log(this.main_data)
-            console.log("------------------------------------------------------------------------")
+            // console.log(this.main_data)
+            // console.log("------------------------------------------------------------------------")
             // alert()
             this.project_id_summary = Object.keys(data['data'])
             this.date_summary = Object.keys(data['data']['date_status'])
@@ -515,29 +519,10 @@ export class AnalyticsComponent implements OnInit {
             // alert("for wait")
             // alert(this.Completed_date_array.length)
 
-            if (this.Completed_date_array.length == 0) {
-              // alert("empty")
-              var style = "";
-              var style2 = "";
-
-              // this.firstvalue = "n";
-              style = "none";
-              style2 = "block";
-              this.resourcesLoaded = false;
-
-              this.Project_layer_summary_values = 0
-
-              // // // console.log(this.firstvalue + "-----" + this.Project_layer_summary_values.length)
-              var formElement = document.getElementById("powerlossNo");
-              formElement.style.display = style;
-              var formElement2 = document.getElementById("powerlossYes");
-              formElement2.style.display = style2;
-              // alert(style)
-
-
-            }
-            console.log(Object.keys(this.main_data['processed_data']))
-            console.log(Object.keys(this.main_data['processed_data'][this.datevalue]['summary_layers']))
+            
+            // alert(this.powerloss_style)
+            // console.log(Object.keys(this.main_data['processed_data']))
+            // console.log(Object.keys(this.main_data['processed_data'][this.datevalue]['summary_layers']))
             localStorage.setItem("date", this.datevalue);
             this.power_loss_keys = []
             this.Project_layer_summary = Object.keys(this.main_data['processed_data'][this.datevalue]['summary_layers'])
@@ -557,11 +542,15 @@ export class AnalyticsComponent implements OnInit {
             this.total_no_defects_datewise = (this.main_data['processed_data'][this.datevalue]['total_no_defects'])
             this.total_module_count = (this.main_data['processed_data'][this.datevalue]['total_modules_present'])
             // alert(this.total_module_count)
-            // // // console.log(this.power_loss_keys)
-            // alert(this.power_loss_values)
+            // console.log(this.power_loss_keys)
+            // alert(this.power_loss_values.length)
             // // // console.log("------------------------------------------------------------------------"+this.datevalue)
             // alert('-'+Object.keys(this.main_data['processed_data'][this.datevalue]['power_loss'])+'-')
-
+            if (this.power_loss_keys.length == 0) {
+              this.powerloss_style = 'hidden'
+            }else if(this.power_loss_keys.length != 0){
+              this.powerloss_style = 'show'
+            }
             this.current_year = this.datevalue
             this.health_history_data = []
             this.total_power_loss_dates = []
@@ -1284,21 +1273,22 @@ export class AnalyticsComponent implements OnInit {
     this.total_count = [];
     if (this.Completed_date_array.length == 0) {
       // alert("empty")
-      var style = "";
-      var style2 = "";
+      // var style = "";
+      // var style2 = "";
 
-      // this.firstvalue = "n";
-      style2 = "none";
-      style = "block";
+      // // this.firstvalue = "n";
+      // style2 = "none";
+      // style = "block";
       this.resourcesLoaded = false;
+      this.powerloss_style = "hidden"
 
       this.Project_layer_summary_values = 0
 
-      // // console.log(this.firstvalue + "-----" + this.Project_layer_summary_values.length)
-      var formElement = document.getElementById("powerlossNo");
-      formElement.style.display = style;
-      var formElement2 = document.getElementById("powerlossYes");
-      formElement2.style.display = style2;
+      // // // console.log(this.firstvalue + "-----" + this.Project_layer_summary_values.length)
+      // var formElement = document.getElementById("powerlossNo");
+      // formElement.style.display = style;
+      // var formElement2 = document.getElementById("powerlossYes");
+      // formElement2.style.display = style2;
       // alert(style)
       return
 
@@ -1322,56 +1312,36 @@ export class AnalyticsComponent implements OnInit {
     this.total_power_loss_datewise = (this.main_data['processed_data'][this.datevalue]['total_power_loss'])
     this.total_no_defects_datewise = (this.main_data['processed_data'][this.datevalue]['total_no_defects'])
     this.total_module_count = (this.main_data['processed_data'][this.datevalue]['total_modules_present'])
-    var style = "";
-    var style2 = "";
     // alert(this.Project_layer_summary)
     if (this.Completed_date_array.length != 0) {
 
       if (this.power_loss_values.length != 0) {
-        // this.firstvalue = "";
-        style = "none";
-        style2 = "block";
+      
+        this.powerloss_style = "show"
 
       } else if (this.power_loss_values.length == 0) {
-        // this.firstvalue = "n";
-        style = "block";
-        style2 = "none";
-
+        
+        this.powerloss_style = "hidden"
       }
-      // alert("length")
-      // // console.log(this.firstvalue + "-----" + this.Project_layer_summary_values.length)
-      var formElement = document.getElementById("powerlossNo");
-      formElement.style.display = style;
-      var formElement2 = document.getElementById("powerlossYes");
-      formElement2.style.display = style2;
+      
     }
 
+    this.resourcesLoaded = false;
 
-    // // console.log(this.Project_layer_inverter_data)
     this.summary_data_values = []
     for (var i = 0; i < this.Project_layer_summary.length; i++) {
 
-      // // console.log(this.Project_layer_summary[i])
-      // // console.log(this.Project_layer_summary_values[i])
-      // // console.log(this.Project_layer_summary_values[i]['Count'])
-      // alert(this.Project_layer_summary[i])
       this.summary_data_values.push(this.Project_layer_summary_values[i]['Count'])
 
       this.project_layer_summary_data.push(this.Project_layer_summary_values[i]['Count'])
       this.project_layer_summary_lable.push(this.Project_layer_summary[i])
-      //   // console.log("----data----"+this.Project_layer_summary_values[i]['Count'])
-      //   // console.log("----lable----"+this.Project_layer_summary[i])
+      
     }
-    // // console.log("=====ytehdn======"+this.project_layer_summary_lable)
     this.ana_def_def = this.project_layer_summary_lable[0]
     this.ana_def_cou = this.project_layer_summary_data[0]
-    // alert("----thisana_def_def--"+this.ana_def_def)
-    // alert("----ana_def_cou--"+this.ana_def_cou)
+
 
     for (var i = 0; i < this.Project_layer_inverter_data.length; i++) {
-      // alert(this.Project_layer_inverter_data[i]+"-----"+this.Project_layer_inverter_data_values[i]['Hotspot']['count'])
-
-
 
       this.Hotspot_inv_val.push(this.Project_layer_inverter_data_values[i][this.Project_layer_summary[0]]['count'])
       this.ShortCircit_inv_val.push(this.Project_layer_inverter_data_values[i][this.Project_layer_summary[1]]['count'])
@@ -1379,8 +1349,8 @@ export class AnalyticsComponent implements OnInit {
       this.pannel_inv_val.push(this.Project_layer_inverter_data_values[i][this.Project_layer_summary[3]]['count'])
       this.Pid_val.push(this.Project_layer_inverter_data_values[i][this.Project_layer_summary[4]]['count'])
       this.inver_wise_lable.push(this.Project_layer_inverter_data[i])
-      // // console.log(this.datevalue+"====="+[i]+"====="+this.Project_layer_inverter_data_values[i]['Hotspot']['count']+"---"+this.Project_layer_inverter_data_values[0]['Short Circuit']['count']+"===="+this.Project_layer_inverter_data_values[i]['Open Circuit']['count']+"-----"+this.Project_layer_inverter_data_values[i]['Panel Failure']['count']+"====="+this.Project_layer_inverter_data_values[i]['PID']['count'])
       this.inver_wise_def_lable = this.inver_wise_lable[0]
+
       this.inver_wise_def_hot = this.Project_layer_inverter_data_values[0][this.Project_layer_summary[0]]['count']
       this.inver_wise_def_sc = this.Project_layer_inverter_data_values[0][this.Project_layer_summary[1]]['count']
       this.inver_wise_def_os = this.Project_layer_inverter_data_values[0][this.Project_layer_summary[2]]['count']
@@ -1394,7 +1364,6 @@ export class AnalyticsComponent implements OnInit {
     for (var v = 0; v < this.health_history_key_data.length; v++) {
       var modulecount_defectwise = ((this.health_history[v] / this.total_module_count) * 1000000).toFixed(2)
       this.module_count_defectwise_value.push(modulecount_defectwise)
-      // console.log(this.module_count_defectwise_value + "--------" + this.health_history[v])
     }
     for (var n = 0; n < this.Project_layer_inverter_data.length; n++) {
 
@@ -1405,18 +1374,16 @@ export class AnalyticsComponent implements OnInit {
     power_loss_merics = this.total_power_loss_datewise;
 
     for (var z = 0; z < this.power_loss_keys.length; z++) {
-      // alert(this.power_loss_values[z])
       Total_power_loss = Total_power_loss + this.power_loss_values[z]
     }
     var powerloss_data = [];
     var powerloss_key = [];
     for (var z = 0; z < this.power_loss_keys.length; z++) {
-      // alert(this.power_loss_values[z])
       var percentage_calc = (this.power_loss_values[z] / Total_power_loss)
       var n_percentage_calc = parseFloat((Math.round(this.total_power_loss_datewise * percentage_calc * 100) / 100).toFixed(2));
 
       this.Total_power_loss_percenntage.push(n_percentage_calc)
-      // alert(this.power_loss_values[z])
+
       powerloss_key.push(this.power_loss_keys[z])
       powerloss_data.push(this.power_loss_values[z])
     }
@@ -1785,21 +1752,22 @@ export class AnalyticsComponent implements OnInit {
 
       if (this.health_history.length != 0) {
         // this.firstvalue = "";
-        style = "none";
-        style2 = "block";
+        // style = "none";
+        // style2 = "block";
+        this.health_style = "show"
 
       } else if (this.health_history.length == 0) {
         // this.firstvalue = "n";
-        style = "block";
-        style2 = "none";
-
+        // style = "block";
+        // style2 = "none";
+        this.health_style = "hidden"
       }
       // alert("length")
       // // console.log(this.firstvalue + "-----" + this.Project_layer_summary_values.length)
-      var formElement = document.getElementById("powerlossNo");
-      formElement.style.display = style;
-      var formElement2 = document.getElementById("powerlossYes");
-      formElement2.style.display = style2;
+      // var formElement = document.getElementById("powerlossNo");
+      // formElement.style.display = style;
+      // var formElement2 = document.getElementById("powerlossYes");
+      // formElement2.style.display = style2;
     }
     this.resourcesLoaded = false;
     var health_history_keys = [];
@@ -2034,24 +2002,25 @@ export class AnalyticsComponent implements OnInit {
     // // this.firstvalue = "n"
     // // console.log(da,"-----"+lable)
     this.firstvalue = "n"
-    var style = "";
-    var style2 = "";
+
     if (this.Project_layer_inverter_data_values.length != 0) {
       // this.firstvalue = "";
-      style = "none";
-      style2 = "block";
+      // style = "none";
+      // style2 = "block";
+      this.inverter_style = "show"
 
     } else if (this.Project_layer_inverter_data_values.length == 0) {
       // this.firstvalue = "n";
-      style = "block";
-      style2 = "none";
+      // style = "block";
+      // style2 = "none";
+      this.inverter_style = "hidden"
 
     }
     // // console.log(this.firstvalue + "-----" + this.Project_layer_summary_values.length)
-    var formElement = document.getElementById("powerlossNo");
-    formElement.style.display = style;
-    var formElement2 = document.getElementById("powerlossYes");
-    formElement2.style.display = style2;
+    // var formElement = document.getElementById("powerlossNo");
+    // formElement.style.display = style;
+    // var formElement2 = document.getElementById("powerlossYes");
+    // formElement2.style.display = style2;
 
     this.chartOptions6 = {
       series: [
@@ -2341,31 +2310,33 @@ export class AnalyticsComponent implements OnInit {
     // alert(this.project_layer_summary_data)
     // console.log(this.project_layer_summary_data)
     // alert(this.project_layer_summary_data.length)
-    // this.firstvalue = "n"
+    this.firstvalue = "n"
     var style = "";
     var style2 = "";
     if (this.project_layer_summary_data.length != 0) {
-      this.firstvalue = "";
-      style = "none";
-      style2 = "block";
+      // this.firstvalue = "";
+      // style = "none";
+      // style2 = "block";
+      this.anamolies_style = 'show'
 
     } else if (this.project_layer_summary_data.length == 0) {
-      this.firstvalue = "n";
-      style = "block";
-      style2 = "none";
+      // this.firstvalue = "n";
+      // style = "block";
+      // style2 = "none";
+      this.anamolies_style = 'hidden'
 
     }
     // alert(style2)
     // console.log(this.firstvalue + "-----" + this.Project_layer_summary_values.length)
-    console.log(document.getElementById("powerlossNo"));
-    console.log(document.getElementById("powerlossYes"));
+    // console.log(<HTMLInputElement>document.getElementById("powerlossNo"));
+    // console.log(document.getElementById("powerlossYes"));
 
-    var formElement = document.getElementById("powerlossNo");
-    formElement.style.display = style;
-    var formElement2 = document.getElementById("powerlossYes");
-    formElement2.style.display = style2;
+    // var formElement = (<HTMLInputElement>document.getElementById("powerlossNo"));
+    // formElement.style.display = style;
+    // var formElement2 = (<HTMLInputElement>document.getElementById("powerlossYes"));
+    // formElement2.style.display = style2;
     // alert("s")
-    console.log(formElement2);
+    // console.log(formElement2);
 
     var perc_for_anam = 0;
     this.ana_def_cou_desc = []
