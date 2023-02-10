@@ -1297,6 +1297,14 @@ export class SidebarComponent implements OnInit {
     // });
   }
 
+  logout() {
+    // alert(localStorage['token'])
+    localStorage.clear();
+    // alert(localStorage['token'])
+    if (localStorage['token'] == undefined) {
+      this.router.navigate(["/auth/login"])
+    }
+  }
   gotologin(){
     this.router.navigate(['auth/login'])
    }

@@ -767,6 +767,11 @@ export class MapSectionComponent implements OnInit {
       .then(response => response.json())
       .then(datavalue => {
 
+        console.log(datavalue);
+        if (datavalue['data'] != "Data Not Available"){
+          this.toastr.success('Mission and Flight data are ready');
+        }
+        
         if (datavalue['data'] != "Data Not Available" && datavalue['data'].length > 0) {
           this.toastr.success('Mission and Flight data are ready');
         }

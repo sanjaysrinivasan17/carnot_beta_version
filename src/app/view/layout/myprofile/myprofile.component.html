@@ -1,10 +1,67 @@
+<mat-toolbar style="background-color: white; position: relative;">
+    <span class="app-logo">
+        <!-- <span class="logo">
+            Carnot
+        </span> -->
+        <img class="logo" style="width: 135px;height: 30px;" src="../../../../assets/images/Data See logo.png"
+            routerLink="/app/home">
+    </span>
+    <span class="menu-section" fxShow="true" fxHide.lt-md="true">
+
+        <div class="quick-menu">
+            <span class="account">
+                <!-- <button mat-icon-button color="primary">
+                    <mat-icon>settings</mat-icon>
+                </button>
+                <button mat-icon-button color="primary">
+                    <mat-icon matBadge="1" matBadgeColor="accent">notifications</mat-icon>
+                </button> -->
+            </span>
+        </div>
+
+        <button class="user-details ml-4" mat-button [matMenuTriggerFor]="menu">
+            <div class="user-avatar">
+                <div class="username-f-letter">{{firstletter}}</div>
+            </div>
+            <div class="user-info" style="font-family: 'Montserrat', Helvetica, sans-serif;">
+                <!-- <div class="username">
+                    {{firstname}} {{lastname}}
+                </div>
+                <div class="role" style="font-family: 'Montserrat', Helvetica, sans-serif;">
+                    Admin
+                </div> -->
+            </div>
+        </button>
+        <mat-menu #menu="matMenu">
+            <!-- <button mat-menu-item [routerLink]="['/app/myprofile']" routerLinkActive="menu-active"
+                style="font-family: 'Montserrat', Helvetica, sans-serif;">
+                <mat-icon>account_circle</mat-icon>My Profile
+            </button> -->
+            <button mat-menu-item>Account Settings</button> 
+        <button mat-menu-item [routerLink]="['/app/manageuser']" routerLinkActive="menu-active" style="font-family: 'Montserrat', Helvetica, sans-serif;">
+                <mat-icon>supervised_user_circle</mat-icon>Manage users
+            </button>
+            <button mat-menu-item (click)="logout()" style="font-family: 'Montserrat', Helvetica, sans-serif;">
+                <mat-icon>logout</mat-icon>Logout
+            </button>
+        </mat-menu>
+    </span>
+    <!-- <span class="menu-toggle" fxShow="true" fxHide.gt-sm="true">
+        <button mat-icon-button (click)="openSidebar()">
+            <mat-icon>menu</mat-icon>
+        </button>
+    </span> -->
+</mat-toolbar>
+
+
+
 <form [formGroup]="profileForm">
     <mat-card class="profile-card">
         <mat-card-content class="mt-5">
-            <div class="info_text" >
+            <div class="info_text">
                 Edit profile
             </div>
-            <div class="user-container" style="margin-top: 10px;">
+            <div class="user-container">
                 <img [src]="url" id="photo">
                 <input type="file" (change)="onselectFile($event)" id="file">
                 <label for="file" id="uploadBtn" class="text" style="color: white;">Choose a Picture</label>
@@ -18,98 +75,130 @@
             <div class="profile-form">
 
                 <mat-form-field appearance="outline" class="w-50 pr-2">
-                    <mat-label style="font-family: 'Montserrat', Helvetica, sans-serif;" class="field-content">First Name</mat-label>
-                    <input matInput name="fname" id="fname" style="font-family: 'Montserrat', Helvetica, sans-serif;"  formControlName="fname"  [(ngModel)]="fname" required [disabled]="true">
+                    <mat-label style="font-family: 'Montserrat', Helvetica, sans-serif;" class="field-content">First
+                        Name</mat-label>
+                    <input matInput name="fname" id="fname" style="font-family: 'Montserrat', Helvetica, sans-serif;"
+                        formControlName="fname" [(ngModel)]="fname" required [disabled]="true">
                 </mat-form-field>
 
                 <mat-form-field appearance="outline" class="w-50  pl-2">
-                    <mat-label style="font-family: 'Montserrat', Helvetica, sans-serif;" class="field-content">Last Name</mat-label>
-                    <input matInput name="lname"  id="lname" style="font-family: 'Montserrat', Helvetica, sans-serif;" formControlName="lname"  [(ngModel)]="lname" required [disabled]="true">
-                </mat-form-field>
-
-                <mat-form-field appearance="outline" class="ccc">
-                    <mat-label style="font-family: 'Montserrat', Helvetica, sans-serif;" class="field-content">User Name</mat-label>
-                    <input matInput name="uname"  id="uname" style="font-family: 'Montserrat', Helvetica, sans-serif;" formControlName="uname" [(ngModel)]="uname" required [disabled]="true">
-                </mat-form-field>
-
-                <mat-form-field appearance="outline" class="w-50 pl-2">
-                    <mat-label style="font-family: 'Montserrat', Helvetica, sans-serif;" class="field-content">Mobile Number</mat-label>
-                    <input matInput placeholder="+91 7824359062" name="mnum"  id="mnum" style="font-family: 'Montserrat', Helvetica, sans-serif;" formControlName="mnum" [(ngModel)]="mnum" required>
+                    <mat-label style="font-family: 'Montserrat', Helvetica, sans-serif;" class="field-content">Last Name
+                    </mat-label>
+                    <input matInput name="lname" id="lname" style="font-family: 'Montserrat', Helvetica, sans-serif;"
+                        formControlName="lname" [(ngModel)]="lname" required [disabled]="true">
                 </mat-form-field>
 
                 <mat-form-field appearance="outline" class="w-50 pr-2">
-                    <mat-label style="font-family: 'Montserrat', Helvetica, sans-serif;" class="field-content">Email Address</mat-label>
-                    <input matInput placeholder="datasee@gmail.com" name="mail"  id="mail" style="font-family: 'Montserrat', Helvetica, sans-serif;" formControlName="mail" [(ngModel)]="mail" required>
+                    <mat-label style="font-family: 'Montserrat', Helvetica, sans-serif;" class="field-content">User Name
+                    </mat-label>
+                    <input matInput name="uname" id="uname" style="font-family: 'Montserrat', Helvetica, sans-serif;"
+                        formControlName="uname" [(ngModel)]="uname" required [disabled]="true">
                 </mat-form-field>
 
                 <mat-form-field appearance="outline" class="w-50 pl-2">
-                    <mat-label style="font-family: 'Montserrat', Helvetica, sans-serif;" class="field-content">Organization</mat-label>
-                    <input matInput  name="companyname"  id="companyname" style="font-family: 'Montserrat', Helvetica, sans-serif;" formControlName="companyname" [(ngModel)]="companyname" required>
+                    <mat-label style="font-family: 'Montserrat', Helvetica, sans-serif;" class="field-content">Mobile
+                        Number</mat-label>
+                    <input matInput placeholder="+91 7824359062" name="mnum" id="mnum"
+                        style="font-family: 'Montserrat', Helvetica, sans-serif;" formControlName="mnum"
+                        [(ngModel)]="mnum" required>
                 </mat-form-field>
 
                 <mat-form-field appearance="outline" class="w-50 pr-2">
-                    <mat-label style="font-family: 'Montserrat', Helvetica, sans-serif;" class="field-content">Country</mat-label>
-                   
-                    <mat-select name="country" [(ngModel)]="country.isoCode" id="country" (ngModelChange)="selectChange($event.value)" style="font-family: 'Montserrat', Helvetica, sans-serif;"
-                    [disableOptionCentering]="true" matTooltip="Change Country">
-                    <mat-option [value]="country.isoCode" *ngFor="let country of country_data; let i=index" style="background-color: white;font-family: 'Montserrat', Helvetica, sans-serif;">
-                        {{country.name}}
-
-                    </mat-option>
-
-                </mat-select>
+                    <mat-label style="font-family: 'Montserrat', Helvetica, sans-serif;" class="field-content">Email
+                        Address</mat-label>
+                    <input matInput placeholder="datasee@gmail.com" name="mail" id="mail"
+                        style="font-family: 'Montserrat', Helvetica, sans-serif;" formControlName="mail"
+                        [(ngModel)]="mail" required>
                 </mat-form-field>
 
                 <mat-form-field appearance="outline" class="w-50 pl-2">
-                    <mat-label style="font-family: 'Montserrat', Helvetica, sans-serif;" class="field-content">State</mat-label>
+                    <mat-label style="font-family: 'Montserrat', Helvetica, sans-serif;" class="field-content">
+                        Organization</mat-label>
+                    <input matInput name="companyname" id="companyname"
+                        style="font-family: 'Montserrat', Helvetica, sans-serif;" formControlName="companyname"
+                        [(ngModel)]="companyname" required>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="w-50 pr-2">
+                    <mat-label style="font-family: 'Montserrat', Helvetica, sans-serif;" class="field-content">Country
+                    </mat-label>
+
+                    <mat-select name="country" [(ngModel)]="country.isoCode" id="country"
+                        (ngModelChange)="selectChange($event.value)"
+                        style="font-family: 'Montserrat', Helvetica, sans-serif;" [disableOptionCentering]="true"
+                        matTooltip="Change Country">
+                        <mat-option [value]="country.isoCode" *ngFor="let country of country_data; let i=index"
+                            style="background-color: white;font-family: 'Montserrat', Helvetica, sans-serif;">
+                            {{country.name}}
+
+                        </mat-option>
+
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="w-50 pl-2">
+                    <mat-label style="font-family: 'Montserrat', Helvetica, sans-serif;" class="field-content">State
+                    </mat-label>
                     <!-- <mat-select style="font-family: 'Montserrat', Helvetica, sans-serif;" placeholder="state" (selectionChange)="selectState($event.value)">
                         <mat-option style="font-family: 'Montserrat', Helvetica, sans-serif;" value="" selected>Select State</mat-option>
                         <mat-option style="font-family: 'Montserrat', Helvetica, sans-serif;" *ngFor="let state of states_data" [value]="state.isoCode">
                             {{ state.name }}
                         </mat-option>
                     </mat-select> -->
-                    <mat-select name="state" [(ngModel)]="state.isoCode" id="state" (ngModelChange)="selectState($event.value)" style="font-family: 'Montserrat', Helvetica, sans-serif;"
-                    [disableOptionCentering]="true" matTooltip="Change state">
-                    <mat-option [value]="state.isoCode" *ngFor="let state of states_data; let i=index" style="background-color: white;font-family: 'Montserrat', Helvetica, sans-serif;">
-                        {{state.name}}
+                    <mat-select name="state" [(ngModel)]="state.isoCode" id="state"
+                        (ngModelChange)="selectState($event.value)"
+                        style="font-family: 'Montserrat', Helvetica, sans-serif;" [disableOptionCentering]="true"
+                        matTooltip="Change state">
+                        <mat-option [value]="state.isoCode" *ngFor="let state of states_data; let i=index"
+                            style="background-color: white;font-family: 'Montserrat', Helvetica, sans-serif;">
+                            {{state.name}}
 
-                    </mat-option>
+                        </mat-option>
 
-                </mat-select>
+                    </mat-select>
 
                 </mat-form-field>
 
                 <mat-form-field appearance="outline" class="w-50 pr-2">
-                    <mat-label style="font-family: 'Montserrat', Helvetica, sans-serif;" class="field-content">City</mat-label>
+                    <mat-label style="font-family: 'Montserrat', Helvetica, sans-serif;" class="field-content">City
+                    </mat-label>
                     <!-- <mat-select style="font-family: 'Montserrat', Helvetica, sans-serif;" placeholder="city" (selectionChange)="selectCity($event.value)">
                         <mat-option style="font-family: 'Montserrat', Helvetica, sans-serif;" value="" selected>Select City</mat-option>
                         <mat-option style="font-family: 'Montserrat', Helvetica, sans-serif;" *ngFor="let city_data of cities_data" [value]="city_data.name">
                             {{ city_data.name }}
                         </mat-option>
                     </mat-select> -->
-                    <mat-select name="city" [(ngModel)]="city.name" id="city" (ngModelChange)="selectCity($event.value)" style="font-family: 'Montserrat', Helvetica, sans-serif;"
-                    [disableOptionCentering]="true" matTooltip="Change city">
-                    <mat-option [value]="city.name" *ngFor="let city of cities_data; let i=index" style="background-color: white;font-family: 'Montserrat', Helvetica, sans-serif;">
-                        {{city.name}}
+                    <mat-select name="city" [(ngModel)]="city.name" id="city" (ngModelChange)="selectCity($event.value)"
+                        style="font-family: 'Montserrat', Helvetica, sans-serif;" [disableOptionCentering]="true"
+                        matTooltip="Change city">
+                        <mat-option [value]="city.name" *ngFor="let city of cities_data; let i=index"
+                            style="background-color: white;font-family: 'Montserrat', Helvetica, sans-serif;">
+                            {{city.name}}
 
-                    </mat-option>
+                        </mat-option>
 
-                </mat-select>
+                    </mat-select>
                 </mat-form-field>
 
                 <mat-form-field appearance="outline" class="w-50 pl-2">
-                    <mat-label style="font-family: 'Montserrat', Helvetica, sans-serif;" class="field-content">Pincode</mat-label>
-                    <input matInput #input maxlength="6" placeholder="Chennai" style="font-family: 'Montserrat', Helvetica, sans-serif;" name="pincode" formControlName="pincode"  [(ngModel)]="pincode" required>
+                    <mat-label style="font-family: 'Montserrat', Helvetica, sans-serif;" class="field-content">Pincode
+                    </mat-label>
+                    <input matInput #input maxlength="6" placeholder="Chennai"
+                        style="font-family: 'Montserrat', Helvetica, sans-serif;" name="pincode"
+                        formControlName="pincode" [(ngModel)]="pincode" required>
                 </mat-form-field>
             </div>
         </mat-card-content>
 
         <div class="signup-btn-container">
-            <button mat-button class="btn pl-5 pr-5 stepper-action-btn signup-btn text-uppercase" style="padding-right: 5px;font-family: 'Montserrat', Helvetica, sans-serif;"
-            (click)= saveDetails()>Save</button>
+            <button mat-button class="btn pl-5 pr-5 stepper-action-btn signup-btn text-uppercase"
+                style="padding-right: 5px;font-family: 'Montserrat', Helvetica, sans-serif;"
+                (click)=saveDetails()>Save</button>
             <!-- <button mat-button class="btn pl-5 pr-5 stepper-action-btn signup-btn text-uppercase" style="padding-right: 5px;font-family: 'Montserrat', Helvetica, sans-serif;"
             (click)= saveDetails(fname.value,lname.value,uname.value,mnum.value,mail.value)>Save</button> -->
-            <button mat-button class="btn pl-5 pr-5 stepper-action-btn signup-btn text-uppercase" style="padding-left: 5px; font-family: 'Montserrat', Helvetica, sans-serif;" (click)="gotodashboard()">Back</button>
+            <button mat-button class="btn pl-5 pr-5 stepper-action-btn signup-btn text-uppercase"
+                style="padding-left: 5px; font-family: 'Montserrat', Helvetica, sans-serif;"
+                (click)="gotodashboard()">Back</button>
         </div>
     </mat-card>
 </form>

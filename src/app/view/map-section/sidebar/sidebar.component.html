@@ -77,7 +77,16 @@
                 <div class="menu-active" id="download"></div>
                 <i-feather name="download" class="menu-icon" data-toggle="tooltip" title="Download" (click)="downloadMyFile(report_path)"></i-feather>
             </div>
+            <!-- <div class="menu">
+                <div class="menu-active" id="myprofile" routerLink="/app/myprofile" routerLinkActive="menu-active"></div>
+                <i-feather name="user" class="menu-icon" data-toggle="tooltip" title="Myprofile" ></i-feather>
+            </div> -->
+            <div class="menu">
+                <div class="menu-active" id="Logout"></div>
+                <i-feather name="log-out" class="menu-icon" data-toggle="tooltip" title="Logout" (click)="logout()"></i-feather>
+            </div>
         </div>
+
     </div>
 </div>
 <!-- Side Navigation Ends openSharedialog(i.name,i.id)-->

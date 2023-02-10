@@ -12,6 +12,9 @@
     display: grid;
     grid-template-columns: auto auto;
 }
+.apexcharts-menu {
+    text-align: left;
+}
 
 .grid-item {
     width: 508px;
@@ -28,7 +31,11 @@ span {
 div {
     font-family: 'Montserrat', Helvetica, sans-serif;
 }
-
+::ng-deep .mat-mdc-tab-list {
+    flex-grow: 0 !important;
+    position: relative;
+    transition: transform 500ms cubic-bezier(0.35, 0, 0.25, 1);
+}
 ::ng-deep .mat-select-panel-wrap {
     flex-basis: 105%;
     position: top;
@@ -97,6 +104,7 @@ div {
     border-radius: 2px;
     border-bottom: 1px solid #cbcee8;
     box-shadow: 0 12px 11px -3px rgba(113, 126, 195, .25);
+    font-weight: bold;
 }
 
 .page-titless {
@@ -318,7 +326,7 @@ select {
 .ForDateSelect {
     position: fixed;
     right: -5px;
-    top: 79px;
+    top: 105px;
     width: 180px;
     position: absolute;
     z-index: 1000;

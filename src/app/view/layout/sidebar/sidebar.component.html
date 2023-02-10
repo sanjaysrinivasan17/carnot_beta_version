@@ -13,7 +13,7 @@
  
                     </a>
 
-                    <a mat-list-item routerLink="/app/project/create" routerLinkActive="menu-active" class="compact-menu-item" class="compact-menu-item" matTooltip="Create Project">
+                    <a mat-list-item *ngIf="role == 'Manager' || role == 'Admins'" routerLink="/app/project/create" routerLinkActive="menu-active" class="compact-menu-item" class="compact-menu-item" matTooltip="Create Project">
                         <i-feather name="plus-square" class="compact-menu-icon"></i-feather>
                     </a>
 
@@ -29,7 +29,7 @@
                         <i-feather name="home" class="compact-menu-icon"></i-feather>
                     </a>
 
-                    <a mat-list-item routerLink="/app/project/create" routerLinkActive="menu-active" class="compact-menu-item" class="compact-menu-item" matTooltip="Create Project">
+                    <a mat-list-item *ngIf="role == 'Manager' || role == 'Admins'" routerLink="/app/project/create" routerLinkActive="menu-active" class="compact-menu-item" class="compact-menu-item" matTooltip="Create Project">
                         <i-feather name="plus-square" class="compact-menu-icon"></i-feather>
                     </a>
 

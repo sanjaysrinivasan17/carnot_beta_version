@@ -8,9 +8,15 @@
 ::ng-deep .mat-select-panel-wrap {
     flex-basis: 105%;
     position: absolute;
-    top: 30px;
+    top: 42px;
     left: 11px;
 }
+/* ::ng-deep .cdk-overlay-pane{
+    flex-basis: 105%;
+    position: absolute;
+    margin-top: 15px;
+    margin-left: -15px;
+} */
 
 ::ng-deep mat-button {
     border: 0px;

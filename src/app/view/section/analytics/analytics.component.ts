@@ -619,6 +619,7 @@ export class AnalyticsComponent implements OnInit {
             // // // console.log("=====ytehdn======"+this.project_layer_summary_lable)
             this.ana_def_def = this.project_layer_summary_lable[0]
             this.ana_def_cou = this.project_layer_summary_data[0]
+            
             // alert("----thisana_def_def--"+this.ana_def_def)
 
             for (var i = 0; i < this.Project_layer_inverter_data.length; i++) {

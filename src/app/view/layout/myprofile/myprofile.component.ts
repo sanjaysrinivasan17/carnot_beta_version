@@ -48,6 +48,8 @@ export class MyprofileComponent implements OnInit {
   ngxService: any;
   putId: Object;
   companyname: any;
+  public firstname: any;
+  public firstletter: any;
 
 
   constructor(private router: Router,  private http: HttpClient, private toastr: ToastrService, private _http: HttpService) {
@@ -73,7 +75,8 @@ export class MyprofileComponent implements OnInit {
     this.states = State.getAllStates()
     this.cities = City.getAllCities()
     this.country_data = this.countries
-
+    this.firstname = localStorage.getItem("firstname");
+    this.firstletter = this.firstname.substring(0, 1)
 
     document.getElementById("uploadBtn").onmouseover = function () { mouseOver() };
     document.getElementById("uploadBtn").onmouseout = function () { mouseOut() };
@@ -150,6 +153,14 @@ export class MyprofileComponent implements OnInit {
         }
       })
 
+  }
+  logout() {
+    // alert(localStorage['token'])
+    localStorage.clear();
+    // alert(localStorage['token'])
+    if (localStorage['token'] == undefined) {
+      this.router.navigate(["/auth/login"])
+    }
   }
   saveDetails() {
 

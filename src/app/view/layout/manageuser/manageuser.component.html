@@ -32,13 +32,13 @@
             </div>
         </button>
     <mat-menu #menu="matMenu">
-<!--        <button mat-menu-item [routerLink]="['/app/myprofile']" routerLinkActive="menu-active" style="font-family: 'Montserrat', Helvetica, sans-serif;">
+       <button mat-menu-item [routerLink]="['/app/myprofile']" routerLinkActive="menu-active" style="font-family: 'Montserrat', Helvetica, sans-serif;">
                 <mat-icon>account_circle</mat-icon>My Profile
-            </button>
-        &lt;!&ndash; <button mat-menu-item>Account Settings</button> &ndash;&gt;
+            </button> 
+        <!-- <button mat-menu-item>Account Settings</button> 
         <button mat-menu-item [routerLink]="['/app/manageuser']" routerLinkActive="menu-active" style="font-family: 'Montserrat', Helvetica, sans-serif;">
                 <mat-icon>supervised_user_circle</mat-icon>Manage users
-            </button>-->
+            </button> -->
         <button mat-menu-item (click)="logout()" style="font-family: 'Montserrat', Helvetica, sans-serif;">
                 <mat-icon>logout</mat-icon>Logout
             </button>
